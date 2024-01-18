@@ -386,6 +386,17 @@ namespace Unnatural
         public static extern bool uwFetchUpdateTimestampComponent(IntPtr entity, ref UwUpdateTimestampComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
+        public struct UwRecipeStatisticsComponent
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public uint[] timestamps;
+            public uint processed;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchRecipeStatisticsComponent(IntPtr entity, ref UwRecipeStatisticsComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
         public struct UwAmountComponent
         {
             public uint amount;

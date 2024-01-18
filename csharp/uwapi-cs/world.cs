@@ -16,6 +16,7 @@ namespace Unnatural
     using Cooldown = Interop.UwCooldownComponent;
     using Recipe = Interop.UwRecipeComponent;
     using UpdateTimestamp = Interop.UwUpdateTimestampComponent;
+    using RecipeStatistics = Interop.UwRecipeStatisticsComponent;
     using Amount = Interop.UwAmountComponent;
     using Attachment = Interop.UwAttachmentComponent;
     using Player = Interop.UwPlayerComponent;
@@ -159,6 +160,11 @@ namespace Unnatural
                     UpdateTimestamp tmp = new UpdateTimestamp();
                     if (Interop.uwFetchUpdateTimestampComponent(e, ref tmp))
                         o.UpdateTimestamp = tmp;
+                }
+                {
+                    RecipeStatistics tmp = new RecipeStatistics();
+                    if (Interop.uwFetchRecipeStatisticsComponent(e, ref tmp))
+                        o.RecipeStatistics = tmp;
                 }
                 {
                     Amount tmp = new Amount();
