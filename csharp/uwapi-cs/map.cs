@@ -107,6 +107,11 @@ namespace Unnatural
             return Interop.uwTestVisible(a.x, a.y, a.z, b.x, b.y, b.z);
         }
 
+        public static bool TestShooting(uint shooterPosition, uint shooterProto, uint targetPosition, uint targetProto)
+        {
+            return Interop.uwTestShooting(shooterPosition, shooterProto, targetPosition, targetProto);
+        }
+
         public static float DistanceLine(uint ai, uint bi)
         {
             Vector3 a = positions[(int)ai];

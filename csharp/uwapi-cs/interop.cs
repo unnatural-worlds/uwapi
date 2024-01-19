@@ -135,7 +135,6 @@ namespace Unnatural
         public struct UwShootingUnit
         {
             public uint position;
-            public uint unit;
             public uint force;
             public uint prototype;
         }
@@ -226,6 +225,10 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwTestShooting(uint shooterPosition, uint shooterProto, uint targetPosition, uint targetProto);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
