@@ -81,7 +81,6 @@ namespace Unnatural
             Interop.uwSetGameStateCallback(GameStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
             Interop.uwSetShootingCallback(ShootingDelegate);
-            Interop.uwSetPlayerName("uwapi-cs");
 
             // make sure that others register their callbacks too
             Prototypes.All();

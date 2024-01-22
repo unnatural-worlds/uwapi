@@ -124,7 +124,6 @@ namespace Unnatural
             public uint playerEntityId;
             public uint forceEntityId;
             [MarshalAs(UnmanagedType.I1)] public bool primaryController;
-            [MarshalAs(UnmanagedType.I1)] public bool admin;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

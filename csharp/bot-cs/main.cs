@@ -74,6 +74,7 @@ namespace Unnatural
 
         void Start()
         {
+            Game.SetName("bot-cs");
             Console.WriteLine("starting");
             Game.Start();
             Console.WriteLine("done");
