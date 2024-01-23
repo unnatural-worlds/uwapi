@@ -8,7 +8,11 @@ namespace Unnatural
 {
     public static class Interop
     {
+#if DEBUG
+        const string LibName = "unnatural-uwapi-hard";
+#else
         const string LibName = "unnatural-uwapi";
+#endif
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint unit);
