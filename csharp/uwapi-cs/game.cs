@@ -38,6 +38,8 @@ namespace Unnatural
         static void ExceptionCallback([MarshalAs(UnmanagedType.LPStr)] string message)
         {
             Console.WriteLine(message);
+            if (System.Diagnostics.Debugger.IsAttached)
+                System.Diagnostics.Debugger.Break();
         }
 
         static void LogCallback(ref Interop.UwLogCallback data)
@@ -66,7 +68,7 @@ namespace Unnatural
                 Stepping(null, tick);
         }
 
-        static void ShootingCallback(ref Interop.UwShootingData data)
+        static void ShootingCallback(ref ShootingData data)
         {
             Shooting(null, data);
         }
@@ -90,12 +92,12 @@ namespace Unnatural
 
         static void Destructor(object sender, EventArgs e)
         {
+            Interop.uwSetShootingCallback(null);
             Interop.uwSetUpdateCallback(null);
             Interop.uwSetGameStateCallback(null);
             Interop.uwSetConnectionStateCallback(null);
             Interop.uwSetLogCallback(null);
             Interop.uwSetExceptionCallback(null);
-            Interop.uwSetShootingCallback(null);
         }
     }
 }

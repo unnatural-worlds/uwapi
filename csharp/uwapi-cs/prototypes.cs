@@ -37,6 +37,7 @@ namespace Unnatural
         public List<uint> recipes;
         public bool logistics;
         public bool assembler;
+        public bool vital;
         public uint maxLife;
         public uint armorType;
 

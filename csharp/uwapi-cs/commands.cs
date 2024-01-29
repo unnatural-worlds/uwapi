@@ -26,6 +26,8 @@ namespace Unnatural
         public static Order Stop()
         {
             Order o = new Order();
+            o.entity = 4294967295;
+            o.position = 4294967295;
             o.order = 1;
             o.priority = 2;
             return o;
@@ -34,6 +36,8 @@ namespace Unnatural
         public static Order Guard()
         {
             Order o = new Order();
+            o.entity = 4294967295;
+            o.position = 4294967295;
             o.order = 2;
             o.priority = 2;
             return o;
@@ -42,6 +46,7 @@ namespace Unnatural
         public static Order MoveToPosition(uint position)
         {
             Order o = new Order();
+            o.entity = 4294967295;
             o.position = position;
             o.order = 3;
             o.priority = 2;
@@ -52,6 +57,7 @@ namespace Unnatural
         {
             Order o = new Order();
             o.entity = entity;
+            o.position = 4294967295;
             o.order = 3;
             o.priority = 2;
             return o;
@@ -60,6 +66,7 @@ namespace Unnatural
         public static Order FightToPosition(uint position)
         {
             Order o = new Order();
+            o.entity = 4294967295;
             o.position = position;
             o.order = 4;
             o.priority = 2;
@@ -70,6 +77,7 @@ namespace Unnatural
         {
             Order o = new Order();
             o.entity = entity;
+            o.position = 4294967295;
             o.order = 4;
             o.priority = 2;
             return o;
