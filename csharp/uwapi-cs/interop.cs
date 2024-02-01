@@ -95,6 +95,9 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectDirect([MarshalAs(UnmanagedType.LPStr)] string address, ushort port);
 
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string mapPath);
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UwStateCallbackType(uint state);
 
@@ -187,14 +190,14 @@ namespace Unnatural
         public static extern byte uwOverviewFlags(uint position);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct UwOverviewNames
+        public struct UwOverviewIds
         {
-            public IntPtr names;
+            public IntPtr ids;
             public uint count;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwOverviewNames(uint position, ref UwOverviewNames data);
+        public static extern void uwOverviewIds(uint position, ref UwOverviewIds data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwOverviewExtract
@@ -244,10 +247,10 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwTestValidPlacement(uint constructionPrototype, uint position);
+        public static extern bool uwTestConstructionPlacement(uint constructionPrototype, uint position);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwFindValidPlacement(uint constructionPrototype, uint position);
+        public static extern uint uwFindConstructionPlacement(uint constructionPrototype, uint position);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwPrototypesCount();

@@ -18,14 +18,19 @@ namespace Unnatural
             Interop.uwSetPlayerName(name);
         }
 
-        public static void Start()
+        public static void StartLan()
         {
             Interop.uwConnectFindLan();
         }
 
-        public static void Start(string address, ushort port)
+        public static void StartDirect(string address, ushort port)
         {
             Interop.uwConnectDirect(address, port);
+        }
+
+        public static void StartNewServer(string mapPath)
+        {
+            Interop.uwConnectNewServer(mapPath);
         }
 
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);

@@ -54,11 +54,11 @@ namespace Unnatural
 
         public static IEnumerable<uint> Entities(uint position)
         {
-            Interop.UwOverviewNames ns = new Interop.UwOverviewNames();
-            Interop.uwOverviewNames(position, ref ns);
+            Interop.UwOverviewIds ns = new Interop.UwOverviewIds();
+            Interop.uwOverviewIds(position, ref ns);
             int[] tmp = new int[ns.count];
             if (ns.count > 0)
-                Marshal.Copy(ns.names, tmp, 0, (int)ns.count);
+                Marshal.Copy(ns.ids, tmp, 0, (int)ns.count);
             return tmp.ToList().ConvertAll(x => (uint)x);
         }
 
@@ -135,14 +135,14 @@ namespace Unnatural
             return Interop.uwYaw(a, b);
         }
 
-        public static bool TestValidPlacement(uint constructionPrototype, uint position)
+        public static bool TestConstructionPlacement(uint constructionPrototype, uint position)
         {
-            return Interop.uwTestValidPlacement(constructionPrototype, position);
+            return Interop.uwTestConstructionPlacement(constructionPrototype, position);
         }
 
-        public static uint FindValidPlacement(uint constructionPrototype, uint position)
+        public static uint FindConstructionPlacement(uint constructionPrototype, uint position)
         {
-            return Interop.uwFindValidPlacement(constructionPrototype, position);
+            return Interop.uwFindConstructionPlacement(constructionPrototype, position);
         }
 
         static string name;
