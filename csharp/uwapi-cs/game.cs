@@ -42,7 +42,7 @@ namespace Unnatural
 
         static void ExceptionCallback([MarshalAs(UnmanagedType.LPStr)] string message)
         {
-            Console.WriteLine(message);
+            Console.WriteLine("exception: " + message);
             if (System.Diagnostics.Debugger.IsAttached)
                 System.Diagnostics.Debugger.Break();
         }

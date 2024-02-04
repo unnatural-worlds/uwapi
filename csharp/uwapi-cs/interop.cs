@@ -84,6 +84,12 @@ namespace Unnatural
         public static extern void uwLog(uint severity, [MarshalAs(UnmanagedType.LPStr)] string message);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetAssistLogistics([MarshalAs(UnmanagedType.I1)] bool enabled);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetAssistFighting([MarshalAs(UnmanagedType.I1)] bool enabled);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetPlayerName([MarshalAs(UnmanagedType.LPStr)] string name);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -105,10 +111,10 @@ namespace Unnatural
         public static extern void uwSetConnectionStateCallback(UwStateCallbackType callback);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetGameStateCallback(UwStateCallbackType callback);
+        public static extern uint uwConnectionState();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwConnectionState();
+        public static extern void uwSetGameStateCallback(UwStateCallbackType callback);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwGameState();
@@ -118,24 +124,6 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetUpdateCallback(UwUpdateCallbackType callback);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAssistLogistics([MarshalAs(UnmanagedType.I1)] bool enabled);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAssistFighting([MarshalAs(UnmanagedType.I1)] bool enabled);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMyPlayer
-        {
-            public uint playerEntityId;
-            public uint forceEntityId;
-            [MarshalAs(UnmanagedType.I1)] public bool primaryController;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwMyPlayer(ref UwMyPlayer data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwShootingUnit
@@ -157,6 +145,18 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetShootingCallback(UwShootingCallbackType callback);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMyPlayer
+        {
+            public uint playerEntityId;
+            public uint forceEntityId;
+            [MarshalAs(UnmanagedType.I1)] public bool primaryController;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwMyPlayer(ref UwMyPlayer data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMapInfo

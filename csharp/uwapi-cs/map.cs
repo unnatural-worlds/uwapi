@@ -210,12 +210,17 @@ namespace Unnatural
 
         static void Updating(object sender, EventArgs e)
         {
-            Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
-            Interop.uwOverviewExtract(ref ex);
-            byte[] tmp = new byte[ex.count];
-            if (ex.count > 0)
-                Marshal.Copy(ex.flags, tmp, 0, (int)ex.count);
-            overview = tmp.ToList();
+            if (Interop.uwGameState() == 3)
+            {
+                Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
+                Interop.uwOverviewExtract(ref ex);
+                byte[] tmp = new byte[ex.count];
+                if (ex.count > 0)
+                    Marshal.Copy(ex.flags, tmp, 0, (int)ex.count);
+                overview = tmp.ToList();
+            }
+            else
+                overview = null;
         }
 
         static Map()
