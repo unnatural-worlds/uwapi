@@ -43,7 +43,7 @@ namespace Unnatural
             return o;
         }
 
-        public static Order MoveToPosition(uint position)
+        public static Order RunToPosition(uint position)
         {
             Order o = new Order();
             o.entity = 4294967295;
@@ -53,7 +53,7 @@ namespace Unnatural
             return o;
         }
 
-        public static Order MoveToEntity(uint entity)
+        public static Order RunToEntity(uint entity)
         {
             Order o = new Order();
             o.entity = entity;

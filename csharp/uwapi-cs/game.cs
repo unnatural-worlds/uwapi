@@ -18,9 +18,9 @@ namespace Unnatural
             Interop.uwSetPlayerName(name);
         }
 
-        public static void StartLan()
+        public static void StartLan(ulong timeoutMicroseconds)
         {
-            Interop.uwConnectFindLan();
+            Interop.uwConnectFindLan(timeoutMicroseconds);
         }
 
         public static void StartDirect(string address, ushort port)

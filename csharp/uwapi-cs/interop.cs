@@ -96,7 +96,8 @@ namespace Unnatural
         public static extern void uwSetPlayerColor(float r, float g, float b);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectFindLan();
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwConnectFindLan(ulong timeoutMicroseconds);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectDirect([MarshalAs(UnmanagedType.LPStr)] string address, ushort port);
