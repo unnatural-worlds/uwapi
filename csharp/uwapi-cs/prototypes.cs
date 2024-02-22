@@ -39,6 +39,7 @@ namespace Unnatural
         public bool assembler;
         public bool vital;
         public uint maxLife;
+        public float resistance;
         public uint armorType;
 
         // weapon
