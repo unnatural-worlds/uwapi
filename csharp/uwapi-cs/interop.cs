@@ -330,6 +330,27 @@ namespace Unnatural
         public static extern bool uwFetchPositionComponent(IntPtr entity, ref UwPositionComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
+        public struct UwUnitComponent
+        {
+            public uint state;
+            public uint killCount;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchUnitComponent(IntPtr entity, ref UwUnitComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwLifeComponent
+        {
+            public int life;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchLifeComponent(IntPtr entity, ref UwLifeComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
         public struct UwMoveComponent
         {
             public uint posStart;
@@ -353,17 +374,6 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchAimComponent(IntPtr entity, ref UwAimComponent data);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwUnitComponent
-        {
-            public uint state;
-            public uint killCount;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwFetchUnitComponent(IntPtr entity, ref UwUnitComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwCooldownComponent

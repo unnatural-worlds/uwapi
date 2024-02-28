@@ -10,9 +10,10 @@ namespace Unnatural
     using Owner = Interop.UwOwnerComponent;
     using Controller = Interop.UwControllerComponent;
     using Position = Interop.UwPositionComponent;
+    using Unit = Interop.UwUnitComponent;
+    using Life = Interop.UwLifeComponent;
     using Move = Interop.UwMoveComponent;
     using Aim = Interop.UwAimComponent;
-    using Unit = Interop.UwUnitComponent;
     using Cooldown = Interop.UwCooldownComponent;
     using Recipe = Interop.UwRecipeComponent;
     using UpdateTimestamp = Interop.UwUpdateTimestampComponent;
@@ -132,6 +133,16 @@ namespace Unnatural
                         o.Position = tmp;
                 }
                 {
+                    Unit tmp = new Unit();
+                    if (Interop.uwFetchUnitComponent(e, ref tmp))
+                        o.Unit = tmp;
+                }
+                {
+                    Life tmp = new Life();
+                    if (Interop.uwFetchLifeComponent(e, ref tmp))
+                        o.Life = tmp;
+                }
+                {
                     Move tmp = new Move();
                     if (Interop.uwFetchMoveComponent(e, ref tmp))
                         o.Move = tmp;
@@ -140,11 +151,6 @@ namespace Unnatural
                     Aim tmp = new Aim();
                     if (Interop.uwFetchAimComponent(e, ref tmp))
                         o.Aim = tmp;
-                }
-                {
-                    Unit tmp = new Unit();
-                    if (Interop.uwFetchUnitComponent(e, ref tmp))
-                        o.Unit = tmp;
                 }
                 {
                     Cooldown tmp = new Cooldown();
