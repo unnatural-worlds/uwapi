@@ -11,7 +11,7 @@ namespace Unnatural
 #if DEBUG
         const string LibName = "unnatural-uwapi-hard";
 #else
-		const string LibName = "unnatural-uwapi";
+        const string LibName = "unnatural-uwapi";
 #endif
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -101,6 +101,9 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectDirect([MarshalAs(UnmanagedType.LPStr)] string address, ushort port);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwConnectLobbyId(ulong lobbyId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string mapPath);

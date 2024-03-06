@@ -18,14 +18,19 @@ namespace Unnatural
             Interop.uwSetPlayerName(name);
         }
 
-        public static void StartLan(ulong timeoutMicroseconds)
+        public static void ConnectLan(ulong timeoutMicroseconds)
         {
             Interop.uwConnectFindLan(timeoutMicroseconds);
         }
 
-        public static void StartDirect(string address, ushort port)
+        public static void ConnectDirect(string address, ushort port)
         {
             Interop.uwConnectDirect(address, port);
+        }
+
+        public static void ConnectLobbyId(ulong lobbyId)
+        {
+            Interop.uwConnectLobbyId(lobbyId);
         }
 
         public static void StartNewServer(string mapPath)

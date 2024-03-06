@@ -76,7 +76,7 @@ namespace Unnatural
         {
             Game.SetName("bot-cs");
             Console.WriteLine("starting");
-            Game.StartNewServer("skirmish/dice.uw");
+            Game.StartNewServer("special/arena.uw");
             Console.WriteLine("done");
         }
 
