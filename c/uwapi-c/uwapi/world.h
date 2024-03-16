@@ -79,12 +79,6 @@ extern "C"
 	} UwAimComponent;
 	UNNATURAL_API bool uwFetchAimComponent(UwEntity *entity, UwAimComponent *data);
 
-	typedef struct UwCooldownComponent
-	{
-		uint32 timestamp;
-	} UwCooldownComponent;
-	UNNATURAL_API bool uwFetchCooldownComponent(UwEntity *entity, UwCooldownComponent *data);
-
 	typedef struct UwRecipeComponent
 	{
 		uint32 recipe;

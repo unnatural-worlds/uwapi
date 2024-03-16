@@ -153,11 +153,6 @@ namespace Unnatural
                         o.Aim = tmp;
                 }
                 {
-                    Cooldown tmp = new Cooldown();
-                    if (Interop.uwFetchCooldownComponent(e, ref tmp))
-                        o.Cooldown = tmp;
-                }
-                {
                     Recipe tmp = new Recipe();
                     if (Interop.uwFetchRecipeComponent(e, ref tmp))
                         o.Recipe = tmp;
