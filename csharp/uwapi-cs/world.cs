@@ -14,7 +14,6 @@ namespace Unnatural
     using Life = Interop.UwLifeComponent;
     using Move = Interop.UwMoveComponent;
     using Aim = Interop.UwAimComponent;
-    using Cooldown = Interop.UwCooldownComponent;
     using Recipe = Interop.UwRecipeComponent;
     using UpdateTimestamp = Interop.UwUpdateTimestampComponent;
     using RecipeStatistics = Interop.UwRecipeStatisticsComponent;

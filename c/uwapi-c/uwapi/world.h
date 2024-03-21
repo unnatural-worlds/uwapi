@@ -114,12 +114,13 @@ extern "C"
 	{
 		char name[28];
 		uint32 nameLength;
+		uint64 steamUserId;
 		uint32 force;
 		float progress;
 		uint32 ping;
 		uint32 state;
 		uint8 playerConnectionClass;
-		uint8 dummy[15];
+		uint8 dummy[7];
 	} UwPlayerComponent;
 	UNNATURAL_API bool uwFetchPlayerComponent(UwEntity *entity, UwPlayerComponent *data);
 

@@ -11,7 +11,7 @@ namespace Unnatural
 #if DEBUG
         const string LibName = "unnatural-uwapi-hard";
 #else
-        const string LibName = "unnatural-uwapi";
+		const string LibName = "unnatural-uwapi";
 #endif
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -379,16 +379,6 @@ namespace Unnatural
         public static extern bool uwFetchAimComponent(IntPtr entity, ref UwAimComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct UwCooldownComponent
-        {
-            public uint timestamp;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwFetchCooldownComponent(IntPtr entity, ref UwCooldownComponent data);
-
-        [StructLayout(LayoutKind.Sequential)]
         public struct UwRecipeComponent
         {
             public uint recipe;
@@ -444,12 +434,13 @@ namespace Unnatural
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 28)] public char[] name;
             public uint nameLength;
+            public ulong steamUserId;
             public uint force;
             public float progress;
             public uint ping;
             public uint state;
             public byte playerConnectionClass;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 15)] public byte[] dummy;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 7)] public byte[] dummy;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
