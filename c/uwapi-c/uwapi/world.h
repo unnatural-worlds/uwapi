@@ -128,8 +128,6 @@ extern "C"
 	{
 		float color[3];
 		uint64 score;
-		uint64 killValue;
-		uint64 lossValue;
 		uint32 killCount;
 		uint32 lossCount;
 		uint32 team;
@@ -137,11 +135,13 @@ extern "C"
 	} UwForceComponent;
 	UNNATURAL_API bool uwFetchForceComponent(UwEntity *entity, UwForceComponent *data);
 
-	typedef struct UwForceStartingPositionComponent
+	typedef struct UwForceDetailsComponent
 	{
+		uint64 killValue;
+		uint64 lossValue;
 		uint32 startingPosition;
-	} UwForceStartingPositionComponent;
-	UNNATURAL_API bool uwFetchForceStartingPositionComponent(UwEntity *entity, UwForceStartingPositionComponent *data);
+	} UwForceDetailsComponent;
+	UNNATURAL_API bool uwFetchForceDetailsComponent(UwEntity *entity, UwForceDetailsComponent *data);
 
 	typedef struct UwForeignPolicyComponent
 	{

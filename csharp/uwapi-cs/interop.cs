@@ -8,11 +8,11 @@ namespace Unnatural
 {
     public static class Interop
     {
-#if DEBUG
+        // hardened library contains additional checks to verify proper use of the api
         const string LibName = "unnatural-uwapi-hard";
-#else
-		const string LibName = "unnatural-uwapi";
-#endif
+
+        // change to non-hard library to reduce some overhead
+        // const string LibName = "unnatural-uwapi";
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint unit);
@@ -59,6 +59,10 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwOrders(uint unit, ref UwOrders data);
+
+        public const uint UW_VERSION = 12;
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwInitialize(uint version);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UwExceptionCallbackType([MarshalAs(UnmanagedType.LPStr)] string message);
@@ -452,8 +456,6 @@ namespace Unnatural
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public float[] color;
             public ulong score;
-            public ulong killValue;
-            public ulong lossValue;
             public uint killCount;
             public uint lossCount;
             public uint team;
@@ -465,14 +467,16 @@ namespace Unnatural
         public static extern bool uwFetchForceComponent(IntPtr entity, ref UwForceComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct UwForceStartingPositionComponent
+        public struct UwForceDetailsComponent
         {
+            public ulong killValue;
+            public ulong lossValue;
             public uint startingPosition;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwFetchForceStartingPositionComponent(IntPtr entity, ref UwForceStartingPositionComponent data);
+        public static extern bool uwFetchForceDetailsComponent(IntPtr entity, ref UwForceDetailsComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwForeignPolicyComponent

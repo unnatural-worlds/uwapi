@@ -87,6 +87,7 @@ namespace Unnatural
         {
             AppDomain.CurrentDomain.ProcessExit += Destructor;
 
+            Interop.uwInitialize(Interop.UW_VERSION);
             Interop.uwSetExceptionCallback(ExceptionDelegate);
             Interop.uwSetLogCallback(LogDelegate);
             Interop.uwSetConnectionStateCallback(ConnectionStateDelegate);

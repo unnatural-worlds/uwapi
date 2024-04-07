@@ -21,7 +21,7 @@ namespace Unnatural
     using Attachment = Interop.UwAttachmentComponent;
     using Player = Interop.UwPlayerComponent;
     using Force = Interop.UwForceComponent;
-    using ForceStartingPosition = Interop.UwForceStartingPositionComponent;
+    using ForceDetails = Interop.UwForceDetailsComponent;
     using ForeignPolicy = Interop.UwForeignPolicyComponent;
     using DiplomacyProposal = Interop.UwDiplomacyProposalComponent;
 
@@ -187,9 +187,9 @@ namespace Unnatural
                         o.Force = tmp;
                 }
                 {
-                    ForceStartingPosition tmp = new ForceStartingPosition();
-                    if (Interop.uwFetchForceStartingPositionComponent(e, ref tmp))
-                        o.ForceStartingPosition = tmp;
+                    ForceDetails tmp = new ForceDetails();
+                    if (Interop.uwFetchForceDetailsComponent(e, ref tmp))
+                        o.ForceDetails = tmp;
                 }
                 {
                     ForeignPolicy tmp = new ForeignPolicy();
