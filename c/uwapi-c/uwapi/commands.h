@@ -13,8 +13,8 @@ extern "C"
 	UNNATURAL_API void uwCommandSelfDestruct(uint32 unit);
 	UNNATURAL_API void uwCommandPlaceConstruction(uint32 proto, uint32 position, float yaw);
 	UNNATURAL_API void uwCommandSetRecipe(uint32 unit, uint32 recipe);
-	UNNATURAL_API void uwCommandLoadAll(uint32 unit, uint32 resourceType);
-	UNNATURAL_API void uwCommandUnloadAll(uint32 unit);
+	UNNATURAL_API void uwCommandLoad(uint32 unit, uint32 resourceType);
+	UNNATURAL_API void uwCommandUnload(uint32 unit);
 	UNNATURAL_API void uwCommandMove(uint32 unit, uint32 position, float yaw);
 	UNNATURAL_API void uwCommandAim(uint32 unit, uint32 target);
 	UNNATURAL_API void uwCommandRenounceControl(uint32 unit);

@@ -9,7 +9,6 @@ namespace Unnatural
     {
         public uint id;
         public string name;
-        public uint stackSize;
     }
 
     public class ProtoRecipe
@@ -50,7 +49,7 @@ namespace Unnatural
 
         // mobile only
         public Dictionary<uint, float> speeds;
-        public uint cargoSlots;
+        public bool cargo;
 
         // building only
         public float buildingRadius;

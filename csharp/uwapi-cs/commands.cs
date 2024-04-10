@@ -98,14 +98,14 @@ namespace Unnatural
             Interop.uwCommandSetRecipe(unit, recipe);
         }
 
-        public static void CommandLoadAll(uint unit, uint resourceType)
+        public static void CommandLoad(uint unit, uint resourceType)
         {
-            Interop.uwCommandLoadAll(unit, resourceType);
+            Interop.uwCommandLoad(unit, resourceType);
         }
 
-        public static void CommandUnloadAll(uint unit)
+        public static void CommandUnload(uint unit)
         {
-            Interop.uwCommandUnloadAll(unit);
+            Interop.uwCommandUnload(unit);
         }
 
         public static void CommandMove(uint unit, uint position, float yaw = 0)

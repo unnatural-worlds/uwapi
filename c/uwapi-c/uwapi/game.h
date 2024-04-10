@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	const uint32 UW_VERSION = 12;
+	const uint32 UW_VERSION = 13;
 	UNNATURAL_API void uwInitialize(uint32 version);
 
 	typedef void (*UwExceptionCallbackType)(const char *message);

@@ -24,10 +24,10 @@ namespace Unnatural
         public static extern void uwCommandSetRecipe(uint unit, uint recipe);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandLoadAll(uint unit, uint resourceType);
+        public static extern void uwCommandLoad(uint unit, uint resourceType);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandUnloadAll(uint unit);
+        public static extern void uwCommandUnload(uint unit);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandMove(uint unit, uint position, float yaw);
@@ -60,7 +60,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwOrders(uint unit, ref UwOrders data);
 
-        public const uint UW_VERSION = 12;
+        public const uint UW_VERSION = 13;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
