@@ -406,7 +406,7 @@ namespace Unnatural
         public struct UwRecipeStatisticsComponent
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public uint[] timestamps;
-            public uint processed;
+            public uint completed;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
