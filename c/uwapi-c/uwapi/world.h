@@ -94,7 +94,7 @@ extern "C"
 	typedef struct UwRecipeStatisticsComponent
 	{
 		uint32 timestamps[3];
-		uint32 processed;
+		uint32 completed;
 	} UwRecipeStatisticsComponent;
 	UNNATURAL_API bool uwFetchRecipeStatisticsComponent(UwEntity *entity, UwRecipeStatisticsComponent *data);
 
