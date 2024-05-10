@@ -110,100 +110,136 @@ namespace Unnatural
         {
             foreach (IntPtr e in Modified())
             {
-                dynamic o = new ExpandoObject();
+                uint id = Interop.uwEntityId(e);
+                dynamic o = entities.ContainsKey(id) ? entities[id] : new ExpandoObject();
+                o.Id = id;
+                entities[id] = o;
                 {
                     Proto tmp = new Proto();
                     if (Interop.uwFetchProtoComponent(e, ref tmp))
                         o.Proto = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Proto");
                 }
                 {
                     Owner tmp = new Owner();
                     if (Interop.uwFetchOwnerComponent(e, ref tmp))
                         o.Owner = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Owner");
                 }
                 {
                     Controller tmp = new Controller();
                     if (Interop.uwFetchControllerComponent(e, ref tmp))
                         o.Controller = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Controller");
                 }
                 {
                     Position tmp = new Position();
                     if (Interop.uwFetchPositionComponent(e, ref tmp))
                         o.Position = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Position");
                 }
                 {
                     Unit tmp = new Unit();
                     if (Interop.uwFetchUnitComponent(e, ref tmp))
                         o.Unit = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Unit");
                 }
                 {
                     Life tmp = new Life();
                     if (Interop.uwFetchLifeComponent(e, ref tmp))
                         o.Life = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Life");
                 }
                 {
                     Move tmp = new Move();
                     if (Interop.uwFetchMoveComponent(e, ref tmp))
                         o.Move = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Move");
                 }
                 {
                     Aim tmp = new Aim();
                     if (Interop.uwFetchAimComponent(e, ref tmp))
                         o.Aim = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Aim");
                 }
                 {
                     Recipe tmp = new Recipe();
                     if (Interop.uwFetchRecipeComponent(e, ref tmp))
                         o.Recipe = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Recipe");
                 }
                 {
                     UpdateTimestamp tmp = new UpdateTimestamp();
                     if (Interop.uwFetchUpdateTimestampComponent(e, ref tmp))
                         o.UpdateTimestamp = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("UpdateTimestamp");
                 }
                 {
                     RecipeStatistics tmp = new RecipeStatistics();
                     if (Interop.uwFetchRecipeStatisticsComponent(e, ref tmp))
                         o.RecipeStatistics = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("RecipeStatistics");
                 }
                 {
                     Amount tmp = new Amount();
                     if (Interop.uwFetchAmountComponent(e, ref tmp))
                         o.Amount = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Amount");
                 }
                 {
                     Attachment tmp = new Attachment();
                     if (Interop.uwFetchAttachmentComponent(e, ref tmp))
                         o.Attachment = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Attachment");
                 }
                 {
                     Player tmp = new Player();
                     if (Interop.uwFetchPlayerComponent(e, ref tmp))
                         o.Player = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Player");
                 }
                 {
                     Force tmp = new Force();
                     if (Interop.uwFetchForceComponent(e, ref tmp))
                         o.Force = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Force");
                 }
                 {
                     ForceDetails tmp = new ForceDetails();
                     if (Interop.uwFetchForceDetailsComponent(e, ref tmp))
                         o.ForceDetails = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("ForceDetails");
                 }
                 {
                     ForeignPolicy tmp = new ForeignPolicy();
                     if (Interop.uwFetchForeignPolicyComponent(e, ref tmp))
                         o.ForeignPolicy = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("ForeignPolicy");
                 }
                 {
                     DiplomacyProposal tmp = new DiplomacyProposal();
                     if (Interop.uwFetchDiplomacyProposalComponent(e, ref tmp))
                         o.DiplomacyProposal = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("DiplomacyProposal");
                 }
-                uint id = Interop.uwEntityId(e);
-                o.Id = id;
-                entities[id] = o;
             }
         }
 

@@ -8,11 +8,13 @@ namespace Unnatural
 {
     public static class Interop
     {
+#if UW_USE_OPTIMIZED_LIBRARY
+        // non-hard library may crash the program if used incorrectly
+        const string LibName = "unnatural-uwapi";
+#else
         // hardened library contains additional checks to verify proper use of the api
         const string LibName = "unnatural-uwapi-hard";
-
-        // change to non-hard library to reduce some overhead
-        // const string LibName = "unnatural-uwapi";
+#endif
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint unit);
