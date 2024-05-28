@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
@@ -34,7 +32,10 @@ namespace Unnatural
 
         public static bool Has(dynamic entity, IEnumerable<string> components)
         {
-            return components.All(x => Has(entity, x));
+            foreach (var c in components)
+                if (!Has(entity, c))
+                    return false;
+            return true;
         }
 
         public static bool Own(dynamic entity)
@@ -57,7 +58,7 @@ namespace Unnatural
             return myForce;
         }
 
-        public static IDictionary<uint, dynamic> Entities()
+        public static IReadOnlyDictionary<uint, dynamic> Entities()
         {
             return entities;
         }
@@ -77,43 +78,39 @@ namespace Unnatural
         static readonly Dictionary<uint, dynamic> entities = new Dictionary<uint, dynamic>();
         static readonly Dictionary<uint, uint> policies = new Dictionary<uint, uint>();
 
-        static IEnumerable<IntPtr> Group(Interop.UwEntitiesGroup grp)
+        static uint[] AllIds()
         {
-            IntPtr[] tmp = new IntPtr[grp.count];
-            if (grp.count > 0)
-                Marshal.Copy(grp.entities, tmp, 0, (int)grp.count);
-            return tmp;
+            Interop.UwIds ids = new Interop.UwIds();
+            Interop.uwAllEntities(ref ids);
+            return InteropHelpers.Ids(ids);
         }
 
-        static IEnumerable<IntPtr> All()
+        static uint[] ModifiedIds()
         {
-            Interop.UwEntitiesGroup grp = new Interop.UwEntitiesGroup();
-            Interop.uwAllEntities(ref grp);
-            return Group(grp);
-        }
-
-        static IEnumerable<IntPtr> Modified()
-        {
-            Interop.UwEntitiesGroup grp = new Interop.UwEntitiesGroup();
-            Interop.uwModifiedEntities(ref grp);
-            return Group(grp);
+            Interop.UwIds ids = new Interop.UwIds();
+            Interop.uwModifiedEntities(ref ids);
+            return InteropHelpers.Ids(ids);
         }
 
         static void UpdateRemoved()
         {
-            var removed = entities.Keys.Except(All().Select(x => Interop.uwEntityId(x))).ToList();
+            var allIds = new HashSet<uint>(AllIds());
+            var removed = new List<uint>();
+            foreach (uint id in entities.Keys)
+                if (!allIds.Contains(id))
+                    removed.Add(id);
             foreach (uint id in removed)
                 entities.Remove(id);
         }
 
         static void UpdateModified()
         {
-            foreach (IntPtr e in Modified())
+            foreach (uint id in ModifiedIds())
             {
-                uint id = Interop.uwEntityId(e);
                 dynamic o = entities.ContainsKey(id) ? entities[id] : new ExpandoObject();
                 o.Id = id;
                 entities[id] = o;
+                IntPtr e = Interop.uwEntityPointer(id);
                 {
                     Proto tmp = new Proto();
                     if (Interop.uwFetchProtoComponent(e, ref tmp))
@@ -246,8 +243,10 @@ namespace Unnatural
         static void UpdatePolicies()
         {
             policies.Clear();
-            foreach (dynamic e in entities.Values.Where(x => Unnatural.Entity.Has(x, "ForeignPolicy")))
+            foreach (dynamic e in entities.Values)
             {
+                if (!Unnatural.Entity.Has(e, "ForeignPolicy"))
+                    continue;
                 ForeignPolicy fp = e.ForeignPolicy;
                 if (fp.forces[0] == myForce)
                     policies[fp.forces[1]] = fp.policy;

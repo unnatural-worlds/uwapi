@@ -62,7 +62,14 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwOrders(uint unit, ref UwOrders data);
 
-        public const uint UW_VERSION = 13;
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwIds
+        {
+            public IntPtr ids;
+            public uint count;
+        }
+
+        public const uint UW_VERSION = 14;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
@@ -199,15 +206,8 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern byte uwOverviewFlags(uint position);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwOverviewIds
-        {
-            public IntPtr ids;
-            public uint count;
-        }
-
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwOverviewIds(uint position, ref UwOverviewIds data);
+        public static extern void uwOverviewIds(uint position, ref UwIds data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwOverviewExtract
@@ -219,24 +219,17 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwOverviewExtract(ref UwOverviewExtract data);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwTiles
-        {
-            public IntPtr tiles;
-            public uint count;
-        }
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAreaRange(float x, float y, float z, float radius, ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAreaRange(float x, float y, float z, float radius, ref UwTiles data);
+        public static extern void uwAreaConnected(uint position, float radius, ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAreaConnected(uint position, float radius, ref UwTiles data);
+        public static extern void uwAreaNeighborhood(uint position, float radius, ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAreaNeighborhood(uint position, float radius, ref UwTiles data);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAreaExtended(uint position, float radius, ref UwTiles data);
+        public static extern void uwAreaExtended(uint position, float radius, ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
@@ -263,10 +256,7 @@ namespace Unnatural
         public static extern uint uwFindConstructionPlacement(uint constructionPrototype, uint position);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwPrototypesCount();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwPrototypeIdFromIndex(uint index);
+        public static extern void uwAllPrototypes(ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwPrototypeType(uint prototypeId);
@@ -278,23 +268,16 @@ namespace Unnatural
         public static extern IntPtr uwDefinitionsJson();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr uwEntity(uint id);
+        public static extern IntPtr uwEntityPointer(uint id);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwEntityId(IntPtr entity);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwEntitiesGroup
-        {
-            public IntPtr entities;
-            public uint count;
-        }
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAllEntities(ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAllEntities(ref UwEntitiesGroup data);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwModifiedEntities(ref UwEntitiesGroup data);
+        public static extern void uwModifiedEntities(ref UwIds data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwProtoComponent

@@ -34,12 +34,7 @@ extern "C"
 	// overview
 
 	UNNATURAL_API uint8 uwOverviewFlags(uint32 position);
-	typedef struct UwOverviewIds
-	{
-		const uint32 *ids;
-		uint32 count;
-	} UwOverviewIds;
-	UNNATURAL_API void uwOverviewIds(uint32 position, UwOverviewIds *data);
+	UNNATURAL_API void uwOverviewIds(uint32 position, UwIds *data);
 	typedef struct UwOverviewExtract
 	{
 		const uint8 *flags;
@@ -49,15 +44,10 @@ extern "C"
 
 	// miscellaneous
 
-	typedef struct UwTiles
-	{
-		const uint32 *tiles;
-		uint32 count;
-	} UwTiles;
-	UNNATURAL_API void uwAreaRange(float x, float y, float z, float radius, UwTiles *data);
-	UNNATURAL_API void uwAreaConnected(uint32 position, float radius, UwTiles *data);
-	UNNATURAL_API void uwAreaNeighborhood(uint32 position, float radius, UwTiles *data);
-	UNNATURAL_API void uwAreaExtended(uint32 position, float radius, UwTiles *data);
+	UNNATURAL_API void uwAreaRange(float x, float y, float z, float radius, UwIds *data);
+	UNNATURAL_API void uwAreaConnected(uint32 position, float radius, UwIds *data);
+	UNNATURAL_API void uwAreaNeighborhood(uint32 position, float radius, UwIds *data);
+	UNNATURAL_API void uwAreaExtended(uint32 position, float radius, UwIds *data);
 
 	UNNATURAL_API bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
 	UNNATURAL_API bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, uint32 targetPosition, uint32 targetProto);

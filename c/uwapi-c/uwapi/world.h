@@ -11,15 +11,10 @@ extern "C"
 	// entity
 
 	typedef struct UwEntity UwEntity;
-	UNNATURAL_API UwEntity *uwEntity(uint32 id);
+	UNNATURAL_API UwEntity *uwEntityPointer(uint32 id);
 	UNNATURAL_API uint32 uwEntityId(UwEntity *entity);
-	typedef struct UwEntitiesGroup
-	{
-		UwEntity **entities;
-		uint32 count;
-	} UwEntitiesGroup;
-	UNNATURAL_API void uwAllEntities(UwEntitiesGroup *data);
-	UNNATURAL_API void uwModifiedEntities(UwEntitiesGroup *data);
+	UNNATURAL_API void uwAllEntities(UwIds *data);
+	UNNATURAL_API void uwModifiedEntities(UwIds *data);
 
 	// components
 

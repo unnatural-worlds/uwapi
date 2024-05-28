@@ -29,10 +29,10 @@ namespace Unnatural
 
             foreach (dynamic own in ownUnits)
             {
-                if (Commands.Orders(own.Id).Count == 0)
+                if (Commands.Orders((uint)own.Id).Length == 0)
                 {
                     dynamic enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(own.Position.position, x.Position.position)).First();
-                    Commands.Order(own.Id, Commands.FightToEntity(enemy.Id));
+                    Commands.Order((uint)own.Id, Commands.FightToEntity((uint)enemy.Id));
                 }
             }
         }
@@ -41,11 +41,11 @@ namespace Unnatural
         {
             foreach (dynamic own in World.Entities().Values.Where(x => Entity.Own(x) && Entity.Has(x, "Unit")))
             {
-                List<uint> recipes = Prototypes.Unit(own.Proto.proto).recipes;
+                List<uint> recipes = Prototypes.Unit((uint)own.Proto.proto).recipes;
                 if (recipes?.Count > 0)
                 {
                     var recipe = recipes[random.Next(recipes.Count)];
-                    Commands.CommandSetRecipe(own.Id, recipe);
+                    Commands.CommandSetRecipe((uint)own.Id, recipe);
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace Unnatural
 
         void Start()
         {
-            Game.SetName("bot-cs");
+            Game.SetPlayerName("bot-cs");
             Console.WriteLine("starting");
             Game.StartNewServer("special/arena.uw");
             Console.WriteLine("done");

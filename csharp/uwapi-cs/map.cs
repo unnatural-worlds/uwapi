@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Unnatural
@@ -22,84 +21,69 @@ namespace Unnatural
             return guid;
         }
 
-        public static IEnumerable<Vector3> Positions()
+        public static IReadOnlyList<Vector3> Positions()
         {
             return positions;
         }
 
-        public static IEnumerable<Vector3> Ups()
+        public static IReadOnlyList<Vector3> Ups()
         {
             return ups;
         }
 
-        public static IEnumerable<IEnumerable<uint>> Neighbors()
+        public static IReadOnlyList<IReadOnlyList<uint>> Neighbors()
         {
             return neighbors;
         }
 
-        public static IEnumerable<uint> Neighbors(uint position)
+        public static IReadOnlyList<uint> Neighbors(uint position)
         {
             return neighbors[(int)position];
         }
 
-        public static IEnumerable<byte> Terrains()
+        public static IReadOnlyList<byte> Terrains()
         {
             return terrains;
         }
 
-        public static IEnumerable<byte> Overview()
+        public static IReadOnlyList<byte> Overview()
         {
             return overview;
         }
 
-        public static IEnumerable<uint> Entities(uint position)
+        public static uint[] Entities(uint position)
         {
-            Interop.UwOverviewIds ns = new Interop.UwOverviewIds();
+            Interop.UwIds ns = new Interop.UwIds();
             Interop.uwOverviewIds(position, ref ns);
-            int[] tmp = new int[ns.count];
-            if (ns.count > 0)
-                Marshal.Copy(ns.ids, tmp, 0, (int)ns.count);
-            return tmp.ToList().ConvertAll(x => (uint)x);
+            return InteropHelpers.Ids(ns);
         }
 
-        public static IEnumerable<uint> AreaRange(Vector3 point, float radius)
+        public static uint[] AreaRange(Vector3 point, float radius)
         {
-            Interop.UwTiles tiles = new Interop.UwTiles();
+            Interop.UwIds tiles = new Interop.UwIds();
             Interop.uwAreaRange(point.x, point.y, point.z, radius, ref tiles);
-            int[] tmp = new int[tiles.count];
-            if (tiles.count > 0)
-                Marshal.Copy(tiles.tiles, tmp, 0, (int)tiles.count);
-            return tmp.ToList().ConvertAll(x => (uint)x);
+            return InteropHelpers.Ids(tiles);
         }
 
-        public static IEnumerable<uint> AreaConnected(uint position, float radius)
+        public static uint[] AreaConnected(uint position, float radius)
         {
-            Interop.UwTiles tiles = new Interop.UwTiles();
+            Interop.UwIds tiles = new Interop.UwIds();
             Interop.uwAreaConnected(position, radius, ref tiles);
-            int[] tmp = new int[tiles.count];
-            if (tiles.count > 0)
-                Marshal.Copy(tiles.tiles, tmp, 0, (int)tiles.count);
-            return tmp.ToList().ConvertAll(x => (uint)x);
+            return InteropHelpers.Ids(tiles);
         }
 
-        public static IEnumerable<uint> AreaNeighborhood(uint position, float radius)
+        public static uint[] AreaNeighborhood(uint position, float radius)
         {
-            Interop.UwTiles tiles = new Interop.UwTiles();
+            Interop.UwIds tiles = new Interop.UwIds();
             Interop.uwAreaNeighborhood(position, radius, ref tiles);
-            int[] tmp = new int[tiles.count];
-            if (tiles.count > 0)
-                Marshal.Copy(tiles.tiles, tmp, 0, (int)tiles.count);
-            return tmp.ToList().ConvertAll(x => (uint)x);
+            return InteropHelpers.Ids(tiles);
         }
 
-        public static IEnumerable<uint> AreaExtended(uint position, float radius)
+        public static uint[] AreaExtended(uint position, float radius)
         {
-            Interop.UwTiles tiles = new Interop.UwTiles();
+            Interop.UwIds tiles = new Interop.UwIds();
             Interop.uwAreaExtended(position, radius, ref tiles);
-            int[] tmp = new int[tiles.count];
-            if (tiles.count > 0)
-                Marshal.Copy(tiles.tiles, tmp, 0, (int)tiles.count);
-            return tmp.ToList().ConvertAll(x => (uint)x);
+            return InteropHelpers.Ids(tiles);
         }
 
         public static bool TestVisible(Vector3 a, Vector3 b)
@@ -149,9 +133,9 @@ namespace Unnatural
         static string guid;
         static readonly List<Vector3> positions = new List<Vector3>();
         static readonly List<Vector3> ups = new List<Vector3>();
-        static readonly List<List<uint>> neighbors = new List<List<uint>>();
+        static readonly List<uint[]> neighbors = new List<uint[]>();
         static readonly List<byte> terrains = new List<byte>();
-        static List<byte> overview;
+        static byte[] overview = new byte[0];
 
         static void Load()
         {
@@ -191,11 +175,10 @@ namespace Unnatural
                     ups.Add(u);
                 }
                 {
-                    int[] tmp = new int[tile.neighborsCount];
+                    uint[] tmp = new uint[tile.neighborsCount];
                     if (tile.neighborsCount > 0)
-                        Marshal.Copy(tile.neighborsIndices, tmp, 0, (int)tile.neighborsCount);
-                    List<uint> ns = tmp.ToList().ConvertAll(x => (uint)x);
-                    neighbors.Add(ns);
+                        Marshal.Copy(tile.neighborsIndices, (int[])(object)tmp, 0, (int)tile.neighborsCount);
+                    neighbors.Add(tmp);
                 }
                 terrains.Add(tile.terrain);
             }
@@ -214,19 +197,30 @@ namespace Unnatural
             {
                 Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
                 Interop.uwOverviewExtract(ref ex);
-                byte[] tmp = new byte[ex.count];
+                if (overview.Length != ex.count)
+                    overview = new byte[ex.count];
                 if (ex.count > 0)
-                    Marshal.Copy(ex.flags, tmp, 0, (int)ex.count);
-                overview = tmp.ToList();
+                    Marshal.Copy(ex.flags, overview, 0, (int)ex.count);
             }
             else
-                overview = null;
+                overview = new byte[0];
         }
 
         static Map()
         {
             Game.Preparing += Preparing;
             Game.Updating += Updating;
+        }
+    }
+
+    public static class InteropHelpers
+    {
+        public static uint[] Ids(Interop.UwIds ids)
+        {
+            uint[] tmp = new uint[ids.count];
+            if (ids.count > 0)
+                Marshal.Copy(ids.ids, (int[])(object)tmp, 0, (int)ids.count);
+            return tmp;
         }
     }
 }

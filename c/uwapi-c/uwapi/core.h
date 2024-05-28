@@ -17,4 +17,19 @@ typedef int64_t sint64;
 	#define UNNATURAL_API
 #endif // !UNNATURAL_API
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+	typedef struct UwIds
+	{
+		const uint32 *ids;
+		uint32 count;
+	} UwIds;
+
+#ifdef __cplusplus
+} // extern C
+#endif
+
 #endif // unnatural_uwapi_core_h_sdr8g4h1u

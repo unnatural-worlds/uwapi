@@ -38,7 +38,6 @@ namespace Unnatural
         public bool assembler;
         public bool vital;
         public uint maxLife;
-        public float resistance;
         public uint armorType;
 
         // weapon
@@ -82,7 +81,7 @@ namespace Unnatural
 
     public static class Prototypes
     {
-        public static IEnumerable<uint> All()
+        public static IReadOnlyList<uint> All()
         {
             return all;
         }
@@ -148,6 +147,13 @@ namespace Unnatural
         static HitChancesTable hitChancesTable;
         static TerrainTypesTable terrainTypesTable;
 
+        static uint[] AllIds()
+        {
+            Interop.UwIds ids = new Interop.UwIds();
+            Interop.uwAllPrototypes(ref ids);
+            return InteropHelpers.Ids(ids);
+        }
+
         static void LoadPrototypes()
         {
             Console.WriteLine("loading prototypes");
@@ -164,10 +170,8 @@ namespace Unnatural
                 IncludeFields = true,
             };
 
-            uint count = Interop.uwPrototypesCount();
-            for (uint i = 0; i < count; ++i)
+            foreach (uint id in AllIds())
             {
-                uint id = Interop.uwPrototypeIdFromIndex(i);
                 ProtoGeneric pg = new ProtoGeneric();
                 pg.type = Interop.uwPrototypeType(id);
                 pg.json = Marshal.PtrToStringAnsi(Interop.uwPrototypeJson(id));

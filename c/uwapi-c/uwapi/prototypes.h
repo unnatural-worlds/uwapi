@@ -10,8 +10,7 @@ extern "C"
 
 	// prototypes
 
-	UNNATURAL_API uint32 uwPrototypesCount(void);
-	UNNATURAL_API uint32 uwPrototypeIdFromIndex(uint32 index);
+	UNNATURAL_API void uwAllPrototypes(UwIds *data);
 	UNNATURAL_API uint32 uwPrototypeType(uint32 prototypeId);
 	UNNATURAL_API const char *uwPrototypeJson(uint32 prototypeId);
 	UNNATURAL_API const char *uwDefinitionsJson(void);

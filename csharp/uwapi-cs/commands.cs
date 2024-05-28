@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Unnatural
@@ -8,14 +6,14 @@ namespace Unnatural
 
     public static class Commands
     {
-        public static List<Order> Orders(uint unit)
+        public static Order[] Orders(uint unit)
         {
             Interop.UwOrders os = new Interop.UwOrders();
             Interop.uwOrders(unit, ref os);
             Order[] tmp = new Order[os.count];
             for (int i = 0; i < os.count; i++)
                 tmp[i] = Marshal.PtrToStructure<Order>(os.orders + i * Marshal.SizeOf<Order>());
-            return tmp.ToList();
+            return tmp;
         }
 
         public static void Order(uint unit, Order order)

@@ -13,7 +13,7 @@ namespace Unnatural
         public static event EventHandler Finished;
         public static event EventHandler<ShootingData> Shooting;
 
-        public static void SetName(string name)
+        public static void SetPlayerName(string name)
         {
             Interop.uwSetPlayerName(name);
         }
