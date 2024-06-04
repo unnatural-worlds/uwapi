@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace Unnatural
 {
+    using PolicyEnum = Interop.UwForeignPolicyEnum;
+
     internal class Bot
     {
         readonly Random random = new Random();
@@ -23,16 +25,18 @@ namespace Unnatural
             if (ownUnits.Count() == 0)
                 return;
 
-            var enemyUnits = World.Entities().Values.Where(x => Entity.Policy(x) == 4 && Entity.Has(x, "Unit"));
+            var enemyUnits = World.Entities().Values.Where(x => Entity.Policy(x) == PolicyEnum.Enemy && Entity.Has(x, "Unit"));
             if (enemyUnits.Count() == 0)
                 return;
 
             foreach (dynamic own in ownUnits)
             {
-                if (Commands.Orders((uint)own.Id).Length == 0)
+                uint id = own.Id;
+                uint pos = own.Position.position;
+                if (Commands.Orders(id).Length == 0)
                 {
-                    dynamic enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(own.Position.position, x.Position.position)).First();
-                    Commands.Order((uint)own.Id, Commands.FightToEntity((uint)enemy.Id));
+                    dynamic enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.Position.position)).First();
+                    Commands.Order(id, Commands.FightToEntity(enemy.Id));
                 }
             }
         }

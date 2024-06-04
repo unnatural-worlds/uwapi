@@ -3,9 +3,13 @@ using System.Runtime.InteropServices;
 namespace Unnatural
 {
     using Order = Interop.UwOrder;
+    using Type = Interop.UwOrderTypeEnum;
+    using Priority = Interop.UwOrderPriorityFlags;
 
     public static class Commands
     {
+        static readonly uint Invalid = 4294967295;
+
         public static Order[] Orders(uint unit)
         {
             Interop.UwOrders os = new Interop.UwOrders();
@@ -24,30 +28,30 @@ namespace Unnatural
         public static Order Stop()
         {
             Order o = new Order();
-            o.entity = 4294967295;
-            o.position = 4294967295;
-            o.order = 1;
-            o.priority = 2;
+            o.entity = Invalid;
+            o.position = Invalid;
+            o.order = Type.Stop;
+            o.priority = Priority.User;
             return o;
         }
 
         public static Order Guard()
         {
             Order o = new Order();
-            o.entity = 4294967295;
-            o.position = 4294967295;
-            o.order = 2;
-            o.priority = 2;
+            o.entity = Invalid;
+            o.position = Invalid;
+            o.order = Type.Guard;
+            o.priority = Priority.User;
             return o;
         }
 
         public static Order RunToPosition(uint position)
         {
             Order o = new Order();
-            o.entity = 4294967295;
+            o.entity = Invalid;
             o.position = position;
-            o.order = 3;
-            o.priority = 2;
+            o.order = Type.Run;
+            o.priority = Priority.User;
             return o;
         }
 
@@ -55,19 +59,19 @@ namespace Unnatural
         {
             Order o = new Order();
             o.entity = entity;
-            o.position = 4294967295;
-            o.order = 3;
-            o.priority = 2;
+            o.position = Invalid;
+            o.order = Type.Run;
+            o.priority = Priority.User;
             return o;
         }
 
         public static Order FightToPosition(uint position)
         {
             Order o = new Order();
-            o.entity = 4294967295;
+            o.entity = Invalid;
             o.position = position;
-            o.order = 4;
-            o.priority = 2;
+            o.order = Type.Fight;
+            o.priority = Priority.User;
             return o;
         }
 
@@ -75,9 +79,9 @@ namespace Unnatural
         {
             Order o = new Order();
             o.entity = entity;
-            o.position = 4294967295;
-            o.order = 4;
-            o.priority = 2;
+            o.position = Invalid;
+            o.order = Type.Fight;
+            o.priority = Priority.User;
             return o;
         }
 

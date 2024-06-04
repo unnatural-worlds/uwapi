@@ -22,6 +22,7 @@ namespace Unnatural
     using ForceDetails = Interop.UwForceDetailsComponent;
     using ForeignPolicy = Interop.UwForeignPolicyComponent;
     using DiplomacyProposal = Interop.UwDiplomacyProposalComponent;
+    using PolicyEnum = Interop.UwForeignPolicyEnum;
 
     public static class Entity
     {
@@ -43,7 +44,7 @@ namespace Unnatural
             return Has(entity, "Owner") && entity.Owner.force == World.MyForce();
         }
 
-        public static uint Policy(dynamic entity)
+        public static PolicyEnum Policy(dynamic entity)
         {
             if (!Has(entity, "Owner"))
                 return 0;
@@ -68,15 +69,15 @@ namespace Unnatural
             return entities[id];
         }
 
-        public static uint Policy(uint force)
+        public static PolicyEnum Policy(uint force)
         {
-            uint val;
+            PolicyEnum val;
             return policies.TryGetValue(force, out val) ? val : 0;
         }
 
         static uint myForce;
         static readonly Dictionary<uint, dynamic> entities = new Dictionary<uint, dynamic>();
-        static readonly Dictionary<uint, uint> policies = new Dictionary<uint, uint>();
+        static readonly Dictionary<uint, PolicyEnum> policies = new Dictionary<uint, PolicyEnum>();
 
         static uint[] AllIds()
         {

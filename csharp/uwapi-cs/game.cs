@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 namespace Unnatural
 {
     using ShootingData = Interop.UwShootingData;
+    using ConnectionState = Interop.UwConnectionStateEnum;
+    using GameState = Interop.UwGameStateEnum;
 
     public static class Game
     {
@@ -40,8 +42,8 @@ namespace Unnatural
 
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);
         static readonly Interop.UwLogCallbackType LogDelegate = new Interop.UwLogCallbackType(LogCallback);
-        static readonly Interop.UwStateCallbackType ConnectionStateDelegate = new Interop.UwStateCallbackType(ConnectionStateCallback);
-        static readonly Interop.UwStateCallbackType GameStateDelegate = new Interop.UwStateCallbackType(GameStateCallback);
+        static readonly Interop.UwConnectionStateCallbackType ConnectionStateDelegate = new Interop.UwConnectionStateCallbackType(ConnectionStateCallback);
+        static readonly Interop.UwGameStateCallbackType GameStateDelegate = new Interop.UwGameStateCallbackType(GameStateCallback);
         static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
         static readonly Interop.UwShootingCallbackType ShootingDelegate = new Interop.UwShootingCallbackType(ShootingCallback);
 
@@ -57,17 +59,17 @@ namespace Unnatural
             Console.WriteLine(Marshal.PtrToStringAnsi(data.message));
         }
 
-        static void ConnectionStateCallback(uint state)
+        static void ConnectionStateCallback(ConnectionState state)
         {
             Console.WriteLine("connection state: " + state);
         }
 
-        static void GameStateCallback(uint state)
+        static void GameStateCallback(GameState state)
         {
             Console.WriteLine("game state: " + state);
-            if (state == 2) // preparation
+            if (state == GameState.Preparation)
                 Preparing(null, null);
-            if (state == 4) // finish
+            if (state == GameState.Finish)
                 Finished(null, null);
         }
 

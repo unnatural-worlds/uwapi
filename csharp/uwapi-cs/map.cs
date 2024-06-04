@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
+    using OverviewFlags = Interop.UwOverviewFlags;
+
     public struct Vector3
     {
         public float x, y, z;
@@ -46,7 +48,7 @@ namespace Unnatural
             return terrains;
         }
 
-        public static IReadOnlyList<byte> Overview()
+        public static IReadOnlyList<OverviewFlags> Overview()
         {
             return overview;
         }
@@ -135,7 +137,7 @@ namespace Unnatural
         static readonly List<Vector3> ups = new List<Vector3>();
         static readonly List<uint[]> neighbors = new List<uint[]>();
         static readonly List<byte> terrains = new List<byte>();
-        static byte[] overview = new byte[0];
+        static OverviewFlags[] overview = new OverviewFlags[0];
 
         static void Load()
         {
@@ -198,12 +200,12 @@ namespace Unnatural
                 Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
                 Interop.uwOverviewExtract(ref ex);
                 if (overview.Length != ex.count)
-                    overview = new byte[ex.count];
+                    overview = new OverviewFlags[ex.count];
                 if (ex.count > 0)
-                    Marshal.Copy(ex.flags, overview, 0, (int)ex.count);
+                    Marshal.Copy(ex.flags, (byte[])(object)overview, 0, (int)ex.count);
             }
             else
-                overview = new byte[0];
+                overview = new OverviewFlags[0];
         }
 
         static Map()

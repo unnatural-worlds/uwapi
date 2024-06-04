@@ -69,6 +69,16 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwOverviewIds(uint position, ref UwIds data);
 
+        [Flags]
+        public enum UwOverviewFlags : byte
+        {
+            Resource = 1 << 0,
+            Construction = 1 << 1,
+            MobileUnit = 1 << 2,
+            StaticUnit = 1 << 3,
+            Unit = MobileUnit | StaticUnit,
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwOverviewExtract
         {
@@ -159,10 +169,18 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchPositionComponent(IntPtr entity, ref UwPositionComponent data);
 
+        [Flags]
+        public enum UwUnitStateFlags : uint
+        {
+            Shooting = 1 << 0,
+            Processing = 1 << 1,
+            Rebuilding = 1 << 2,
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwUnitComponent
         {
-            public uint state;
+            public UwUnitStateFlags state;
             public uint killCount;
         }
 
@@ -256,6 +274,23 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchAttachmentComponent(IntPtr entity, ref UwAttachmentComponent data);
 
+        [Flags]
+        public enum UwPlayerStateFlags : uint
+        {
+            Loaded = 1 << 0,
+            Pause = 1 << 1,
+            Disconnected = 1 << 2,
+            Admin = 1 << 3,
+        }
+
+        public enum UwPlayerConnectionClassEnum : uint
+        {
+            Computer = 1,
+            VirtualReality,
+            Robot,
+            UwApi,
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwPlayerComponent
         {
@@ -265,14 +300,21 @@ namespace Unnatural
             public uint force;
             public float progress;
             public uint ping;
-            public uint state;
-            public byte playerConnectionClass;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 7)] public byte[] dummy;
+            public UwPlayerStateFlags state;
+            public UwPlayerConnectionClassEnum playerConnectionClass;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchPlayerComponent(IntPtr entity, ref UwPlayerComponent data);
+
+        [Flags]
+        public enum UwForceStateFlags : uint
+        {
+            Winner = 1 << 0,
+            Defeated = 1 << 1,
+            AllPlayersDisconnected = 1 << 2,
+        }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwForceComponent
@@ -282,7 +324,7 @@ namespace Unnatural
             public uint killCount;
             public uint lossCount;
             public uint team;
-            public uint state;
+            public UwForceStateFlags state;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -301,11 +343,19 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchForceDetailsComponent(IntPtr entity, ref UwForceDetailsComponent data);
 
+        public enum UwForeignPolicyEnum : uint
+        {
+            Self = 1,
+            Ally,
+            Neutral,
+            Enemy,
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwForeignPolicyComponent
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)] public uint[] forces;
-            public uint policy;
+            public UwForeignPolicyEnum policy;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -317,14 +367,14 @@ namespace Unnatural
         {
             public uint offeror;
             public uint offeree;
-            public uint proposal;
+            public UwForeignPolicyEnum proposal;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity, ref UwDiplomacyProposalComponent data);
 
-        public const uint UW_VERSION = 14;
+        public const uint UW_VERSION = 15;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
@@ -334,12 +384,22 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetExceptionCallback(UwExceptionCallbackType callback);
 
+        public enum UwSeverityEnum : uint
+        {
+            Note,
+            Hint,
+            Warning,
+            Info,
+            Error,
+            Critical
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwLogCallback
         {
             public IntPtr message;
             public IntPtr component;
-            public uint severity;
+            public UwSeverityEnum severity;
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -376,17 +436,36 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string mapPath);
 
+        public enum UwConnectionStateEnum : uint
+        {
+            Connecting = 1,
+            Connected,
+            Disconnecting,
+            ConnectionError,
+        }
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwStateCallbackType(uint state);
+        public delegate void UwConnectionStateCallbackType(UwConnectionStateEnum state);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetConnectionStateCallback(UwStateCallbackType callback);
+        public static extern void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwConnectionState();
 
+        public enum UwGameStateEnum : uint
+        {
+            Session = 1,
+            Preparation,
+            Game,
+            Finish,
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwGameStateCallbackType(UwGameStateEnum state);
+
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetGameStateCallback(UwStateCallbackType callback);
+        public static extern void uwSetGameStateCallback(UwGameStateCallbackType callback);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwGameState();
@@ -440,13 +519,33 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwFindConstructionPlacement(uint constructionPrototype, uint position);
 
+        public enum UwOrderTypeEnum : byte
+        {
+            Stop = 1,
+            Guard,
+            Run,
+            Fight,
+            Load,
+            Unload,
+            SelfDestruct,
+        }
+
+        [Flags]
+        public enum UwOrderPriorityFlags : byte
+        {
+            Assistant = 1 << 0,
+            User = 1 << 1,
+            Enqueue = 1 << 2,
+            Repeat = 1 << 3,
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwOrder
         {
             public uint entity;
             public uint position;
-            public byte order;
-            public byte priority;
+            public UwOrderTypeEnum order;
+            public UwOrderPriorityFlags priority;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

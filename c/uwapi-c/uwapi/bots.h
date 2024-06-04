@@ -10,17 +10,26 @@ extern "C"
 
 	// initialization
 
-	const uint32 UW_VERSION = 14;
+	const uint32 UW_VERSION = 15;
 	UNNATURAL_API void uwInitialize(uint32 version);
 
 	typedef void (*UwExceptionCallbackType)(const char *message);
 	UNNATURAL_API void uwSetExceptionCallback(UwExceptionCallbackType callback);
 
+	typedef enum UwSeverityEnum : uint32
+	{
+		Note,
+		Hint,
+		Warning,
+		Info,
+		Error,
+		Critical
+	} UwSeverityEnum;
 	typedef struct UwLogCallback
 	{
 		const char *message;
 		const char *component;
-		uint32 severity;
+		UwSeverityEnum severity;
 	} UwLogCallback;
 	typedef void (*UwLogCallbackType)(const UwLogCallback *data);
 	UNNATURAL_API void uwSetLogCallback(UwLogCallbackType callback);
@@ -39,11 +48,26 @@ extern "C"
 
 	// game state and callbacks
 
-	typedef void (*UwStateCallbackType)(uint32 state);
-	UNNATURAL_API void uwSetConnectionStateCallback(UwStateCallbackType callback);
+	typedef enum UwConnectionStateEnum : uint32
+	{
+		Connecting = 1,
+		Connected,
+		Disconnecting,
+		ConnectionError,
+	} UwConnectionStateEnum;
+	typedef void (*UwConnectionStateCallbackType)(UwConnectionStateEnum state);
+	UNNATURAL_API void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
 	UNNATURAL_API uint32 uwConnectionState(void);
 
-	UNNATURAL_API void uwSetGameStateCallback(UwStateCallbackType callback);
+	typedef enum UwGameStateEnum : uint32
+	{
+		Session = 1,
+		Preparation,
+		Game,
+		Finish,
+	} UwGameStateEnum;
+	typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
+	UNNATURAL_API void uwSetGameStateCallback(UwGameStateCallbackType callback);
 	UNNATURAL_API uint32 uwGameState(void);
 
 	typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
@@ -84,12 +108,29 @@ extern "C"
 
 	// orders
 
+	typedef enum UwOrderTypeEnum : uint8
+	{
+		Stop = 1,
+		Guard,
+		Run,
+		Fight,
+		Load,
+		Unload,
+		SelfDestruct,
+	} UwOrderTypeEnum;
+	typedef enum UwOrderPriorityFlags : uint8
+	{
+		Assistant = 1 << 0,
+		User = 1 << 1,
+		Enqueue = 1 << 2,
+		Repeat = 1 << 3,
+	} UwOrderPriorityFlags;
 	typedef struct UwOrder
 	{
 		uint32 entity;
 		uint32 position;
-		uint8 order;
-		uint8 priority;
+		UwOrderTypeEnum order;
+		UwOrderPriorityFlags priority;
 	} UwOrder;
 	UNNATURAL_API void uwOrder(uint32 unit, const UwOrder *data);
 	typedef struct UwOrders
