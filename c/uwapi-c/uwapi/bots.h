@@ -16,7 +16,7 @@ extern "C"
 	typedef void (*UwExceptionCallbackType)(const char *message);
 	UNNATURAL_API void uwSetExceptionCallback(UwExceptionCallbackType callback);
 
-	typedef enum UwSeverityEnum : uint32
+	typedef enum UwSeverityEnum
 	{
 		Note,
 		Hint,
@@ -48,7 +48,7 @@ extern "C"
 
 	// game state and callbacks
 
-	typedef enum UwConnectionStateEnum : uint32
+	typedef enum UwConnectionStateEnum
 	{
 		Connecting = 1,
 		Connected,
@@ -59,7 +59,7 @@ extern "C"
 	UNNATURAL_API void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
 	UNNATURAL_API uint32 uwConnectionState(void);
 
-	typedef enum UwGameStateEnum : uint32
+	typedef enum UwGameStateEnum
 	{
 		Session = 1,
 		Preparation,
@@ -108,7 +108,7 @@ extern "C"
 
 	// orders
 
-	typedef enum UwOrderTypeEnum : uint8
+	typedef enum UwOrderTypeEnum
 	{
 		Stop = 1,
 		Guard,
@@ -118,7 +118,7 @@ extern "C"
 		Unload,
 		SelfDestruct,
 	} UwOrderTypeEnum;
-	typedef enum UwOrderPriorityFlags : uint8
+	typedef enum UwOrderPriorityFlags
 	{
 		Assistant = 1 << 0,
 		User = 1 << 1,

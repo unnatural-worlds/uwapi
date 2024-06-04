@@ -60,9 +60,7 @@ extern "C"
 
 	// overview
 
-	UNNATURAL_API uint8 uwOverviewFlags(uint32 position);
-	UNNATURAL_API void uwOverviewIds(uint32 position, UwIds *data);
-	typedef enum UwOverviewFlags : uint8
+	typedef enum UwOverviewFlags
 	{
 		Resource = 1 << 0,
 		Construction = 1 << 1,
@@ -70,6 +68,8 @@ extern "C"
 		StaticUnit = 1 << 3,
 		Unit = MobileUnit | StaticUnit,
 	} UwOverviewFlags;
+	UNNATURAL_API UwOverviewFlags uwOverviewFlags(uint32 position);
+	UNNATURAL_API void uwOverviewIds(uint32 position, UwIds *data);
 	typedef struct UwOverviewExtract
 	{
 		const UwOverviewFlags *flags;
@@ -125,7 +125,7 @@ extern "C"
 	} UwPositionComponent;
 	UNNATURAL_API bool uwFetchPositionComponent(UwEntity *entity, UwPositionComponent *data);
 
-	typedef enum UwUnitStateFlags : uint32
+	typedef enum UwUnitStateFlags
 	{
 		Shooting = 1 << 0,
 		Processing = 1 << 1, // processing recipe
@@ -192,14 +192,14 @@ extern "C"
 	} UwAttachmentComponent;
 	UNNATURAL_API bool uwFetchAttachmentComponent(UwEntity *entity, UwAttachmentComponent *data);
 
-	typedef enum UwPlayerStateFlags : uint32
+	typedef enum UwPlayerStateFlags
 	{
 		Loaded = 1 << 0,
 		Pause = 1 << 1,
 		Disconnected = 1 << 2,
 		Admin = 1 << 3,
 	} UwPlayerStateFlags;
-	typedef enum UwPlayerConnectionClassEnum : uint32
+	typedef enum UwPlayerConnectionClassEnum
 	{
 		Computer = 1,
 		VirtualReality,
@@ -219,7 +219,7 @@ extern "C"
 	} UwPlayerComponent;
 	UNNATURAL_API bool uwFetchPlayerComponent(UwEntity *entity, UwPlayerComponent *data);
 
-	typedef enum UwForceStateFlags : uint32
+	typedef enum UwForceStateFlags
 	{
 		Winner = 1 << 0,
 		Defeated = 1 << 1,
@@ -244,7 +244,7 @@ extern "C"
 	} UwForceDetailsComponent;
 	UNNATURAL_API bool uwFetchForceDetailsComponent(UwEntity *entity, UwForceDetailsComponent *data);
 
-	typedef enum UwForeignPolicyEnum : uint32
+	typedef enum UwForeignPolicyEnum
 	{
 		Self = 1,
 		Ally,

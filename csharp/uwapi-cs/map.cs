@@ -202,7 +202,7 @@ namespace Unnatural
                 if (overview.Length != ex.count)
                     overview = new OverviewFlags[ex.count];
                 if (ex.count > 0)
-                    Marshal.Copy(ex.flags, (byte[])(object)overview, 0, (int)ex.count);
+                    Marshal.Copy(ex.flags, (int[])(object)overview, 0, (int)ex.count);
             }
             else
                 overview = new OverviewFlags[0];

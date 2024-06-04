@@ -63,14 +63,8 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwTile(uint index, ref UwTile data);
 
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern byte uwOverviewFlags(uint position);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwOverviewIds(uint position, ref UwIds data);
-
         [Flags]
-        public enum UwOverviewFlags : byte
+        public enum UwOverviewFlags
         {
             Resource = 1 << 0,
             Construction = 1 << 1,
@@ -78,6 +72,12 @@ namespace Unnatural
             StaticUnit = 1 << 3,
             Unit = MobileUnit | StaticUnit,
         }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern UwOverviewFlags uwOverviewFlags(uint position);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwOverviewIds(uint position, ref UwIds data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwOverviewExtract
@@ -170,7 +170,7 @@ namespace Unnatural
         public static extern bool uwFetchPositionComponent(IntPtr entity, ref UwPositionComponent data);
 
         [Flags]
-        public enum UwUnitStateFlags : uint
+        public enum UwUnitStateFlags
         {
             Shooting = 1 << 0,
             Processing = 1 << 1,
@@ -275,7 +275,7 @@ namespace Unnatural
         public static extern bool uwFetchAttachmentComponent(IntPtr entity, ref UwAttachmentComponent data);
 
         [Flags]
-        public enum UwPlayerStateFlags : uint
+        public enum UwPlayerStateFlags
         {
             Loaded = 1 << 0,
             Pause = 1 << 1,
@@ -283,7 +283,7 @@ namespace Unnatural
             Admin = 1 << 3,
         }
 
-        public enum UwPlayerConnectionClassEnum : uint
+        public enum UwPlayerConnectionClassEnum
         {
             Computer = 1,
             VirtualReality,
@@ -309,7 +309,7 @@ namespace Unnatural
         public static extern bool uwFetchPlayerComponent(IntPtr entity, ref UwPlayerComponent data);
 
         [Flags]
-        public enum UwForceStateFlags : uint
+        public enum UwForceStateFlags
         {
             Winner = 1 << 0,
             Defeated = 1 << 1,
@@ -343,7 +343,7 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchForceDetailsComponent(IntPtr entity, ref UwForceDetailsComponent data);
 
-        public enum UwForeignPolicyEnum : uint
+        public enum UwForeignPolicyEnum
         {
             Self = 1,
             Ally,
@@ -384,7 +384,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetExceptionCallback(UwExceptionCallbackType callback);
 
-        public enum UwSeverityEnum : uint
+        public enum UwSeverityEnum
         {
             Note,
             Hint,
@@ -436,7 +436,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string mapPath);
 
-        public enum UwConnectionStateEnum : uint
+        public enum UwConnectionStateEnum
         {
             Connecting = 1,
             Connected,
@@ -453,7 +453,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwConnectionState();
 
-        public enum UwGameStateEnum : uint
+        public enum UwGameStateEnum
         {
             Session = 1,
             Preparation,
@@ -519,7 +519,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwFindConstructionPlacement(uint constructionPrototype, uint position);
 
-        public enum UwOrderTypeEnum : byte
+        public enum UwOrderTypeEnum
         {
             Stop = 1,
             Guard,
@@ -531,7 +531,7 @@ namespace Unnatural
         }
 
         [Flags]
-        public enum UwOrderPriorityFlags : byte
+        public enum UwOrderPriorityFlags
         {
             Assistant = 1 << 0,
             User = 1 << 1,
