@@ -1,12 +1,86 @@
-#ifndef unnatural_uwapi_components_h_kjsdf58s
-#define unnatural_uwapi_components_h_kjsdf58s
+#ifndef unnatural_uwapi_common_h_sdr8g4h1u
+#define unnatural_uwapi_common_h_sdr8g4h1u
 
-#include "core.h"
+#include <stdbool.h>
+#include <stdint.h>
+
+typedef uint8_t uint8;
+typedef int8_t sint8;
+typedef uint16_t uint16;
+typedef int16_t sint16;
+typedef uint32_t uint32;
+typedef int32_t sint32;
+typedef uint64_t uint64;
+typedef int64_t sint64;
+
+#ifndef UNNATURAL_API
+	#define UNNATURAL_API
+#endif // !UNNATURAL_API
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
+	typedef struct UwIds
+	{
+		const uint32 *ids;
+		uint32 count;
+	} UwIds;
+
+	// prototypes
+
+	UNNATURAL_API void uwAllPrototypes(UwIds *data);
+	UNNATURAL_API uint32 uwPrototypeType(uint32 prototypeId);
+	UNNATURAL_API const char *uwPrototypeJson(uint32 prototypeId);
+	UNNATURAL_API const char *uwDefinitionsJson(void);
+
+	// map
+
+	typedef struct UwMapInfo
+	{
+		const char *name;
+		const char *guid;
+	} UwMapInfo;
+	UNNATURAL_API bool uwMapInfo(UwMapInfo *data);
+
+	// tiles
+
+	UNNATURAL_API uint32 uwTilesCount(void);
+	typedef struct UwTile
+	{
+		float position[3];
+		float up[3];
+		const uint32 *neighborsIndices;
+		uint32 neighborsCount;
+		uint8 terrain;
+		bool border;
+	} UwTile;
+	UNNATURAL_API void uwTile(uint32 index, UwTile *data);
+
+	// overview
+
+	UNNATURAL_API uint8 uwOverviewFlags(uint32 position);
+	UNNATURAL_API void uwOverviewIds(uint32 position, UwIds *data);
+	typedef struct UwOverviewExtract
+	{
+		const uint8 *flags;
+		uint32 count;
+	} UwOverviewExtract;
+	UNNATURAL_API void uwOverviewExtract(UwOverviewExtract *data);
+
+	// map miscellaneous
+
+	UNNATURAL_API void uwAreaRange(float x, float y, float z, float radius, UwIds *data);
+	UNNATURAL_API void uwAreaConnected(uint32 position, float radius, UwIds *data);
+	UNNATURAL_API void uwAreaNeighborhood(uint32 position, float radius, UwIds *data);
+	UNNATURAL_API void uwAreaExtended(uint32 position, float radius, UwIds *data);
+
+	UNNATURAL_API bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
+	UNNATURAL_API bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, uint32 targetPosition, uint32 targetProto);
+	UNNATURAL_API float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
+	UNNATURAL_API float uwDistanceEstimate(uint32 a, uint32 b);
+	UNNATURAL_API float uwYaw(uint32 position, uint32 towards);
 
 	// entity
 
@@ -14,7 +88,6 @@ extern "C"
 	UNNATURAL_API UwEntity *uwEntityPointer(uint32 id);
 	UNNATURAL_API uint32 uwEntityId(UwEntity *entity);
 	UNNATURAL_API void uwAllEntities(UwIds *data);
-	UNNATURAL_API void uwModifiedEntities(UwIds *data);
 
 	// components
 
@@ -157,4 +230,4 @@ extern "C"
 } // extern C
 #endif
 
-#endif // unnatural_uwapi_components_h_kjsdf58s
+#endif // unnatural_uwapi_common_h_sdr8g4h1u

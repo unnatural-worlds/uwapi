@@ -1,7 +1,7 @@
-#ifndef unnatural_uwapi_game_h_xcvh4o5
-#define unnatural_uwapi_game_h_xcvh4o5
+#ifndef unnatural_uwapi_commands_h_rd5kgz4huf
+#define unnatural_uwapi_commands_h_rd5kgz4huf
 
-#include "core.h"
+#include "common.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -73,8 +73,45 @@ extern "C"
 	} UwMyPlayer;
 	UNNATURAL_API bool uwMyPlayer(UwMyPlayer *data);
 
+	// entities
+
+	UNNATURAL_API void uwModifiedEntities(UwIds *data);
+
+	// constructions
+
+	UNNATURAL_API bool uwTestConstructionPlacement(uint32 constructionPrototype, uint32 position);
+	UNNATURAL_API uint32 uwFindConstructionPlacement(uint32 constructionPrototype, uint32 position);
+
+	// orders
+
+	typedef struct UwOrder
+	{
+		uint32 entity;
+		uint32 position;
+		uint8 order;
+		uint8 priority;
+	} UwOrder;
+	UNNATURAL_API void uwOrder(uint32 unit, const UwOrder *data);
+	typedef struct UwOrders
+	{
+		const UwOrder *orders;
+		uint32 count;
+	} UwOrders;
+	UNNATURAL_API void uwOrders(uint32 unit, UwOrders *data);
+
+	// commands
+
+	UNNATURAL_API void uwCommandSelfDestruct(uint32 unit);
+	UNNATURAL_API void uwCommandPlaceConstruction(uint32 proto, uint32 position, float yaw);
+	UNNATURAL_API void uwCommandSetRecipe(uint32 unit, uint32 recipe);
+	UNNATURAL_API void uwCommandLoad(uint32 unit, uint32 resourceType);
+	UNNATURAL_API void uwCommandUnload(uint32 unit);
+	UNNATURAL_API void uwCommandMove(uint32 unit, uint32 position, float yaw);
+	UNNATURAL_API void uwCommandAim(uint32 unit, uint32 target);
+	UNNATURAL_API void uwCommandRenounceControl(uint32 unit);
+
 #ifdef __cplusplus
 } // extern C
 #endif
 
-#endif // unnatural_uwapi_game_h_xcvh4o5
+#endif // unnatural_uwapi_commands_h_rd5kgz4huf

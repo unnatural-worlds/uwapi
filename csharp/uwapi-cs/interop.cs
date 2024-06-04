@@ -16,52 +16,6 @@ namespace Unnatural
         const string LibName = "unnatural-uwapi-hard";
 #endif
 
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandSelfDestruct(uint unit);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandPlaceConstruction(uint proto, uint position, float yaw);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandSetRecipe(uint unit, uint recipe);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandLoad(uint unit, uint resourceType);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandUnload(uint unit);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandMove(uint unit, uint position, float yaw);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandAim(uint unit, uint target);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandRenounceControl(uint unit);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwOrder
-        {
-            public uint entity;
-            public uint position;
-            public byte order;
-            public byte priority;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwOrder(uint unit, ref UwOrder data);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwOrders
-        {
-            public IntPtr orders;
-            public uint count;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwOrders(uint unit, ref UwOrders data);
-
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
         {
@@ -69,111 +23,17 @@ namespace Unnatural
             public uint count;
         }
 
-        public const uint UW_VERSION = 14;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwInitialize(uint version);
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwExceptionCallbackType([MarshalAs(UnmanagedType.LPStr)] string message);
+        public static extern void uwAllPrototypes(ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetExceptionCallback(UwExceptionCallbackType callback);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwLogCallback
-        {
-            public IntPtr message;
-            public IntPtr component;
-            public uint severity;
-        }
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwLogCallbackType(ref UwLogCallback data);
+        public static extern uint uwPrototypeType(uint prototypeId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetLogCallback(UwLogCallbackType callback);
+        public static extern IntPtr uwPrototypeJson(uint prototypeId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwLog(uint severity, [MarshalAs(UnmanagedType.LPStr)] string message);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetAssistLogistics([MarshalAs(UnmanagedType.I1)] bool enabled);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetAssistFighting([MarshalAs(UnmanagedType.I1)] bool enabled);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetPlayerName([MarshalAs(UnmanagedType.LPStr)] string name);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetPlayerColor(float r, float g, float b);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwConnectFindLan(ulong timeoutMicroseconds);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectDirect([MarshalAs(UnmanagedType.LPStr)] string address, ushort port);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectLobbyId(ulong lobbyId);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string mapPath);
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwStateCallbackType(uint state);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetConnectionStateCallback(UwStateCallbackType callback);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwConnectionState();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetGameStateCallback(UwStateCallbackType callback);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwGameState();
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwUpdateCallbackType(uint tick, [MarshalAs(UnmanagedType.I1)] bool stepping);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetUpdateCallback(UwUpdateCallbackType callback);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwShootingUnit
-        {
-            public uint position;
-            public uint force;
-            public uint prototype;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwShootingData
-        {
-            public UwShootingUnit shooter;
-            public UwShootingUnit target;
-        }
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwShootingCallbackType(ref UwShootingData data);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetShootingCallback(UwShootingCallbackType callback);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMyPlayer
-        {
-            public uint playerEntityId;
-            public uint forceEntityId;
-            [MarshalAs(UnmanagedType.I1)] public bool primaryController;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwMyPlayer(ref UwMyPlayer data);
+        public static extern IntPtr uwDefinitionsJson();
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMapInfo
@@ -249,25 +109,6 @@ namespace Unnatural
         public static extern float uwYaw(uint position, uint towards);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwTestConstructionPlacement(uint constructionPrototype, uint position);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwFindConstructionPlacement(uint constructionPrototype, uint position);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAllPrototypes(ref UwIds data);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwPrototypeType(uint prototypeId);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr uwPrototypeJson(uint prototypeId);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern IntPtr uwDefinitionsJson();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr uwEntityPointer(uint id);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -275,9 +116,6 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAllEntities(ref UwIds data);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwModifiedEntities(ref UwIds data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwProtoComponent
@@ -485,6 +323,168 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity, ref UwDiplomacyProposalComponent data);
+
+        public const uint UW_VERSION = 14;
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwInitialize(uint version);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwExceptionCallbackType([MarshalAs(UnmanagedType.LPStr)] string message);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetExceptionCallback(UwExceptionCallbackType callback);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwLogCallback
+        {
+            public IntPtr message;
+            public IntPtr component;
+            public uint severity;
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwLogCallbackType(ref UwLogCallback data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetLogCallback(UwLogCallbackType callback);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwLog(uint severity, [MarshalAs(UnmanagedType.LPStr)] string message);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetAssistLogistics([MarshalAs(UnmanagedType.I1)] bool enabled);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetAssistFighting([MarshalAs(UnmanagedType.I1)] bool enabled);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetPlayerName([MarshalAs(UnmanagedType.LPStr)] string name);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetPlayerColor(float r, float g, float b);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwConnectFindLan(ulong timeoutMicroseconds);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwConnectDirect([MarshalAs(UnmanagedType.LPStr)] string address, ushort port);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwConnectLobbyId(ulong lobbyId);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string mapPath);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwStateCallbackType(uint state);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetConnectionStateCallback(UwStateCallbackType callback);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint uwConnectionState();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetGameStateCallback(UwStateCallbackType callback);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint uwGameState();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwUpdateCallbackType(uint tick, [MarshalAs(UnmanagedType.I1)] bool stepping);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetUpdateCallback(UwUpdateCallbackType callback);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwShootingUnit
+        {
+            public uint position;
+            public uint force;
+            public uint prototype;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwShootingData
+        {
+            public UwShootingUnit shooter;
+            public UwShootingUnit target;
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwShootingCallbackType(ref UwShootingData data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetShootingCallback(UwShootingCallbackType callback);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMyPlayer
+        {
+            public uint playerEntityId;
+            public uint forceEntityId;
+            [MarshalAs(UnmanagedType.I1)] public bool primaryController;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwMyPlayer(ref UwMyPlayer data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwModifiedEntities(ref UwIds data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwTestConstructionPlacement(uint constructionPrototype, uint position);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint uwFindConstructionPlacement(uint constructionPrototype, uint position);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwOrder
+        {
+            public uint entity;
+            public uint position;
+            public byte order;
+            public byte priority;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwOrder(uint unit, ref UwOrder data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwOrders
+        {
+            public IntPtr orders;
+            public uint count;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwOrders(uint unit, ref UwOrders data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandSelfDestruct(uint unit);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandPlaceConstruction(uint proto, uint position, float yaw);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandSetRecipe(uint unit, uint recipe);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandLoad(uint unit, uint resourceType);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandUnload(uint unit);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandMove(uint unit, uint position, float yaw);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandAim(uint unit, uint target);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandRenounceControl(uint unit);
 
     }
 }
