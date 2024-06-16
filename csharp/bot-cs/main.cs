@@ -79,8 +79,9 @@ namespace Unnatural
         void Start()
         {
             Game.SetPlayerName("bot-cs");
+            Game.SetStartGui(true);
             Console.WriteLine("starting");
-            Game.StartNewServer("special/arena.uw");
+            Game.ConnectNewServer();
             Console.WriteLine("done");
         }
 

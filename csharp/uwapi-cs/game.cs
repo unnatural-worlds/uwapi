@@ -20,7 +20,12 @@ namespace Unnatural
             Interop.uwSetPlayerName(name);
         }
 
-        public static void ConnectLan(ulong timeoutMicroseconds)
+        public static void SetStartGui(bool startGui)
+        {
+            Interop.uwSetConnectStartGui(startGui);
+        }
+
+        public static void ConnectFindLan(ulong timeoutMicroseconds)
         {
             Interop.uwConnectFindLan(timeoutMicroseconds);
         }
@@ -35,9 +40,9 @@ namespace Unnatural
             Interop.uwConnectLobbyId(lobbyId);
         }
 
-        public static void StartNewServer(string mapPath)
+        public static void ConnectNewServer()
         {
-            Interop.uwConnectNewServer(mapPath);
+            Interop.uwConnectNewServer();
         }
 
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);
@@ -95,7 +100,7 @@ namespace Unnatural
             Interop.uwSetConnectionStateCallback(ConnectionStateDelegate);
             Interop.uwSetGameStateCallback(GameStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
-            Interop.uwSetShootingCallback(ShootingDelegate);
+            Interop.uwSetShootingCallback(ShootingDelegate, true);
 
             // make sure that others register their callbacks too
             Prototypes.All();
@@ -105,7 +110,7 @@ namespace Unnatural
 
         static void Destructor(object sender, EventArgs e)
         {
-            Interop.uwSetShootingCallback(null);
+            Interop.uwSetShootingCallback(null, false);
             Interop.uwSetUpdateCallback(null);
             Interop.uwSetGameStateCallback(null);
             Interop.uwSetConnectionStateCallback(null);

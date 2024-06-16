@@ -195,7 +195,7 @@ namespace Unnatural
 
         static void Updating(object sender, EventArgs e)
         {
-            if (Interop.uwGameState() == 3)
+            if (Interop.uwGameState() == Interop.UwGameStateEnum.Game)
             {
                 Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
                 Interop.uwOverviewExtract(ref ex);

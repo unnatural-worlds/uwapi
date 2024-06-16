@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	const uint32 UW_VERSION = 15;
+	const uint32 UW_VERSION = 16;
 	UNNATURAL_API void uwInitialize(uint32 version);
 
 	typedef void (*UwExceptionCallbackType)(const char *message);
@@ -33,18 +33,20 @@ extern "C"
 	} UwLogCallback;
 	typedef void (*UwLogCallbackType)(const UwLogCallback *data);
 	UNNATURAL_API void uwSetLogCallback(UwLogCallbackType callback);
-	UNNATURAL_API void uwLog(uint32 severity, const char *message);
+	UNNATURAL_API void uwLog(UwSeverityEnum severity, const char *message);
 
 	UNNATURAL_API void uwSetAssistLogistics(bool enabled);
 	UNNATURAL_API void uwSetAssistFighting(bool enabled);
 
 	UNNATURAL_API void uwSetPlayerName(const char *name);
 	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b);
+	UNNATURAL_API void uwSetConnectStartGui(bool startGui);
+	UNNATURAL_API void uwSetConnectAsObserver(bool observer);
 
 	UNNATURAL_API bool uwConnectFindLan(uint64 timeoutMicroseconds);
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
-	UNNATURAL_API void uwConnectNewServer(const char *mapPath);
+	UNNATURAL_API void uwConnectNewServer(void);
 
 	// game state and callbacks
 
@@ -57,7 +59,7 @@ extern "C"
 	} UwConnectionStateEnum;
 	typedef void (*UwConnectionStateCallbackType)(UwConnectionStateEnum state);
 	UNNATURAL_API void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
-	UNNATURAL_API uint32 uwConnectionState(void);
+	UNNATURAL_API UwConnectionStateEnum uwConnectionState(void);
 
 	typedef enum UwGameStateEnum
 	{
@@ -68,7 +70,7 @@ extern "C"
 	} UwGameStateEnum;
 	typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
 	UNNATURAL_API void uwSetGameStateCallback(UwGameStateCallbackType callback);
-	UNNATURAL_API uint32 uwGameState(void);
+	UNNATURAL_API UwGameStateEnum uwGameState(void);
 
 	typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
 	UNNATURAL_API void uwSetUpdateCallback(UwUpdateCallbackType callback);
@@ -85,7 +87,7 @@ extern "C"
 		UwShootingUnit target;
 	} UwShootingData;
 	typedef void (*UwShootingCallbackType)(const UwShootingData *data);
-	UNNATURAL_API void uwSetShootingCallback(UwShootingCallbackType callback);
+	UNNATURAL_API void uwSetShootingCallback(UwShootingCallbackType callback, bool filtering);
 
 	// my player
 
