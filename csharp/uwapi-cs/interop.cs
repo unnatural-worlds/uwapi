@@ -66,6 +66,7 @@ namespace Unnatural
         [Flags]
         public enum UwOverviewFlags
         {
+            None = 0,
             Resource = 1 << 0,
             Construction = 1 << 1,
             MobileUnit = 1 << 2,
@@ -172,6 +173,7 @@ namespace Unnatural
         [Flags]
         public enum UwUnitStateFlags
         {
+            None = 0,
             Shooting = 1 << 0,
             Processing = 1 << 1,
             Rebuilding = 1 << 2,
@@ -277,6 +279,7 @@ namespace Unnatural
         [Flags]
         public enum UwPlayerStateFlags
         {
+            None = 0,
             Loaded = 1 << 0,
             Pause = 1 << 1,
             Disconnected = 1 << 2,
@@ -285,10 +288,11 @@ namespace Unnatural
 
         public enum UwPlayerConnectionClassEnum
         {
+            None = 0,
             Computer = 1,
-            VirtualReality,
-            Robot,
-            UwApi,
+            VirtualReality = 2,
+            Robot = 3,
+            UwApi = 4,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -311,9 +315,10 @@ namespace Unnatural
         [Flags]
         public enum UwForceStateFlags
         {
+            None = 0,
             Winner = 1 << 0,
             Defeated = 1 << 1,
-            AllPlayersDisconnected = 1 << 2,
+            Disconnected = 1 << 2,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -345,10 +350,11 @@ namespace Unnatural
 
         public enum UwForeignPolicyEnum
         {
+            None = 0,
             Self = 1,
-            Ally,
-            Neutral,
-            Enemy,
+            Ally = 2,
+            Neutral = 3,
+            Enemy = 4,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -386,12 +392,12 @@ namespace Unnatural
 
         public enum UwSeverityEnum
         {
-            Note,
-            Hint,
-            Warning,
-            Info,
-            Error,
-            Critical
+            Note = 0,
+            Hint = 1,
+            Warning = 2,
+            Info = 3,
+            Error = 4,
+            Critical = 5,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -411,11 +417,17 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwLog(UwSeverityEnum severity, [MarshalAs(UnmanagedType.LPStr)] string message);
 
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetAssistLogistics([MarshalAs(UnmanagedType.I1)] bool enabled);
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwAssistConfig
+        {
+            [MarshalAs(UnmanagedType.I1)] public bool logistics;
+            [MarshalAs(UnmanagedType.I1)] public bool aiming;
+            [MarshalAs(UnmanagedType.I1)] public bool fighting;
+            [MarshalAs(UnmanagedType.I1)] public bool retaliations;
+        }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetAssistFighting([MarshalAs(UnmanagedType.I1)] bool enabled);
+        public static extern void uwSetAssistConfig(ref UwAssistConfig config);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetPlayerName([MarshalAs(UnmanagedType.LPStr)] string name);
@@ -424,7 +436,7 @@ namespace Unnatural
         public static extern void uwSetPlayerColor(float r, float g, float b);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetConnectStartGui([MarshalAs(UnmanagedType.I1)] bool startGui);
+        public static extern void uwSetConnectStartGui([MarshalAs(UnmanagedType.I1)] bool enabled, [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetConnectAsObserver([MarshalAs(UnmanagedType.I1)] bool observer);
@@ -440,14 +452,24 @@ namespace Unnatural
         public static extern void uwConnectLobbyId(ulong lobbyId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectNewServer();
+        public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwStartGame();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong uwGetLobbyId();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSuggestCameraPosition(uint position);
 
         public enum UwConnectionStateEnum
         {
+            None = 0,
             Connecting = 1,
-            Connected,
-            Disconnecting,
-            ConnectionError,
+            Connected = 2,
+            Disconnecting = 3,
+            Error = 4,
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -461,10 +483,11 @@ namespace Unnatural
 
         public enum UwGameStateEnum
         {
+            None = 0,
             Session = 1,
-            Preparation,
-            Game,
-            Finish,
+            Preparation = 2,
+            Game = 3,
+            Finish = 4,
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -509,6 +532,7 @@ namespace Unnatural
             public uint playerEntityId;
             public uint forceEntityId;
             [MarshalAs(UnmanagedType.I1)] public bool primaryController;
+            [MarshalAs(UnmanagedType.I1)] public bool admin;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -527,18 +551,20 @@ namespace Unnatural
 
         public enum UwOrderTypeEnum
         {
+            None = 0,
             Stop = 1,
-            Guard,
-            Run,
-            Fight,
-            Load,
-            Unload,
-            SelfDestruct,
+            Guard = 2,
+            Run = 3,
+            Fight = 4,
+            Load = 5,
+            Unload = 6,
+            SelfDestruct = 7,
         }
 
         [Flags]
         public enum UwOrderPriorityFlags
         {
+            None = 0,
             Assistant = 1 << 0,
             User = 1 << 1,
             Enqueue = 1 << 2,

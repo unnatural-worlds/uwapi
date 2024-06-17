@@ -18,12 +18,12 @@ extern "C"
 
 	typedef enum UwSeverityEnum
 	{
-		Note,
-		Hint,
-		Warning,
-		Info,
-		Error,
-		Critical
+		UwSeverityEnum_Note = 0,
+		UwSeverityEnum_Hint = 1,
+		UwSeverityEnum_Warning = 2,
+		UwSeverityEnum_Info = 3,
+		UwSeverityEnum_Error = 4,
+		UwSeverityEnum_Critical = 5,
 	} UwSeverityEnum;
 	typedef struct UwLogCallback
 	{
@@ -35,27 +35,38 @@ extern "C"
 	UNNATURAL_API void uwSetLogCallback(UwLogCallbackType callback);
 	UNNATURAL_API void uwLog(UwSeverityEnum severity, const char *message);
 
-	UNNATURAL_API void uwSetAssistLogistics(bool enabled);
-	UNNATURAL_API void uwSetAssistFighting(bool enabled);
+	typedef struct UwAssistConfig
+	{
+		bool logistics;
+		bool aiming;
+		bool fighting;
+		bool retaliations;
+	} UwAssistConfig;
+	UNNATURAL_API void uwSetAssistConfig(const UwAssistConfig *config);
 
 	UNNATURAL_API void uwSetPlayerName(const char *name);
 	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b);
-	UNNATURAL_API void uwSetConnectStartGui(bool startGui);
+	UNNATURAL_API void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
 	UNNATURAL_API void uwSetConnectAsObserver(bool observer);
 
 	UNNATURAL_API bool uwConnectFindLan(uint64 timeoutMicroseconds);
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
-	UNNATURAL_API void uwConnectNewServer(void);
+	UNNATURAL_API void uwConnectNewServer(const char *extraCmdParams);
+
+	UNNATURAL_API void uwStartGame(void);
+	UNNATURAL_API uint64 uwGetLobbyId(void);
+	UNNATURAL_API void uwSuggestCameraPosition(uint32 position);
 
 	// game state and callbacks
 
 	typedef enum UwConnectionStateEnum
 	{
-		Connecting = 1,
-		Connected,
-		Disconnecting,
-		ConnectionError,
+		UwConnectionStateEnum_None = 0,
+		UwConnectionStateEnum_Connecting = 1,
+		UwConnectionStateEnum_Connected = 2,
+		UwConnectionStateEnum_Disconnecting = 3,
+		UwConnectionStateEnum_Error = 4,
 	} UwConnectionStateEnum;
 	typedef void (*UwConnectionStateCallbackType)(UwConnectionStateEnum state);
 	UNNATURAL_API void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
@@ -63,10 +74,11 @@ extern "C"
 
 	typedef enum UwGameStateEnum
 	{
-		Session = 1,
-		Preparation,
-		Game,
-		Finish,
+		UwGameStateEnum_None = 0,
+		UwGameStateEnum_Session = 1,
+		UwGameStateEnum_Preparation = 2,
+		UwGameStateEnum_Game = 3,
+		UwGameStateEnum_Finish = 4,
 	} UwGameStateEnum;
 	typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
 	UNNATURAL_API void uwSetGameStateCallback(UwGameStateCallbackType callback);
@@ -96,6 +108,7 @@ extern "C"
 		uint32 playerEntityId;
 		uint32 forceEntityId;
 		bool primaryController;
+		bool admin;
 	} UwMyPlayer;
 	UNNATURAL_API bool uwMyPlayer(UwMyPlayer *data);
 
@@ -112,20 +125,22 @@ extern "C"
 
 	typedef enum UwOrderTypeEnum
 	{
-		Stop = 1,
-		Guard,
-		Run,
-		Fight,
-		Load,
-		Unload,
-		SelfDestruct,
+		UwOrderTypeEnum_None = 0,
+		UwOrderTypeEnum_Stop = 1,
+		UwOrderTypeEnum_Guard = 2,
+		UwOrderTypeEnum_Run = 3,
+		UwOrderTypeEnum_Fight = 4,
+		UwOrderTypeEnum_Load = 5,
+		UwOrderTypeEnum_Unload = 6,
+		UwOrderTypeEnum_SelfDestruct = 7,
 	} UwOrderTypeEnum;
 	typedef enum UwOrderPriorityFlags
 	{
-		Assistant = 1 << 0,
-		User = 1 << 1,
-		Enqueue = 1 << 2,
-		Repeat = 1 << 3,
+		UwOrderPriorityFlags_None = 0,
+		UwOrderPriorityFlags_Assistant = 1 << 0,
+		UwOrderPriorityFlags_User = 1 << 1,
+		UwOrderPriorityFlags_Enqueue = 1 << 2,
+		UwOrderPriorityFlags_Repeat = 1 << 3,
 	} UwOrderPriorityFlags;
 	typedef struct UwOrder
 	{

@@ -62,11 +62,12 @@ extern "C"
 
 	typedef enum UwOverviewFlags
 	{
-		Resource = 1 << 0,
-		Construction = 1 << 1,
-		MobileUnit = 1 << 2,
-		StaticUnit = 1 << 3,
-		Unit = MobileUnit | StaticUnit,
+		UwOverviewFlags_None = 0,
+		UwOverviewFlags_Resource = 1 << 0,
+		UwOverviewFlags_Construction = 1 << 1,
+		UwOverviewFlags_MobileUnit = 1 << 2,
+		UwOverviewFlags_StaticUnit = 1 << 3,
+		UwOverviewFlags_Unit = UwOverviewFlags_MobileUnit | UwOverviewFlags_StaticUnit,
 	} UwOverviewFlags;
 	UNNATURAL_API UwOverviewFlags uwOverviewFlags(uint32 position);
 	UNNATURAL_API void uwOverviewIds(uint32 position, UwIds *data);
@@ -127,9 +128,10 @@ extern "C"
 
 	typedef enum UwUnitStateFlags
 	{
-		Shooting = 1 << 0,
-		Processing = 1 << 1, // processing recipe
-		Rebuilding = 1 << 2, // changing recipe
+		UwUnitStateFlags_None = 0,
+		UwUnitStateFlags_Shooting = 1 << 0,
+		UwUnitStateFlags_Processing = 1 << 1, // processing recipe
+		UwUnitStateFlags_Rebuilding = 1 << 2, // changing recipe
 	} UwUnitStateFlags;
 	typedef struct UwUnitComponent
 	{
@@ -194,17 +196,19 @@ extern "C"
 
 	typedef enum UwPlayerStateFlags
 	{
-		Loaded = 1 << 0,
-		Pause = 1 << 1,
-		Disconnected = 1 << 2,
-		Admin = 1 << 3,
+		UwPlayerStateFlags_None = 0,
+		UwPlayerStateFlags_Loaded = 1 << 0,
+		UwPlayerStateFlags_Pause = 1 << 1,
+		UwPlayerStateFlags_Disconnected = 1 << 2,
+		UwPlayerStateFlags_Admin = 1 << 3,
 	} UwPlayerStateFlags;
 	typedef enum UwPlayerConnectionClassEnum
 	{
-		Computer = 1,
-		VirtualReality,
-		Robot,
-		UwApi,
+		UwPlayerConnectionClassEnum_None = 0,
+		UwPlayerConnectionClassEnum_Computer = 1,
+		UwPlayerConnectionClassEnum_VirtualReality = 2,
+		UwPlayerConnectionClassEnum_Robot = 3,
+		UwPlayerConnectionClassEnum_UwApi = 4,
 	} UwPlayerConnectionClassEnum;
 	typedef struct UwPlayerComponent
 	{
@@ -221,9 +225,10 @@ extern "C"
 
 	typedef enum UwForceStateFlags
 	{
-		Winner = 1 << 0,
-		Defeated = 1 << 1,
-		AllPlayersDisconnected = 1 << 2,
+		UwForceStateFlags_None = 0,
+		UwForceStateFlags_Winner = 1 << 0,
+		UwForceStateFlags_Defeated = 1 << 1,
+		UwForceStateFlags_Disconnected = 1 << 2,
 	} UwForceStateFlags;
 	typedef struct UwForceComponent
 	{
@@ -246,10 +251,11 @@ extern "C"
 
 	typedef enum UwForeignPolicyEnum
 	{
-		Self = 1,
-		Ally,
-		Neutral,
-		Enemy,
+		UwForeignPolicyEnum_None = 0,
+		UwForeignPolicyEnum_Self = 1,
+		UwForeignPolicyEnum_Ally = 2,
+		UwForeignPolicyEnum_Neutral = 3,
+		UwForeignPolicyEnum_Enemy = 4,
 	} UwForeignPolicyEnum;
 	typedef struct UwForeignPolicyComponent
 	{

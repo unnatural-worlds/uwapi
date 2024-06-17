@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 namespace Unnatural
 {
     using ShootingData = Interop.UwShootingData;
-    using ConnectionState = Interop.UwConnectionStateEnum;
-    using GameState = Interop.UwGameStateEnum;
+    using ConnectionStateEnum = Interop.UwConnectionStateEnum;
+    using GameStateEnum = Interop.UwGameStateEnum;
 
     public static class Game
     {
@@ -20,9 +20,14 @@ namespace Unnatural
             Interop.uwSetPlayerName(name);
         }
 
+        public static void SetPlayerColor(float r, float g, float b)
+        {
+            Interop.uwSetPlayerColor(r, g, b);
+        }
+
         public static void SetStartGui(bool startGui)
         {
-            Interop.uwSetConnectStartGui(startGui);
+            Interop.uwSetConnectStartGui(startGui, "");
         }
 
         public static void ConnectFindLan(ulong timeoutMicroseconds)
@@ -42,7 +47,17 @@ namespace Unnatural
 
         public static void ConnectNewServer()
         {
-            Interop.uwConnectNewServer();
+            Interop.uwConnectNewServer("");
+        }
+
+        public static GameStateEnum GameState()
+        {
+            return Interop.uwGameState();
+        }
+
+        public static ConnectionStateEnum ConnectionState()
+        {
+            return Interop.uwConnectionState();
         }
 
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);
@@ -64,17 +79,17 @@ namespace Unnatural
             Console.WriteLine(Marshal.PtrToStringAnsi(data.message));
         }
 
-        static void ConnectionStateCallback(ConnectionState state)
+        static void ConnectionStateCallback(ConnectionStateEnum state)
         {
             Console.WriteLine("connection state: " + state);
         }
 
-        static void GameStateCallback(GameState state)
+        static void GameStateCallback(GameStateEnum state)
         {
             Console.WriteLine("game state: " + state);
-            if (state == GameState.Preparation)
+            if (state == GameStateEnum.Preparation)
                 Preparing(null, null);
-            if (state == GameState.Finish)
+            if (state == GameStateEnum.Finish)
                 Finished(null, null);
         }
 
