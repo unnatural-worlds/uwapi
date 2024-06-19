@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	const uint32 UW_VERSION = 16;
+	const uint32 UW_VERSION = 17;
 	UNNATURAL_API void uwInitialize(uint32 version);
 
 	typedef void (*UwExceptionCallbackType)(const char *message);
@@ -53,8 +53,10 @@ extern "C"
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
 	UNNATURAL_API void uwConnectNewServer(const char *extraCmdParams);
+	UNNATURAL_API void uwDisconnect(void);
 
 	UNNATURAL_API void uwStartGame(void);
+	UNNATURAL_API void uwTerminateGame(void);
 	UNNATURAL_API uint64 uwGetLobbyId(void);
 	UNNATURAL_API void uwSuggestCameraPosition(uint32 position);
 

@@ -25,12 +25,12 @@ namespace Unnatural
             Interop.uwSetPlayerColor(r, g, b);
         }
 
-        public static void SetStartGui(bool startGui)
+        public static void SetStartGui(bool startGui, string extraParams = "")
         {
-            Interop.uwSetConnectStartGui(startGui, "");
+            Interop.uwSetConnectStartGui(startGui, extraParams);
         }
 
-        public static void ConnectFindLan(ulong timeoutMicroseconds)
+        public static void ConnectFindLan(ulong timeoutMicroseconds = 1000000)
         {
             Interop.uwConnectFindLan(timeoutMicroseconds);
         }
@@ -45,9 +45,14 @@ namespace Unnatural
             Interop.uwConnectLobbyId(lobbyId);
         }
 
-        public static void ConnectNewServer()
+        public static void ConnectNewServer(string extraParams = "")
         {
-            Interop.uwConnectNewServer("");
+            Interop.uwConnectNewServer(extraParams);
+        }
+
+        public static void Disconnect()
+        {
+            Interop.uwDisconnect();
         }
 
         public static GameStateEnum GameState()

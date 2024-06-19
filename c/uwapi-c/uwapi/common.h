@@ -30,8 +30,16 @@ extern "C"
 
 	// prototypes
 
+	typedef enum UwPrototypeTypeEnum
+	{
+		UwPrototypeTypeEnum_None = 0,
+		UwPrototypeTypeEnum_Resource = 1,
+		UwPrototypeTypeEnum_Recipe = 2,
+		UwPrototypeTypeEnum_Construction = 3,
+		UwPrototypeTypeEnum_Unit = 4,
+	} UwPrototypeTypeEnum;
 	UNNATURAL_API void uwAllPrototypes(UwIds *data);
-	UNNATURAL_API uint32 uwPrototypeType(uint32 prototypeId);
+	UNNATURAL_API UwPrototypeTypeEnum uwPrototypeType(uint32 prototypeId);
 	UNNATURAL_API const char *uwPrototypeJson(uint32 prototypeId);
 	UNNATURAL_API const char *uwDefinitionsJson(void);
 

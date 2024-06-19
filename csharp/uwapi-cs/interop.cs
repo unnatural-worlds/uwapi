@@ -23,11 +23,20 @@ namespace Unnatural
             public uint count;
         }
 
+        public enum UwPrototypeTypeEnum
+        {
+            None = 0,
+            Resource = 1,
+            Recipe = 2,
+            Construction = 3,
+            Unit = 4,
+        }
+
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAllPrototypes(ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwPrototypeType(uint prototypeId);
+        public static extern UwPrototypeTypeEnum uwPrototypeType(uint prototypeId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr uwPrototypeJson(uint prototypeId);
@@ -380,7 +389,7 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity, ref UwDiplomacyProposalComponent data);
 
-        public const uint UW_VERSION = 16;
+        public const uint UW_VERSION = 17;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
@@ -455,7 +464,13 @@ namespace Unnatural
         public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwDisconnect();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwStartGame();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwTerminateGame();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong uwGetLobbyId();

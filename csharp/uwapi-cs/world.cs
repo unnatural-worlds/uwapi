@@ -47,7 +47,7 @@ namespace Unnatural
         public static PolicyEnum Policy(dynamic entity)
         {
             if (!Has(entity, "Owner"))
-                return 0;
+                return PolicyEnum.None;
             return World.Policy(entity.Owner.force);
         }
     }
@@ -72,7 +72,7 @@ namespace Unnatural
         public static PolicyEnum Policy(uint force)
         {
             PolicyEnum val;
-            return policies.TryGetValue(force, out val) ? val : 0;
+            return policies.TryGetValue(force, out val) ? val : PolicyEnum.None;
         }
 
         static uint myForce;

@@ -5,6 +5,8 @@ using System.Text.Json;
 
 namespace Unnatural
 {
+    using PrototypeTypeEnum = Interop.UwPrototypeTypeEnum;
+
     public class ProtoResource
     {
         public uint id;
@@ -74,7 +76,7 @@ namespace Unnatural
 
     internal class ProtoGeneric
     {
-        public uint type;
+        public PrototypeTypeEnum type;
         public string name;
         public string json;
     }
@@ -86,10 +88,10 @@ namespace Unnatural
             return all;
         }
 
-        public static uint Type(uint id)
+        public static PrototypeTypeEnum Type(uint id)
         {
             ProtoGeneric tmp;
-            return types.TryGetValue(id, out tmp) ? tmp.type : 0;
+            return types.TryGetValue(id, out tmp) ? tmp.type : PrototypeTypeEnum.None;
         }
 
         public static string Name(uint id)
@@ -177,19 +179,19 @@ namespace Unnatural
                 pg.json = Marshal.PtrToStringAnsi(Interop.uwPrototypeJson(id));
                 switch (pg.type)
                 {
-                    case 1:
+                    case PrototypeTypeEnum.Resource:
                         resources[id] = JsonSerializer.Deserialize<ProtoResource>(pg.json, options);
                         pg.name = resources[id].name;
                         break;
-                    case 2:
+                    case PrototypeTypeEnum.Recipe:
                         recipes[id] = JsonSerializer.Deserialize<ProtoRecipe>(pg.json, options);
                         pg.name = recipes[id].name;
                         break;
-                    case 3:
+                    case PrototypeTypeEnum.Construction:
                         constructions[id] = JsonSerializer.Deserialize<ProtoConstruction>(pg.json, options);
                         pg.name = constructions[id].name;
                         break;
-                    case 4:
+                    case PrototypeTypeEnum.Unit:
                         units[id] = JsonSerializer.Deserialize<ProtoUnit>(pg.json, options);
                         pg.name = units[id].name;
                         break;
