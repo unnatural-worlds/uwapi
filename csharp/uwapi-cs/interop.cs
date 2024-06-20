@@ -467,16 +467,34 @@ namespace Unnatural
         public static extern void uwDisconnect();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwStartGame();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwTerminateGame();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong uwGetLobbyId();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSuggestCameraPosition(uint position);
+        public static extern void uwAdminKickPlayer(uint player);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminPlayerSetName(uint player, [MarshalAs(UnmanagedType.LPStr)] string name);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminPlayerJoinForce(uint player, uint force);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminForceJoinTeam(uint force, uint team);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminForceSetColor(uint force, float r, float g, float b);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminAddAi();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminStartGame();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminTerminateGame();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSendCameraSuggestion(uint position);
 
         public enum UwConnectionStateEnum
         {
@@ -609,9 +627,6 @@ namespace Unnatural
         public static extern void uwOrders(uint unit, ref UwOrders data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandSelfDestruct(uint unit);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandPlaceConstruction(uint proto, uint position, float yaw);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -631,6 +646,9 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandRenounceControl(uint unit);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandSelfDestruct(uint unit);
 
     }
 }

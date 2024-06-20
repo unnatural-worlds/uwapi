@@ -55,10 +55,18 @@ extern "C"
 	UNNATURAL_API void uwConnectNewServer(const char *extraCmdParams);
 	UNNATURAL_API void uwDisconnect(void);
 
-	UNNATURAL_API void uwStartGame(void);
-	UNNATURAL_API void uwTerminateGame(void);
+	// admin only
+
 	UNNATURAL_API uint64 uwGetLobbyId(void);
-	UNNATURAL_API void uwSuggestCameraPosition(uint32 position);
+	UNNATURAL_API void uwAdminKickPlayer(uint32 player);
+	UNNATURAL_API void uwAdminPlayerSetName(uint32 player, const char *name);
+	UNNATURAL_API void uwAdminPlayerJoinForce(uint32 player, uint32 force);
+	UNNATURAL_API void uwAdminForceJoinTeam(uint32 force, uint32 team);
+	UNNATURAL_API void uwAdminForceSetColor(uint32 force, float r, float g, float b);
+	UNNATURAL_API void uwAdminAddAi(void);
+	UNNATURAL_API void uwAdminStartGame(void);
+	UNNATURAL_API void uwAdminTerminateGame(void);
+	UNNATURAL_API void uwSendCameraSuggestion(uint32 position);
 
 	// game state and callbacks
 
@@ -161,7 +169,6 @@ extern "C"
 
 	// commands
 
-	UNNATURAL_API void uwCommandSelfDestruct(uint32 unit);
 	UNNATURAL_API void uwCommandPlaceConstruction(uint32 proto, uint32 position, float yaw);
 	UNNATURAL_API void uwCommandSetRecipe(uint32 unit, uint32 recipe);
 	UNNATURAL_API void uwCommandLoad(uint32 unit, uint32 resourceType);
@@ -169,6 +176,7 @@ extern "C"
 	UNNATURAL_API void uwCommandMove(uint32 unit, uint32 position, float yaw);
 	UNNATURAL_API void uwCommandAim(uint32 unit, uint32 target);
 	UNNATURAL_API void uwCommandRenounceControl(uint32 unit);
+	UNNATURAL_API void uwCommandSelfDestruct(uint32 unit);
 
 #ifdef __cplusplus
 } // extern C
