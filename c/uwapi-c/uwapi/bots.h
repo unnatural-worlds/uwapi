@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	const uint32 UW_VERSION = 17;
+	const uint32 UW_VERSION = 18;
 	UNNATURAL_API void uwInitialize(uint32 version);
 
 	typedef void (*UwExceptionCallbackType)(const char *message);
@@ -66,6 +66,8 @@ extern "C"
 	UNNATURAL_API void uwAdminAddAi(void);
 	UNNATURAL_API void uwAdminStartGame(void);
 	UNNATURAL_API void uwAdminTerminateGame(void);
+	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
+	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
 	UNNATURAL_API void uwSendCameraSuggestion(uint32 position);
 
 	// game state and callbacks

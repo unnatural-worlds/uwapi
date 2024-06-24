@@ -244,6 +244,7 @@ extern "C"
 		uint64 score;
 		uint32 killCount;
 		uint32 lossCount;
+		uint32 finishTimestamp;
 		uint32 team;
 		UwForceStateFlags state;
 	} UwForceComponent;

@@ -337,6 +337,7 @@ namespace Unnatural
             public ulong score;
             public uint killCount;
             public uint lossCount;
+            public uint finishTimestamp;
             public uint team;
             public UwForceStateFlags state;
         }
@@ -389,7 +390,7 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity, ref UwDiplomacyProposalComponent data);
 
-        public const uint UW_VERSION = 17;
+        public const uint UW_VERSION = 18;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
@@ -492,6 +493,12 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminTerminateGame();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetGameSpeed(float speed);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetWeatherSpeed(float speed, float offset);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSendCameraSuggestion(uint position);
