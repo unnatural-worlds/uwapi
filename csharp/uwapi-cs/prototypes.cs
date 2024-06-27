@@ -5,6 +5,7 @@ using System.Text.Json;
 
 namespace Unnatural
 {
+    using MapStateEnum = Interop.UwMapStateEnum;
     using PrototypeTypeEnum = Interop.UwPrototypeTypeEnum;
 
     public class ProtoResource
@@ -220,15 +221,18 @@ namespace Unnatural
             Console.WriteLine("definitions loaded");
         }
 
-        static void Preparing(object sender, EventArgs e)
+        static void MapStateChanged(object sender, MapStateEnum state)
         {
-            LoadPrototypes();
-            LoadDefinitions();
+            if (state == MapStateEnum.Loaded)
+            {
+                LoadPrototypes();
+                LoadDefinitions();
+            }
         }
 
         static Prototypes()
         {
-            Game.Preparing += Preparing;
+            Game.MapStateChanged += MapStateChanged;
         }
     }
 }

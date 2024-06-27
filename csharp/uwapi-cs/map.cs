@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
+    using GameStateEnum = Interop.UwGameStateEnum;
+    using MapStateEnum = Interop.UwMapStateEnum;
     using OverviewFlags = Interop.UwOverviewFlags;
 
     public struct Vector3
@@ -188,14 +190,15 @@ namespace Unnatural
             Console.WriteLine("map loaded");
         }
 
-        static void Preparing(object sender, EventArgs e)
+        static void MapStateChanged(object sender, MapStateEnum state)
         {
-            Load();
+            if (state == MapStateEnum.Loaded)
+                Load();
         }
 
-        static void Updating(object sender, EventArgs e)
+        static void Updating(object sender, bool stepping)
         {
-            if (Interop.uwGameState() == Interop.UwGameStateEnum.Game)
+            if (Game.GameState() == GameStateEnum.Game)
             {
                 Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
                 Interop.uwOverviewExtract(ref ex);
@@ -210,7 +213,7 @@ namespace Unnatural
 
         static Map()
         {
-            Game.Preparing += Preparing;
+            Game.MapStateChanged += MapStateChanged;
             Game.Updating += Updating;
         }
     }

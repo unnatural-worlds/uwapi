@@ -3,16 +3,17 @@ using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
-    using ShootingData = Interop.UwShootingData;
     using ConnectionStateEnum = Interop.UwConnectionStateEnum;
     using GameStateEnum = Interop.UwGameStateEnum;
+    using MapStateEnum = Interop.UwMapStateEnum;
+    using ShootingData = Interop.UwShootingData;
 
     public static class Game
     {
-        public static event EventHandler Preparing;
-        public static event EventHandler Updating;
-        public static event EventHandler<uint> Stepping;
-        public static event EventHandler Finished;
+        public static event EventHandler<ConnectionStateEnum> ConnectionStateChanged;
+        public static event EventHandler<GameStateEnum> GameStateChanged;
+        public static event EventHandler<MapStateEnum> MapStateChanged;
+        public static event EventHandler<bool> Updating;
         public static event EventHandler<ShootingData> Shooting;
 
         public static void SetPlayerName(string name)
@@ -55,22 +56,34 @@ namespace Unnatural
             Interop.uwDisconnect();
         }
 
+        public static ConnectionStateEnum ConnectionState()
+        {
+            return Interop.uwConnectionState();
+        }
+
         public static GameStateEnum GameState()
         {
             return Interop.uwGameState();
         }
 
-        public static ConnectionStateEnum ConnectionState()
+        public static MapStateEnum MapState()
         {
-            return Interop.uwConnectionState();
+            return Interop.uwMapState();
+        }
+
+        public static uint Tick()
+        {
+            return tick;
         }
 
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);
         static readonly Interop.UwLogCallbackType LogDelegate = new Interop.UwLogCallbackType(LogCallback);
         static readonly Interop.UwConnectionStateCallbackType ConnectionStateDelegate = new Interop.UwConnectionStateCallbackType(ConnectionStateCallback);
         static readonly Interop.UwGameStateCallbackType GameStateDelegate = new Interop.UwGameStateCallbackType(GameStateCallback);
+        static readonly Interop.UwMapStateCallbackType MapStateDelegate = new Interop.UwMapStateCallbackType(MapStateCallback);
         static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
         static readonly Interop.UwShootingCallbackType ShootingDelegate = new Interop.UwShootingCallbackType(ShootingCallback);
+        static uint tick;
 
         static void ExceptionCallback([MarshalAs(UnmanagedType.LPStr)] string message)
         {
@@ -87,27 +100,35 @@ namespace Unnatural
         static void ConnectionStateCallback(ConnectionStateEnum state)
         {
             Console.WriteLine("connection state: " + state);
+            if (ConnectionStateChanged != null)
+                ConnectionStateChanged(null, state);
         }
 
         static void GameStateCallback(GameStateEnum state)
         {
             Console.WriteLine("game state: " + state);
-            if (state == GameStateEnum.Preparation)
-                Preparing(null, null);
-            if (state == GameStateEnum.Finish)
-                Finished(null, null);
+            if (GameStateChanged != null)
+                GameStateChanged(null, state);
+        }
+
+        static void MapStateCallback(MapStateEnum state)
+        {
+            Console.WriteLine("map state: " + state);
+            if (MapStateChanged != null)
+                MapStateChanged(null, state);
         }
 
         static void UpdateCallback(uint tick, bool stepping)
         {
-            Updating(null, null);
-            if (stepping)
-                Stepping(null, tick);
+            Game.tick = tick;
+            if (Updating != null)
+                Updating(null, stepping);
         }
 
         static void ShootingCallback(ref ShootingData data)
         {
-            Shooting(null, data);
+            if (Shooting != null)
+                Shooting(null, data);
         }
 
         static Game()
@@ -119,6 +140,7 @@ namespace Unnatural
             Interop.uwSetLogCallback(LogDelegate);
             Interop.uwSetConnectionStateCallback(ConnectionStateDelegate);
             Interop.uwSetGameStateCallback(GameStateDelegate);
+            Interop.uwSetMapStateCallback(MapStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
             Interop.uwSetShootingCallback(ShootingDelegate, true);
 
@@ -130,12 +152,7 @@ namespace Unnatural
 
         static void Destructor(object sender, EventArgs e)
         {
-            Interop.uwSetShootingCallback(null, false);
-            Interop.uwSetUpdateCallback(null);
-            Interop.uwSetGameStateCallback(null);
-            Interop.uwSetConnectionStateCallback(null);
-            Interop.uwSetLogCallback(null);
-            Interop.uwSetExceptionCallback(null);
+            Interop.uwDeinitialize();
         }
     }
 }

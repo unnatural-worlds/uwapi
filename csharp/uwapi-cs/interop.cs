@@ -394,6 +394,9 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwDeinitialize();
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UwExceptionCallbackType([MarshalAs(UnmanagedType.LPStr)] string message);
 
@@ -539,6 +542,25 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern UwGameStateEnum uwGameState();
 
+        public enum UwMapStateEnum
+        {
+            None = 0,
+            Downloading = 1,
+            Loading = 2,
+            Loaded = 3,
+            Unloading = 4,
+            Error = 5,
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwMapStateCallbackType(UwMapStateEnum state);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetMapStateCallback(UwMapStateCallbackType callback);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern UwMapStateEnum uwMapState();
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UwUpdateCallbackType(uint tick, [MarshalAs(UnmanagedType.I1)] bool stepping);
 
@@ -551,6 +573,7 @@ namespace Unnatural
             public uint position;
             public uint force;
             public uint prototype;
+            public uint id;
         }
 
         [StructLayout(LayoutKind.Sequential)]

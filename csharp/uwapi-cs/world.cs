@@ -256,7 +256,7 @@ namespace Unnatural
             }
         }
 
-        static void Updating(object sender, EventArgs e)
+        static void Updating(object sender, bool stepping)
         {
             {
                 Interop.UwMyPlayer tmp = new Interop.UwMyPlayer();

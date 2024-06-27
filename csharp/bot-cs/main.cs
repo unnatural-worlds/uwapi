@@ -9,15 +9,7 @@ namespace Unnatural
     internal class Bot
     {
         readonly Random random = new Random();
-
-        void Preparing(object sender, EventArgs e)
-        {
-            Console.WriteLine("preparing");
-        }
-
-        void Updating(object sender, EventArgs e)
-        {
-        }
+        uint step = 0;
 
         void AttackNearestEnemies()
         {
@@ -54,9 +46,11 @@ namespace Unnatural
             }
         }
 
-        void Stepping(object sender, uint tick)
+        void Updating(object sender, bool stepping)
         {
-            switch (tick % 10)
+            if (!stepping)
+                return;
+            switch (step++ % 10) // save some cpu cycles by splitting work over multiple steps
             {
                 case 1:
                     AttackNearestEnemies();
@@ -65,15 +59,6 @@ namespace Unnatural
                     AssignRandomRecipes();
                     break;
             }
-        }
-
-        void Finished(object sender, EventArgs e)
-        {
-            Console.WriteLine("finished");
-        }
-
-        void Shooting(object sender, Interop.UwShootingData data)
-        {
         }
 
         void Start()
@@ -87,11 +72,7 @@ namespace Unnatural
 
         Bot()
         {
-            Game.Preparing += Preparing;
             Game.Updating += Updating;
-            Game.Stepping += Stepping;
-            Game.Finished += Finished;
-            Game.Shooting += Shooting;
         }
 
         static void Main(string[] args)
