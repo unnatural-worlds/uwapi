@@ -390,7 +390,7 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity, ref UwDiplomacyProposalComponent data);
 
-        public const uint UW_VERSION = 18;
+        public const uint UW_VERSION = 19;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
@@ -466,6 +466,10 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectNewServer([MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwTryReconnect();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwDisconnect();
@@ -583,11 +587,18 @@ namespace Unnatural
             public UwShootingUnit target;
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwShootingArray
+        {
+            public IntPtr data;
+            public uint count;
+        }
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwShootingCallbackType(ref UwShootingData data);
+        public delegate void UwShootingCallbackType(ref UwShootingArray data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetShootingCallback(UwShootingCallbackType callback, [MarshalAs(UnmanagedType.I1)] bool filtering);
+        public static extern void uwSetShootingCallback(UwShootingCallbackType callback);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMyPlayer

@@ -64,9 +64,13 @@ namespace Unnatural
         void Start()
         {
             Game.SetPlayerName("bot-cs");
-            Game.SetStartGui(true);
             Console.WriteLine("starting");
-            Game.ConnectNewServer();
+            if (!Game.TryReconnect())
+            {
+                Game.SetStartGui(true);
+                if (!Game.ConnectFindLan())
+                    Game.ConnectNewServer();
+            }
             Console.WriteLine("done");
         }
 
