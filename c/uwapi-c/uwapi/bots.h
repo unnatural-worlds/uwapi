@@ -54,6 +54,7 @@ extern "C"
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
 	UNNATURAL_API void uwConnectNewServer(const char *extraCmdParams);
+	UNNATURAL_API bool uwTryReconnect(void);
 	UNNATURAL_API void uwDisconnect(void);
 
 	// admin only
@@ -127,8 +128,13 @@ extern "C"
 		UwShootingUnit shooter;
 		UwShootingUnit target;
 	} UwShootingData;
-	typedef void (*UwShootingCallbackType)(const UwShootingData *data);
-	UNNATURAL_API void uwSetShootingCallback(UwShootingCallbackType callback, bool filtering);
+	typedef struct UwShootingArray
+	{
+		const UwShootingData *data;
+		uint32 count;
+	} UwShootingArray;
+	typedef void (*UwShootingCallbackType)(const UwShootingArray *data);
+	UNNATURAL_API void uwSetShootingCallback(UwShootingCallbackType callback);
 
 	// my player
 
