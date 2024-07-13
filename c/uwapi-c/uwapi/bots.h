@@ -10,8 +10,9 @@ extern "C"
 
 	// initialization
 
-	const uint32 UW_VERSION = 18;
+	const uint32 UW_VERSION = 19;
 	UNNATURAL_API void uwInitialize(uint32 version);
+	UNNATURAL_API void uwDeinitialize(void);
 
 	typedef void (*UwExceptionCallbackType)(const char *message);
 	UNNATURAL_API void uwSetExceptionCallback(UwExceptionCallbackType callback);
@@ -53,6 +54,7 @@ extern "C"
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
 	UNNATURAL_API void uwConnectNewServer(const char *extraCmdParams);
+	UNNATURAL_API bool uwTryReconnect(void);
 	UNNATURAL_API void uwDisconnect(void);
 
 	// admin only
@@ -96,22 +98,43 @@ extern "C"
 	UNNATURAL_API void uwSetGameStateCallback(UwGameStateCallbackType callback);
 	UNNATURAL_API UwGameStateEnum uwGameState(void);
 
+	typedef enum UwMapStateEnum
+	{
+		UwMapStateEnum_None = 0,
+		UwMapStateEnum_Downloading = 1,
+		UwMapStateEnum_Loading = 2,
+		UwMapStateEnum_Loaded = 3,
+		UwMapStateEnum_Unloading = 4,
+		UwMapStateEnum_Error = 5,
+	} UwMapStateEnum;
+	typedef void (*UwMapStateCallbackType)(UwMapStateEnum state);
+	UNNATURAL_API void uwSetMapStateCallback(UwMapStateCallbackType callback);
+	UNNATURAL_API UwMapStateEnum uwMapState(void);
+
 	typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
 	UNNATURAL_API void uwSetUpdateCallback(UwUpdateCallbackType callback);
+
+	// shooting callback
 
 	typedef struct UwShootingUnit
 	{
 		uint32 position;
 		uint32 force;
 		uint32 prototype;
+		uint32 id; // beware, it may have expired
 	} UwShootingUnit;
 	typedef struct UwShootingData
 	{
 		UwShootingUnit shooter;
 		UwShootingUnit target;
 	} UwShootingData;
-	typedef void (*UwShootingCallbackType)(const UwShootingData *data);
-	UNNATURAL_API void uwSetShootingCallback(UwShootingCallbackType callback, bool filtering);
+	typedef struct UwShootingArray
+	{
+		const UwShootingData *data;
+		uint32 count;
+	} UwShootingArray;
+	typedef void (*UwShootingCallbackType)(const UwShootingArray *data);
+	UNNATURAL_API void uwSetShootingCallback(UwShootingCallbackType callback);
 
 	// my player
 

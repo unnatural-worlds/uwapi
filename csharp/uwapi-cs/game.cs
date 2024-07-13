@@ -7,6 +7,7 @@ namespace Unnatural
     using GameStateEnum = Interop.UwGameStateEnum;
     using MapStateEnum = Interop.UwMapStateEnum;
     using ShootingData = Interop.UwShootingData;
+    using ShootingArray = Interop.UwShootingArray;
 
     public static class Game
     {
@@ -14,7 +15,7 @@ namespace Unnatural
         public static event EventHandler<GameStateEnum> GameStateChanged;
         public static event EventHandler<MapStateEnum> MapStateChanged;
         public static event EventHandler<bool> Updating;
-        public static event EventHandler<ShootingData> Shooting;
+        public static event EventHandler<ShootingData[]> Shooting;
 
         public static void SetPlayerName(string name)
         {
@@ -31,9 +32,9 @@ namespace Unnatural
             Interop.uwSetConnectStartGui(startGui, extraParams);
         }
 
-        public static void ConnectFindLan(ulong timeoutMicroseconds = 1000000)
+        public static bool ConnectFindLan(ulong timeoutMicroseconds = 1000000)
         {
-            Interop.uwConnectFindLan(timeoutMicroseconds);
+            return Interop.uwConnectFindLan(timeoutMicroseconds);
         }
 
         public static void ConnectDirect(string address, ushort port)
@@ -49,6 +50,11 @@ namespace Unnatural
         public static void ConnectNewServer(string extraParams = "")
         {
             Interop.uwConnectNewServer(extraParams);
+        }
+
+        public static bool TryReconnect()
+        {
+            return Interop.uwTryReconnect();
         }
 
         public static void Disconnect()
@@ -125,10 +131,18 @@ namespace Unnatural
                 Updating(null, stepping);
         }
 
-        static void ShootingCallback(ref ShootingData data)
+        static void ShootingCallback(ref ShootingArray data)
         {
-            if (Shooting != null)
-                Shooting(null, data);
+            if (Shooting == null)
+                return;
+            ShootingData[] arr = new ShootingData[data.count];
+            int size = Marshal.SizeOf(typeof(ShootingData));
+            for (int i = 0; i < data.count; i++)
+            {
+                IntPtr currentPtr = IntPtr.Add(data.data, i * size);
+                arr[i] = Marshal.PtrToStructure<ShootingData>(currentPtr);
+            }
+            Shooting(null, arr);
         }
 
         static Game()
@@ -142,7 +156,7 @@ namespace Unnatural
             Interop.uwSetGameStateCallback(GameStateDelegate);
             Interop.uwSetMapStateCallback(MapStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
-            Interop.uwSetShootingCallback(ShootingDelegate, true);
+            Interop.uwSetShootingCallback(ShootingDelegate);
 
             // make sure that others register their callbacks too
             Prototypes.All();

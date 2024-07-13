@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
-    using GameStateEnum = Interop.UwGameStateEnum;
     using MapStateEnum = Interop.UwMapStateEnum;
     using OverviewFlags = Interop.UwOverviewFlags;
 
@@ -198,7 +197,7 @@ namespace Unnatural
 
         static void Updating(object sender, bool stepping)
         {
-            if (Game.GameState() == GameStateEnum.Game)
+            if (stepping)
             {
                 Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
                 Interop.uwOverviewExtract(ref ex);
