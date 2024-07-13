@@ -22,6 +22,8 @@ extern "C"
 {
 #endif
 
+	static const uint32 UW_GameTicksPerSecond = 20;
+
 	typedef struct UwIds
 	{
 		const uint32 *ids;

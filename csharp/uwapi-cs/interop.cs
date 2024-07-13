@@ -16,6 +16,7 @@ namespace Unnatural
         const string LibName = "unnatural-uwapi-hard";
 #endif
 
+        public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
         {
@@ -467,7 +468,7 @@ namespace Unnatural
         public static extern void uwConnectLobbyId(ulong lobbyId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectNewServer(uint visibility, [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
+        public static extern void uwConnectNewServer(uint visibility, [MarshalAs(UnmanagedType.LPStr)] string name, [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
@@ -665,6 +666,9 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminKickPlayer(uint player);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminPlayerSetAdmin(uint player, [MarshalAs(UnmanagedType.I1)] bool admin);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminPlayerSetName(uint player, [MarshalAs(UnmanagedType.LPStr)] string name);

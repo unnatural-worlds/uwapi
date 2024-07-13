@@ -24,6 +24,16 @@ namespace Unnatural
             return guid;
         }
 
+        public static string Path()
+        {
+            return path;
+        }
+
+        public static uint MaxPlayers()
+        {
+            return maxPlayers;
+        }
+
         public static IReadOnlyList<Vector3> Positions()
         {
             return positions;
@@ -134,6 +144,8 @@ namespace Unnatural
 
         static string name;
         static string guid;
+        static string path;
+        static uint maxPlayers;
         static readonly List<Vector3> positions = new List<Vector3>();
         static readonly List<Vector3> ups = new List<Vector3>();
         static readonly List<uint[]> neighbors = new List<uint[]>();
@@ -148,12 +160,15 @@ namespace Unnatural
             ups.Clear();
             neighbors.Clear();
             terrains.Clear();
+            overview = new OverviewFlags[0];
 
             {
                 Interop.UwMapInfo info = new Interop.UwMapInfo();
                 Interop.uwMapInfo(ref info);
                 name = Marshal.PtrToStringAnsi(info.name);
                 guid = Marshal.PtrToStringAnsi(info.guid);
+                path = Marshal.PtrToStringAnsi(info.path);
+                maxPlayers = info.maxPlayers;
                 Console.WriteLine("map name: " + name);
                 Console.WriteLine("map guid: " + guid);
             }
