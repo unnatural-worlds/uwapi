@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	const uint32 UW_VERSION = 19;
+	const uint32 UW_VERSION = 20;
 	UNNATURAL_API void uwInitialize(uint32 version);
 	UNNATURAL_API void uwDeinitialize(void);
 
@@ -53,24 +53,9 @@ extern "C"
 	UNNATURAL_API bool uwConnectFindLan(uint64 timeoutMicroseconds);
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
-	UNNATURAL_API void uwConnectNewServer(const char *extraCmdParams);
+	UNNATURAL_API void uwConnectNewServer(uint32 visibility, const char *extraCmdParams);
 	UNNATURAL_API bool uwTryReconnect(void);
 	UNNATURAL_API void uwDisconnect(void);
-
-	// admin only
-
-	UNNATURAL_API uint64 uwGetLobbyId(void);
-	UNNATURAL_API void uwAdminKickPlayer(uint32 player);
-	UNNATURAL_API void uwAdminPlayerSetName(uint32 player, const char *name);
-	UNNATURAL_API void uwAdminPlayerJoinForce(uint32 player, uint32 force);
-	UNNATURAL_API void uwAdminForceJoinTeam(uint32 force, uint32 team);
-	UNNATURAL_API void uwAdminForceSetColor(uint32 force, float r, float g, float b);
-	UNNATURAL_API void uwAdminAddAi(void);
-	UNNATURAL_API void uwAdminStartGame(void);
-	UNNATURAL_API void uwAdminTerminateGame(void);
-	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
-	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
-	UNNATURAL_API void uwSendCameraSuggestion(uint32 position);
 
 	// game state and callbacks
 
@@ -202,6 +187,23 @@ extern "C"
 	UNNATURAL_API void uwCommandAim(uint32 unit, uint32 target);
 	UNNATURAL_API void uwCommandRenounceControl(uint32 unit);
 	UNNATURAL_API void uwCommandSelfDestruct(uint32 unit);
+
+	// admin only
+
+	UNNATURAL_API uint64 uwGetLobbyId(void);
+	UNNATURAL_API uint64 uwGetUserId(void);
+	UNNATURAL_API void uwAdminKickPlayer(uint32 player);
+	UNNATURAL_API void uwAdminPlayerSetName(uint32 player, const char *name);
+	UNNATURAL_API void uwAdminPlayerJoinForce(uint32 player, uint32 force);
+	UNNATURAL_API void uwAdminForceJoinTeam(uint32 force, uint32 team);
+	UNNATURAL_API void uwAdminForceSetColor(uint32 force, float r, float g, float b);
+	UNNATURAL_API void uwAdminAddAi(void);
+	UNNATURAL_API void uwAdminStartGame(void);
+	UNNATURAL_API void uwAdminTerminateGame(void);
+	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
+	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
+	UNNATURAL_API void uwSendCameraSuggestion(uint32 position);
+	UNNATURAL_API void uwSendMapSelection(const char *path);
 
 #ifdef __cplusplus
 } // extern C

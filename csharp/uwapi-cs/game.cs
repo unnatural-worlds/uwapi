@@ -47,9 +47,9 @@ namespace Unnatural
             Interop.uwConnectLobbyId(lobbyId);
         }
 
-        public static void ConnectNewServer(string extraParams = "")
+        public static void ConnectNewServer(uint visibility = 0, string extraParams = "")
         {
-            Interop.uwConnectNewServer(extraParams);
+            Interop.uwConnectNewServer(visibility, extraParams);
         }
 
         public static bool TryReconnect()

@@ -49,6 +49,8 @@ extern "C"
 	{
 		const char *name;
 		const char *guid;
+		const char *path;
+		uint32 maxPlayers;
 	} UwMapInfo;
 	UNNATURAL_API bool uwMapInfo(UwMapInfo *data);
 
