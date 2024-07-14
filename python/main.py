@@ -1,5 +1,3 @@
-import os
-from cffi import FFI
 from inspect import getmembers
 
 import uw
@@ -10,7 +8,13 @@ STEAM_PATH = "/data/games/steamapps/common/Unnatural Worlds/bin"
 if __name__ == '__main__':
     game = uw.Game(steam_path=STEAM_PATH)
     game.log("Hello from the example bot!")
+    game.log("this is a mistake", severity=uw.Severity.Error)
     game.set_player_name("tivvit")
+    game.set_player_color(255, 255, 255)
+    # game.connect_lobby_id(123)
+    print(game.connection_state_enum())
+    print(game.map_state_enum())
+    print(game.tick())
 
     # uw_path = STEAM_PATH
     #
