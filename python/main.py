@@ -5,6 +5,13 @@ import uw
 STEAM_PATH = "/data/games/steamapps/common/Unnatural Worlds/bin"
 
 
+def tick_callback_closure(game):
+    def tick_callback(stepping):
+        print(game.tick())
+
+    return tick_callback
+
+
 if __name__ == '__main__':
     game = uw.Game(steam_path=STEAM_PATH)
     game.log("Hello from the example bot!")
@@ -15,6 +22,7 @@ if __name__ == '__main__':
     print(game.connection_state_enum())
     print(game.map_state_enum())
     print(game.tick())
+    game.set_update_callback(tick_callback_closure(game))
 
     # uw_path = STEAM_PATH
     #

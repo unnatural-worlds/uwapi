@@ -1,10 +1,16 @@
 import os
 import sys
 from cffi import FFI
+from typing import Callable
+from typing import List
+
 from .helpers import c_str
 from .helpers import Severity
 from .helpers import ConnectionState
 from .helpers import MapState
+from .helpers import LogCallback
+from .helpers import GameState
+from .helpers import ShootingData
 
 LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
 
@@ -22,16 +28,42 @@ class Game:
         self._ffi = FFI()
         self._ffi.cdef(api_def)
         self._api = self._ffi.dlopen(os.path.join(steam_path, get_lib_name(hardened=hardened)))
-        print(f"api version {self._api.UW_VERSION}")
+        # print(f"api version {self._api.UW_VERSION}")
         self._api.uwInitialize(self._api.UW_VERSION)
 
-        self._log_callback = self._ffi.callback("UwLogCallbackType", self.log_callback)
-        self._log_delegate = self._api.uwSetLogCallback(self._log_callback)
+        self._connection_state_changed_handler = None
+        self._updating_handler = None
+        self._game_state_changed_handler = None
+        self._map_state_changed_handler = None
+        self._shooting_handler = None
 
-        self._update_callback = self._ffi.callback("UwUpdateCallbackType", self.update_callback)
-        self._tick_delegate = self._api.uwSetUpdateCallback(self._update_callback)
-        print("aa")
-        # Interop.uwSetUpdateCallback(UpdateDelegate)
+        self._exception_delegate = self._ffi.callback("UwExceptionCallbackType", self._exception_callback)
+        self._exception_callback_func = self._api.uwSetExceptionCallback(self._exception_delegate)
+
+        self._log_delegate = self._ffi.callback("UwLogCallbackType", self._log_callback)
+        self._log_callback_func = self._api.uwSetLogCallback(self._log_delegate)
+
+        self._connection_state_delegate = self._ffi.callback("UwConnectionStateCallbackType",
+                                                             self._connection_state_callback)
+        self._connection_state_callback = self._api.uwSetConnectionStateCallback(self._connection_state_delegate)
+
+        self._game_state_delegate = self._ffi.callback("UwGameStateCallbackType", self._game_state_callback)
+        self._game_state_callback_func = self._api.uwSetGameStateCallback(self._game_state_delegate)
+
+        self._map_state_delegate = self._ffi.callback("UwMapStateCallbackType", self._map_state_callback)
+        self._map_state_callback_func = self._api.uwSetMapStateCallback(self._map_state_delegate)
+
+        self._update_delegate = self._ffi.callback("UwUpdateCallbackType", self._update_callback)
+        self._update_callback_func = self._api.uwSetUpdateCallback(self._update_delegate)
+
+        self._shooting_delegate = self._ffi.callback("UwShootingCallbackType", self._shooting_callback)
+        self._shooting_callback_func = self._api.uwSetShootingCallback(self._shooting_delegate)
+
+        # TODO
+        #     // make sure that others register their callbacks too
+        #     Prototypes.All();
+        #     Map.Positions();
+        #     World.Entities();
 
         self._tick = 0
 
@@ -74,103 +106,56 @@ class Game:
     def tick(self) -> int:
         return self._tick
 
-    # static void ExceptionCallback([MarshalAs(UnmanagedType.LPStr)] string message)
-    # {
-    #     Console.WriteLine("exception: " + message);
-    #     if (System.Diagnostics.Debugger.IsAttached)
-    #         System.Diagnostics.Debugger.Break();
-    # }
-    #
-    def log_callback(self, data):
-        # TODO data type
-        print(data.severity, self._ffi.string(data.message).decode("utf-8"))
+    def _exception_callback(self, message):
+        print(f"Exception: {self._str(message)}")
 
+    def _log_callback(self, data):
+        log_data = LogCallback(self._str(data.message), self._str(data.component), data.severity)
+        print(f"{log_data.component}\t{log_data.severity}\t{log_data.message}")
 
+    def set_connection_state_callback(self, callback: Callable[[ConnectionState], None]):
+        self._connection_state_changed_handler = callback
 
+    def _connection_state_callback(self, state):
+        connection_state = ConnectionState(state)
+        print(f"Connection state: {connection_state}")
+        if self._connection_state_changed_handler:
+            self._connection_state_changed_handler(connection_state)
 
-    def update_callback(self, tick: int, stepping: bool):
+    def set_game_state_callback(self, callback: Callable[[GameState], None]):
+        self._game_state_changed_handler = callback
+
+    def _game_state_callback(self, state):
+        game_state = GameState(state)
+        print(f"Game state: {game_state}")
+        if self._game_state_changed_handler:
+            self._game_state_changed_handler(game_state)
+
+    def set_map_state_callback(self, callback: Callable[[MapState], None]):
+        self._game_state_changed_handler = callback
+
+    def _map_state_callback(self, state):
+        map_state = MapState(state)
+        print(f"Map state: {map_state}")
+        if self._map_state_changed_handler:
+            self._map_state_changed_handler(map_state)
+
+    def set_update_callback(self, callback: Callable[[bool], None]):
+        self._updating_handler = callback
+
+    def _update_callback(self, tick: int, stepping: bool):
         self._tick = tick
+        if self._updating_handler:
+            self._updating_handler(stepping)
 
-        # TODO ?!
-        #     if (Updating != null)
-        #         Updating(null, stepping);
-        # }
+    def set_shooting_callback(self, callback: Callable[[List[ShootingData]], None]):
+        self._shooting_handler = callback
 
-        # static readonly Interop.UwLogCallbackType LogDelegate = new Interop.UwLogCallbackType(LogCallback);
+    def _shooting_callback(self, shoot_data):
+        # TODO this probably needs ffi.unpack to extract the array
+        shooting_data = ShootingData(shoot_data)
+        if self._shooting_handler:
+            self._shooting_handler(shooting_data)
 
-        #     using GameStateEnum = Interop.UwGameStateEnum;
-        #     using ShootingData = Interop.UwShootingData;
-        #
-        # static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);
-
-        # static readonly Interop.UwConnectionStateCallbackType ConnectionStateDelegate = new Interop.UwConnectionStateCallbackType(ConnectionStateCallback);
-        # static readonly Interop.UwGameStateCallbackType GameStateDelegate = new Interop.UwGameStateCallbackType(GameStateCallback);
-        # static readonly Interop.UwMapStateCallbackType MapStateDelegate = new Interop.UwMapStateCallbackType(MapStateCallback);
-        # static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
-        # static readonly Interop.UwShootingCallbackType ShootingDelegate = new Interop.UwShootingCallbackType(ShootingCallback);
-
-        # static void ExceptionCallback([MarshalAs(UnmanagedType.LPStr)] string message)
-        # {
-        #     Console.WriteLine("exception: " + message);
-        #     if (System.Diagnostics.Debugger.IsAttached)
-        #         System.Diagnostics.Debugger.Break();
-        # }
-        #
-        # static void LogCallback(ref Interop.UwLogCallback data)
-        # {
-        #     Console.WriteLine(Marshal.PtrToStringAnsi(data.message));
-        # }
-        #
-        # static void ConnectionStateCallback(ConnectionStateEnum state)
-        # {
-        #     Console.WriteLine("connection state: " + state);
-        #     if (ConnectionStateChanged != null)
-        #         ConnectionStateChanged(null, state);
-        # }
-        #
-        # static void GameStateCallback(GameStateEnum state)
-        # {
-        #     Console.WriteLine("game state: " + state);
-        #     if (GameStateChanged != null)
-        #         GameStateChanged(null, state);
-        # }
-        #
-        # static void MapStateCallback(MapStateEnum state)
-        # {
-        #     Console.WriteLine("map state: " + state);
-        #     if (MapStateChanged != null)
-        #         MapStateChanged(null, state);
-        # }
-        #
-        # static void UpdateCallback(uint tick, bool stepping)
-        # {
-        #     Game.tick = tick;
-        #     if (Updating != null)
-        #         Updating(null, stepping);
-        # }
-        #
-        # static void ShootingCallback(ref ShootingData data)
-        # {
-        #     if (Shooting != null)
-        #         Shooting(null, data);
-        # }
-        #
-        # static Game()
-        # {
-        #     AppDomain.CurrentDomain.ProcessExit += Destructor;
-        #
-        #     Interop.uwInitialize(Interop.UW_VERSION);
-        #     Interop.uwSetExceptionCallback(ExceptionDelegate);
-        #     Interop.uwSetLogCallback(LogDelegate);
-        #     Interop.uwSetConnectionStateCallback(ConnectionStateDelegate);
-        #     Interop.uwSetGameStateCallback(GameStateDelegate);
-        #     Interop.uwSetMapStateCallback(MapStateDelegate);
-        #     Interop.uwSetUpdateCallback(UpdateDelegate);
-        #     Interop.uwSetShootingCallback(ShootingDelegate, true);
-        #
-        #     // make sure that others register their callbacks too
-        #     Prototypes.All();
-        #     Map.Positions();
-        #     World.Entities();
-        # }
-        #
+    def _str(self, s) -> str:
+        return self._ffi.string(s).decode("utf-8")
