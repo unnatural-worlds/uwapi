@@ -13,7 +13,7 @@ def tick_callback_closure(game):
 
 
 if __name__ == '__main__':
-    game = uw.Game(steam_path=STEAM_PATH)
+    game = uw.Game(steam_path=STEAM_PATH, hardened=True)
     game.log("Hello from the example bot!")
     game.log("this is a mistake", severity=uw.Severity.Error)
     game.set_player_name("tivvit")

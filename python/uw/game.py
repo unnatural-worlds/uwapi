@@ -2,9 +2,10 @@ import os
 import sys
 from cffi import FFI
 from typing import Callable
-from typing import List
 
-from .helpers import c_str
+from .commands import Commands
+from .helpers import _c_str
+from .helpers import _to_str
 from .helpers import Severity
 from .helpers import ConnectionState
 from .helpers import MapState
@@ -45,7 +46,7 @@ class Game:
 
         self._connection_state_delegate = self._ffi.callback("UwConnectionStateCallbackType",
                                                              self._connection_state_callback)
-        self._connection_state_callback = self._api.uwSetConnectionStateCallback(self._connection_state_delegate)
+        self._connection_state_callback_func = self._api.uwSetConnectionStateCallback(self._connection_state_delegate)
 
         self._game_state_delegate = self._ffi.callback("UwGameStateCallbackType", self._game_state_callback)
         self._game_state_callback_func = self._api.uwSetGameStateCallback(self._game_state_delegate)
@@ -64,6 +65,7 @@ class Game:
         #     Prototypes.All();
         #     Map.Positions();
         #     World.Entities();
+        self.commands = Commands(self._api, self._ffi)
 
         self._tick = 0
 
@@ -71,28 +73,28 @@ class Game:
         self._api.uwDeinitialize()
 
     def log(self, message: str, severity: Severity = Severity.Info):
-        self._api.uwLog(severity.value, c_str(message))
+        self._api.uwLog(severity.value, _c_str(message))
 
     def set_player_name(self, name: str):
-        self._api.uwSetPlayerName(c_str(name))
+        self._api.uwSetPlayerName(_c_str(name))
 
     def set_player_color(self, r: float, g: float, b: float):
         self._api.uwSetPlayerColor(r, g, b)
 
     def set_start_gui(self, start_gui: bool, extra_params: str = ""):
-        self._api.uwSetConnectStartGui(start_gui, c_str(extra_params))
+        self._api.uwSetConnectStartGui(start_gui, _c_str(extra_params))
 
     def set_connect_find_lan(self, timeout_ms: int = 1000000):
         self._api.uwConnectFindLan(timeout_ms)
 
     def connect_direct(self, address: str, port: int):
-        self._api.uwConnectDirect(c_str(address), port)
+        self._api.uwConnectDirect(_c_str(address), port)
 
     def connect_lobby_id(self, lobby_id: int):
         self._api.uwConnectLobbyId(lobby_id)
 
     def connect_new_server(self, extra_params: str = ""):
-        self._api.uwConnectNewServer(c_str(extra_params))
+        self._api.uwConnectNewServer(_c_str(extra_params))
 
     def disconnect(self):
         self._api.uwDisconnect()
@@ -107,10 +109,10 @@ class Game:
         return self._tick
 
     def _exception_callback(self, message):
-        print(f"Exception: {self._str(message)}")
+        print(f"Exception: {_to_str(self._ffi, message)}")
 
     def _log_callback(self, data):
-        log_data = LogCallback(self._str(data.message), self._str(data.component), data.severity)
+        log_data = LogCallback.from_c(self._ffi, data)
         print(f"{log_data.component}\t{log_data.severity}\t{log_data.message}")
 
     def set_connection_state_callback(self, callback: Callable[[ConnectionState], None]):
@@ -148,14 +150,10 @@ class Game:
         if self._updating_handler:
             self._updating_handler(stepping)
 
-    def set_shooting_callback(self, callback: Callable[[List[ShootingData]], None]):
+    def set_shooting_callback(self, callback: Callable[[list[ShootingData]], None]):
         self._shooting_handler = callback
 
     def _shooting_callback(self, shoot_data):
-        # TODO this probably needs ffi.unpack to extract the array
-        shooting_data = ShootingData(shoot_data)
+        shooting_data = [ShootingData.from_c(i) for i in self._ffi.unpack(shoot_data.data, shoot_data.count)]
         if self._shooting_handler:
             self._shooting_handler(shooting_data)
-
-    def _str(self, s) -> str:
-        return self._ffi.string(s).decode("utf-8")
