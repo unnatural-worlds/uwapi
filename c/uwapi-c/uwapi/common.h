@@ -22,6 +22,8 @@ extern "C"
 {
 #endif
 
+	static const uint32 UW_GameTicksPerSecond = 20;
+
 	typedef struct UwIds
 	{
 		const uint32 *ids;
@@ -49,6 +51,8 @@ extern "C"
 	{
 		const char *name;
 		const char *guid;
+		const char *path;
+		uint32 maxPlayers;
 	} UwMapInfo;
 	UNNATURAL_API bool uwMapInfo(UwMapInfo *data);
 
