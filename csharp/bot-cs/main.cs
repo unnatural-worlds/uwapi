@@ -79,10 +79,20 @@ namespace Unnatural
             Game.Updating += Updating;
         }
 
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
+            string root = Environment.GetEnvironmentVariable("UNNATURAL_ROOT");
+            if (root == null)
+            {
+                Console.Error.WriteLine("Environment variable UNNATURAL_ROOT must be set.");
+                Console.Error.WriteLine("Eg. <steam path>/steamapps/common/Unnatural Worlds/bin.");
+                return 1;
+            }
+            System.IO.Directory.SetCurrentDirectory(root);
+
             Bot bot = new Bot();
             bot.Start();
+            return 0;
         }
     }
 }
