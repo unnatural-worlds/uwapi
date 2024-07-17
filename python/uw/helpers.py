@@ -62,6 +62,14 @@ class OrderPriority(Enum):
     Repeat = 1 << 3
 
 
+class Prototype(Enum):
+    NONE = 0
+    Resource = 1
+    Recipe = 2
+    Construction = 3
+    Unit = 4
+
+
 class LogCallback:
     def __init__(self, message: str, component: str, severity: Severity):
         self.message = message

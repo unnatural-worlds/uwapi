@@ -22,7 +22,7 @@ if __name__ == '__main__':
     print(game.connection_state_enum())
     print(game.map_state_enum())
     print(game.tick())
-    game.set_update_callback(tick_callback_closure(game))
+    game.add_update_callback(tick_callback_closure(game))
 
     # uw_path = STEAM_PATH
     #

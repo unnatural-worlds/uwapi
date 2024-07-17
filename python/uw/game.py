@@ -1,5 +1,6 @@
 import os
 import sys
+
 from cffi import FFI
 from typing import Callable
 
@@ -12,6 +13,7 @@ from .helpers import MapState
 from .helpers import LogCallback
 from .helpers import GameState
 from .helpers import ShootingData
+from .prototypes import Prototypes
 
 LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
 
@@ -32,11 +34,11 @@ class Game:
         # print(f"api version {self._api.UW_VERSION}")
         self._api.uwInitialize(self._api.UW_VERSION)
 
-        self._connection_state_changed_handler = None
-        self._updating_handler = None
-        self._game_state_changed_handler = None
-        self._map_state_changed_handler = None
-        self._shooting_handler = None
+        self._connection_state_changed_handler = []
+        self._updating_handler = []
+        self._game_state_changed_handler = []
+        self._map_state_changed_handler = []
+        self._shooting_handler = []
 
         self._exception_delegate = self._ffi.callback("UwExceptionCallbackType", self._exception_callback)
         self._exception_callback_func = self._api.uwSetExceptionCallback(self._exception_delegate)
@@ -60,9 +62,9 @@ class Game:
         self._shooting_delegate = self._ffi.callback("UwShootingCallbackType", self._shooting_callback)
         self._shooting_callback_func = self._api.uwSetShootingCallback(self._shooting_delegate)
 
+        self.prototypes = Prototypes(self._api, self._ffi, self)
+        self.prototypes.all()
         # TODO
-        #     // make sure that others register their callbacks too
-        #     Prototypes.All();
         #     Map.Positions();
         #     World.Entities();
         self.commands = Commands(self._api, self._ffi)
@@ -115,45 +117,46 @@ class Game:
         log_data = LogCallback.from_c(self._ffi, data)
         print(f"{log_data.component}\t{log_data.severity}\t{log_data.message}")
 
-    def set_connection_state_callback(self, callback: Callable[[ConnectionState], None]):
+    def add_connection_state_callback(self, callback: Callable[[ConnectionState], None]):
         self._connection_state_changed_handler = callback
 
     def _connection_state_callback(self, state):
         connection_state = ConnectionState(state)
         print(f"Connection state: {connection_state}")
-        if self._connection_state_changed_handler:
-            self._connection_state_changed_handler(connection_state)
+        for eh in self._connection_state_changed_handler:
+            eh(connection_state)
 
-    def set_game_state_callback(self, callback: Callable[[GameState], None]):
-        self._game_state_changed_handler = callback
+    def add_game_state_callback(self, callback: Callable[[GameState], None]):
+        self._game_state_changed_handler.append(callback)
 
     def _game_state_callback(self, state):
         game_state = GameState(state)
         print(f"Game state: {game_state}")
-        if self._game_state_changed_handler:
-            self._game_state_changed_handler(game_state)
+        for eh in self._game_state_changed_handler:
+            eh(game_state)
 
-    def set_map_state_callback(self, callback: Callable[[MapState], None]):
-        self._game_state_changed_handler = callback
+    def add_map_state_callback(self, callback: Callable[[MapState], None]):
+        print(self._map_state_changed_handler)
+        self._map_state_changed_handler.append(callback)
 
     def _map_state_callback(self, state):
         map_state = MapState(state)
         print(f"Map state: {map_state}")
-        if self._map_state_changed_handler:
-            self._map_state_changed_handler(map_state)
+        for eh in self._map_state_changed_handler:
+            eh(map_state)
 
-    def set_update_callback(self, callback: Callable[[bool], None]):
-        self._updating_handler = callback
+    def add_update_callback(self, callback: Callable[[bool], None]):
+        self._updating_handler.append(callback)
 
     def _update_callback(self, tick: int, stepping: bool):
         self._tick = tick
-        if self._updating_handler:
-            self._updating_handler(stepping)
+        for eh in self._updating_handler:
+            eh(stepping)
 
-    def set_shooting_callback(self, callback: Callable[[list[ShootingData]], None]):
-        self._shooting_handler = callback
+    def add_shooting_callback(self, callback: Callable[[list[ShootingData]], None]):
+        self._shooting_handler.append(callback)
 
     def _shooting_callback(self, shoot_data):
         shooting_data = [ShootingData.from_c(i) for i in self._ffi.unpack(shoot_data.data, shoot_data.count)]
-        if self._shooting_handler:
-            self._shooting_handler(shooting_data)
+        for eh in self._shooting_handler:
+            eh(shooting_data)
