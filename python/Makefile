@@ -6,7 +6,7 @@ publish: header
 	twine upload dist/*
 
 header:
-	clang -E ../c/uwapi-c/uwapi/bots.h > uw/bots.h
+	clang -E ../c/uwapi-c/uwapi/bots.h ../c/uwapi-c/uwapi/common.h > uw/bots.h
 
 pypy:
 	strip-hints --to-empty main.py -o main.pypy

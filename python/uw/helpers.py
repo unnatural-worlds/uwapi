@@ -70,6 +70,15 @@ class Prototype(Enum):
     Unit = 4
 
 
+class OverviewFlags(Enum):
+    NONE = 0
+    Resource = 1 << 0
+    Construction = 1 << 1
+    MobileUnit = 1 << 2
+    StaticUnit = 1 << 3
+    Unit = (1 << 2) | (1 << 3)
+
+
 class LogCallback:
     def __init__(self, message: str, component: str, severity: Severity):
         self.message = message

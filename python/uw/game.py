@@ -14,6 +14,7 @@ from .helpers import LogCallback
 from .helpers import GameState
 from .helpers import ShootingData
 from .prototypes import Prototypes
+from .map import Map
 
 LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
 
@@ -64,8 +65,8 @@ class Game:
 
         self.prototypes = Prototypes(self._api, self._ffi, self)
         self.prototypes.all()
+        self.map = Map(self._api, self._ffi, self)
         # TODO
-        #     Map.Positions();
         #     World.Entities();
         self.commands = Commands(self._api, self._ffi)
 
