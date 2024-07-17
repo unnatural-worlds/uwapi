@@ -8,7 +8,7 @@ namespace Unnatural
 
     public static class Commands
     {
-        static readonly uint Invalid = 4294967295;
+        const uint Invalid = 4294967295;
 
         public static Order[] Orders(uint unit)
         {
