@@ -1,6 +1,7 @@
+import math
+
 from .helpers import MapState
 from .helpers import OverviewFlags
-from .game import Game
 
 
 class Vector3:
@@ -11,19 +12,18 @@ class Vector3:
 
 
 class Map:
-    def __init__(self, api, ffi, game: Game):
+    def __init__(self, api, ffi, game):
         self._api = api
         self._ffi = ffi
         self._game = game
 
-        # TODO
         self._game.add_map_state_callback(self._map_state_changed)
         self._game.add_update_callback(self._updating)
 
         self._name: str = ""
         self._guid: str = ""
         self._path: str = ""
-        self._map_players: int = 0
+        self._max_players: int = 0
         self._positions: list[Vector3] = []
         self._ups: list[Vector3] = []
         self._neighbors: list[list[int]] = []
@@ -36,126 +36,84 @@ class Map:
     def guid(self) -> str:
         return self._guid
 
-    #         public static string Path()
-    #         {
-    #             return path;
-    #         }
-    #
-    #         public static uint MaxPlayers()
-    #         {
-    #             return maxPlayers;
-    #         }
-    #
-    #         public static IReadOnlyList<Vector3> Positions()
-    #         {
-    #             return positions;
-    #         }
-    #
-    #         public static IReadOnlyList<Vector3> Ups()
-    #         {
-    #             return ups;
-    #         }
-    #
-    #         public static IReadOnlyList<IReadOnlyList<uint>> Neighbors()
-    #         {
-    #             return neighbors;
-    #         }
-    #
-    #         public static IReadOnlyList<uint> Neighbors(uint position)
-    #         {
-    #             return neighbors[(int)position];
-    #         }
-    #
-    #         public static IReadOnlyList<byte> Terrains()
-    #         {
-    #             return terrains;
-    #         }
-    #
-    #         public static IReadOnlyList<OverviewFlags> Overview()
-    #         {
-    #             return overview;
-    #         }
-    #
-    #         public static uint[] Entities(uint position)
-    #         {
-    #             Interop.UwIds ns = new Interop.UwIds();
-    #             Interop.uwOverviewIds(position, ref ns);
-    #             return InteropHelpers.Ids(ns);
-    #         }
-    #
-    #         public static uint[] AreaRange(Vector3 point, float radius)
-    #         {
-    #             Interop.UwIds tiles = new Interop.UwIds();
-    #             Interop.uwAreaRange(point.x, point.y, point.z, radius, ref tiles);
-    #             return InteropHelpers.Ids(tiles);
-    #         }
-    #
-    #         public static uint[] AreaConnected(uint position, float radius)
-    #         {
-    #             Interop.UwIds tiles = new Interop.UwIds();
-    #             Interop.uwAreaConnected(position, radius, ref tiles);
-    #             return InteropHelpers.Ids(tiles);
-    #         }
-    #
-    #         public static uint[] AreaNeighborhood(uint position, float radius)
-    #         {
-    #             Interop.UwIds tiles = new Interop.UwIds();
-    #             Interop.uwAreaNeighborhood(position, radius, ref tiles);
-    #             return InteropHelpers.Ids(tiles);
-    #         }
-    #
-    #         public static uint[] AreaExtended(uint position, float radius)
-    #         {
-    #             Interop.UwIds tiles = new Interop.UwIds();
-    #             Interop.uwAreaExtended(position, radius, ref tiles);
-    #             return InteropHelpers.Ids(tiles);
-    #         }
-    #
-    #         public static bool TestVisible(Vector3 a, Vector3 b)
-    #         {
-    #             return Interop.uwTestVisible(a.x, a.y, a.z, b.x, b.y, b.z);
-    #         }
-    #
-    #         public static bool TestShooting(uint shooterPosition, uint shooterProto, uint targetPosition, uint targetProto)
-    #         {
-    #             return Interop.uwTestShooting(shooterPosition, shooterProto, targetPosition, targetProto);
-    #         }
-    #
-    #         public static float DistanceLine(uint ai, uint bi)
-    #         {
-    #             Vector3 a = positions[(int)ai];
-    #             Vector3 b = positions[(int)bi];
-    #             float x = a.x - b.x;
-    #             float y = a.y - b.y;
-    #             float z = a.z - b.z;
-    #             x *= x;
-    #             y *= y;
-    #             z *= z;
-    #             return (float)Math.Sqrt(x + y + z);
-    #         }
-    #
-    #         public static float DistanceEstimate(uint a, uint b)
-    #         {
-    #             return Interop.uwDistanceEstimate(a, b);
-    #         }
-    #
-    #         public static float Yaw(uint a, uint b)
-    #         {
-    #             return Interop.uwYaw(a, b);
-    #         }
-    #
-    #         public static bool TestConstructionPlacement(uint constructionPrototype, uint position)
-    #         {
-    #             return Interop.uwTestConstructionPlacement(constructionPrototype, position);
-    #         }
-    #
-    #         public static uint FindConstructionPlacement(uint constructionPrototype, uint position)
-    #         {
-    #             return Interop.uwFindConstructionPlacement(constructionPrototype, position);
-    #         }
-    #
-    #
-    #
+    def path(self) -> str:
+        return self._path
+
+    def max_players(self) -> int:
+        return self._max_players
+
+    def positions(self) -> list[Vector3]:
+        return self._positions
+
+    def ups(self) -> list[Vector3]:
+        return self._ups
+
+    def neighbors(self) -> list[list[int]]:
+        return self._neighbors
+
+    def neighbors_on_pos(self, pos: int) -> list[int]:
+        return self._neighbors[pos]
+
+    def terrains(self) -> list[bytes]:
+        return self._terrains
+
+    def overview(self) -> list[OverviewFlags]:
+        return self._overview
+
+    def entities(self, position: int) -> list[int]:
+        ns = self._ffi.new("struct UwIds *")
+        self._api.uwOverviewIds(position, ns)
+        return self._ffi.unpack(ns)
+
+    def area_range(self, point: Vector3, radius: float) -> list[int]:
+        tiles = self._ffi.new("struct UwIds *")
+        self._api.uwAreaRange(point.x, point.y, point.z, radius, tiles)
+        return self._ffi.unpack(tiles)
+
+    def area_connected(self, position: int, radius: float) -> list[int]:
+        tiles = self._ffi.new("struct UwIds *")
+        self._api.uwAreaConnected(position, radius, tiles)
+        return self._ffi.unpack(tiles)
+
+    def area_neighborhood(self, position: int, radius: float) -> list[int]:
+        tiles = self._ffi.new("struct UwIds *")
+        self._api.uwAreaNeighborhood(position, radius, tiles)
+        return self._ffi.unpack(tiles)
+
+    def area_extended(self, position: int, radius: float) -> list[int]:
+        tiles = self._ffi.new("struct UwIds *")
+        self._api.uwAreaExtended(position, radius, tiles)
+        return self._ffi.unpack(tiles)
+
+    def test_visible(self, a: Vector3, b: Vector3) -> bool:
+        return self._ffi.uwTestVisible(a.x, a.y, a.z, b.x, b.y, b.z)
+
+    def test_shooting(self, shooter_position: int, shooter_proto: int, target_position: int, target_proto: int):
+        return self._ffi.uwTestShooting(shooter_proto, shooter_proto, target_position, target_proto)
+
+    def distance_line(self, ai: int, bi: int) -> float:
+        a: Vector3 = self._positions[ai]
+        b: Vector3 = self._positions[bi]
+        x: float = a.x - b.x
+        y: float = a.y - b.y
+        z: float = a.z - b.z
+        x *= x
+        y *= y
+        z *= z
+        return math.sqrt(x + y + z)
+
+    def distance_estimate(self, a: int, b: int) -> float:
+        return self._api.uwDistanceEstimate(a, b)
+
+    def yaw(self, a: int, b: int) -> float:
+        return self._api.uwDistanceEstimate(a, b)
+
+    def test_construction_placement(self, construction_prototype: int, position: int) -> bool:
+        return self._api.uwTestConstructionPlacement(construction_prototype, position)
+
+    def find_construction_placement(self, construction_prototype: int, position: int) -> bool:
+        return self._api.uwFindConstructionPlacement(construction_prototype, position)
+
     def _load(self):
         print("loading map")
         self._positions = []
@@ -169,7 +127,7 @@ class Map:
         self._name = self._ffi.string(info.name)
         self._guid = self._ffi.string(info.guid)
         self._path = self._ffi.string(info.path)
-        self._map_players = info.maxPlayers
+        self._max_players = info.maxPlayers
         print(f"map name: {self._name}")
         print(f"map guid: {self._guid}")
 
@@ -200,16 +158,3 @@ class Map:
                 self._overview = [OverviewFlags(i) for i in self._ffi.unmarshal(ex.flags, ex.count)]
         else:
             self._overview = []
-
-#     }
-#
-#     public static class InteropHelpers
-#     {
-#         public static uint[] Ids(Interop.UwIds ids)
-#         {
-#             uint[] tmp = new uint[ids.count];
-#             if (ids.count > 0)
-#                 Marshal.Copy(ids.ids, (int[])(object)tmp, 0, (int)ids.count);
-#             return tmp;
-#         }
-#     }

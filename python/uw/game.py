@@ -64,7 +64,6 @@ class Game:
         self._shooting_callback_func = self._api.uwSetShootingCallback(self._shooting_delegate)
 
         self.prototypes = Prototypes(self._api, self._ffi, self)
-        self.prototypes.all()
         self.map = Map(self._api, self._ffi, self)
         # TODO
         #     World.Entities();
