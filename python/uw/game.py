@@ -15,6 +15,7 @@ from .helpers import GameState
 from .helpers import ShootingData
 from .prototypes import Prototypes
 from .map import Map
+from .world import World
 
 LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
 
@@ -63,13 +64,12 @@ class Game:
         self._shooting_delegate = self._ffi.callback("UwShootingCallbackType", self._shooting_callback)
         self._shooting_callback_func = self._api.uwSetShootingCallback(self._shooting_delegate)
 
+        self._tick = 0
+
         self.prototypes = Prototypes(self._api, self._ffi, self)
         self.map = Map(self._api, self._ffi, self)
-        # TODO
-        #     World.Entities();
+        self.world = World(self._api, self._ffi, self)
         self.commands = Commands(self._api, self._ffi)
-
-        self._tick = 0
 
     def __del__(self):
         self._api.uwDeinitialize()
