@@ -194,6 +194,18 @@ extern "C"
 	} UwRecipeStatisticsComponent;
 	UNNATURAL_API bool uwFetchRecipeStatisticsComponent(UwEntity *entity, UwRecipeStatisticsComponent *data);
 
+	typedef enum UwPriorityEnum
+	{
+		UwPriorityEnum_Disabled = 0,
+		UwPriorityEnum_Normal = 1,
+		UwPriorityEnum_High = 2,
+	} UwPriorityEnum;
+	typedef struct UwPriorityComponent
+	{
+		UwPriorityEnum priority;
+	} UwPriorityComponent;
+	UNNATURAL_API bool uwFetchPriorityComponent(UwEntity *entity, UwPriorityComponent *data);
+
 	typedef struct UwAmountComponent
 	{
 		uint32 amount;
