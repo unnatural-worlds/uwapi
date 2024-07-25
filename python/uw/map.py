@@ -89,7 +89,7 @@ class Map:
         return self._ffi.uwTestVisible(a.x, a.y, a.z, b.x, b.y, b.z)
 
     def test_shooting(self, shooter_position: int, shooter_proto: int, target_position: int, target_proto: int):
-        return self._ffi.uwTestShooting(shooter_proto, shooter_proto, target_position, target_proto)
+        return self._ffi.uwTestShooting(shooter_position, shooter_proto, target_position, target_proto)
 
     def distance_line(self, ai: int, bi: int) -> float:
         a: Vector3 = self._positions[ai]
