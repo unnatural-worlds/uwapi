@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	static const uint32 UW_VERSION = 20;
+	static const uint32 UW_VERSION = 21;
 	UNNATURAL_API void uwInitialize(uint32 version);
 	UNNATURAL_API void uwDeinitialize(void);
 
@@ -181,6 +181,7 @@ extern "C"
 
 	UNNATURAL_API void uwCommandPlaceConstruction(uint32 proto, uint32 position, float yaw);
 	UNNATURAL_API void uwCommandSetRecipe(uint32 unit, uint32 recipe);
+	UNNATURAL_API void uwCommandSetPriority(uint32 unit, UwPriorityEnum priority);
 	UNNATURAL_API void uwCommandLoad(uint32 unit, uint32 resourceType);
 	UNNATURAL_API void uwCommandUnload(uint32 unit);
 	UNNATURAL_API void uwCommandMove(uint32 unit, uint32 position, float yaw);

@@ -268,6 +268,23 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchRecipeStatisticsComponent(IntPtr entity, ref UwRecipeStatisticsComponent data);
 
+        public enum UwPriorityEnum
+        {
+            Disabled = 0,
+            Normal = 1,
+            High = 2,
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwPriorityComponent
+        {
+            public UwPriorityEnum priority;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchPriorityComponent(IntPtr entity, ref UwPriorityComponent data);
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwAmountComponent
         {
@@ -639,6 +656,9 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSetRecipe(uint unit, uint recipe);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCommandSetPriority(uint unit, UwPriorityEnum priority);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandLoad(uint unit, uint resourceType);
