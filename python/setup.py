@@ -4,7 +4,6 @@
     Unnatural Worlds API
 """
 
-
 from setuptools import setup, find_packages  # noqa: H301
 
 # To install the library, run the following
@@ -14,7 +13,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "unnatural-worlds-api"
-VERSION = "18.0.0"
+VERSION = "21.0.0"
 PYTHON_REQUIRES = ">=3.7"
 REQUIRES = [
 ]
