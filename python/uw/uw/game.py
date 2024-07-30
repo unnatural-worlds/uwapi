@@ -30,6 +30,7 @@ class Game:
         # TODO load from env
         api_def = open(os.path.join(os.path.split(os.path.abspath(__file__))[0], "bots.h"), "r").read()
         os.chdir(steam_path)
+
         self._ffi = FFI()
         self._ffi.cdef(api_def)
         self._api = self._ffi.dlopen(os.path.join(steam_path, get_lib_name(hardened=hardened)))
