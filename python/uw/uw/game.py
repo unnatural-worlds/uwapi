@@ -99,6 +99,12 @@ class Game:
     def connect_new_server(self, extra_params: str = ""):
         self._api.uwConnectNewServer(_c_str(extra_params))
 
+    def connect_name_server(self, visibility: int, name: str, extra_params=""):
+        self._api.uwConnectNewServer(visibility, _c_str(name), _c_str(extra_params))
+
+    def try_reconnect(self):
+        self._api.uwTryReconnect()
+
     def disconnect(self):
         self._api.uwDisconnect()
 
