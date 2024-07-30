@@ -1,21 +1,3 @@
-#     using Controller = Interop.UwControllerComponent;
-#     using Position = Interop.UwPositionComponent;
-#     using Unit = Interop.UwUnitComponent;
-#     using Life = Interop.UwLifeComponent;
-#     using Move = Interop.UwMoveComponent;
-#     using Aim = Interop.UwAimComponent;
-#     using Recipe = Interop.UwRecipeComponent;
-#     using UpdateTimestamp = Interop.UwUpdateTimestampComponent;
-#     using RecipeStatistics = Interop.UwRecipeStatisticsComponent;
-#     using Amount = Interop.UwAmountComponent;
-#     using Attachment = Interop.UwAttachmentComponent;
-#     using Player = Interop.UwPlayerComponent;
-#     using Force = Interop.UwForceComponent;
-#     using ForceDetails = Interop.UwForceDetailsComponent;
-#     using ForeignPolicy = Interop.UwForeignPolicyComponent;
-#     using DiplomacyProposal = Interop.UwDiplomacyProposalComponent;
-#     using PolicyEnum = Interop.UwForeignPolicyEnum;
-#
 from typing import Any
 from enum import Enum
 
@@ -37,31 +19,6 @@ class Entity:
     def has(entity: dict[str, Any], component: str):
         return component in entity
 
-
-#         public static bool Has(dynamic entity, string component)
-#         {
-#             return ((IDictionary<string, object>)entity).ContainsKey(component);
-#         }
-#
-#         public static bool Has(dynamic entity, IEnumerable<string> components)
-#         {
-#             foreach (var c in components)
-#                 if (!Has(entity, c))
-#                     return false;
-#             return true;
-#         }
-#
-#         public static bool Own(dynamic entity)
-#         {
-#             return Has(entity, "Owner") && entity.Owner.force == World.MyForce();
-#         }
-#
-#         public static PolicyEnum Policy(dynamic entity)
-#         {
-#             if (!Has(entity, "Owner"))
-#                 return PolicyEnum.None;
-#             return World.Policy(entity.Owner.force);
-#         }
 
 class World:
     def __init__(self, api, ffi, game):
