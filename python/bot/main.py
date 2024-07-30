@@ -1,5 +1,3 @@
-from inspect import getmembers
-
 import uw
 
 STEAM_PATH = "/data/games/steamapps/common/Unnatural Worlds/bin"
