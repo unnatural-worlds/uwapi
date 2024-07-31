@@ -6,6 +6,7 @@ from typing import Optional
 from .helpers import MapState
 from .helpers import Prototype
 from .helpers import _c_str
+from .helpers import _to_str
 from .helpers import _unpack_list
 
 
@@ -18,7 +19,7 @@ class ProtoGeneric:
 
 class Prototypes:
     def __init__(self, api, ffi, game):
-        self._api = api,
+        self._api = api
         self._ffi = ffi
         self.game = game
         self.game.add_map_state_callback(self._map_state_changed)
@@ -79,26 +80,26 @@ class Prototypes:
         self._units = {}
 
         for i in self.all_ids():
-            _type = Prototype(self._api.uwPrototypeType(id))
-            js = json.loads(_c_str(self._api.uwPrototypeJson(i)))
+            _type = Prototype(self._api.uwPrototypeType(i))
+            js = json.loads(_to_str(self._ffi, self._api.uwPrototypeJson(i)))
             if _type == Prototype.Resource:
-                self._resources[id] = js
+                self._resources[i] = js
             elif _type == Prototype.Recipe:
-                self._recipes[id] = js
+                self._recipes[i] = js
             elif _type == Prototype.Construction:
-                self._constructions[id] = js
+                self._constructions[i] = js
             elif type == Prototype.Unit:
-                self._units[id] = js
+                self._units[i] = js
 
-            self._types[id] = ProtoGeneric(_type, js["name"], js)
-            self._all.append(id)
+            self._types[i] = ProtoGeneric(_type, js["name"], js)
+            self._all.append(i)
 
         print("prototypes loaded")
 
     def _load_definitions(self):
         print("loading definitions")
 
-        defs = json.loads(_c_str(self._api.uwDefinitionsJson()))
+        defs = json.loads(_to_str(self._ffi, self._api.uwDefinitionsJson()))
         self._hit_chances_table = defs["hitChancesTable"]
         self._terrain_types_table = defs["terrainTypesTable"]
 

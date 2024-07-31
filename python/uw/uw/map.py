@@ -124,7 +124,7 @@ class Map:
         self._overview = []
 
         info = self._ffi.new("struct UwMapInfo *")
-        self._ffi.uwMapInfo(info)
+        self._api.uwMapInfo(info)
         self._name = self._ffi.string(info.name)
         self._guid = self._ffi.string(info.guid)
         self._path = self._ffi.string(info.path)
