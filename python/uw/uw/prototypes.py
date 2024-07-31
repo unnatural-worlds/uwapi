@@ -6,6 +6,7 @@ from typing import Optional
 from .helpers import MapState
 from .helpers import Prototype
 from .helpers import _c_str
+from .helpers import _unpack_list
 
 
 class ProtoGeneric:
@@ -65,7 +66,7 @@ class Prototypes:
     def all_ids(self) -> list[int]:
         ids = self._ffi.new("struct UwIds *")
         self._api.uwAllPrototypes(ids)
-        return self._ffi.unpack(ids)
+        return _unpack_list(self._ffi, ids)
 
     def _load_prototypes(self):
         print("loading prototypes")

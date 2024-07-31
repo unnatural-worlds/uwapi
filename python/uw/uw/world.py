@@ -1,6 +1,8 @@
 from typing import Any
 from enum import Enum
 
+from .helpers import _unpack_list
+
 
 class Policy(Enum):
     NONE = 0
@@ -48,12 +50,14 @@ class World:
     def all_ids(self) -> list[int]:
         ids = self._ffi.new("struct UwIds *")
         self._api.uwAllEntities(ids)
-        return self._ffi.unpack(ids)
+        return _unpack_list(self._ffi, ids)
 
     def modified_ids(self) -> list[int]:
         ids = self._ffi.new("struct UwIds *")
         self._api.uwModifiedEntities(ids)
-        return self._ffi.unpack(ids)
+        if ids.count == 0:
+            return []
+        return _unpack_list(self._ffi, ids)
 
     def _update_removed(self):
         all_ids = set(self.all_ids())
@@ -65,7 +69,7 @@ class World:
             del self._entities[_id]
 
     def _maybe_assign_or_remove(self, e, o, fetch_method):
-        struct = fetch_method.replace("Fetch", "")
+        struct = fetch_method.replace("uwFetch", "Uw")
         field = fetch_method.replace("UwFetch", "").replace("Component", "")
         tmp = self._ffi.new(f"struct {struct} *")
         if getattr(self._api, fetch_method)(e, tmp):
@@ -79,11 +83,11 @@ class World:
             o = self._entities.get(_id, Object())
             o.id = _id
             self._entities[_id] = o
-            e = self._ffi.new("struct uwEntityPointer *", _id)
+            e = self._api.uwEntityPointer(_id)
 
-            self._maybe_assign_or_remove(e, o, "UwFetchProtoComponent")
-            self._maybe_assign_or_remove(e, o, "UwFetchOwnerComponent")
-            self._maybe_assign_or_remove(e, o, "UwFetchControllerComponent")
+            self._maybe_assign_or_remove(e, o, "uwFetchProtoComponent")
+            self._maybe_assign_or_remove(e, o, "uwFetchOwnerComponent")
+            self._maybe_assign_or_remove(e, o, "uwFetchControllerComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchControllerComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchPositionComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchUnitComponent")
@@ -104,9 +108,9 @@ class World:
     def _update_policies(self):
         self._policies = {}
         for e in self._entities.values():
-            if "ForeignPolicy" not in e:
+            if not hasattr(e, "ForeignPolicy"):
                 continue
-            fp = e["ForeignPolicy"]
+            fp = getattr(e, "ForeignPolicy")
             forces = self._ffi.unpack(fp.forces, 2)
             policy = Policy(fp.policy)
             if forces[0] == self._my_force:

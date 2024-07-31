@@ -2,6 +2,7 @@ import math
 
 from .helpers import MapState
 from .helpers import OverviewFlags
+from .helpers import _unpack_list
 
 
 class Vector3:
@@ -63,27 +64,27 @@ class Map:
     def entities(self, position: int) -> list[int]:
         ns = self._ffi.new("struct UwIds *")
         self._api.uwOverviewIds(position, ns)
-        return self._ffi.unpack(ns)
+        return _unpack_list(self._ffi, ns)
 
     def area_range(self, point: Vector3, radius: float) -> list[int]:
         tiles = self._ffi.new("struct UwIds *")
         self._api.uwAreaRange(point.x, point.y, point.z, radius, tiles)
-        return self._ffi.unpack(tiles)
+        return _unpack_list(self._ffi, tiles)
 
     def area_connected(self, position: int, radius: float) -> list[int]:
         tiles = self._ffi.new("struct UwIds *")
         self._api.uwAreaConnected(position, radius, tiles)
-        return self._ffi.unpack(tiles)
+        return _unpack_list(self._ffi, tiles)
 
     def area_neighborhood(self, position: int, radius: float) -> list[int]:
         tiles = self._ffi.new("struct UwIds *")
         self._api.uwAreaNeighborhood(position, radius, tiles)
-        return self._ffi.unpack(tiles)
+        return _unpack_list(self._ffi, tiles)
 
     def area_extended(self, position: int, radius: float) -> list[int]:
         tiles = self._ffi.new("struct UwIds *")
         self._api.uwAreaExtended(position, radius, tiles)
-        return self._ffi.unpack(tiles)
+        return _unpack_list(self._ffi, tiles)
 
     def test_visible(self, a: Vector3, b: Vector3) -> bool:
         return self._ffi.uwTestVisible(a.x, a.y, a.z, b.x, b.y, b.z)
@@ -153,8 +154,8 @@ class Map:
     def _updating(self, stepping: bool):
         if stepping:
             ex = self._ffi.new("struct UwOverviewExtract *")
-            self._api.uwOverviewExtract()
+            self._api.uwOverviewExtract(ex)
             if ex.count > 0:
-                self._overview = [OverviewFlags(i) for i in self._ffi.unmarshal(ex.flags, ex.count)]
+                self._overview = [OverviewFlags(i) for i in self._ffi.unpack(ex.flags, ex.count)]
         else:
             self._overview = []

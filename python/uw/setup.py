@@ -13,7 +13,7 @@ from setuptools import setup, find_packages  # noqa: H301
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 NAME = "unnatural-worlds-api"
-VERSION = "21.2.0"
+VERSION = "21.4.1"
 PYTHON_REQUIRES = ">=3.7"
 REQUIRES = [
 ]

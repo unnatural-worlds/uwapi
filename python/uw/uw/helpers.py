@@ -1,4 +1,6 @@
 from enum import Enum
+from typing import List
+from typing import Any
 
 
 def _c_str(s: str) -> bytes:
@@ -7,6 +9,12 @@ def _c_str(s: str) -> bytes:
 
 def _to_str(ffi, s) -> str:
     return ffi.string(s).decode("utf-8")
+
+
+def _unpack_list(ffi, data) -> List[Any]:
+    if data.count > 0:
+        return ffi.unpack(data.ids, data.count)
+    return []
 
 
 class Severity(Enum):

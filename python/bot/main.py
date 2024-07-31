@@ -21,9 +21,37 @@ class Bot:
 
     def attack_nearest_enemies(self):
         pass
+        # var ownUnits = World.Entities().Values.Where(x => Entity.Own(x) && Entity.Has(x, "Unit") && Prototypes.Unit(x.Proto.proto)?.dps > 0);
+        #             if (ownUnits.Count() == 0)
+        #                 return;
+        #
+        #             var enemyUnits = World.Entities().Values.Where(x => Entity.Policy(x) == PolicyEnum.Enemy && Entity.Has(x, "Unit"));
+        #             if (enemyUnits.Count() == 0)
+        #                 return;
+        #
+        #             foreach (dynamic own in ownUnits)
+        #             {
+        #                 uint id = own.Id;
+        #                 uint pos = own.Position.position;
+        #                 if (Commands.Orders(id).Length == 0)
+        #                 {
+        #                     dynamic enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.Position.position)).First();
+        #                     Commands.Order(id, Commands.FightToEntity(enemy.Id));
+        #                 }
+        #             }
 
     def assign_random_recipes(self):
         pass
+
+    #             foreach (dynamic own in World.Entities().Values.Where(x => Entity.Own(x) && Entity.Has(x, "Unit")))
+    #             {
+    #                 List<uint> recipes = Prototypes.Unit((uint)own.Proto.proto).recipes;
+    #                 if (recipes?.Count > 0)
+    #                 {
+    #                     var recipe = recipes[random.Next(recipes.Count)];
+    #                     Commands.CommandSetRecipe((uint)own.Id, recipe);
+    #                 }
+    #             }
 
     def tick_callback_closure(self):
         def tick_callback(stepping):
@@ -42,7 +70,7 @@ class Bot:
 
 
 if __name__ == '__main__':
-    game = uw.Game(steam_path=STEAM_PATH, hardened=True)
+    game = uw.Game(steam_path=STEAM_PATH)
     game.log("Hello from the example bot!")
     game.log("this is a mistake", severity=uw.Severity.Error)
     game.set_player_name("tivvit")
@@ -54,10 +82,6 @@ if __name__ == '__main__':
 
     bot = Bot(game)
     bot.start()
-
-    print(game.connection_state_enum())
-    print(game.map_state_enum())
-    print(game.tick())
 
     # uw_path = STEAM_PATH
     #

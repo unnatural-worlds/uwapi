@@ -25,7 +25,7 @@ def get_lib_name(hardened=False):
 
 
 class Game:
-    def __init__(self, steam_path: str = "", hardened: bool = False):
+    def __init__(self, steam_path: str = "", hardened: bool = True):
         # TODO automated search for the install path in common locations
         # TODO load from env
         api_def = open(os.path.join(os.path.split(os.path.abspath(__file__))[0], "bots.h"), "r").read()
@@ -96,7 +96,7 @@ class Game:
     def connect_lobby_id(self, lobby_id: int):
         self._api.uwConnectLobbyId(lobby_id)
 
-    def connect_new_server(self, visibility: int, name: str, extra_params=""):
+    def connect_new_server(self, visibility: int = 0, name: str = "", extra_params=""):
         self._api.uwConnectNewServer(visibility, _c_str(name), _c_str(extra_params))
 
     def try_reconnect(self):
