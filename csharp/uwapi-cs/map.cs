@@ -154,7 +154,7 @@ namespace Unnatural
 
         static void Load()
         {
-            Console.WriteLine("loading map");
+            Interop.uwLog(Interop.UwSeverityEnum.Info, "loading map");
 
             positions.Clear();
             ups.Clear();
@@ -169,8 +169,8 @@ namespace Unnatural
                 guid = Marshal.PtrToStringAnsi(info.guid);
                 path = Marshal.PtrToStringAnsi(info.path);
                 maxPlayers = info.maxPlayers;
-                Console.WriteLine("map name: " + name);
-                Console.WriteLine("map guid: " + guid);
+                Interop.uwLog(Interop.UwSeverityEnum.Info, "map name: " + name);
+                Interop.uwLog(Interop.UwSeverityEnum.Info, "map guid: " + guid);
             }
 
             uint count = Interop.uwTilesCount();
@@ -201,7 +201,7 @@ namespace Unnatural
                 terrains.Add(tile.terrain);
             }
 
-            Console.WriteLine("map loaded");
+            Interop.uwLog(Interop.UwSeverityEnum.Info, "map loaded");
         }
 
         static void MapStateChanged(object sender, MapStateEnum state)
