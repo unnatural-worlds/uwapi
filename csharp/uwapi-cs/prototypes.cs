@@ -159,7 +159,7 @@ namespace Unnatural
 
         static void LoadPrototypes()
         {
-            Interop.uwLog(Interop.UwSeverityEnum.Info, "loading prototypes");
+            Game.LogInfo("loading prototypes");
 
             all.Clear();
             types.Clear();
@@ -201,12 +201,12 @@ namespace Unnatural
                 all.Add(id);
             }
 
-            Interop.uwLog(Interop.UwSeverityEnum.Info, "prototypes loaded");
+            Game.LogInfo("prototypes loaded");
         }
 
         static void LoadDefinitions()
         {
-            Interop.uwLog(Interop.UwSeverityEnum.Info, "loading definitions");
+            Game.LogInfo("loading definitions");
 
             var options = new JsonSerializerOptions
             {
@@ -218,7 +218,7 @@ namespace Unnatural
             hitChancesTable = defs.hitChancesTable;
             terrainTypesTable = defs.terrainTypesTable;
 
-            Interop.uwLog(Interop.UwSeverityEnum.Info, "definitions loaded");
+            Game.LogInfo("definitions loaded");
         }
 
         static void MapStateChanged(object sender, MapStateEnum state)

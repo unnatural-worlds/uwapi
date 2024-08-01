@@ -15,6 +15,7 @@ namespace Unnatural
     using Recipe = Interop.UwRecipeComponent;
     using UpdateTimestamp = Interop.UwUpdateTimestampComponent;
     using RecipeStatistics = Interop.UwRecipeStatisticsComponent;
+    using Priority = Interop.UwPriorityComponent;
     using Amount = Interop.UwAmountComponent;
     using Attachment = Interop.UwAttachmentComponent;
     using Player = Interop.UwPlayerComponent;
@@ -188,6 +189,13 @@ namespace Unnatural
                         o.RecipeStatistics = tmp;
                     else
                         ((IDictionary<string, object>)o).Remove("RecipeStatistics");
+                }
+                {
+                    Priority tmp = new Priority();
+                    if (Interop.uwFetchPriorityComponent(e, ref tmp))
+                        o.Priority = tmp;
+                    else
+                        ((IDictionary<string, object>)o).Remove("Priority");
                 }
                 {
                     Amount tmp = new Amount();

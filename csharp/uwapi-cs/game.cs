@@ -17,6 +17,21 @@ namespace Unnatural
         public static event EventHandler<bool> Updating;
         public static event EventHandler<ShootingData[]> Shooting;
 
+        public static void LogInfo(string msg)
+        {
+            Interop.uwLog(Interop.UwSeverityEnum.Info, msg);
+        }
+
+        public static void LogWarning(string msg)
+        {
+            Interop.uwLog(Interop.UwSeverityEnum.Warning, msg);
+        }
+
+        public static void LogError(string msg)
+        {
+            Interop.uwLog(Interop.UwSeverityEnum.Error, msg);
+        }
+
         public static void SetPlayerName(string name)
         {
             Interop.uwSetPlayerName(name);

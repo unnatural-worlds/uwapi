@@ -100,6 +100,11 @@ namespace Unnatural
             Interop.uwCommandSetRecipe(unit, recipe);
         }
 
+        public static void CommandSetPriority(uint unit, Interop.UwPriorityEnum priority)
+        {
+            Interop.uwCommandSetPriority(unit, priority);
+        }
+
         public static void CommandLoad(uint unit, uint resourceType)
         {
             Interop.uwCommandLoad(unit, resourceType);
