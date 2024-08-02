@@ -63,15 +63,15 @@ namespace Unnatural
 
         void Start()
         {
+            Interop.uwLog(Interop.UwSeverityEnum.Info, "starting");
             Game.SetPlayerName("bot-cs");
-            Console.WriteLine("starting");
             if (!Game.TryReconnect())
             {
                 Game.SetStartGui(true);
                 if (!Game.ConnectFindLan())
                     Game.ConnectNewServer();
             }
-            Console.WriteLine("done");
+            Interop.uwLog(Interop.UwSeverityEnum.Info, "done");
         }
 
         Bot()
