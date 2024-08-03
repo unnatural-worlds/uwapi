@@ -1,6 +1,7 @@
 from .helpers import Order
 from .helpers import OrderType
 from .helpers import OrderPriority
+from .helpers import _unpack_list
 
 
 class Commands:
@@ -13,10 +14,15 @@ class Commands:
     def orders(self, unit: int) -> list[Order]:
         os = self._ffi.new("struct UwOrders *")
         self._api.uwOrders(unit, os)
-        return [Order.from_c(o) for o in self._ffi.unpack(os.orders, os.count)]
+        return [Order.from_c(o) for o in _unpack_list(self._ffi, os, "orders")]
 
     def order(self, unit: int, order: Order):
-        self._api.uwOrder(unit, order)
+        o = self._ffi.new("struct UwOrder *")
+        o.entity = order.entity
+        o.position = order.position
+        o.order = int(order.order_type)
+        o.priority = int(order.priority)
+        self._api.uwOrder(unit, o)
 
     def stop(self) -> Order:
         return Order(entity=self.invalid, position=self.invalid, order_type=OrderType.Stop, priority=OrderPriority.User)

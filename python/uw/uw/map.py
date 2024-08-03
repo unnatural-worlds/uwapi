@@ -140,7 +140,7 @@ class Map:
             self._positions.append(p)
             u = Vector3(tile.up[0], tile.up[1], tile.up[2])
             self._ups.append(u)
-            n = self._ffi.unpack(tile.neighborsIndices, tile.neighborsCount)
+            n = self._ffi.unpack(tile.neighborsIndices, tile.neighborsCount) if tile.neighborsCount > 0 else []
             if n:
                 self._neighbors.append(n)
             self._terrains.append(tile.terrain)
@@ -156,6 +156,6 @@ class Map:
             ex = self._ffi.new("struct UwOverviewExtract *")
             self._api.uwOverviewExtract(ex)
             if ex.count > 0:
-                self._overview = [OverviewFlags(i) for i in self._ffi.unpack(ex.flags, ex.count)]
+                self._overview = [OverviewFlags(i) for i in _unpack_list(self._ffi, ex, "flags")]
         else:
             self._overview = []

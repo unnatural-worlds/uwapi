@@ -1,4 +1,7 @@
 from enum import Enum
+from enum import Flag
+from enum import IntEnum
+from enum import IntFlag
 from typing import List
 from typing import Any
 
@@ -11,9 +14,9 @@ def _to_str(ffi, s) -> str:
     return ffi.string(s).decode("utf-8")
 
 
-def _unpack_list(ffi, data) -> List[Any]:
+def _unpack_list(ffi, data, attribute="ids") -> List[Any]:
     if data.count > 0:
-        return ffi.unpack(data.ids, data.count)
+        return ffi.unpack(getattr(data, attribute), data.count)
     return []
 
 
@@ -51,7 +54,7 @@ class GameState(Enum):
     Finish = 4
 
 
-class OrderType(Enum):
+class OrderType(IntEnum):
     NONE = 0
     Stop = 1
     Guard = 2
@@ -62,7 +65,7 @@ class OrderType(Enum):
     SelfDestruct = 7
 
 
-class OrderPriority(Enum):
+class OrderPriority(IntFlag):
     NONE = 0
     Assistant = 1 << 0
     User = 1 << 1
@@ -78,13 +81,13 @@ class Prototype(Enum):
     Unit = 4
 
 
-class OverviewFlags(Enum):
+class OverviewFlags(Flag):
     NONE = 0
     Resource = 1 << 0
     Construction = 1 << 1
     MobileUnit = 1 << 2
     StaticUnit = 1 << 3
-    Unit = (1 << 2) | (1 << 3)
+    Unit = MobileUnit | StaticUnit
 
 
 class LogCallback:
@@ -107,7 +110,7 @@ class Order:
 
     @staticmethod
     def from_c(data):
-        return Order(data.entity, data.position, OrderType(data.order_type), OrderPriority(data.priority))
+        return Order(data.entity, data.position, OrderType(data.order), OrderPriority(data.priority))
 
 
 class ShootingUnit:

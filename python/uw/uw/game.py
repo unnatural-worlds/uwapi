@@ -16,6 +16,7 @@ from .helpers import ShootingData
 from .prototypes import Prototypes
 from .map import Map
 from .world import World
+from .helpers import _unpack_list
 
 _LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
 _STEAM_PATH_ENV_NAME = 'UNNATURAL_ROOT'
@@ -179,6 +180,6 @@ class Game:
         self._shooting_handler.append(callback)
 
     def _shooting_callback(self, shoot_data):
-        shooting_data = [ShootingData.from_c(i) for i in self._ffi.unpack(shoot_data.data, shoot_data.count)]
+        shooting_data = [ShootingData.from_c(i) for i in _unpack_list(self._ffi, shoot_data, "data")]
         for eh in self._shooting_handler:
             eh(shooting_data)

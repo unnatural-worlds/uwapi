@@ -1,3 +1,7 @@
+import random
+
+from inspect import getmembers
+
 import uw
 
 STEAM_PATH = "/data/games/steamapps/common/Unnatural Worlds/bin"
@@ -20,46 +24,43 @@ class Bot:
         print("done")
 
     def attack_nearest_enemies(self):
-        pass
-        # var ownUnits = World.Entities().Values.Where(x => Entity.Own(x) && Entity.Has(x, "Unit") && Prototypes.Unit(x.Proto.proto)?.dps > 0);
-        #             if (ownUnits.Count() == 0)
-        #                 return;
-        #
-        #             var enemyUnits = World.Entities().Values.Where(x => Entity.Policy(x) == PolicyEnum.Enemy && Entity.Has(x, "Unit"));
-        #             if (enemyUnits.Count() == 0)
-        #                 return;
-        #
-        #             foreach (dynamic own in ownUnits)
-        #             {
-        #                 uint id = own.Id;
-        #                 uint pos = own.Position.position;
-        #                 if (Commands.Orders(id).Length == 0)
-        #                 {
-        #                     dynamic enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.Position.position)).First();
-        #                     Commands.Order(id, Commands.FightToEntity(enemy.Id));
-        #                 }
-        #             }
+        own_units = [e for e in self.game.world.entities().values() if
+                     e.own() and e.has("Unit") and self.game.prototypes.unit(e.Proto.proto) and
+                     self.game.prototypes.unit(e.Proto.proto).get("dps", 0) > 0]
+        if not own_units:
+            return
+
+        enemy_units = [e for e in self.game.world.entities().values() if
+                       e.policy() == uw.Policy.Enemy and e.has("Unit")]
+        if not enemy_units:
+            return
+
+        for u in own_units:
+            _id = u.Id
+            pos = u.Position.position
+            if len(self.game.commands.orders(_id)) == 0:
+                enemy = \
+                    sorted(enemy_units,
+                           key=lambda x: self.game.map.distance_estimate(pos, x.Position.position))[0]
+                self.game.commands.order(_id, self.game.commands.fight_to_entity(enemy.Id))
 
     def assign_random_recipes(self):
-        pass
-
-    #             foreach (dynamic own in World.Entities().Values.Where(x => Entity.Own(x) && Entity.Has(x, "Unit")))
-    #             {
-    #                 List<uint> recipes = Prototypes.Unit((uint)own.Proto.proto).recipes;
-    #                 if (recipes?.Count > 0)
-    #                 {
-    #                     var recipe = recipes[random.Next(recipes.Count)];
-    #                     Commands.CommandSetRecipe((uint)own.Id, recipe);
-    #                 }
-    #             }
+        for e in self.game.world.entities().values():
+            if not (e.own() and hasattr(e, "Unit")):
+                continue
+            recipes = self.game.prototypes.unit(e.Proto.proto)
+            if not recipes:
+                continue
+            recipes = recipes["recipes"]
+            if len(recipes) > 0:
+                self.game.commands.command_set_recipe(e.Id, random.choice(recipes))
 
     def tick_callback_closure(self):
         def tick_callback(stepping):
             if not stepping:
                 return
             self.step += 1
-            print(self.game.tick())
-            print(self.step)
+
             if self.step % 10 == 1:
                 self.attack_nearest_enemies()
 
@@ -76,32 +77,6 @@ if __name__ == '__main__':
     game.set_player_name("tivvit")
     game.set_player_color(1, 1, 1)
     # game.connect_lobby_id(123)
-    print(game.connection_state_enum())
-    print(game.map_state_enum())
-    print(game.tick())
 
     bot = Bot(game)
     bot.start()
-
-    # uw_path = STEAM_PATH
-    #
-    # os.chdir(uw_path)
-    # # if os.getcwd() != uw_path:
-    # #     print("we have to go deeper")
-    # #     subprocess.call(["python3", os.path.realpath(__file__)], cwd=uw_path)
-    #
-    # ffi = FFI()
-    #
-    # bots = open("/home/tivvit/git/uwapi/python/bots.h", "r").read()
-    # ffi.cdef(bots)
-    #
-    # uw = ffi.dlopen("/data/games/steamapps/common/Unnatural Worlds/bin/libunnatural-uwapi-hard.so")
-
-    # uw.uwInitialize(uw.UW_VERSION)
-    # uw.uwLog(uw.UwSeverityEnum_Info, c_str("Hello from the example bot"))
-    # uw.uwSetPlayerName(c_str("tivvit"))
-
-    # player = ffi.new("UwMyPlayer *", {})
-    # print(uw.uwMyPlayer(player))
-    # print(getmembers(player))
-    # print(player.playerEntityId)

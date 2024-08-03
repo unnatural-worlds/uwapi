@@ -12,14 +12,21 @@ class Policy(Enum):
     Enemy = 4
 
 
-class Object:
-    pass
-
-
 class Entity:
-    @staticmethod
-    def has(entity: dict[str, Any], component: str):
-        return component in entity
+    def __init__(self, world):
+        self._world = world
+
+    def has(self, component: str):
+        return hasattr(self, component)
+
+    def own(self) -> bool:
+        return self.has("Owner") and self.Owner.force == self._world.my_force()
+
+    def policy(self) -> Policy:
+        if not self.has("Owner"):
+            return Policy.NONE
+
+        return self._world.policy(self.Owner.force)
 
 
 class World:
@@ -43,9 +50,8 @@ class World:
     def entity(self, _id: int) -> Any:
         return self._entities[_id]
 
-    @staticmethod
-    def policy(force: int) -> Policy:
-        return Policy(force) if force in Policy._value2member_map_ else Policy.NONE
+    def policy(self, force: int) -> Policy:
+        return self._policies.get(force, Policy.NONE)
 
     def all_ids(self) -> list[int]:
         ids = self._ffi.new("struct UwIds *")
@@ -70,18 +76,21 @@ class World:
 
     def _maybe_assign_or_remove(self, e, o, fetch_method):
         struct = fetch_method.replace("uwFetch", "Uw")
-        field = fetch_method.replace("UwFetch", "").replace("Component", "")
+        field = fetch_method.replace("uwFetch", "").replace("Component", "")
         tmp = self._ffi.new(f"struct {struct} *")
         if getattr(self._api, fetch_method)(e, tmp):
+            # print(field)
             setattr(o, field, tmp)
+            # print(o)
+            # print(dir(o))
         else:
             if hasattr(o, field):
                 delattr(o, field)
 
     def _update_modified(self):
         for _id in self.modified_ids():
-            o = self._entities.get(_id, Object())
-            o.id = _id
+            o = self._entities.get(_id, Entity(self))
+            o.Id = _id
             self._entities[_id] = o
             e = self._api.uwEntityPointer(_id)
 

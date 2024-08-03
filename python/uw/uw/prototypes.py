@@ -29,10 +29,10 @@ class Prototypes:
 
         self._all: list[int] = []
         self._types: dict[int, ProtoGeneric] = {}
-        self._resources: dict[str, Any] = {}
-        self._recipes: dict[str, Any] = {}
-        self._constructions: dict[str, Any] = {}
-        self._units: dict[str, Any] = {}
+        self._resources: dict[int, Any] = {}
+        self._recipes: dict[int, Any] = {}
+        self._constructions: dict[int, Any] = {}
+        self._units: dict[int, Any] = {}
 
     def all(self) -> list[int]:
         return self._all
@@ -46,16 +46,16 @@ class Prototypes:
     def json(self, _id: int) -> str:
         return self._types[_id].json if _id in self._types else ""
 
-    def resource(self, _id) -> Optional[dict]:
+    def resource(self, _id: int) -> Optional[dict]:
         return self._resources.get(_id)
 
-    def recipes(self, _id) -> Optional[dict]:
+    def recipes(self, _id: int) -> Optional[dict]:
         return self._recipes.get(_id)
 
-    def construction(self, _id) -> Optional[dict]:
+    def construction(self, _id: int) -> Optional[dict]:
         return self._constructions.get(_id)
 
-    def unit(self, _id) -> Optional[dict]:
+    def unit(self, _id: int) -> Optional[dict]:
         return self._units.get(_id)
 
     def hit_chances_table(self):
@@ -88,7 +88,7 @@ class Prototypes:
                 self._recipes[i] = js
             elif _type == Prototype.Construction:
                 self._constructions[i] = js
-            elif type == Prototype.Unit:
+            elif _type == Prototype.Unit:
                 self._units[i] = js
 
             self._types[i] = ProtoGeneric(_type, js["name"], js)
