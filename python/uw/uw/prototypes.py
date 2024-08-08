@@ -64,7 +64,7 @@ class Prototypes:
     def terrain_types_table(self):
         return self._terrain_types_table
 
-    def all_ids(self) -> list[int]:
+    def _all_ids(self) -> list[int]:
         ids = self._ffi.new("struct UwIds *")
         self._api.uwAllPrototypes(ids)
         return _unpack_list(self._ffi, ids)
@@ -79,7 +79,7 @@ class Prototypes:
         self._constructions = {}
         self._units = {}
 
-        for i in self.all_ids():
+        for i in self._all_ids():
             _type = Prototype(self._api.uwPrototypeType(i))
             js = json.loads(_to_str(self._ffi, self._api.uwPrototypeJson(i)))
             if _type == Prototype.Resource:

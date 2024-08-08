@@ -22,14 +22,14 @@ _LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
 _STEAM_PATH_ENV_NAME = 'UNNATURAL_ROOT'
 
 
-def get_lib_name(hardened=False):
+def get_lib_name(hardened=True):
     return _LIB_NAME_PATTERN.format("-hard" if hardened else "", "dll" if sys.platform == "win32" else "so")
 
 
 def get_default_steam_location():
     if sys.platform == "win32":
         return "C:\\Program Files (x86)\\Steam\\common\\Unnatural Worlds\\bin"
-    return "~/. local/share/Steam/common/Unnatural Worlds/bin"
+    return os.path.expanduser("~/.local/share/Steam/common/Unnatural Worlds/bin")
 
 
 def get_steam_path(steam_path: str) -> str:

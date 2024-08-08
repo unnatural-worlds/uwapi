@@ -53,23 +53,21 @@ class World:
     def policy(self, force: int) -> Policy:
         return self._policies.get(force, Policy.NONE)
 
-    def all_ids(self) -> list[int]:
+    def _all_ids(self) -> list[int]:
         ids = self._ffi.new("struct UwIds *")
         self._api.uwAllEntities(ids)
         return _unpack_list(self._ffi, ids)
 
-    def modified_ids(self) -> list[int]:
+    def _modified_ids(self) -> list[int]:
         ids = self._ffi.new("struct UwIds *")
         self._api.uwModifiedEntities(ids)
-        if ids.count == 0:
-            return []
         return _unpack_list(self._ffi, ids)
 
     def _update_removed(self):
-        all_ids = set(self.all_ids())
+        all_ids = set(self._all_ids())
         removed = []
         for _id in self._entities.keys():
-            if id in all_ids:
+            if _id not in all_ids:
                 removed.append(_id)
         for _id in removed:
             del self._entities[_id]
@@ -88,7 +86,7 @@ class World:
                 delattr(o, field)
 
     def _update_modified(self):
-        for _id in self.modified_ids():
+        for _id in self._modified_ids():
             o = self._entities.get(_id, Entity(self))
             o.Id = _id
             self._entities[_id] = o
@@ -96,7 +94,6 @@ class World:
 
             self._maybe_assign_or_remove(e, o, "uwFetchProtoComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchOwnerComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchControllerComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchControllerComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchPositionComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchUnitComponent")
@@ -106,6 +103,7 @@ class World:
             self._maybe_assign_or_remove(e, o, "uwFetchRecipeComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchUpdateTimestampComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchRecipeStatisticsComponent")
+            self._maybe_assign_or_remove(e, o, "uwFetchPriorityComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchAmountComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchAttachmentComponent")
             self._maybe_assign_or_remove(e, o, "uwFetchPlayerComponent")

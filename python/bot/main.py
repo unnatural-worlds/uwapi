@@ -74,8 +74,7 @@ if __name__ == '__main__':
     game = uw.Game(steam_path=STEAM_PATH)
     game.log("Hello from the example bot!")
     game.log("this is a mistake", severity=uw.Severity.Error)
-    game.set_player_name("tivvit")
-    game.set_player_color(1, 1, 1)
+    game.set_player_name("the_best_player")
     # game.connect_lobby_id(123)
 
     bot = Bot(game)
