@@ -90,6 +90,12 @@ class OverviewFlags(Flag):
     Unit = MobileUnit | StaticUnit
 
 
+class Priority(Enum):
+    Disabled = 0,
+    Normal = 1,
+    High = 2,
+
+
 class LogCallback:
     def __init__(self, message: str, component: str, severity: Severity):
         self.message = message

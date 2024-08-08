@@ -1,6 +1,7 @@
 from .helpers import Order
 from .helpers import OrderType
 from .helpers import OrderPriority
+from .helpers import Priority
 from .helpers import _unpack_list
 
 
@@ -55,6 +56,9 @@ class Commands:
 
     def command_set_recipe(self, unit: int, recipe: int):
         self._api.uwCommandSetRecipe(unit, recipe)
+
+    def command_set_priority(self, unit: int, priority: Priority):
+        self._api.uwCommandSetPriority(unit, priority)
 
     def command_load(self, unit: int, resource_type: int):
         self._api.uwCommandLoad(unit, resource_type)
