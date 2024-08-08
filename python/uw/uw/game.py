@@ -84,8 +84,6 @@ class Game:
 
         self._tick = 0
 
-        print(self._api)
-
         self.prototypes = Prototypes(self._api, self._ffi, self)
         self.map = Map(self._api, self._ffi, self)
         self.world = World(self._api, self._ffi, self)
