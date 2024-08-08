@@ -17,7 +17,9 @@ class Bot:
         print("starting")
         if not self.game.try_reconnect():
             self.game.set_start_gui(True)
-            if not self.game.set_connect_find_lan():
+            # self.game.set_start_gui(True, "--observer") # for lobby connection
+            # game.connect_lobby_id(123) # comment out lan
+            if not self.game.connect_find_lan():
                 self.game.connect_new_server()
         print("done")
 
@@ -74,7 +76,6 @@ if __name__ == '__main__':
     game.log("Hello from the example bot!")
     game.log("this is a mistake", severity=uw.Severity.Error)
     game.set_player_name("the_best_bot_player")
-    # game.connect_lobby_id(123)
 
     bot = Bot(game)
     bot.start()

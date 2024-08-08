@@ -4,6 +4,9 @@
 
 To install the bot, you will need to have Python 3 installed. Once you have it, you can create a virtual environment:
 
+Or follow this if you are on Win.
+https://mothergeo-py.readthedocs.io/en/latest/development/how-to/venv-win.html
+
 ```bash
 python3 -m venv venv
 ```

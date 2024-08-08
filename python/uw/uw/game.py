@@ -18,12 +18,14 @@ from .map import Map
 from .world import World
 from .helpers import _unpack_list
 
-_LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
+_LIB_NAME_PATTERN = "{}unnatural-uwapi{}.{}"
 _STEAM_PATH_ENV_NAME = 'UNNATURAL_ROOT'
 
 
 def get_lib_name(hardened=True):
-    return _LIB_NAME_PATTERN.format("-hard" if hardened else "", "dll" if sys.platform == "win32" else "so")
+    return _LIB_NAME_PATTERN.format("" if sys.platform == "win32" else "lib",
+                                    "-hard" if hardened else "",
+                                    "dll" if sys.platform == "win32" else "so")
 
 
 def get_default_steam_location():
@@ -84,8 +86,6 @@ class Game:
 
         self._tick = 0
 
-        print(self._api)
-
         self.prototypes = Prototypes(self._api, self._ffi, self)
         self.map = Map(self._api, self._ffi, self)
         self.world = World(self._api, self._ffi, self)
@@ -106,7 +106,7 @@ class Game:
     def set_start_gui(self, start_gui: bool, extra_params: str = ""):
         self._api.uwSetConnectStartGui(start_gui, _c_str(extra_params))
 
-    def set_connect_find_lan(self, timeout_ms: int = 1000000):
+    def connect_find_lan(self, timeout_ms: int = 1000000):
         self._api.uwConnectFindLan(timeout_ms)
 
     def connect_direct(self, address: str, port: int):
