@@ -21,8 +21,8 @@ class Prototypes:
     def __init__(self, api, ffi, game):
         self._api = api
         self._ffi = ffi
-        self.game = game
-        self.game.add_map_state_callback(self._map_state_changed)
+        self._game = game
+        self._game.add_map_state_callback(self._map_state_changed)
 
         self._hit_chances_table: dict[str, Any]
         self._terrain_types_table: dict[str, Any]
@@ -70,7 +70,7 @@ class Prototypes:
         return _unpack_list(self._ffi, ids)
 
     def _load_prototypes(self):
-        print("loading prototypes")
+        self._game.log("loading prototypes")
 
         self._all = []
         self._types = {}
@@ -94,16 +94,16 @@ class Prototypes:
             self._types[i] = ProtoGeneric(_type, js["name"], js)
             self._all.append(i)
 
-        print("prototypes loaded")
+        self._game.log("prototypes loaded")
 
     def _load_definitions(self):
-        print("loading definitions")
+        self._game.log("loading definitions")
 
         defs = json.loads(_to_str(self._ffi, self._api.uwDefinitionsJson()))
         self._hit_chances_table = defs["hitChancesTable"]
         self._terrain_types_table = defs["terrainTypesTable"]
 
-        print("definitions loaded")
+        self._game.log("definitions loaded")
 
     def _map_state_changed(self, state: MapState):
         if state == MapState.Loaded:

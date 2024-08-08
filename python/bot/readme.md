@@ -15,6 +15,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Set the STEAM_PATH env variable (if you are not using the standard path) and run the bot.
+
+```bash
+export UNNATURAL_ROOT="~/.local/share/Steam/common/Unnatural Worlds/bin"
+python main.py
+```
+
 ## Steam in Flatpak
 
 If you have Steam installed via Flatpak we have bad news for you ...

@@ -107,7 +107,7 @@ class Map:
         return self._api.uwDistanceEstimate(a, b)
 
     def yaw(self, a: int, b: int) -> float:
-        return self._api.uwDistanceEstimate(a, b)
+        return self._api.uwYaw(a, b)
 
     def test_construction_placement(self, construction_prototype: int, position: int) -> bool:
         return self._api.uwTestConstructionPlacement(construction_prototype, position)
@@ -116,7 +116,7 @@ class Map:
         return self._api.uwFindConstructionPlacement(construction_prototype, position)
 
     def _load(self):
-        print("loading map")
+        self._game.log("loading map")
         self._positions = []
         self._ups = []
         self._neighbors = []
@@ -129,8 +129,8 @@ class Map:
         self._guid = self._ffi.string(info.guid)
         self._path = self._ffi.string(info.path)
         self._max_players = info.maxPlayers
-        print(f"map name: {self._name}")
-        print(f"map guid: {self._guid}")
+        self._game.log(f"map name: {self._name}")
+        self._game.log(f"map guid: {self._guid}")
 
         count = self._api.uwTilesCount()
         tile = self._ffi.new("struct UwTile *")
@@ -145,7 +145,7 @@ class Map:
                 self._neighbors.append(n)
             self._terrains.append(tile.terrain)
 
-        print("map loaded")
+        self._game.log("map loaded")
 
     def _map_state_changed(self, map_state: MapState):
         if map_state == MapState.Loaded:
@@ -157,5 +157,7 @@ class Map:
             self._api.uwOverviewExtract(ex)
             if ex.count > 0:
                 self._overview = [OverviewFlags(i) for i in _unpack_list(self._ffi, ex, "flags")]
+            else:
+                self._overview = []
         else:
             self._overview = []

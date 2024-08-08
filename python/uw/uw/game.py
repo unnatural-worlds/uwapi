@@ -29,7 +29,7 @@ def get_lib_name(hardened=True):
 def get_default_steam_location():
     if sys.platform == "win32":
         return "C:\\Program Files (x86)\\Steam\\common\\Unnatural Worlds\\bin"
-    return os.path.expanduser("~/.local/share/Steam/common/Unnatural Worlds/bin")
+    return "~/.local/share/Steam/common/Unnatural Worlds/bin"
 
 
 def get_steam_path(steam_path: str) -> str:
@@ -43,7 +43,7 @@ def get_steam_path(steam_path: str) -> str:
 
 class Game:
     def __init__(self, steam_path: str = "", hardened: bool = True):
-        steam_path = get_steam_path(steam_path)
+        steam_path = os.path.expanduser(get_steam_path(steam_path))
 
         api_def = open(os.path.join(os.path.split(os.path.abspath(__file__))[0], "bots.h"), "r").read()
         os.chdir(steam_path)
