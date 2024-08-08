@@ -18,12 +18,14 @@ from .map import Map
 from .world import World
 from .helpers import _unpack_list
 
-_LIB_NAME_PATTERN = "libunnatural-uwapi{}.{}"
+_LIB_NAME_PATTERN = "{}unnatural-uwapi{}.{}"
 _STEAM_PATH_ENV_NAME = 'UNNATURAL_ROOT'
 
 
 def get_lib_name(hardened=True):
-    return _LIB_NAME_PATTERN.format("-hard" if hardened else "", "dll" if sys.platform == "win32" else "so")
+    return _LIB_NAME_PATTERN.format("" if sys.platform == "win32" else "lib",
+                                    "-hard" if hardened else "",
+                                    "dll" if sys.platform == "win32" else "so")
 
 
 def get_default_steam_location():
