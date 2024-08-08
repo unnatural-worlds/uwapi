@@ -106,7 +106,7 @@ class Game:
     def set_start_gui(self, start_gui: bool, extra_params: str = ""):
         self._api.uwSetConnectStartGui(start_gui, _c_str(extra_params))
 
-    def set_connect_find_lan(self, timeout_ms: int = 1000000):
+    def connect_find_lan(self, timeout_ms: int = 1000000):
         self._api.uwConnectFindLan(timeout_ms)
 
     def connect_direct(self, address: str, port: int):
