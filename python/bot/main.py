@@ -15,9 +15,9 @@ class Bot:
 
     def start(self):
         print("starting")
-        # game.connect_lobby_id(123)
         if not self.game.try_reconnect():
             self.game.set_start_gui(True)
+            # game.connect_lobby_id(123) # comment out lan
             if not self.game.set_connect_find_lan():
                 self.game.connect_new_server()
         print("done")
