@@ -112,7 +112,7 @@ class Map:
     def test_construction_placement(self, construction_prototype: int, position: int) -> bool:
         return self._api.uwTestConstructionPlacement(construction_prototype, position)
 
-    def find_construction_placement(self, construction_prototype: int, position: int) -> bool:
+    def find_construction_placement(self, construction_prototype: int, position: int) -> int:
         return self._api.uwFindConstructionPlacement(construction_prototype, position)
 
     def _load(self):
