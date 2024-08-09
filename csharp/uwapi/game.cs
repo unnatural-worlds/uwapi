@@ -42,7 +42,7 @@ namespace Unnatural
             Interop.uwSetPlayerColor(r, g, b);
         }
 
-        public static void SetStartGui(bool startGui, string extraParams = "")
+        public static void SetStartGui(bool startGui, string extraParams = "--observer 1")
         {
             Interop.uwSetConnectStartGui(startGui, extraParams);
         }
@@ -120,21 +120,18 @@ namespace Unnatural
 
         static void ConnectionStateCallback(ConnectionStateEnum state)
         {
-            Console.WriteLine("connection state: " + state);
             if (ConnectionStateChanged != null)
                 ConnectionStateChanged(null, state);
         }
 
         static void GameStateCallback(GameStateEnum state)
         {
-            Console.WriteLine("game state: " + state);
             if (GameStateChanged != null)
                 GameStateChanged(null, state);
         }
 
         static void MapStateCallback(MapStateEnum state)
         {
-            Console.WriteLine("map state: " + state);
             if (MapStateChanged != null)
                 MapStateChanged(null, state);
         }

@@ -77,10 +77,7 @@ class World:
         field = fetch_method.replace("uwFetch", "").replace("Component", "")
         tmp = self._ffi.new(f"struct {struct} *")
         if getattr(self._api, fetch_method)(e, tmp):
-            # print(field)
             setattr(o, field, tmp)
-            # print(o)
-            # print(dir(o))
         else:
             if hasattr(o, field):
                 delattr(o, field)

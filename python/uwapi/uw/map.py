@@ -52,7 +52,7 @@ class Map:
     def neighbors(self) -> list[list[int]]:
         return self._neighbors
 
-    def neighbors_on_pos(self, pos: int) -> list[int]:
+    def neighbors_of_position(self, pos: int) -> list[int]:
         return self._neighbors[pos]
 
     def terrains(self) -> list[bytes]:
@@ -89,8 +89,16 @@ class Map:
     def test_visible(self, a: Vector3, b: Vector3) -> bool:
         return self._ffi.uwTestVisible(a.x, a.y, a.z, b.x, b.y, b.z)
 
-    def test_shooting(self, shooter_position: int, shooter_proto: int, target_position: int, target_proto: int):
-        return self._ffi.uwTestShooting(shooter_position, shooter_proto, target_position, target_proto)
+    def test_shooting(
+        self,
+        shooter_position: int,
+        shooter_proto: int,
+        target_position: int,
+        target_proto: int,
+    ) -> bool:
+        return self._ffi.uwTestShooting(
+            shooter_position, shooter_proto, target_position, target_proto
+        )
 
     def distance_line(self, ai: int, bi: int) -> float:
         a: Vector3 = self._positions[ai]
@@ -109,10 +117,14 @@ class Map:
     def yaw(self, a: int, b: int) -> float:
         return self._api.uwYaw(a, b)
 
-    def test_construction_placement(self, construction_prototype: int, position: int) -> bool:
+    def test_construction_placement(
+        self, construction_prototype: int, position: int
+    ) -> bool:
         return self._api.uwTestConstructionPlacement(construction_prototype, position)
 
-    def find_construction_placement(self, construction_prototype: int, position: int) -> int:
+    def find_construction_placement(
+        self, construction_prototype: int, position: int
+    ) -> int:
         return self._api.uwFindConstructionPlacement(construction_prototype, position)
 
     def _load(self):
@@ -129,8 +141,6 @@ class Map:
         self._guid = self._ffi.string(info.guid)
         self._path = self._ffi.string(info.path)
         self._max_players = info.maxPlayers
-        self._game.log(f"map name: {self._name}")
-        self._game.log(f"map guid: {self._guid}")
 
         count = self._api.uwTilesCount()
         tile = self._ffi.new("struct UwTile *")
@@ -140,9 +150,12 @@ class Map:
             self._positions.append(p)
             u = Vector3(tile.up[0], tile.up[1], tile.up[2])
             self._ups.append(u)
-            n = self._ffi.unpack(tile.neighborsIndices, tile.neighborsCount) if tile.neighborsCount > 0 else []
-            if n:
-                self._neighbors.append(n)
+            n = (
+                self._ffi.unpack(tile.neighborsIndices, tile.neighborsCount)
+                if tile.neighborsCount > 0
+                else []
+            )
+            self._neighbors.append(n)
             self._terrains.append(tile.terrain)
 
         self._game.log("map loaded")
@@ -156,7 +169,9 @@ class Map:
             ex = self._ffi.new("struct UwOverviewExtract *")
             self._api.uwOverviewExtract(ex)
             if ex.count > 0:
-                self._overview = [OverviewFlags(i) for i in _unpack_list(self._ffi, ex, "flags")]
+                self._overview = [
+                    OverviewFlags(i) for i in _unpack_list(self._ffi, ex, "flags")
+                ]
             else:
                 self._overview = []
         else:

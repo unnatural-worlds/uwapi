@@ -169,8 +169,6 @@ namespace Unnatural
                 guid = Marshal.PtrToStringAnsi(info.guid);
                 path = Marshal.PtrToStringAnsi(info.path);
                 maxPlayers = info.maxPlayers;
-                Game.LogInfo("map name: " + name);
-                Game.LogInfo("map guid: " + guid);
             }
 
             uint count = Interop.uwTilesCount();

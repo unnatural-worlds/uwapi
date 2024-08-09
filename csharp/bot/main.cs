@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
@@ -63,15 +64,18 @@ namespace Unnatural
 
         void Start()
         {
-            Interop.uwLog(Interop.UwSeverityEnum.Info, "starting");
+            Game.LogInfo("starting");
             Game.SetPlayerName("bot-cs");
             if (!Game.TryReconnect())
             {
                 Game.SetStartGui(true);
-                if (!Game.ConnectFindLan())
+                string lobby = Environment.GetEnvironmentVariable("UNNATURAL_LOBBY");
+                if (lobby != null)
+                    Game.ConnectLobbyId(ulong.Parse(lobby));
+                else
                     Game.ConnectNewServer();
             }
-            Interop.uwLog(Interop.UwSeverityEnum.Info, "done");
+            Game.LogInfo("done");
         }
 
         Bot()
@@ -84,9 +88,10 @@ namespace Unnatural
             string root = Environment.GetEnvironmentVariable("UNNATURAL_ROOT");
             if (root == null)
             {
-                Console.Error.WriteLine("Environment variable UNNATURAL_ROOT must be set.");
-                Console.Error.WriteLine("Eg. <steam path>/steamapps/common/Unnatural Worlds/bin.");
-                return 1;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    root = "C:/Program Files (x86)/Steam/steamapps/common/Unnatural Worlds/bin";
+                else
+                    root = Environment.GetEnvironmentVariable("HOME") + "/.steam/steam/steamapps/common/Unnatural Worlds/bin";
             }
             System.IO.Directory.SetCurrentDirectory(root);
 
