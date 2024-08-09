@@ -44,11 +44,12 @@ def get_steam_path(steam_path: str) -> str:
 
 class Game:
     def __init__(self, steam_path: str = "", hardened: bool = True):
-        steam_path = os.path.expanduser(get_steam_path(steam_path))
-
         api_def = open(
             os.path.join(os.path.split(os.path.abspath(__file__))[0], "bots.h"), "r"
         ).read()
+
+        steam_path = os.path.expanduser(get_steam_path(steam_path))
+        print("looking for uw library in: " + steam_path)
         os.chdir(steam_path)
 
         self._ffi = FFI()

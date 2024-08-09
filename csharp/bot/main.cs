@@ -93,6 +93,7 @@ namespace Unnatural
                 else
                     root = Environment.GetEnvironmentVariable("HOME") + "/.steam/steam/steamapps/common/Unnatural Worlds/bin";
             }
+            Console.WriteLine("looking for uw library in: " + root);
             System.IO.Directory.SetCurrentDirectory(root);
 
             Bot bot = new Bot();
