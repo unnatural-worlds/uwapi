@@ -193,6 +193,7 @@ extern "C"
 
 	UNNATURAL_API uint64 uwGetLobbyId(void);
 	UNNATURAL_API uint64 uwGetUserId(void);
+	UNNATURAL_API uint16 uwGetServerPort(void);
 	UNNATURAL_API void uwAdminKickPlayer(uint32 player);
 	UNNATURAL_API void uwAdminPlayerSetAdmin(uint32 player, bool admin);
 	UNNATURAL_API void uwAdminPlayerSetName(uint32 player, const char *name);
