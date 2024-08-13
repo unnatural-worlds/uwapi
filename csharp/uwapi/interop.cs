@@ -685,6 +685,9 @@ namespace Unnatural
         public static extern ulong uwGetUserId();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ushort uwGetServerPort();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminKickPlayer(uint player);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
