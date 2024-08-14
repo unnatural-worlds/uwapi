@@ -49,7 +49,7 @@ class Game:
         ).read()
 
         steam_path = os.path.expanduser(get_steam_path(steam_path))
-        print("looking for uw library in: " + steam_path)
+        print("looking for uw library in: " + steam_path, flush=True)
         os.chdir(steam_path)
 
         self._ffi = FFI()
@@ -151,7 +151,7 @@ class Game:
         self._api.uwConnectLobbyId(lobby_id)
 
     def connect_new_server(
-            self, visibility: int = 0, name: str = "", extra_params: str = ""
+        self, visibility: int = 0, name: str = "", extra_params: str = ""
     ):
         self._api.uwConnectNewServer(visibility, _c_str(name), _c_str(extra_params))
 
@@ -174,15 +174,15 @@ class Game:
         return self._tick
 
     def _exception_callback(self, message):
-        print(f"Exception: {_to_str(self._ffi, message)}")
+        print(f"Exception: {_to_str(self._ffi, message)}", flush=True)
         breakpoint()
 
     def _log_callback(self, data):
         log_data = LogCallback.from_c(self._ffi, data)
-        print(log_data.message)
+        print(log_data.message, flush=True)
 
     def add_connection_state_callback(
-            self, callback: Callable[[ConnectionState], None]
+        self, callback: Callable[[ConnectionState], None]
     ):
         self._connection_state_changed_handler.append(callback)
 
