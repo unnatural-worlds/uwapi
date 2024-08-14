@@ -7,7 +7,7 @@ publish: header
 	twine upload dist/* --verbose
 
 header:
-	clang -E ../../c/uwapi/uwapi/bots.h > uw/bots.h
+	clang -Iheaders -E ../../c/uwapi/uwapi/bots.h > uw/bots.h
 
 version:
 	@grep UW_VERSION ../../c/uwapi/uwapi/bots.h
