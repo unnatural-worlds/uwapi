@@ -16,9 +16,14 @@ Running on localhost:
 python3 main.py
 ```
 
+Running with a ip/port:
+```bash
+UNNATURAL_CONNECT_ADDR=127.0.0.1 UNNATURAL_CONNECT_PORT=12345 python3 main.py
+```
+
 Running with a lobby id:
 ```bash
-UNNATURAL_LOBBY=123456789 python3 main.py
+UNNATURAL_CONNECT_LOBBY=123456789 python3 main.py
 ```
 
 ## Windows

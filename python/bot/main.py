@@ -16,9 +16,13 @@ class Bot:
         self.game.set_player_name("bot-py")
         if not self.game.try_reconnect():
             self.game.set_start_gui(True)
-            lobby = os.environ.get("UNNATURAL_LOBBY", "")
+            lobby = os.environ.get("UNNATURAL_CONNECT_LOBBY", "")
+            addr = os.environ.get("UNNATURAL_CONNECT_ADDR", "")
+            port = os.environ.get("UNNATURAL_CONNECT_PORT", "")
             if lobby != "":
                 self.game.connect_lobby_id(lobby)
+            elif addr != "" and port != "":
+                self.game.connect_direct(addr, port)
             else:
                 self.game.connect_new_server()
         self.game.log_info("done")

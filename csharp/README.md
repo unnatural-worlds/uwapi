@@ -1,4 +1,4 @@
-# uwapi for C-sharp
+# uwapi for c-sharp
 
 Copy the contents of `bot` folder to your new project.
 
