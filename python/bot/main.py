@@ -20,9 +20,9 @@ class Bot:
             addr = os.environ.get("UNNATURAL_CONNECT_ADDR", "")
             port = os.environ.get("UNNATURAL_CONNECT_PORT", "")
             if lobby != "":
-                self.game.connect_lobby_id(lobby)
+                self.game.connect_lobby_id(int(lobby))
             elif addr != "" and port != "":
-                self.game.connect_direct(addr, port)
+                self.game.connect_direct(addr, int(port))
             else:
                 self.game.connect_new_server()
         self.game.log_info("done")
