@@ -1,6 +1,7 @@
 # uwapi for python
 
-Copy the contents of `bot` folder to your new project and do everything there.
+Copy the contents of `bot` folder to your new project and do everything
+there (`cp bot ~/git/uw-bot && cd ~/git/uw-bot`).
 
 ## Linux
 
