@@ -151,7 +151,7 @@ class Game:
         self._api.uwConnectLobbyId(lobby_id)
 
     def connect_new_server(
-        self, visibility: int = 0, name: str = "", extra_params: str = ""
+            self, visibility: int = 0, name: str = "", extra_params: str = ""
     ):
         self._api.uwConnectNewServer(visibility, _c_str(name), _c_str(extra_params))
 
@@ -182,7 +182,7 @@ class Game:
         print(log_data.message, flush=True)
 
     def add_connection_state_callback(
-        self, callback: Callable[[ConnectionState], None]
+            self, callback: Callable[[ConnectionState], None]
     ):
         self._connection_state_changed_handler.append(callback)
 
@@ -219,6 +219,8 @@ class Game:
         self._shooting_handler.append(callback)
 
     def _shooting_callback(self, shoot_data):
+        if not self._shooting_handler:
+            return
         shooting_data = [
             ShootingData.from_c(i) for i in _unpack_list(self._ffi, shoot_data, "data")
         ]
