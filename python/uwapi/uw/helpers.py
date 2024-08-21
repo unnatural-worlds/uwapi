@@ -90,7 +90,7 @@ class OverviewFlags(Flag):
     Unit = MobileUnit | StaticUnit
 
 
-class Priority(Enum):
+class Priority(IntEnum):
     Disabled = 0,
     Normal = 1,
     High = 2,

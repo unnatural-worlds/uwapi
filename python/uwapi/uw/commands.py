@@ -58,7 +58,7 @@ class Commands:
         self._api.uwCommandSetRecipe(unit, recipe)
 
     def command_set_priority(self, unit: int, priority: Priority):
-        self._api.uwCommandSetPriority(unit, priority)
+        self._api.uwCommandSetPriority(unit, int(priority))
 
     def command_load(self, unit: int, resource_type: int):
         self._api.uwCommandLoad(unit, resource_type)
