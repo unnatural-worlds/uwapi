@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	static const uint32 UW_VERSION = 21;
+	static const uint32 UW_VERSION = 22;
 	UNNATURAL_API void uwInitialize(uint32 version);
 	UNNATURAL_API void uwDeinitialize(void);
 
