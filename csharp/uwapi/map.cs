@@ -132,14 +132,14 @@ namespace Unnatural
             return Interop.uwYaw(a, b);
         }
 
-        public static bool TestConstructionPlacement(uint constructionPrototype, uint position)
+        public static bool TestConstructionPlacement(uint constructionProto, uint position, uint recipeProto = 0)
         {
-            return Interop.uwTestConstructionPlacement(constructionPrototype, position);
+            return Interop.uwTestConstructionPlacement(constructionProto, position, recipeProto);
         }
 
-        public static uint FindConstructionPlacement(uint constructionPrototype, uint position)
+        public static uint FindConstructionPlacement(uint constructionProto, uint position, uint recipeProto = 0)
         {
-            return Interop.uwFindConstructionPlacement(constructionPrototype, position);
+            return Interop.uwFindConstructionPlacement(constructionProto, position, recipeProto);
         }
 
         static string name;

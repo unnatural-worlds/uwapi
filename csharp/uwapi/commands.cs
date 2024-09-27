@@ -85,49 +85,49 @@ namespace Unnatural
             return o;
         }
 
-        public static void CommandSelfDestruct(uint unit)
+        public static void PlaceConstruction(uint constructionProto, uint position, float yaw = 0, uint recipeProto = 0, Interop.UwPriorityEnum priority = Interop.UwPriorityEnum.Normal)
         {
-            Interop.uwCommandSelfDestruct(unit);
+            Interop.uwCommandPlaceConstruction(constructionProto, position, yaw, recipeProto, priority);
         }
 
-        public static void CommandPlaceConstruction(uint proto, uint position, float yaw = 0)
-        {
-            Interop.uwCommandPlaceConstruction(proto, position, yaw);
-        }
-
-        public static void CommandSetRecipe(uint unit, uint recipe)
+        public static void SetRecipe(uint unit, uint recipe)
         {
             Interop.uwCommandSetRecipe(unit, recipe);
         }
 
-        public static void CommandSetPriority(uint unit, Interop.UwPriorityEnum priority)
+        public static void SetPriority(uint unit, Interop.UwPriorityEnum priority)
         {
             Interop.uwCommandSetPriority(unit, priority);
         }
 
-        public static void CommandLoad(uint unit, uint resourceType)
+        public static void Load(uint unit, uint resourceType)
         {
             Interop.uwCommandLoad(unit, resourceType);
         }
 
-        public static void CommandUnload(uint unit)
+        public static void Unload(uint unit)
         {
             Interop.uwCommandUnload(unit);
         }
 
-        public static void CommandMove(uint unit, uint position, float yaw = 0)
+        public static void Move(uint unit, uint position, float yaw = 0)
         {
             Interop.uwCommandMove(unit, position, yaw);
         }
 
-        public static void CommandAim(uint unit, uint target)
+        public static void Aim(uint unit, uint target)
         {
             Interop.uwCommandAim(unit, target);
         }
 
-        public static void CommandRenounceControl(uint unit)
+        public static void RenounceControl(uint unit)
         {
             Interop.uwCommandRenounceControl(unit);
+        }
+
+        public static void SelfDestruct(uint unit)
+        {
+            Interop.uwCommandSelfDestruct(unit);
         }
     }
 }

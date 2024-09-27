@@ -17,18 +17,18 @@ namespace Unnatural
     {
         public uint id;
         public string name;
-        public Dictionary<uint, uint> inputs;
-        public Dictionary<uint, uint> outputs;
-        public uint duration;
-        public uint placeOver;
+        public Dictionary<uint, uint> inputs; // id -> count
+        public Dictionary<uint, uint> outputs; // id -> count
+        public uint duration; // ticks
+        public uint placeOver; // id of unit
     }
 
     public class ProtoConstruction
     {
         public uint id;
         public string name;
-        public Dictionary<uint, uint> inputs;
-        public uint output;
+        public Dictionary<uint, uint> inputs; // id -> count
+        public uint output; // id of unit
     }
 
     public class ProtoUnit
@@ -36,31 +36,32 @@ namespace Unnatural
         public uint id;
         public string name;
         public List<uint> recipes;
-        public bool logistics;
-        public bool assembler;
-        public bool vital;
+        public bool logistics; // vehicle that is automatically controlled by the logistics system
+        public bool assembler; // the unit must have at least one valid recipe
+        public bool vital; // a force loses when it loses last vital unit
         public uint maxLife;
         public uint armorType;
 
         // weapon
         public uint damageType;
         public float dps;
-        public float fireRange;
+        public float dpsAtLowLife;
+        public float fireRange; // meters
         public float rateOfFire;
 
         // mobile only
-        public Dictionary<uint, float> speeds;
-        public bool cargo;
+        public Dictionary<uint, float> speeds; // terrain type -> speed (meters per second)
+        public bool cargo; // the unit may carry resources
 
         // building only
-        public float buildingRadius;
+        public float buildingRadius; // meters
     }
 
     public class HitChancesTable
     {
         public List<string> armorNames;
         public List<string> damageNames;
-        public List<List<float>> hitChancesTable;
+        public List<List<float>> hitChancesTable; // damage type -> armor type -> damage chance
     }
 
     public class TerrainTypesTable

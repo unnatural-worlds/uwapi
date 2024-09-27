@@ -46,7 +46,7 @@ extern "C"
 	UNNATURAL_API void uwSetAssistConfig(const UwAssistConfig *config);
 
 	UNNATURAL_API void uwSetPlayerName(const char *name);
-	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b);
+	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b); // [0 .. 1]
 	UNNATURAL_API void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
 	UNNATURAL_API void uwSetConnectAsObserver(bool observer);
 
@@ -138,8 +138,8 @@ extern "C"
 
 	// constructions
 
-	UNNATURAL_API bool uwTestConstructionPlacement(uint32 constructionPrototype, uint32 position);
-	UNNATURAL_API uint32 uwFindConstructionPlacement(uint32 constructionPrototype, uint32 position);
+	UNNATURAL_API bool uwTestConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto); // recipeProto may be 0
+	UNNATURAL_API uint32 uwFindConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto); // recipeProto may be 0
 
 	// orders
 
@@ -179,34 +179,34 @@ extern "C"
 
 	// commands
 
-	UNNATURAL_API void uwCommandPlaceConstruction(uint32 proto, uint32 position, float yaw);
-	UNNATURAL_API void uwCommandSetRecipe(uint32 unit, uint32 recipe);
-	UNNATURAL_API void uwCommandSetPriority(uint32 unit, UwPriorityEnum priority);
+	UNNATURAL_API void uwCommandPlaceConstruction(uint32 constructionProto, uint32 position, float yaw, uint32 recipeProto, UwPriorityEnum priority); // recipeProto may be 0
+	UNNATURAL_API void uwCommandSetRecipe(uint32 unitOrConstruction, uint32 recipe);
+	UNNATURAL_API void uwCommandSetPriority(uint32 unitOrConstruction, UwPriorityEnum priority);
 	UNNATURAL_API void uwCommandLoad(uint32 unit, uint32 resourceType);
 	UNNATURAL_API void uwCommandUnload(uint32 unit);
 	UNNATURAL_API void uwCommandMove(uint32 unit, uint32 position, float yaw);
 	UNNATURAL_API void uwCommandAim(uint32 unit, uint32 target);
-	UNNATURAL_API void uwCommandRenounceControl(uint32 unit);
-	UNNATURAL_API void uwCommandSelfDestruct(uint32 unit);
+	UNNATURAL_API void uwCommandRenounceControl(uint32 unitOrConstruction);
+	UNNATURAL_API void uwCommandSelfDestruct(uint32 entity);
 
 	// admin only
 
 	UNNATURAL_API uint64 uwGetLobbyId(void);
 	UNNATURAL_API uint64 uwGetUserId(void);
 	UNNATURAL_API uint16 uwGetServerPort(void);
+	UNNATURAL_API void uwAdminSetMapSelection(const char *path);
+	UNNATURAL_API void uwAdminStartGame(void);
+	UNNATURAL_API void uwAdminTerminateGame(void);
+	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
+	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
+	UNNATURAL_API void uwAdminAddAi(void);
 	UNNATURAL_API void uwAdminKickPlayer(uint32 player);
 	UNNATURAL_API void uwAdminPlayerSetAdmin(uint32 player, bool admin);
 	UNNATURAL_API void uwAdminPlayerSetName(uint32 player, const char *name);
 	UNNATURAL_API void uwAdminPlayerJoinForce(uint32 player, uint32 force);
 	UNNATURAL_API void uwAdminForceJoinTeam(uint32 force, uint32 team);
 	UNNATURAL_API void uwAdminForceSetColor(uint32 force, float r, float g, float b);
-	UNNATURAL_API void uwAdminAddAi(void);
-	UNNATURAL_API void uwAdminStartGame(void);
-	UNNATURAL_API void uwAdminTerminateGame(void);
-	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
-	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
-	UNNATURAL_API void uwSendCameraSuggestion(uint32 position);
-	UNNATURAL_API void uwSendMapSelection(const char *path);
+	UNNATURAL_API void uwAdminSendSuggestedCameraFocus(uint32 position);
 
 #ifdef __cplusplus
 } // extern C

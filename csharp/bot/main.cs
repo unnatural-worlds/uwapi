@@ -10,7 +10,7 @@ namespace Unnatural
     internal class Bot
     {
         readonly Random random = new Random();
-        uint step = 0;
+        uint step = 0; // save some cpu cycles by splitting work over multiple steps
 
         void AttackNearestEnemies()
         {
@@ -42,7 +42,7 @@ namespace Unnatural
                 if (recipes?.Count > 0)
                 {
                     var recipe = recipes[random.Next(recipes.Count)];
-                    Commands.CommandSetRecipe((uint)own.Id, recipe);
+                    Commands.SetRecipe((uint)own.Id, recipe);
                 }
             }
         }
@@ -64,11 +64,11 @@ namespace Unnatural
 
         void Start()
         {
-            Game.LogInfo("starting");
+            Game.LogInfo("bot-cs start");
             Game.SetPlayerName("bot-cs");
             if (!Game.TryReconnect())
             {
-                Game.SetStartGui(true);
+                Game.SetConnectStartGui(true);
                 string lobby = Environment.GetEnvironmentVariable("UNNATURAL_CONNECT_LOBBY");
                 string addr = Environment.GetEnvironmentVariable("UNNATURAL_CONNECT_ADDR");
                 string port = Environment.GetEnvironmentVariable("UNNATURAL_CONNECT_PORT");
@@ -79,7 +79,7 @@ namespace Unnatural
                 else
                     Game.ConnectNewServer();
             }
-            Game.LogInfo("done");
+            Game.LogInfo("bot-cs done");
         }
 
         Bot()

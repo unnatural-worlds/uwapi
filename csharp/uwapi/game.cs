@@ -37,14 +37,19 @@ namespace Unnatural
             Interop.uwSetPlayerName(name);
         }
 
-        public static void SetPlayerColor(float r, float g, float b)
+        public static void SetPlayerColor(float r, float g, float b) // [0 .. 1]
         {
             Interop.uwSetPlayerColor(r, g, b);
         }
 
-        public static void SetStartGui(bool startGui, string extraParams = "--observer 1")
+        public static void SetConnectStartGui(bool startGui, string extraParams = "--observer 1")
         {
             Interop.uwSetConnectStartGui(startGui, extraParams);
+        }
+
+        public static void SetConnectAsObserver(bool observer)
+        {
+            Interop.uwSetConnectAsObserver(observer);
         }
 
         public static bool ConnectFindLan(ulong timeoutMicroseconds = 1000000)
@@ -67,6 +72,8 @@ namespace Unnatural
             Interop.uwConnectNewServer(visibility, name, extraParams);
         }
 
+        // returns false if no data for reconnect are available
+        // returns true if a reconnect was attempted (irrespective of whether actual connection was established)
         public static bool TryReconnect()
         {
             return Interop.uwTryReconnect();

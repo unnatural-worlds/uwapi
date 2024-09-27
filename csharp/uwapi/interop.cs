@@ -602,10 +602,10 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwTestConstructionPlacement(uint constructionPrototype, uint position);
+        public static extern bool uwTestConstructionPlacement(uint constructionProto, uint position, uint recipeProto);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern uint uwFindConstructionPlacement(uint constructionPrototype, uint position);
+        public static extern uint uwFindConstructionPlacement(uint constructionProto, uint position, uint recipeProto);
 
         public enum UwOrderTypeEnum
         {
@@ -652,13 +652,13 @@ namespace Unnatural
         public static extern void uwOrders(uint unit, ref UwOrders data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandPlaceConstruction(uint proto, uint position, float yaw);
+        public static extern void uwCommandPlaceConstruction(uint constructionProto, uint position, float yaw, uint recipeProto, UwPriorityEnum priority);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandSetRecipe(uint unit, uint recipe);
+        public static extern void uwCommandSetRecipe(uint unitOrConstruction, uint recipe);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandSetPriority(uint unit, UwPriorityEnum priority);
+        public static extern void uwCommandSetPriority(uint unitOrConstruction, UwPriorityEnum priority);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandLoad(uint unit, uint resourceType);
@@ -673,10 +673,10 @@ namespace Unnatural
         public static extern void uwCommandAim(uint unit, uint target);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandRenounceControl(uint unit);
+        public static extern void uwCommandRenounceControl(uint unitOrConstruction);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandSelfDestruct(uint unit);
+        public static extern void uwCommandSelfDestruct(uint entity);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong uwGetLobbyId();
@@ -686,6 +686,24 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern ushort uwGetServerPort();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetMapSelection([MarshalAs(UnmanagedType.LPStr)] string path);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminStartGame();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminTerminateGame();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetGameSpeed(float speed);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetWeatherSpeed(float speed, float offset);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminAddAi();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminKickPlayer(uint player);
@@ -706,25 +724,7 @@ namespace Unnatural
         public static extern void uwAdminForceSetColor(uint force, float r, float g, float b);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminAddAi();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminStartGame();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminTerminateGame();
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSetGameSpeed(float speed);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSetWeatherSpeed(float speed, float offset);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSendCameraSuggestion(uint position);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSendMapSelection([MarshalAs(UnmanagedType.LPStr)] string path);
+        public static extern void uwAdminSendSuggestedCameraFocus(uint position);
 
     }
 }
