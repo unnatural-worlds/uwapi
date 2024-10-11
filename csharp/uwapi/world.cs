@@ -63,12 +63,12 @@ namespace Unnatural
             {
                 if (entities.ContainsKey(id))
                 {
-                    entities[id].FetchData();
+                    entities[id].FetchComponents();
                 }
                 else
                 {
                     Entity o = new Entity(id);
-                    o.FetchData();
+                    o.FetchComponents();
                     entities[id] = o;
                 }
             }
@@ -79,9 +79,9 @@ namespace Unnatural
             policies.Clear();
             foreach (Entity e in entities.Values)
             {
-                if (!e.foreignPolicy.HasValue)
+                if (!e.ForeignPolicy.HasValue)
                     continue;
-                ForeignPolicy fp = e.foreignPolicy.Value;
+                ForeignPolicy fp = e.ForeignPolicy.Value;
                 if (fp.forces[0] == myForce)
                     policies[fp.forces[1]] = fp.policy;
                 if (fp.forces[1] == myForce)

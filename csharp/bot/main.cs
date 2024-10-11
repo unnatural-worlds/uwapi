@@ -14,35 +14,35 @@ namespace Unnatural
 
         void AttackNearestEnemies()
         {
-            var ownUnits = World.Entities().Values.Where(x => x.Own() && x.unit.HasValue && Prototypes.Unit(x.proto.Value.proto)?.dps > 0);
+            var ownUnits = World.Entities().Values.Where(x => x.Own() && x.Unit.HasValue && Prototypes.Unit(x.Proto.Value.proto)?.dps > 0);
             if (ownUnits.Count() == 0)
                 return;
 
-            var enemyUnits = World.Entities().Values.Where(x => x.Policy() == PolicyEnum.Enemy && x.unit.HasValue);
+            var enemyUnits = World.Entities().Values.Where(x => x.Policy() == PolicyEnum.Enemy && x.Unit.HasValue);
             if (enemyUnits.Count() == 0)
                 return;
 
             foreach (Entity own in ownUnits)
             {
-                uint id = own.id;
-                uint pos = own.position.Value.position;
+                uint id = own.Id;
+                uint pos = own.Position.Value.position;
                 if (Commands.Orders(id).Length == 0)
                 {
-                    Entity enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.position.Value.position)).First();
-                    Commands.Order(id, Commands.FightToEntity(enemy.id));
+                    Entity enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.Position.Value.position)).First();
+                    Commands.Order(id, Commands.FightToEntity(enemy.Id));
                 }
             }
         }
 
         void AssignRandomRecipes()
         {
-            foreach (Entity own in World.Entities().Values.Where(x => x.Own() && x.unit.HasValue))
+            foreach (Entity own in World.Entities().Values.Where(x => x.Own() && x.Unit.HasValue))
             {
-                List<uint> recipes = Prototypes.Unit(own.proto.Value.proto).recipes;
+                List<uint> recipes = Prototypes.Unit(own.Proto.Value.proto).recipes;
                 if (recipes?.Count > 0)
                 {
                     var recipe = recipes[random.Next(recipes.Count)];
-                    Commands.SetRecipe(own.id, recipe);
+                    Commands.SetRecipe(own.Id, recipe);
                 }
             }
         }
