@@ -10,7 +10,7 @@ extern "C"
 
 	// initialization
 
-	static const uint32 UW_VERSION = 22;
+	static const uint32 UW_VERSION = 23;
 	UNNATURAL_API void uwInitialize(uint32 version);
 	UNNATURAL_API void uwDeinitialize(void);
 
@@ -132,6 +132,36 @@ extern "C"
 	} UwMyPlayer;
 	UNNATURAL_API bool uwMyPlayer(UwMyPlayer *data);
 
+	typedef struct UwMyForceStatistics
+	{
+		uint32 logisticsUnitsIdle;
+		uint32 logisticsUnitsTotal;
+		uint32 militaryUnitsIdle;
+		uint32 militaryUnitsTotal;
+		uint32 closestDangerPosition;
+		float closestDangerDistance;
+	} UwMyForceStatistics;
+	UNNATURAL_API void uwMyForceStatistics(UwMyForceStatistics *data);
+
+	// clusters statistics
+
+	typedef struct UwMapClusterStat
+	{
+		float distance;
+		float value;
+		float might;
+	} UwMapClusterStat;
+	typedef struct UwMapClusterStatistics
+	{
+		UwMapClusterStat stats[3]; // own, allies, enemies
+	} UwMapClusterStatistics;
+	typedef struct UwMapClustersStatisticsExtract
+	{
+		const UwMapClusterStatistics *stats;
+		uint32 count;
+	} UwMapClustersStatisticsExtract;
+	UNNATURAL_API void uwMapClustersStatistics(UwMapClustersStatisticsExtract *data);
+
 	// entities
 
 	UNNATURAL_API void uwModifiedEntities(UwIds *data);
@@ -176,6 +206,20 @@ extern "C"
 		uint32 count;
 	} UwOrders;
 	UNNATURAL_API void uwOrders(uint32 unit, UwOrders *data);
+
+	// paths
+
+	typedef enum UwPathStateEnum
+	{
+		UwPathStateEnum_None = 0,
+		UwPathStateEnum_Searching = 1,
+		UwPathStateEnum_Impossible = 2,
+		UwPathStateEnum_NotFound = 3,
+		UwPathStateEnum_Found = 4,
+		UwPathStateEnum_Recompute = 5,
+		UwPathStateEnum_Finished = 6,
+	} UwPathStateEnum;
+	UNNATURAL_API UwPathStateEnum uwPathState(uint32 unit);
 
 	// commands
 

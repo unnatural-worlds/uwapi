@@ -6,6 +6,7 @@ namespace Unnatural
 {
     using MapStateEnum = Interop.UwMapStateEnum;
     using OverviewFlags = Interop.UwOverviewFlags;
+    using MapClusterStatistics = Interop.UwMapClusterStatistics;
 
     public struct Vector3
     {
@@ -142,6 +143,26 @@ namespace Unnatural
             return Interop.uwFindConstructionPlacement(constructionProto, position, recipeProto);
         }
 
+        public static uint ClusterIndex(uint position)
+        {
+            return clusterIndices[(int)position];
+        }
+
+        public static IReadOnlyList<uint> ClusterIndices()
+        {
+            return clusterIndices;
+        }
+
+        public static IReadOnlyList<MapClusterStatistics> ClustersStatistics()
+        {
+            Interop.UwMapClustersStatisticsExtract ex = new Interop.UwMapClustersStatisticsExtract();
+            Interop.uwMapClustersStatistics(ref ex);
+            MapClusterStatistics[] tmp = new MapClusterStatistics[ex.count];
+            for (int i = 0; i < ex.count; i++)
+                tmp[i] = Marshal.PtrToStructure<MapClusterStatistics>(ex.stats + i * Marshal.SizeOf<MapClusterStatistics>());
+            return tmp;
+        }
+
         static string name;
         static string guid;
         static string path;
@@ -151,6 +172,7 @@ namespace Unnatural
         static readonly List<uint[]> neighbors = new List<uint[]>();
         static readonly List<byte> terrains = new List<byte>();
         static OverviewFlags[] overview = new OverviewFlags[0];
+        static readonly List<uint> clusterIndices = new List<uint>(); // maps tile index to cluster index
 
         static void Load()
         {
@@ -161,6 +183,7 @@ namespace Unnatural
             neighbors.Clear();
             terrains.Clear();
             overview = new OverviewFlags[0];
+            clusterIndices.Clear();
 
             {
                 Interop.UwMapInfo info = new Interop.UwMapInfo();
@@ -197,6 +220,7 @@ namespace Unnatural
                     neighbors.Add(tmp);
                 }
                 terrains.Add(tile.terrain);
+                clusterIndices.Add(tile.clusterIndex);
             }
 
             Game.LogInfo("map loaded");

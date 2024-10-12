@@ -2,14 +2,20 @@ using System.Collections.Generic;
 
 namespace Unnatural
 {
+    using MyForceStatistics = Interop.UwMyForceStatistics;
     using ForeignPolicy = Interop.UwForeignPolicyComponent;
     using PolicyEnum = Interop.UwForeignPolicyEnum;
 
     public static class World
     {
-        public static uint MyForce()
+        public static uint MyForceId()
         {
-            return myForce;
+            return myForceId;
+        }
+
+        public static MyForceStatistics MyForceStatistics()
+        {
+            return myForceStatistics;
         }
 
         public static IReadOnlyDictionary<uint, Entity> Entities()
@@ -28,7 +34,8 @@ namespace Unnatural
             return policies.TryGetValue(force, out val) ? val : PolicyEnum.None;
         }
 
-        static uint myForce;
+        static uint myForceId;
+        static MyForceStatistics myForceStatistics = new MyForceStatistics();
         static readonly Dictionary<uint, Entity> entities = new Dictionary<uint, Entity>();
         static readonly Dictionary<uint, PolicyEnum> policies = new Dictionary<uint, PolicyEnum>();
 
@@ -82,9 +89,9 @@ namespace Unnatural
                 if (!e.ForeignPolicy.HasValue)
                     continue;
                 ForeignPolicy fp = e.ForeignPolicy.Value;
-                if (fp.forces[0] == myForce)
+                if (fp.forces[0] == myForceId)
                     policies[fp.forces[1]] = fp.policy;
-                if (fp.forces[1] == myForce)
+                if (fp.forces[1] == myForceId)
                     policies[fp.forces[0]] = fp.policy;
             }
         }
@@ -94,8 +101,9 @@ namespace Unnatural
             {
                 Interop.UwMyPlayer tmp = new Interop.UwMyPlayer();
                 Interop.uwMyPlayer(ref tmp);
-                myForce = tmp.forceEntityId;
+                myForceId = tmp.forceEntityId;
             }
+            Interop.uwMyForceStatistics(ref myForceStatistics);
             UpdateRemoved();
             UpdateModified();
             UpdatePolicies();

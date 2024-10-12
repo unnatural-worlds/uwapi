@@ -69,12 +69,16 @@ namespace Unnatural
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public float[] up;
             public IntPtr neighborsIndices;
             public uint neighborsCount;
+            public uint clusterIndex;
             public byte terrain;
             [MarshalAs(UnmanagedType.I1)] public bool border;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwTile(uint index, ref UwTile data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint uwClustersCount();
 
         [Flags]
         public enum UwOverviewFlags
@@ -411,7 +415,7 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity, ref UwDiplomacyProposalComponent data);
 
-        public const uint UW_VERSION = 22;
+        public const uint UW_VERSION = 23;
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
@@ -598,6 +602,44 @@ namespace Unnatural
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwMyPlayer(ref UwMyPlayer data);
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMyForceStatistics
+        {
+            public uint logisticsUnitsIdle;
+            public uint logisticsUnitsTotal;
+            public uint militaryUnitsIdle;
+            public uint militaryUnitsTotal;
+            public uint closestDangerPosition;
+            public float closestDangerDistance;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwMyForceStatistics(ref UwMyForceStatistics data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMapClusterStat
+        {
+            public float distance;
+            public float value;
+            public float might;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMapClusterStatistics
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public UwMapClusterStat[] stats;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMapClustersStatisticsExtract
+        {
+            public IntPtr stats;
+            public uint count;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwMapClustersStatistics(ref UwMapClustersStatisticsExtract data);
+
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwModifiedEntities(ref UwIds data);
 
@@ -651,6 +693,20 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwOrders(uint unit, ref UwOrders data);
+
+        public enum UwPathStateEnum
+        {
+            None = 0,
+            Searching = 1,
+            Impossible = 2,
+            NotFound = 3,
+            Found = 4,
+            Recompute = 5,
+            Finished = 6,
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern UwPathStateEnum uwPathState(uint unit);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandPlaceConstruction(uint constructionProto, uint position, float yaw, uint recipeProto, UwPriorityEnum priority);

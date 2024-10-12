@@ -65,10 +65,16 @@ extern "C"
 		float up[3];
 		const uint32 *neighborsIndices;
 		uint32 neighborsCount;
+		uint32 clusterIndex;
 		uint8 terrain;
 		bool border;
 	} UwTile;
 	UNNATURAL_API void uwTile(uint32 index, UwTile *data);
+
+	// clusters
+
+	UNNATURAL_API uint32 uwClustersCount(void);
+	// todo other data for clusters
 
 	// overview
 
