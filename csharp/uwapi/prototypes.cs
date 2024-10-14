@@ -7,34 +7,44 @@ namespace Unnatural
     using MapStateEnum = Interop.UwMapStateEnum;
     using PrototypeTypeEnum = Interop.UwPrototypeTypeEnum;
 
-    public class ProtoResource
+    public class ProtoCommon
     {
         public uint id;
         public string name;
+        public string json;
+        public PrototypeTypeEnum type;
+        public string[] tags;
+
+        public bool Tagged(string tag)
+        {
+            foreach (var t in tags)
+                if (t == tag)
+                    return true;
+            return false;
+        }
     }
 
-    public class ProtoRecipe
+    public class ProtoResource : ProtoCommon
     {
-        public uint id;
-        public string name;
+        // nothing for now
+    }
+
+    public class ProtoRecipe : ProtoCommon
+    {
         public Dictionary<uint, uint> inputs; // id -> count
         public Dictionary<uint, uint> outputs; // id -> count
         public uint duration; // ticks
         public uint placeOver; // id of unit
     }
 
-    public class ProtoConstruction
+    public class ProtoConstruction : ProtoCommon
     {
-        public uint id;
-        public string name;
         public Dictionary<uint, uint> inputs; // id -> count
         public uint output; // id of unit
     }
 
-    public class ProtoUnit
+    public class ProtoUnit : ProtoCommon
     {
-        public uint id;
-        public string name;
         public List<uint> recipes;
         public bool logistics; // vehicle that is automatically controlled by the logistics system
         public bool assembler; // the unit must have at least one valid recipe
@@ -75,13 +85,6 @@ namespace Unnatural
         public TerrainTypesTable terrainTypesTable;
     }
 
-    internal class ProtoGeneric
-    {
-        public PrototypeTypeEnum type;
-        public string name;
-        public string json;
-    }
-
     public static class Prototypes
     {
         public static IReadOnlyList<uint> All()
@@ -91,44 +94,64 @@ namespace Unnatural
 
         public static PrototypeTypeEnum Type(uint id)
         {
-            ProtoGeneric tmp;
-            return types.TryGetValue(id, out tmp) ? tmp.type : PrototypeTypeEnum.None;
+            ProtoCommon tmp;
+            return commons.TryGetValue(id, out tmp) ? tmp.type : PrototypeTypeEnum.None;
         }
 
         public static string Name(uint id)
         {
-            ProtoGeneric tmp;
-            return types.TryGetValue(id, out tmp) ? tmp.name : "";
+            ProtoCommon tmp;
+            return commons.TryGetValue(id, out tmp) ? tmp.name : "";
         }
 
         public static string Json(uint id)
         {
-            ProtoGeneric tmp;
-            return types.TryGetValue(id, out tmp) ? tmp.json : "";
+            ProtoCommon tmp;
+            return commons.TryGetValue(id, out tmp) ? tmp.json : "";
+        }
+
+        public static ProtoCommon Common(uint id)
+        {
+            ProtoCommon tmp;
+            if (commons.TryGetValue(id, out tmp))
+                return tmp;
+            return null;
         }
 
         public static ProtoResource Resource(uint id)
         {
-            ProtoResource tmp;
-            return resources.TryGetValue(id, out tmp) ? tmp : null;
+            ProtoCommon tmp;
+            if (commons.TryGetValue(id, out tmp))
+                if (tmp.type == PrototypeTypeEnum.Resource)
+                    return (ProtoResource)tmp;
+            return null;
         }
 
         public static ProtoRecipe Recipe(uint id)
         {
-            ProtoRecipe tmp;
-            return recipes.TryGetValue(id, out tmp) ? tmp : null;
+            ProtoCommon tmp;
+            if (commons.TryGetValue(id, out tmp))
+                if (tmp.type == PrototypeTypeEnum.Recipe)
+                    return (ProtoRecipe)tmp;
+            return null;
         }
 
         public static ProtoConstruction Construction(uint id)
         {
-            ProtoConstruction tmp;
-            return constructions.TryGetValue(id, out tmp) ? tmp : null;
+            ProtoCommon tmp;
+            if (commons.TryGetValue(id, out tmp))
+                if (tmp.type == PrototypeTypeEnum.Construction)
+                    return (ProtoConstruction)tmp;
+            return null;
         }
 
         public static ProtoUnit Unit(uint id)
         {
-            ProtoUnit tmp;
-            return units.TryGetValue(id, out tmp) ? tmp : null;
+            ProtoCommon tmp;
+            if (commons.TryGetValue(id, out tmp))
+                if (tmp.type == PrototypeTypeEnum.Unit)
+                    return (ProtoUnit)tmp;
+            return null;
         }
 
         public static HitChancesTable HitChancesTable()
@@ -142,11 +165,7 @@ namespace Unnatural
         }
 
         static readonly List<uint> all = new List<uint>();
-        static readonly Dictionary<uint, ProtoGeneric> types = new Dictionary<uint, ProtoGeneric>();
-        static readonly Dictionary<uint, ProtoResource> resources = new Dictionary<uint, ProtoResource>();
-        static readonly Dictionary<uint, ProtoRecipe> recipes = new Dictionary<uint, ProtoRecipe>();
-        static readonly Dictionary<uint, ProtoConstruction> constructions = new Dictionary<uint, ProtoConstruction>();
-        static readonly Dictionary<uint, ProtoUnit> units = new Dictionary<uint, ProtoUnit>();
+        static readonly Dictionary<uint, ProtoCommon> commons = new Dictionary<uint, ProtoCommon>();
         static HitChancesTable hitChancesTable;
         static TerrainTypesTable terrainTypesTable;
 
@@ -162,11 +181,7 @@ namespace Unnatural
             Game.LogInfo("loading prototypes");
 
             all.Clear();
-            types.Clear();
-            resources.Clear();
-            recipes.Clear();
-            constructions.Clear();
-            units.Clear();
+            commons.Clear();
 
             var options = new JsonSerializerOptions
             {
@@ -175,29 +190,28 @@ namespace Unnatural
 
             foreach (uint id in AllIds())
             {
-                ProtoGeneric pg = new ProtoGeneric();
-                pg.type = Interop.uwPrototypeType(id);
-                pg.json = Marshal.PtrToStringAnsi(Interop.uwPrototypeJson(id));
-                switch (pg.type)
+                PrototypeTypeEnum type = Interop.uwPrototypeType(id);
+                string json = Marshal.PtrToStringAnsi(Interop.uwPrototypeJson(id));
+                ProtoCommon pc;
+                switch (type)
                 {
                     case PrototypeTypeEnum.Resource:
-                        resources[id] = JsonSerializer.Deserialize<ProtoResource>(pg.json, options);
-                        pg.name = resources[id].name;
+                        pc = JsonSerializer.Deserialize<ProtoResource>(json, options);
                         break;
                     case PrototypeTypeEnum.Recipe:
-                        recipes[id] = JsonSerializer.Deserialize<ProtoRecipe>(pg.json, options);
-                        pg.name = recipes[id].name;
+                        pc = JsonSerializer.Deserialize<ProtoRecipe>(json, options);
                         break;
                     case PrototypeTypeEnum.Construction:
-                        constructions[id] = JsonSerializer.Deserialize<ProtoConstruction>(pg.json, options);
-                        pg.name = constructions[id].name;
+                        pc = JsonSerializer.Deserialize<ProtoConstruction>(json, options);
                         break;
                     case PrototypeTypeEnum.Unit:
-                        units[id] = JsonSerializer.Deserialize<ProtoUnit>(pg.json, options);
-                        pg.name = units[id].name;
+                        pc = JsonSerializer.Deserialize<ProtoUnit>(json, options);
                         break;
+                    default:
+                        throw new System.Exception("unknown prototype type enum");
                 }
-                types[id] = pg;
+                pc.json = json;
+                commons[id] = pc;
                 all.Add(id);
             }
 

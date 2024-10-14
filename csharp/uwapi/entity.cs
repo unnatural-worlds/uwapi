@@ -11,34 +11,34 @@ namespace Unnatural
 
         public Entity(uint id) { Id = id; }
 
-        public bool Own()
-        {
-            return Owner.HasValue && Owner.Value.force == World.MyForceId();
-        }
+        public uint Pos => Position.HasValue ? Position.Value.position : Invalid;
 
-        public bool Ally()
-        {
-            return Owner.HasValue && World.Policy(Owner.Value.force) == PolicyEnum.Ally;
-        }
+        public PolicyEnum Policy => Owner.HasValue ? World.Policy(Owner.Value.force) : PolicyEnum.None;
 
-        public bool Enemy()
-        {
-            return Owner.HasValue && World.Policy(Owner.Value.force) == PolicyEnum.Enemy;
-        }
+        public bool Own => Owner.HasValue && Owner.Value.force == World.MyForceId();
 
-        public PolicyEnum Policy()
-        {
-            return Owner.HasValue ? World.Policy(Owner.Value.force) : PolicyEnum.None;
-        }
+        public bool Ally => Owner.HasValue && World.Policy(Owner.Value.force) == PolicyEnum.Ally;
 
-        public TypeEnum Type()
-        {
-            return Proto.HasValue ? Prototypes.Type(Proto.Value.proto) : TypeEnum.None;
-        }
+        public bool Enemy => Owner.HasValue && World.Policy(Owner.Value.force) == PolicyEnum.Enemy;
 
-        public uint Pos()
+        public TypeEnum Type => Proto.HasValue ? Prototypes.Type(Proto.Value.proto) : TypeEnum.None;
+
+        public ProtoCommon ProtoCommon => Proto.HasValue ? Prototypes.Common(Proto.Value.proto) : null;
+
+        public ProtoResource ProtoResource => Proto.HasValue ? Prototypes.Resource(Proto.Value.proto) : null;
+
+        // an entity cannot be a recipe on its own
+
+        public ProtoConstruction ProtoConstruction => Proto.HasValue ? Prototypes.Construction(Proto.Value.proto) : null;
+
+        public ProtoUnit ProtoUnit => Proto.HasValue ? Prototypes.Unit(Proto.Value.proto) : null;
+
+        public bool Tagged(string tag)
         {
-            return Position.HasValue ? Position.Value.position : Invalid;
+            ProtoCommon p = ProtoCommon;
+            if (p != null)
+                return p.Tagged(tag);
+            return false;
         }
     }
 }

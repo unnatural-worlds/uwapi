@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Unnatural
 {
@@ -12,21 +13,21 @@ namespace Unnatural
 
         void AttackNearestEnemies()
         {
-            var ownUnits = World.Entities().Values.Where(x => x.Own() && x.Unit.HasValue && Prototypes.Unit(x.Proto.Value.proto)?.dps > 0);
+            var ownUnits = World.Entities().Values.Where(x => x.Own && x.ProtoUnit?.dps > 0);
             if (ownUnits.Count() == 0)
                 return;
 
-            var enemyUnits = World.Entities().Values.Where(x => x.Enemy() && x.Unit.HasValue);
+            var enemyUnits = World.Entities().Values.Where(x => x.Enemy && x.Unit.HasValue);
             if (enemyUnits.Count() == 0)
                 return;
 
             foreach (Entity own in ownUnits)
             {
                 uint id = own.Id;
-                uint pos = own.Pos();
+                uint pos = own.Pos;
                 if (Commands.Orders(id).Length == 0)
                 {
-                    Entity enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.Pos())).First();
+                    Entity enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.Pos)).First();
                     Commands.Order(id, Commands.FightToEntity(enemy.Id));
                 }
             }
@@ -34,9 +35,9 @@ namespace Unnatural
 
         void AssignRandomRecipes()
         {
-            foreach (Entity own in World.Entities().Values.Where(x => x.Own() && x.Unit.HasValue))
+            foreach (Entity own in World.Entities().Values.Where(x => x.Own && x.Unit.HasValue))
             {
-                List<uint> recipes = Prototypes.Unit(own.Proto.Value.proto).recipes;
+                List<uint> recipes = own.ProtoUnit.recipes;
                 if (recipes?.Count > 0)
                 {
                     var recipe = recipes[random.Next(recipes.Count)];
@@ -90,13 +91,21 @@ namespace Unnatural
             string root = Environment.GetEnvironmentVariable("UNNATURAL_ROOT");
             if (root == null)
             {
+                string cwd = Directory.GetCurrentDirectory();
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Directory.GetFiles(cwd, Interop.LibName + ".dll").Length > 0)
+                    root = cwd;
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && Directory.GetFiles(cwd, Interop.LibName + ".so").Length > 0)
+                    root = cwd;
+            }
+            if (root == null)
+            {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     root = "C:/Program Files (x86)/Steam/steamapps/common/Unnatural Worlds/bin";
                 else
                     root = Environment.GetEnvironmentVariable("HOME") + "/.steam/steam/steamapps/common/Unnatural Worlds/bin";
             }
             Console.WriteLine("looking for uw library in: " + root);
-            System.IO.Directory.SetCurrentDirectory(root);
+            Directory.SetCurrentDirectory(root);
 
             Bot bot = new Bot();
             bot.Start();

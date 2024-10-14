@@ -11,10 +11,10 @@ namespace Unnatural
     {
 #if UW_USE_OPTIMIZED_LIBRARY
         // non-hard library may crash the program if used incorrectly
-        const string LibName = "unnatural-uwapi";
+        public const string LibName = "unnatural-uwapi";
 #else
         // hardened library contains additional checks to verify proper use of the api
-        const string LibName = "unnatural-uwapi-hard";
+        public const string LibName = "unnatural-uwapi-hard";
 #endif
 
         public const uint UW_GameTicksPerSecond = 20;
