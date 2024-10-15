@@ -23,12 +23,10 @@ namespace Unnatural
 
             foreach (Entity own in ownUnits)
             {
-                uint id = own.Id;
-                uint pos = own.Pos;
-                if (Commands.Orders(id).Length == 0)
+                if (Commands.Orders(own.Id).Length == 0)
                 {
-                    Entity enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(pos, x.Pos)).First();
-                    Commands.Order(id, Commands.FightToEntity(enemy.Id));
+                    Entity enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(own.Pos, x.Pos)).First();
+                    Commands.Order(own.Id, Commands.FightToEntity(enemy.Id));
                 }
             }
         }
@@ -94,7 +92,7 @@ namespace Unnatural
                 string cwd = Directory.GetCurrentDirectory();
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Directory.GetFiles(cwd, Interop.LibName + ".dll").Length > 0)
                     root = cwd;
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && Directory.GetFiles(cwd, Interop.LibName + ".so").Length > 0)
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && Directory.GetFiles(cwd, "lib" + Interop.LibName + ".so").Length > 0)
                     root = cwd;
             }
             if (root == null)

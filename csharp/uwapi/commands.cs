@@ -9,7 +9,7 @@ namespace Unnatural
 
     public static class Commands
     {
-        const uint Invalid = 4294967295;
+        public const uint Invalid = uint.MaxValue;
 
         public static Order[] Orders(uint unit)
         {

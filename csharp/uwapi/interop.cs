@@ -80,6 +80,17 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwClustersCount();
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwCluster
+        {
+            public IntPtr neighborsIndices;
+            public uint neighborsCount;
+            public uint centerTileIndex;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwCluster(uint index, ref UwCluster data);
+
         [Flags]
         public enum UwOverviewFlags
         {

@@ -143,14 +143,34 @@ namespace Unnatural
             return Interop.uwFindConstructionPlacement(constructionProto, position, recipeProto);
         }
 
-        public static uint ClusterIndex(uint position)
+        public static IReadOnlyList<uint> TileToCluster()
         {
-            return clusterIndices[(int)position];
+            return mapTileToCluster;
         }
 
-        public static IReadOnlyList<uint> ClusterIndices()
+        public static IReadOnlyList<uint> ClusterToTile()
         {
-            return clusterIndices;
+            return mapClusterToTile;
+        }
+
+        public static uint TileToCluster(uint tile)
+        {
+            return mapTileToCluster[(int)tile];
+        }
+
+        public static uint ClusterToTile(uint cluster)
+        {
+            return mapClusterToTile[(int)cluster];
+        }
+
+        public static IReadOnlyList<IReadOnlyList<uint>> ClustersNeighbors()
+        {
+            return clustersNeighbors;
+        }
+
+        public static IReadOnlyList<uint> ClustersNeighbors(uint cluster)
+        {
+            return clustersNeighbors[(int)cluster];
         }
 
         public static IReadOnlyList<MapClusterStatistics> ClustersStatistics()
@@ -172,7 +192,9 @@ namespace Unnatural
         static readonly List<uint[]> neighbors = new List<uint[]>();
         static readonly List<byte> terrains = new List<byte>();
         static OverviewFlags[] overview = new OverviewFlags[0];
-        static readonly List<uint> clusterIndices = new List<uint>(); // maps tile index to cluster index
+        static readonly List<uint> mapTileToCluster = new List<uint>();
+        static readonly List<uint> mapClusterToTile = new List<uint>();
+        static readonly List<uint[]> clustersNeighbors = new List<uint[]>();
 
         static void Load()
         {
@@ -183,7 +205,9 @@ namespace Unnatural
             neighbors.Clear();
             terrains.Clear();
             overview = new OverviewFlags[0];
-            clusterIndices.Clear();
+            mapTileToCluster.Clear();
+            mapClusterToTile.Clear();
+            clustersNeighbors.Clear();
 
             {
                 Interop.UwMapInfo info = new Interop.UwMapInfo();
@@ -194,33 +218,51 @@ namespace Unnatural
                 maxPlayers = info.maxPlayers;
             }
 
-            uint count = Interop.uwTilesCount();
-            Interop.UwTile tile = new Interop.UwTile();
-            for (uint i = 0; i < count; ++i)
             {
-                Interop.uwTile(i, ref tile);
+                uint count = Interop.uwTilesCount();
+                Interop.UwTile tile = new Interop.UwTile();
+                for (uint i = 0; i < count; ++i)
                 {
-                    Vector3 p = new Vector3();
-                    p.x = tile.position[0];
-                    p.y = tile.position[1];
-                    p.z = tile.position[2];
-                    positions.Add(p);
+                    Interop.uwTile(i, ref tile);
+                    {
+                        Vector3 p = new Vector3();
+                        p.x = tile.position[0];
+                        p.y = tile.position[1];
+                        p.z = tile.position[2];
+                        positions.Add(p);
+                    }
+                    {
+                        Vector3 u = new Vector3();
+                        u.x = tile.up[0];
+                        u.y = tile.up[1];
+                        u.z = tile.up[2];
+                        ups.Add(u);
+                    }
+                    {
+                        uint[] tmp = new uint[tile.neighborsCount];
+                        if (tile.neighborsCount > 0)
+                            Marshal.Copy(tile.neighborsIndices, (int[])(object)tmp, 0, (int)tile.neighborsCount);
+                        neighbors.Add(tmp);
+                    }
+                    terrains.Add(tile.terrain);
+                    mapTileToCluster.Add(tile.clusterIndex);
                 }
+            }
+
+            {
+                uint count = Interop.uwClustersCount();
+                Interop.UwCluster cluster = new Interop.UwCluster();
+                for (uint i = 0; i < count; ++i)
                 {
-                    Vector3 u = new Vector3();
-                    u.x = tile.up[0];
-                    u.y = tile.up[1];
-                    u.z = tile.up[2];
-                    ups.Add(u);
+                    Interop.uwCluster(i, ref cluster);
+                    {
+                        uint[] tmp = new uint[cluster.neighborsCount];
+                        if (cluster.neighborsCount > 0)
+                            Marshal.Copy(cluster.neighborsIndices, (int[])(object)tmp, 0, (int)cluster.neighborsCount);
+                        clustersNeighbors.Add(tmp);
+                    }
+                    mapClusterToTile.Add(cluster.centerTileIndex);
                 }
-                {
-                    uint[] tmp = new uint[tile.neighborsCount];
-                    if (tile.neighborsCount > 0)
-                        Marshal.Copy(tile.neighborsIndices, (int[])(object)tmp, 0, (int)tile.neighborsCount);
-                    neighbors.Add(tmp);
-                }
-                terrains.Add(tile.terrain);
-                clusterIndices.Add(tile.clusterIndex);
             }
 
             Game.LogInfo("map loaded");
@@ -251,17 +293,6 @@ namespace Unnatural
         {
             Game.MapStateChanged += MapStateChanged;
             Game.Updating += Updating;
-        }
-    }
-
-    public static class InteropHelpers
-    {
-        public static uint[] Ids(Interop.UwIds ids)
-        {
-            uint[] tmp = new uint[ids.count];
-            if (ids.count > 0)
-                Marshal.Copy(ids.ids, (int[])(object)tmp, 0, (int)ids.count);
-            return tmp;
         }
     }
 }

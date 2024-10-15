@@ -5,7 +5,7 @@ namespace Unnatural
 
     public partial class Entity
     {
-        const uint Invalid = 4294967295;
+        public const uint Invalid = uint.MaxValue;
 
         public readonly uint Id;
 
