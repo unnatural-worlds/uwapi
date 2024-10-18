@@ -13,9 +13,10 @@ namespace Unnatural
         public string name;
         public string json;
         public PrototypeTypeEnum type;
-        public string[] tags;
+        public uint[] tags;
+        public string[] tagsNames;
 
-        public bool Tagged(string tag)
+        public bool Tagged(uint tag)
         {
             foreach (var t in tags)
                 if (t == tag)
@@ -51,9 +52,11 @@ namespace Unnatural
         public bool vital; // a force loses when it loses last vital unit
         public uint maxLife;
         public uint armorType;
+        public string armorTypeName;
 
         // weapon
         public uint damageType;
+        public string damageTypeName;
         public float dps;
         public float dpsAtLowLife;
         public float fireRange; // meters
@@ -67,22 +70,13 @@ namespace Unnatural
         public float buildingRadius; // meters
     }
 
-    public class HitChancesTable
+    public class Definitions
     {
+        public List<string> tagsNames;
+        public List<string> terrainNames;
         public List<string> armorNames;
         public List<string> damageNames;
         public List<List<float>> hitChancesTable; // damage type -> armor type -> damage chance
-    }
-
-    public class TerrainTypesTable
-    {
-        public List<string> terrainNames;
-    }
-
-    internal class Definitions
-    {
-        public HitChancesTable hitChancesTable;
-        public TerrainTypesTable terrainTypesTable;
     }
 
     public static class Prototypes
@@ -154,20 +148,23 @@ namespace Unnatural
             return null;
         }
 
-        public static HitChancesTable HitChancesTable()
+        public static Definitions Definitions()
         {
-            return hitChancesTable;
+            return definitions;
         }
 
-        public static TerrainTypesTable TerrainTypesTable()
+        public static uint TagId(string tag)
         {
-            return terrainTypesTable;
+            int i = definitions.tagsNames.IndexOf(tag);
+            if (i < 0)
+                throw new KeyNotFoundException("tag name not found");
+            return (uint)i;
         }
 
         static readonly List<uint> all = new List<uint>();
         static readonly Dictionary<uint, ProtoCommon> commons = new Dictionary<uint, ProtoCommon>();
-        static HitChancesTable hitChancesTable;
-        static TerrainTypesTable terrainTypesTable;
+        static string definitionsJson;
+        static Definitions definitions;
 
         static uint[] AllIds()
         {
@@ -227,10 +224,8 @@ namespace Unnatural
                 IncludeFields = true,
             };
 
-            string json = Marshal.PtrToStringAnsi(Interop.uwDefinitionsJson());
-            Definitions defs = JsonSerializer.Deserialize<Definitions>(json, options);
-            hitChancesTable = defs.hitChancesTable;
-            terrainTypesTable = defs.terrainTypesTable;
+            definitionsJson = Marshal.PtrToStringAnsi(Interop.uwDefinitionsJson());
+            definitions = JsonSerializer.Deserialize<Definitions>(definitionsJson, options);
 
             Game.LogInfo("definitions loaded");
         }

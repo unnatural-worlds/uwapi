@@ -33,7 +33,7 @@ namespace Unnatural
 
         public ProtoUnit ProtoUnit => Proto.HasValue ? Prototypes.Unit(Proto.Value.proto) : null;
 
-        public bool Tagged(string tag)
+        public bool Tagged(uint tag)
         {
             ProtoCommon p = ProtoCommon;
             if (p != null)
