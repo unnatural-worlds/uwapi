@@ -143,25 +143,6 @@ extern "C"
 	} UwMyForceStatistics;
 	UNNATURAL_API void uwMyForceStatistics(UwMyForceStatistics *data);
 
-	// clusters statistics
-
-	typedef struct UwMapClusterStat
-	{
-		float distance;
-		float value;
-		float might;
-	} UwMapClusterStat;
-	typedef struct UwMapClusterStatistics
-	{
-		UwMapClusterStat stats[3]; // own, allies, enemies
-	} UwMapClusterStatistics;
-	typedef struct UwMapClustersStatisticsExtract
-	{
-		const UwMapClusterStatistics *stats;
-		uint32 count;
-	} UwMapClustersStatisticsExtract;
-	UNNATURAL_API void uwMapClustersStatistics(UwMapClustersStatisticsExtract *data);
-
 	// entities
 
 	UNNATURAL_API void uwModifiedEntities(UwIds *data);
@@ -215,8 +196,8 @@ extern "C"
 		UwPathStateEnum_Searching = 1,
 		UwPathStateEnum_Impossible = 2,
 		UwPathStateEnum_NotFound = 3,
-		UwPathStateEnum_Found = 4,
-		UwPathStateEnum_Recompute = 5,
+		UwPathStateEnum_Recompute = 4,
+		UwPathStateEnum_Found = 5,
 		UwPathStateEnum_Finished = 6,
 	} UwPathStateEnum;
 	UNNATURAL_API UwPathStateEnum uwPathState(uint32 unit);

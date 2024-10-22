@@ -627,30 +627,6 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwMyForceStatistics(ref UwMyForceStatistics data);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMapClusterStat
-        {
-            public float distance;
-            public float value;
-            public float might;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMapClusterStatistics
-        {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public UwMapClusterStat[] stats;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMapClustersStatisticsExtract
-        {
-            public IntPtr stats;
-            public uint count;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwMapClustersStatistics(ref UwMapClustersStatisticsExtract data);
-
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwModifiedEntities(ref UwIds data);
 
@@ -711,8 +687,8 @@ namespace Unnatural
             Searching = 1,
             Impossible = 2,
             NotFound = 3,
-            Found = 4,
-            Recompute = 5,
+            Recompute = 4,
+            Found = 5,
             Finished = 6,
         }
 

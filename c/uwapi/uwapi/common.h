@@ -74,7 +74,13 @@ extern "C"
 	// clusters
 
 	UNNATURAL_API uint32 uwClustersCount(void);
-	// todo other data for clusters
+	typedef struct UwCluster
+	{
+		const uint32 *neighborsIndices;
+		uint32 neighborsCount;
+		uint32 centerTileIndex;
+	} UwCluster;
+	UNNATURAL_API void uwCluster(uint32 index, UwCluster *data);
 
 	// overview
 

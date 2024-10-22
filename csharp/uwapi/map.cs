@@ -6,7 +6,6 @@ namespace Unnatural
 {
     using MapStateEnum = Interop.UwMapStateEnum;
     using OverviewFlags = Interop.UwOverviewFlags;
-    using MapClusterStatistics = Interop.UwMapClusterStatistics;
 
     public struct Vector3
     {
@@ -171,16 +170,6 @@ namespace Unnatural
         public static IReadOnlyList<uint> ClustersNeighbors(uint cluster)
         {
             return clustersNeighbors[(int)cluster];
-        }
-
-        public static IReadOnlyList<MapClusterStatistics> ClustersStatistics()
-        {
-            Interop.UwMapClustersStatisticsExtract ex = new Interop.UwMapClustersStatisticsExtract();
-            Interop.uwMapClustersStatistics(ref ex);
-            MapClusterStatistics[] tmp = new MapClusterStatistics[ex.count];
-            for (int i = 0; i < ex.count; i++)
-                tmp[i] = Marshal.PtrToStructure<MapClusterStatistics>(ex.stats + i * Marshal.SizeOf<MapClusterStatistics>());
-            return tmp;
         }
 
         static string name;
