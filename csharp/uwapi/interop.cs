@@ -464,6 +464,9 @@ namespace Unnatural
         public static extern void uwSetLogCallback(UwLogCallbackType callback);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwInitializeConsoleLogger();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwLog(UwSeverityEnum severity, [MarshalAs(UnmanagedType.LPStr)] string message);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -722,6 +725,28 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entity);
 
+        [Flags]
+        public enum UwChatTargetFlags
+        {
+            None = 0,
+            Server = 1 << 0,
+            Direct = 1 << 1,
+            Self = 1 << 2,
+            Allies = 1 << 3,
+            Neutral = 1 << 4,
+            Enemy = 1 << 5,
+            Observer = 1 << 6,
+            Admin = 1 << 7,
+            Players = Self | Allies | Neutral | Enemy,
+            Everyone = Players | Observer | Admin,
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwChatCallbackType([MarshalAs(UnmanagedType.LPStr)] string msg, uint sender, UwChatTargetFlags targets);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetChatCallback(UwChatCallbackType callback);
+
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern ulong uwGetLobbyId();
 
@@ -769,6 +794,9 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminSendSuggestedCameraFocus(uint position);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSendChat([MarshalAs(UnmanagedType.LPStr)] string msg, UwChatTargetFlags flags, uint targetId);
     }
 
     public partial class Entity

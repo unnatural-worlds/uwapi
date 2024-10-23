@@ -34,6 +34,7 @@ extern "C"
 	} UwLogCallback;
 	typedef void (*UwLogCallbackType)(const UwLogCallback *data);
 	UNNATURAL_API void uwSetLogCallback(UwLogCallbackType callback);
+	UNNATURAL_API void uwInitializeConsoleLogger(void);
 	UNNATURAL_API void uwLog(UwSeverityEnum severity, const char *message);
 
 	typedef struct UwAssistConfig
@@ -214,6 +215,25 @@ extern "C"
 	UNNATURAL_API void uwCommandRenounceControl(uint32 unitOrConstruction);
 	UNNATURAL_API void uwCommandSelfDestruct(uint32 entity);
 
+	// chat
+
+	typedef enum UwChatTargetFlags
+	{
+		UwChatTargetFlags_None = 0,
+		UwChatTargetFlags_Server = 1 << 0,
+		UwChatTargetFlags_Direct = 1 << 1,
+		UwChatTargetFlags_Self = 1 << 2,
+		UwChatTargetFlags_Allies = 1 << 3,
+		UwChatTargetFlags_Neutral = 1 << 4,
+		UwChatTargetFlags_Enemy = 1 << 5,
+		UwChatTargetFlags_Observer = 1 << 6,
+		UwChatTargetFlags_Admin = 1 << 7,
+		UwChatTargetFlags_Players = UwChatTargetFlags_Self | UwChatTargetFlags_Allies | UwChatTargetFlags_Neutral | UwChatTargetFlags_Enemy,
+		UwChatTargetFlags_Everyone = UwChatTargetFlags_Players | UwChatTargetFlags_Observer | UwChatTargetFlags_Admin,
+	} UwChatTargetFlags;
+	typedef void (*UwChatCallbackType)(const char *msg, uint32 sender, UwChatTargetFlags targets);
+	UNNATURAL_API void uwSetChatCallback(UwChatCallbackType callback);
+
 	// admin only
 
 	UNNATURAL_API uint64 uwGetLobbyId(void);
@@ -232,6 +252,7 @@ extern "C"
 	UNNATURAL_API void uwAdminForceJoinTeam(uint32 force, uint32 team);
 	UNNATURAL_API void uwAdminForceSetColor(uint32 force, float r, float g, float b);
 	UNNATURAL_API void uwAdminSendSuggestedCameraFocus(uint32 position);
+	UNNATURAL_API void uwAdminSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
 
 #ifdef __cplusplus
 } // extern C

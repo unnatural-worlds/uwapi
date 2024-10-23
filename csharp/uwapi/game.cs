@@ -8,6 +8,14 @@ namespace Unnatural
     using MapStateEnum = Interop.UwMapStateEnum;
     using ShootingData = Interop.UwShootingData;
     using ShootingArray = Interop.UwShootingArray;
+    using ChatTargetFLags = Interop.UwChatTargetFlags;
+
+    public class ChatMessage
+    {
+        public string Message;
+        public uint Sender;
+        public ChatTargetFLags Flags;
+    }
 
     public static class Game
     {
@@ -16,6 +24,7 @@ namespace Unnatural
         public static event EventHandler<MapStateEnum> MapStateChanged;
         public static event EventHandler<bool> Updating;
         public static event EventHandler<ShootingData[]> Shooting;
+        public static event EventHandler<ChatMessage> ChatReceived;
 
         public static void LogInfo(string msg)
         {
@@ -111,6 +120,7 @@ namespace Unnatural
         static readonly Interop.UwMapStateCallbackType MapStateDelegate = new Interop.UwMapStateCallbackType(MapStateCallback);
         static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
         static readonly Interop.UwShootingCallbackType ShootingDelegate = new Interop.UwShootingCallbackType(ShootingCallback);
+        static readonly Interop.UwChatCallbackType ChatDelegate = new Interop.UwChatCallbackType(ChatCallback);
         static uint tick;
 
         static void ExceptionCallback([MarshalAs(UnmanagedType.LPStr)] string message)
@@ -164,6 +174,17 @@ namespace Unnatural
             Shooting(null, arr);
         }
 
+        static void ChatCallback(string msg, uint sender, ChatTargetFLags flags)
+        {
+            if (ChatReceived == null)
+                return;
+            ChatMessage c = new ChatMessage();
+            c.Message = msg;
+            c.Sender = sender;
+            c.Flags = flags;
+            ChatReceived(null, c);
+        }
+
         static Game()
         {
             AppDomain.CurrentDomain.ProcessExit += Destructor;
@@ -176,6 +197,7 @@ namespace Unnatural
             Interop.uwSetMapStateCallback(MapStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
             Interop.uwSetShootingCallback(ShootingDelegate);
+            Interop.uwSetChatCallback(ChatDelegate);
 
             // make sure that others register their callbacks too
             Prototypes.All();

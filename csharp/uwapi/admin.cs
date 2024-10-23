@@ -1,5 +1,7 @@
 namespace Unnatural
 {
+    using ChatTargetFLags = Interop.UwChatTargetFlags;
+
     public static class Admin
     {
         public static ulong GetLobbyId()
@@ -80,6 +82,11 @@ namespace Unnatural
         public static void SendSuggestedCameraFocus(uint position)
         {
             Interop.uwAdminSendSuggestedCameraFocus(position);
+        }
+
+        public static void SendChat(string msg, ChatTargetFLags flags, uint id = uint.MaxValue)
+        {
+            Interop.uwAdminSendChat(msg, flags, id);
         }
     }
 }
