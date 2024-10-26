@@ -47,9 +47,11 @@ namespace Unnatural
     public class ProtoUnit : ProtoCommon
     {
         public List<uint> recipes;
+        public bool vital; // a force loses when it loses last vital unit
+        public bool cargo; // the unit may carry resources
         public bool logistics; // vehicle that is automatically controlled by the logistics system
         public bool assembler; // the unit must have at least one valid recipe
-        public bool vital; // a force loses when it loses last vital unit
+        public bool emptyNeighbors; // the building requires empty space around
         public uint maxLife;
         public uint armorType;
         public string armorTypeName;
@@ -64,7 +66,6 @@ namespace Unnatural
 
         // mobile only
         public Dictionary<uint, float> speeds; // terrain type -> speed (meters per second)
-        public bool cargo; // the unit may carry resources
 
         // building only
         public float buildingRadius; // meters
