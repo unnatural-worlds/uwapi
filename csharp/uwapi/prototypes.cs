@@ -52,6 +52,7 @@ namespace Unnatural
         public bool logistics; // vehicle that is automatically controlled by the logistics system
         public bool assembler; // the unit must have at least one valid recipe
         public bool emptyNeighbors; // the building requires empty space around
+        public bool neutralCategory; // the unit is put in neutral category in lexicon
         public uint maxLife;
         public uint armorType;
         public string armorTypeName;

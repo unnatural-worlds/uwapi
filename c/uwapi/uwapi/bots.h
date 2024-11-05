@@ -42,7 +42,6 @@ extern "C"
 		bool logistics;
 		bool aiming;
 		bool fighting;
-		bool retaliations;
 	} UwAssistConfig;
 	UNNATURAL_API void uwSetAssistConfig(const UwAssistConfig *config);
 
