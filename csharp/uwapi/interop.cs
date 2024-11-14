@@ -205,6 +205,7 @@ namespace Unnatural
             Shooting = 1 << 0,
             Processing = 1 << 1,
             Rebuilding = 1 << 2,
+            Stalling = 1 << 3,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -475,7 +476,6 @@ namespace Unnatural
             [MarshalAs(UnmanagedType.I1)] public bool logistics;
             [MarshalAs(UnmanagedType.I1)] public bool aiming;
             [MarshalAs(UnmanagedType.I1)] public bool fighting;
-            [MarshalAs(UnmanagedType.I1)] public bool retaliations;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

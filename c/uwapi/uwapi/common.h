@@ -156,6 +156,7 @@ extern "C"
 		UwUnitStateFlags_Shooting = 1 << 0,
 		UwUnitStateFlags_Processing = 1 << 1, // processing recipe
 		UwUnitStateFlags_Rebuilding = 1 << 2, // changing recipe
+		UwUnitStateFlags_Stalling = 1 << 3, // usually due to maximumProcessingOutput
 	} UwUnitStateFlags;
 	typedef struct UwUnitComponent
 	{

@@ -27,7 +27,7 @@ namespace Unnatural
 
     public class ProtoResource : ProtoCommon
     {
-        // nothing for now
+        public uint maximumProcessingOutput; // recipe will stall if it was to produce a resource stack with more than this amount
     }
 
     public class ProtoRecipe : ProtoCommon
