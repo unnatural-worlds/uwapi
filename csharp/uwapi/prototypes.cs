@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Text.Json;
+using System;
 
 namespace Unnatural
 {
@@ -64,6 +65,8 @@ namespace Unnatural
         public float dpsAtLowLife;
         public float fireRange; // meters
         public float rateOfFire;
+        public float shooterElevation; // radians
+        public float targetElevation; // radians
 
         // mobile only
         public Dictionary<uint, float> speeds; // terrain type -> speed (meters per second)
@@ -153,6 +156,11 @@ namespace Unnatural
         public static Definitions Definitions()
         {
             return definitions;
+        }
+
+        public static uint HashString(string str)
+        {
+            return Interop.uwHashString(str);
         }
 
         public static uint TagId(string tag)
