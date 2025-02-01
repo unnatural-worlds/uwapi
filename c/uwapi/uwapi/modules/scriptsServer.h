@@ -36,10 +36,13 @@ extern "C"
 	UNNATURAL_API void uwSetPlayerForce(uint32 player, uint32 force);
 	UNNATURAL_API void uwSetForceColor(uint32 force, float r, float g, float b);
 	UNNATURAL_API void uwSetForceFinish(uint32 force, bool winner, bool defeated);
+	UNNATURAL_API void uwSetForceStartingTeam(uint32 force, uint32 team);
+	UNNATURAL_API void uwSetForceStartingPosition(uint32 force, uint32 position);
 	UNNATURAL_API void uwSetForeignPolicy(uint32 force1, uint32 force2, UwForeignPolicyEnum policy);
 
 	UNNATURAL_API void uwStandardVictoryConditions(bool enable);
 	UNNATURAL_API void uwSendChat(const char *msg, UwChatTargetFlags flags, uint32 target);
+
 	UNNATURAL_API void uwPrint(const char *msg);
 	UNNATURAL_API uint32 uwRand(void);
 

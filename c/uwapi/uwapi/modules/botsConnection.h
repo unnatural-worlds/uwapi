@@ -44,8 +44,7 @@ extern "C"
 		UwConnectionStateEnum_None = 0,
 		UwConnectionStateEnum_Connecting = 1,
 		UwConnectionStateEnum_Connected = 2,
-		UwConnectionStateEnum_Disconnecting = 3,
-		UwConnectionStateEnum_Error = 4,
+		UwConnectionStateEnum_Error = 3,
 	} UwConnectionStateEnum;
 	typedef void (*UwConnectionStateCallbackType)(UwConnectionStateEnum state);
 	UNNATURAL_API void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
