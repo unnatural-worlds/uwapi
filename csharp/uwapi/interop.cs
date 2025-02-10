@@ -244,7 +244,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entity);
 
-        public const uint UW_VERSION = 25;
+        public const uint UW_VERSION = 26;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -761,7 +761,8 @@ namespace Unnatural
             public uint killCount;
             public uint lossCount;
             public uint finishTimestamp;
-            public uint team;
+            public uint intendedTeam;
+            public uint intendedRace;
             public UwForceStateFlags state;
         }
 
@@ -775,6 +776,7 @@ namespace Unnatural
             public ulong killValue;
             public ulong lossValue;
             public uint startingPosition;
+            public uint race;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

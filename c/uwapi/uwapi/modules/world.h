@@ -167,7 +167,8 @@ extern "C"
 		uint32 killCount;
 		uint32 lossCount;
 		uint32 finishTimestamp;
-		uint32 team;
+		uint32 intendedTeam;
+		uint32 intendedRace;
 		UwForceStateFlags state;
 	} UwForceComponent;
 	UNNATURAL_API bool uwFetchForceComponent(UwEntityPtr entity, UwForceComponent *data);
@@ -177,6 +178,7 @@ extern "C"
 		uint64 killValue;
 		uint64 lossValue;
 		uint32 startingPosition;
+		uint32 race;
 	} UwForceDetailsComponent;
 	UNNATURAL_API bool uwFetchForceDetailsComponent(UwEntityPtr entity, UwForceDetailsComponent *data);
 

@@ -12,6 +12,10 @@ extern "C"
 
 	// my player
 
+	UNNATURAL_API void uwSetPlayerName(const char *name);
+	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b); // [0 .. 1]
+	UNNATURAL_API void uwSetPlayerRace(uint32 raceProto);
+
 	typedef struct UwMyPlayer
 	{
 		uint32 playerEntityId;
