@@ -75,6 +75,16 @@ namespace Unnatural
         public float buildingRadius; // meters
     }
 
+    public class ProtoUpgrade : ProtoCommon
+    {
+    }
+
+    public class ProtoRace : ProtoCommon
+    {
+        public Dictionary<uint, uint> startingProvisions; // id -> count
+        public List<uint> constructions;
+    }
+
     public class Definitions
     {
         public List<string> tagsNames;
@@ -153,6 +163,24 @@ namespace Unnatural
             return null;
         }
 
+        public static ProtoUpgrade Upgrade(uint id)
+        {
+            ProtoCommon tmp;
+            if (commons.TryGetValue(id, out tmp))
+                if (tmp.type == PrototypeTypeEnum.Upgrade)
+                    return (ProtoUpgrade)tmp;
+            return null;
+        }
+
+        public static ProtoRace Race(uint id)
+        {
+            ProtoCommon tmp;
+            if (commons.TryGetValue(id, out tmp))
+                if (tmp.type == PrototypeTypeEnum.Race)
+                    return (ProtoRace)tmp;
+            return null;
+        }
+
         public static Definitions Definitions()
         {
             return definitions;
@@ -213,6 +241,12 @@ namespace Unnatural
                         break;
                     case PrototypeTypeEnum.Unit:
                         pc = JsonSerializer.Deserialize<ProtoUnit>(json, options);
+                        break;
+                    case PrototypeTypeEnum.Upgrade:
+                        pc = JsonSerializer.Deserialize<ProtoUpgrade>(json, options);
+                        break;
+                    case PrototypeTypeEnum.Race:
+                        pc = JsonSerializer.Deserialize<ProtoRace>(json, options);
                         break;
                     default:
                         throw new System.Exception("unknown prototype type enum");

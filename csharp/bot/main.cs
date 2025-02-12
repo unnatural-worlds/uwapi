@@ -44,8 +44,23 @@ namespace Unnatural
             }
         }
 
+        void Configure()
+        {
+            Game.SetPlayerName("bot-cs");
+            Game.SetPlayerColor(1f, 0f, 0f);
+            if (Game.MapState() == Interop.UwMapStateEnum.Loaded)
+            {
+                // todo choose race
+            }
+        }
+
         void Updating(object sender, bool stepping)
         {
+            if (Game.GameState() == Interop.UwGameStateEnum.Session)
+            {
+                Configure();
+                return;
+            }
             if (!stepping)
                 return;
             switch (step++ % 10) // save some cpu cycles by splitting work over multiple steps
@@ -62,7 +77,6 @@ namespace Unnatural
         void Start()
         {
             Game.LogInfo("bot-cs start");
-            Game.SetPlayerName("bot-cs");
             if (!Game.TryReconnect())
             {
                 Game.SetConnectStartGui(true);

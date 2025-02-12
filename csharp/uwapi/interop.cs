@@ -63,6 +63,9 @@ namespace Unnatural
         public static extern void uwAdminForceSetColor(uint force, float r, float g, float b);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminForceSetRace(uint force, uint raceProto);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminSendSuggestedCameraFocus(uint position);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -109,12 +112,6 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwLog(UwSeverityEnum severity, [MarshalAs(UnmanagedType.LPStr)] string message);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetPlayerName([MarshalAs(UnmanagedType.LPStr)] string name);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetPlayerColor(float r, float g, float b);
 
         public enum UwConnectionStateEnum
         {
@@ -284,6 +281,15 @@ namespace Unnatural
             Players = Self | Allies | Neutral | Enemy,
             Everyone = Players | Observer | Admin,
         }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetPlayerName([MarshalAs(UnmanagedType.LPStr)] string name);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetPlayerColor(float r, float g, float b);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetPlayerRace(uint raceProto);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMyPlayer
@@ -516,6 +522,8 @@ namespace Unnatural
             Recipe = 2,
             Construction = 3,
             Unit = 4,
+            Upgrade = 5,
+            Race = 6,
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

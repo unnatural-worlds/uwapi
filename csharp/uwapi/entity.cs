@@ -27,8 +27,6 @@ namespace Unnatural
 
         public ProtoResource ProtoResource => Proto.HasValue ? Prototypes.Resource(Proto.Value.proto) : null;
 
-        // an entity cannot be a recipe on its own
-
         public ProtoConstruction ProtoConstruction => Proto.HasValue ? Prototypes.Construction(Proto.Value.proto) : null;
 
         public ProtoUnit ProtoUnit => Proto.HasValue ? Prototypes.Unit(Proto.Value.proto) : null;
