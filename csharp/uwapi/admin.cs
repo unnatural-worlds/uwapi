@@ -49,34 +49,39 @@ namespace Unnatural
             Interop.uwAdminAddAi();
         }
 
-        public static void KickPlayer(uint player)
+        public static void KickPlayer(uint playerId)
         {
-            Interop.uwAdminKickPlayer(player);
+            Interop.uwAdminKickPlayer(playerId);
         }
 
-        public static void PlayerSetAdmin(uint player, bool admin)
+        public static void PlayerSetAdmin(uint playerId, bool admin)
         {
-            Interop.uwAdminPlayerSetAdmin(player, admin);
+            Interop.uwAdminPlayerSetAdmin(playerId, admin);
         }
 
-        public static void PlayerSetName(uint player, string name)
+        public static void PlayerSetName(uint playerId, string name)
         {
-            Interop.uwAdminPlayerSetName(player, name);
+            Interop.uwAdminPlayerSetName(playerId, name);
         }
 
-        public static void PlayerJoinForce(uint player, uint force)
+        public static void PlayerJoinForce(uint playerId, uint forceId)
         {
-            Interop.uwAdminPlayerJoinForce(player, force);
+            Interop.uwAdminPlayerJoinForce(playerId, forceId);
         }
 
-        public static void ForceJoinTeam(uint force, uint team)
+        public static void ForceJoinTeam(uint forceId, uint team)
         {
-            Interop.uwAdminForceJoinTeam(force, team);
+            Interop.uwAdminForceJoinTeam(forceId, team);
         }
 
-        public static void ForceSetColor(uint force, float r, float g, float b)
+        public static void ForceSetColor(uint forceId, float r, float g, float b)
         {
-            Interop.uwAdminForceSetColor(force, r, g, b);
+            Interop.uwAdminForceSetColor(forceId, r, g, b);
+        }
+
+        public static void ForceSetRace(uint forceId, uint raceProto)
+        {
+            Interop.uwAdminForceSetRace(forceId, raceProto);
         }
 
         public static void SendSuggestedCameraFocus(uint position)

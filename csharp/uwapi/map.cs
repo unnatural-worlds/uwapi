@@ -104,18 +104,23 @@ namespace Unnatural
             return Interop.uwTestVisible(a.x, a.y, a.z, b.x, b.y, b.z);
         }
 
-        public static bool TestShooting(uint shooterPosition, uint shooterProto, uint targetPosition, uint targetProto)
+        public static bool TestShooting(uint shooterPosition, uint shooterProto, float shootingRangeUpgrade, uint targetPosition, uint targetProto)
         {
-            return Interop.uwTestShooting(shooterPosition, shooterProto, targetPosition, targetProto);
+            return Interop.uwTestShooting(shooterPosition, shooterProto, shootingRangeUpgrade, targetPosition, targetProto);
         }
 
-        public static float DistanceLine(uint ai, uint bi)
+        public static bool TestShooting(uint shooterId, uint targetId)
         {
-            Vector3 a = positions[(int)ai];
-            Vector3 b = positions[(int)bi];
-            float x = a.x - b.x;
-            float y = a.y - b.y;
-            float z = a.z - b.z;
+            return Interop.uwTestShootingEntities(shooterId, targetId);
+        }
+
+        public static float DistanceLine(uint a, uint b)
+        {
+            Vector3 a3 = positions[(int)a];
+            Vector3 b3 = positions[(int)b];
+            float x = a3.x - b3.x;
+            float y = a3.y - b3.y;
+            float z = a3.z - b3.z;
             x *= x;
             y *= y;
             z *= z;

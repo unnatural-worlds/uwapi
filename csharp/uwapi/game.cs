@@ -51,6 +51,11 @@ namespace Unnatural
             Interop.uwSetPlayerColor(r, g, b);
         }
 
+        public static void SetPlayerRace(uint raceProto)
+        {
+            Interop.uwSetPlayerRace(raceProto);
+        }
+
         public static void SetConnectStartGui(bool startGui, string extraParams = "--observer 1")
         {
             Interop.uwSetConnectStartGui(startGui, extraParams);

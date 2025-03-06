@@ -54,6 +54,7 @@ namespace Unnatural
         public bool assembler; // the unit must have at least one valid recipe
         public bool emptyNeighbors; // the building requires empty space around
         public bool neutralCategory; // the unit is put in neutral category in lexicon
+        public float processingSpeed;
         public uint maxLife;
         public uint armorType;
         public string armorTypeName;
@@ -77,6 +78,13 @@ namespace Unnatural
 
     public class ProtoUpgrade : ProtoCommon
     {
+        public uint duration; // ticks
+        public uint limit;
+        public float damage;
+        public float shootingRange;
+        public float defense;
+        public float movementSpeed;
+        public float processingSpeed;
     }
 
     public class ProtoRace : ProtoCommon

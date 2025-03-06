@@ -11,19 +11,19 @@ namespace Unnatural
     {
         public const uint Invalid = uint.MaxValue;
 
-        public static Order[] Orders(uint unit)
+        public static Order[] Orders(uint unitId)
         {
             Interop.UwOrders os = new Interop.UwOrders();
-            Interop.uwOrders(unit, ref os);
+            Interop.uwOrders(unitId, ref os);
             Order[] tmp = new Order[os.count];
             for (int i = 0; i < os.count; i++)
                 tmp[i] = Marshal.PtrToStructure<Order>(os.orders + i * Marshal.SizeOf<Order>());
             return tmp;
         }
 
-        public static void Order(uint unit, Order order)
+        public static void Order(uint unitId, Order order)
         {
-            Interop.uwOrder(unit, ref order);
+            Interop.uwOrder(unitId, ref order);
         }
 
         public static Order Stop()
@@ -56,10 +56,10 @@ namespace Unnatural
             return o;
         }
 
-        public static Order RunToEntity(uint entity)
+        public static Order RunToEntity(uint entityId)
         {
             Order o = new Order();
-            o.entity = entity;
+            o.entity = entityId;
             o.position = Invalid;
             o.order = Type.Run;
             o.priority = Priority.User;
@@ -76,19 +76,19 @@ namespace Unnatural
             return o;
         }
 
-        public static Order FightToEntity(uint entity)
+        public static Order FightToEntity(uint entityId)
         {
             Order o = new Order();
-            o.entity = entity;
+            o.entity = entityId;
             o.position = Invalid;
             o.order = Type.Fight;
             o.priority = Priority.User;
             return o;
         }
 
-        public static PathStateEnum PathState(uint unit)
+        public static PathStateEnum UnitPathState(uint unitId)
         {
-            return Interop.uwPathState(unit);
+            return Interop.uwUnitPathState(unitId);
         }
 
         public static void PlaceConstruction(uint constructionProto, uint position, float yaw = 0, uint recipeProto = 0, Interop.UwPriorityEnum priority = Interop.UwPriorityEnum.Normal)
@@ -96,44 +96,44 @@ namespace Unnatural
             Interop.uwCommandPlaceConstruction(constructionProto, position, yaw, recipeProto, priority);
         }
 
-        public static void SetRecipe(uint unit, uint recipe)
+        public static void SetRecipe(uint unitId, uint recipeProto)
         {
-            Interop.uwCommandSetRecipe(unit, recipe);
+            Interop.uwCommandSetRecipe(unitId, recipeProto);
         }
 
-        public static void SetPriority(uint unit, Interop.UwPriorityEnum priority)
+        public static void SetPriority(uint unitId, Interop.UwPriorityEnum priority)
         {
-            Interop.uwCommandSetPriority(unit, priority);
+            Interop.uwCommandSetPriority(unitId, priority);
         }
 
-        public static void Load(uint unit, uint resourceType)
+        public static void Load(uint unitId, uint resourceProto)
         {
-            Interop.uwCommandLoad(unit, resourceType);
+            Interop.uwCommandLoad(unitId, resourceProto);
         }
 
-        public static void Unload(uint unit)
+        public static void Unload(uint unitId)
         {
-            Interop.uwCommandUnload(unit);
+            Interop.uwCommandUnload(unitId);
         }
 
-        public static void Move(uint unit, uint position, float yaw = 0)
+        public static void Move(uint unitId, uint position, float yaw = 0)
         {
-            Interop.uwCommandMove(unit, position, yaw);
+            Interop.uwCommandMove(unitId, position, yaw);
         }
 
-        public static void Aim(uint unit, uint target)
+        public static void Aim(uint unitId, uint targetId)
         {
-            Interop.uwCommandAim(unit, target);
+            Interop.uwCommandAim(unitId, targetId);
         }
 
-        public static void RenounceControl(uint unit)
+        public static void RenounceControl(uint entityId)
         {
-            Interop.uwCommandRenounceControl(unit);
+            Interop.uwCommandRenounceControl(entityId);
         }
 
-        public static void SelfDestruct(uint unit)
+        public static void SelfDestruct(uint entityId)
         {
-            Interop.uwCommandSelfDestruct(unit);
+            Interop.uwCommandSelfDestruct(entityId);
         }
     }
 }

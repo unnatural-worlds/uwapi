@@ -8,4 +8,3 @@ You will need these dependencies:
 - System
 - System.Memory
 - System.Text.Json
-- Microsoft.CSharp.dll
