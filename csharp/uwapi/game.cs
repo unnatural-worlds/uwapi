@@ -8,6 +8,8 @@ namespace Unnatural
     using MapStateEnum = Interop.UwMapStateEnum;
     using ShootingData = Interop.UwShootingData;
     using ShootingArray = Interop.UwShootingArray;
+    using ExplosionData = Interop.UwExplosionData;
+    using ExplosionsArray = Interop.UwExplosionsArray;
     using ChatTargetFLags = Interop.UwChatTargetFlags;
 
     public class ChatMessage
@@ -24,6 +26,7 @@ namespace Unnatural
         public static event EventHandler<MapStateEnum> MapStateChanged;
         public static event EventHandler<bool> Updating;
         public static event EventHandler<ShootingData[]> Shooting;
+        public static event EventHandler<ExplosionData[]> Explosions;
         public static event EventHandler<ChatMessage> ChatReceived;
 
         public static void LogInfo(string msg)
@@ -81,6 +84,11 @@ namespace Unnatural
             Interop.uwConnectLobbyId(lobbyId);
         }
 
+        public static bool ConnectEnvironment()
+        {
+            return Interop.uwConnectEnvironment();
+        }
+
         public static void ConnectNewServer(uint visibility = 0, string name = "", string extraParams = "")
         {
             Interop.uwConnectNewServer(visibility, name, extraParams);
@@ -118,6 +126,13 @@ namespace Unnatural
             return tick;
         }
 
+        public static Interop.UwPerformanceStatistics PerformanceStatistics()
+        {
+            Interop.UwPerformanceStatistics data = new Interop.UwPerformanceStatistics();
+            Interop.uwPerformanceStatistics(ref data);
+            return data;
+        }
+
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);
         static readonly Interop.UwLogCallbackType LogDelegate = new Interop.UwLogCallbackType(LogCallback);
         static readonly Interop.UwConnectionStateCallbackType ConnectionStateDelegate = new Interop.UwConnectionStateCallbackType(ConnectionStateCallback);
@@ -125,6 +140,7 @@ namespace Unnatural
         static readonly Interop.UwMapStateCallbackType MapStateDelegate = new Interop.UwMapStateCallbackType(MapStateCallback);
         static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
         static readonly Interop.UwShootingCallbackType ShootingDelegate = new Interop.UwShootingCallbackType(ShootingCallback);
+        static readonly Interop.UwExplosionsCallbackType ExplosionsDelegate = new Interop.UwExplosionsCallbackType(ExplosionsCallback);
         static readonly Interop.UwChatCallbackType ChatDelegate = new Interop.UwChatCallbackType(ChatCallback);
         static uint tick;
 
@@ -179,6 +195,20 @@ namespace Unnatural
             Shooting(null, arr);
         }
 
+        static void ExplosionsCallback(ref ExplosionsArray data)
+        {
+            if (Explosions == null)
+                return;
+            ExplosionData[] arr = new ExplosionData[data.count];
+            int size = Marshal.SizeOf(typeof(ExplosionData));
+            for (int i = 0; i < data.count; i++)
+            {
+                IntPtr currentPtr = IntPtr.Add(data.data, i * size);
+                arr[i] = Marshal.PtrToStructure<ExplosionData>(currentPtr);
+            }
+            Explosions(null, arr);
+        }
+
         static void ChatCallback(string msg, uint sender, ChatTargetFLags flags)
         {
             if (ChatReceived == null)
@@ -202,6 +232,7 @@ namespace Unnatural
             Interop.uwSetMapStateCallback(MapStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
             Interop.uwSetShootingCallback(ShootingDelegate);
+            Interop.uwSetExplosionsCallback(ExplosionsDelegate);
             Interop.uwSetChatCallback(ChatDelegate);
 
             // make sure that others register their callbacks too

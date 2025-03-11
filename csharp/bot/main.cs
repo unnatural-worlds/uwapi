@@ -80,14 +80,7 @@ namespace Unnatural
             if (!Game.TryReconnect())
             {
                 Game.SetConnectStartGui(true);
-                string lobby = Environment.GetEnvironmentVariable("UNNATURAL_CONNECT_LOBBY");
-                string addr = Environment.GetEnvironmentVariable("UNNATURAL_CONNECT_ADDR");
-                string port = Environment.GetEnvironmentVariable("UNNATURAL_CONNECT_PORT");
-                if (lobby != null)
-                    Game.ConnectLobbyId(ulong.Parse(lobby));
-                else if (addr != null && port != null)
-                    Game.ConnectDirect(addr, ushort.Parse(port));
-                else
+                if (!Game.ConnectEnvironment())
                     Game.ConnectNewServer();
             }
             Game.LogInfo("bot-cs done");

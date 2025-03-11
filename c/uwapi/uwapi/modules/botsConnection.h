@@ -52,9 +52,20 @@ extern "C"
 	UNNATURAL_API bool uwConnectFindLan(uint64 timeoutMicroseconds);
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
+	UNNATURAL_API bool uwConnectEnvironment();
 	UNNATURAL_API void uwConnectNewServer(uint32 visibility, const char *name, const char *extraCmdParams);
 	UNNATURAL_API bool uwTryReconnect(void);
 	UNNATURAL_API void uwDisconnect(void);
+
+	typedef struct UwPerformanceStatistics
+	{
+		float gameSpeed;
+		float mainThreadUtilization;
+		float ping; // ms
+		uint32 networkUp; // kb/s
+		uint32 networkDown; // kb/s
+	} UwPerformanceStatistics;
+	UNNATURAL_API void uwPerformanceStatistics(UwPerformanceStatistics *data);
 
 #endif
 

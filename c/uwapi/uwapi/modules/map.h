@@ -90,7 +90,8 @@ extern "C"
 	UNNATURAL_API void uwAreaExtended(uint32 position, float radius, UwIds *data);
 
 	UNNATURAL_API bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
-	UNNATURAL_API bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, uint32 targetPosition, uint32 targetProto);
+	UNNATURAL_API bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, float shootingRangeUpgrade, uint32 targetPosition, uint32 targetProto);
+	UNNATURAL_API bool uwTestShootingEntities(uint32 shooterId, uint32 targetId);
 	UNNATURAL_API float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
 	UNNATURAL_API float uwDistanceEstimate(uint32 a, uint32 b);
 	UNNATURAL_API float uwYaw(uint32 position, uint32 towards);

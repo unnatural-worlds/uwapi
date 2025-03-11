@@ -61,7 +61,10 @@ namespace Unnatural
                 if (!allIds.Contains(id))
                     removed.Add(id);
             foreach (uint id in removed)
+            {
+                entities[id].Destroyed = true;
                 entities.Remove(id);
+            }
         }
 
         static void UpdateModified()

@@ -9,6 +9,8 @@ namespace Unnatural
 
         public readonly uint Id;
 
+        public bool Destroyed = false;
+
         public Entity(uint id) { Id = id; }
 
         public uint Pos => Position.HasValue ? Position.Value.position : Invalid;

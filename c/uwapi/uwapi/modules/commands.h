@@ -54,17 +54,17 @@ extern "C"
 		UwPathStateEnum_Found = 5,
 		UwPathStateEnum_Finished = 6,
 	} UwPathStateEnum;
-	UNNATURAL_API UwPathStateEnum uwPathState(uint32 unit);
+	UNNATURAL_API UwPathStateEnum uwUnitPathState(uint32 unitId);
 
 	UNNATURAL_API void uwCommandPlaceConstruction(uint32 constructionProto, uint32 position, float yaw, uint32 recipeProto, UwPriorityEnum priority); // recipeProto may be 0
-	UNNATURAL_API void uwCommandSetRecipe(uint32 unitOrConstruction, uint32 recipeProto);
-	UNNATURAL_API void uwCommandSetPriority(uint32 unitOrConstruction, UwPriorityEnum priority);
-	UNNATURAL_API void uwCommandLoad(uint32 unit, uint32 resourceType);
-	UNNATURAL_API void uwCommandUnload(uint32 unit);
-	UNNATURAL_API void uwCommandMove(uint32 unit, uint32 position, float yaw); // neighboring position only
-	UNNATURAL_API void uwCommandAim(uint32 unit, uint32 target);
-	UNNATURAL_API void uwCommandRenounceControl(uint32 unitOrConstruction);
-	UNNATURAL_API void uwCommandSelfDestruct(uint32 entity);
+	UNNATURAL_API void uwCommandSetRecipe(uint32 unitOrConstructionId, uint32 recipeProto);
+	UNNATURAL_API void uwCommandSetPriority(uint32 unitOrConstructionId, UwPriorityEnum priority);
+	UNNATURAL_API void uwCommandLoad(uint32 unitId, uint32 resourceProto);
+	UNNATURAL_API void uwCommandUnload(uint32 unitId);
+	UNNATURAL_API void uwCommandMove(uint32 unitId, uint32 position, float yaw); // neighboring position only
+	UNNATURAL_API void uwCommandAim(uint32 unitId, uint32 targetId);
+	UNNATURAL_API void uwCommandRenounceControl(uint32 entityId);
+	UNNATURAL_API void uwCommandSelfDestruct(uint32 entityId);
 
 #endif
 

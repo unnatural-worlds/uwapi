@@ -147,6 +147,10 @@ namespace Unnatural
         public static extern void uwConnectLobbyId(ulong lobbyId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwConnectEnvironment();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectNewServer(uint visibility, [MarshalAs(UnmanagedType.LPStr)] string name, [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -155,6 +159,19 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwDisconnect();
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwPerformanceStatistics
+        {
+            public float gameSpeed;
+            public float mainThreadUtilization;
+            public float ping;
+            public uint networkUp;
+            public uint networkDown;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwPerformanceStatistics(ref UwPerformanceStatistics data);
 
         public enum UwOrderTypeEnum
         {
@@ -381,6 +398,28 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetShootingCallback(UwShootingCallbackType callback);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwExplosionData
+        {
+            public uint position;
+            public uint force;
+            public uint prototype;
+            public uint id;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwExplosionsArray
+        {
+            public IntPtr data;
+            public uint count;
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwExplosionsCallbackType(ref UwExplosionsArray data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UwChatCallbackType([MarshalAs(UnmanagedType.LPStr)] string msg, uint sender, UwChatTargetFlags flags);

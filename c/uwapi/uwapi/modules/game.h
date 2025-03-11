@@ -102,6 +102,28 @@ extern "C"
 	UNNATURAL_ENTRY void uwShootingCallback(const UwShootingArray *data);
 #endif
 
+	// explosions callback
+
+	typedef struct UwExplosionData
+	{
+		uint32 position;
+		uint32 force;
+		uint32 prototype;
+		uint32 id; // beware, it is expired
+	} UwExplosionData;
+	typedef struct UwExplosionsArray
+	{
+		UNNATURAL_POINTER(const UwExplosionData *) data;
+		uint32 count;
+	} UwExplosionsArray;
+#ifdef UNNATURAL_BOTS
+	typedef void (*UwExplosionsCallbackType)(const UwExplosionsArray *data);
+	UNNATURAL_API void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
+#endif
+#ifdef UNNATURAL_SCRIPTS
+	UNNATURAL_ENTRY void uwExplosionsCallback(const UwExplosionsArray *data);
+#endif
+
 	// chat
 
 #ifdef UNNATURAL_BOTS
