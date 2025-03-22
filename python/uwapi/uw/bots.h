@@ -21,7 +21,7 @@
  typedef uint64_t uint64;
  typedef int64_t sint64;
 
- static const uint32 UW_VERSION = 28;
+ static const uint32 UW_VERSION = 30;
  static const uint32 UW_GameTicksPerSecond = 20;
 
  typedef struct UwIds
@@ -331,6 +331,17 @@
   uint32 maxPlayers;
  } UwMapInfo;
                bool uwMapInfo(UwMapInfo *data);
+
+ typedef struct UwMapStartingPosition
+ {
+  uint32 position;
+ } UwMapStartingPosition;
+ typedef struct UwMapStartingPositionsArray
+ {
+  const UwMapStartingPosition * data;
+  uint32 count;
+ } UwMapStartingPositionsArray;
+               void uwMapStartingPositions(UwMapStartingPositionsArray *data);
 
 
 

@@ -36,6 +36,17 @@ extern "C"
 	} UwMapInfo;
 	UNNATURAL_API bool uwMapInfo(UwMapInfo *data);
 
+	typedef struct UwMapStartingPosition
+	{
+		uint32 position;
+	} UwMapStartingPosition;
+	typedef struct UwMapStartingPositionsArray
+	{
+		UNNATURAL_POINTER(const UwMapStartingPosition *) data;
+		uint32 count;
+	} UwMapStartingPositionsArray;
+	UNNATURAL_API void uwMapStartingPositions(UwMapStartingPositionsArray *data);
+
 	// tiles
 
 	UNNATURAL_API uint32 uwTilesCount(void);

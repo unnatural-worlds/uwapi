@@ -258,7 +258,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 28;
+        public const uint UW_VERSION = 30;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -458,6 +458,22 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool uwMapInfo(ref UwMapInfo data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMapStartingPosition
+        {
+            public uint position;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMapStartingPositionsArray
+        {
+            public IntPtr data;
+            public uint count;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwMapStartingPositions(ref UwMapStartingPositionsArray data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwTilesCount();
