@@ -21,7 +21,7 @@
  typedef uint64_t uint64;
  typedef int64_t sint64;
 
- static const uint32 UW_VERSION = 30;
+ static const uint32 UW_VERSION = 32;
  static const uint32 UW_GameTicksPerSecond = 20;
 
  typedef struct UwIds
@@ -255,6 +255,8 @@
 
  typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
                void uwSetUpdateCallback(UwUpdateCallbackType callback);
+ typedef void (*UwForceEliminatedCallbackType)(uint32 id);
+               void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
 
 
 

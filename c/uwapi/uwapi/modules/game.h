@@ -75,6 +75,16 @@ extern "C"
 	UNNATURAL_ENTRY void uwUpdateCallback(uint32 tick, bool stepping);
 #endif
 
+	// force eliminated callback
+
+#ifdef UNNATURAL_BOTS
+	typedef void (*UwForceEliminatedCallbackType)(uint32 id);
+	UNNATURAL_API void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
+#endif
+#ifdef UNNATURAL_SCRIPTS
+	UNNATURAL_ENTRY void uwForceEliminatedCallback(uint32 id);
+#endif
+
 	// shooting callback
 
 	typedef struct UwShootingUnit

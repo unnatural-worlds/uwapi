@@ -258,7 +258,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 30;
+        public const uint UW_VERSION = 32;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -369,6 +369,12 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetUpdateCallback(UwUpdateCallbackType callback);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UwForceEliminatedCallbackType(uint id);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwShootingUnit
