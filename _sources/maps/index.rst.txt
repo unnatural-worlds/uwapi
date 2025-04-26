@@ -8,6 +8,8 @@ Guide on making custom maps for Unnatural Worlds.
 A map for UW is a collection of assets, and some additional required files.
 It may contain :ref:`prototypes <Prototypes>`, :ref:`scripts <Scripts>`, models, sounds, etc.
 
+Assets found in a map have precedence over assets in the base game.
+
 Additional files in the map
 ---------------------------
 .. toctree::
