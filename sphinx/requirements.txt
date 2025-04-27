@@ -1,2 +1,5 @@
+sphinx-autobuild
 sphinx_design
+sphinx-copybutton
+sphinx-inline-tabs
 furo

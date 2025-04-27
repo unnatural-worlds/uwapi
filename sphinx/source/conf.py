@@ -18,7 +18,9 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.githubpages',
-    'sphinx_design'
+    'sphinx_design',
+    'sphinx_copybutton',
+    "sphinx_inline_tabs",
 ]
 
 templates_path = ['_templates']
