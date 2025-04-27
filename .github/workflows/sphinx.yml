@@ -9,6 +9,9 @@ jobs:
     - uses: actions/checkout@v4
       with:
         persist-credentials: false
+    - name: update pip
+      run: |
+        python -m pip install --upgrade pip
     - name: build html
       uses: ammaraskar/sphinx-action@master
       with:
