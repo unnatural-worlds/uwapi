@@ -39,9 +39,19 @@ namespace Unnatural
             return positions;
         }
 
+        public static Vector3 Position(uint position)
+        {
+            return positions[(int)position];
+        }
+
         public static IReadOnlyList<Vector3> Ups()
         {
             return ups;
+        }
+
+        public static Vector3 Up(uint position)
+        {
+            return ups[(int)position];
         }
 
         public static IReadOnlyList<IReadOnlyList<uint>> Neighbors()
@@ -59,9 +69,19 @@ namespace Unnatural
             return terrains;
         }
 
+        public static byte Terrain(uint position)
+        {
+            return terrains[(int)position];
+        }
+
         public static IReadOnlyList<OverviewFlags> Overview()
         {
             return overview;
+        }
+
+        public static OverviewFlags Overview(uint position)
+        {
+            return overview[(int)position];
         }
 
         public static uint[] Entities(uint position)

@@ -47,7 +47,8 @@ namespace Unnatural
 
     public class ProtoUnit : ProtoCommon
     {
-        public List<uint> recipes;
+        public List<uint> recipes; // ids of recipes available for processing by this unit
+        public List<uint> upgrades; // ids of upgrades applicable to this unit
         public bool vital; // a force loses when it loses last vital unit
         public bool cargo; // the unit may carry resources
         public bool logistics; // vehicle that is automatically controlled by the logistics system
