@@ -10,8 +10,6 @@ It may contain :ref:`prototypes <Prototypes>`, :ref:`scripts <Scripts>`, models,
 
 Assets found in a map have precedence over assets in the base game.
 
-Additional files in the map
----------------------------
 .. toctree::
 	scene
 	collider

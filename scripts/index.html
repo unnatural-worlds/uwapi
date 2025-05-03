@@ -217,6 +217,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Scripts</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../bots/index.html">Bots</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bots/setup.html">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bots/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
@@ -267,6 +268,8 @@
 <p class="admonition-title">Warning</p>
 <p>Making custom scripts is not yet fully supported.</p>
 </div>
+<p>Scripts are executed within the server.
+They have access to all data within the game, and may modify all data.</p>
 <p>Scripts can be written in any language that can be compiled into <a class="reference external" href="https://en.wikipedia.org/wiki/WebAssembly">WASM</a>.</p>
 <p>The uwapi repository provides c/c++ headers for scripts.
 If you want to use another language, you will need to specify all the imported functions and structures yourself.</p>

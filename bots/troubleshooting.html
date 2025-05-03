@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Bots" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Setup" href="setup.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Troubleshooting - UW api documentation</title>
@@ -217,6 +217,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Bots</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Troubleshooting</a></li>
 </ul>
 </li>
@@ -270,21 +271,20 @@
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Unable to load DLL ‘unnatural-uwapi-hard’</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">Make sure you have installed Unnatural Worlds in Steam.</p>
-<p class="sd-card-text">If your Steam games are in non-default location, define the environment variable <code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> to the directory containing the library.
-Example: <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\Steam\steamapps\common\Unnatural</span> <span class="pre">Worlds\bin</span></code></p>
+<p class="sd-card-text">If your Steam games are in non-default location, define environment variable <code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> to the directory containing the library.</p>
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">OSError: cannot load library ‘unnatural-uwapi-hard’</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">Make sure you have installed Unnatural Worlds in Steam.</p>
-<p class="sd-card-text">If your Steam games are in non-default location, define the environment variable <code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> to the directory containing the library.
-Example: <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\Steam\steamapps\common\Unnatural</span> <span class="pre">Worlds\bin</span></code></p>
+<p class="sd-card-text">If your Steam games are in non-default location, define environment variable <code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> to the directory containing the library.</p>
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-text">Failed to initialize Steam API</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <p class="sd-card-text">Make sure that Steam is running and logged in.
-It must run under the same user as the program.</p>
+It must run under the same user as the program.
+Do not use any containerization.</p>
 </div>
 </details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
@@ -302,14 +302,14 @@ It must run under the same user as the program.</p>
         
         <div class="related-pages">
           
-          <a class="prev-page" href="index.html">
+          <a class="prev-page" href="setup.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Bots</div>
+                <div class="title">Setup</div>
                 
               </div>
             </a>
