@@ -12,10 +12,10 @@ Tiles are indexed `0 .. N-1`.
 Data available for each tile:
 
 - Position - 3D coordinates
-- Up - 3D vector - direction opposite of local gravity
+- Up - 3D vector - direction opposite of *local* gravity
 - Neighbors - array of indices of neighboring tiles
 - Cluster - index of the cluster this tile belongs to
-- Terrain - index of the terrain at this tile
+- Terrain - index of the terrain type at this tile
 
 Clusters
 --------

@@ -16,7 +16,7 @@ It contains amounts and ids of inputs and outputs.
 Also defines the duration of the recipe.
 Recipes are processed in buildings/units.
 
-Some recipes have a *place-over* requirement, which is an id of a unit, that the building must be placed on, in order for the recipe to be available.
+Some recipes have a *place-over* requirement, which is an id of a unit, that the building must be placed on, in order for the recipe to function.
 
 Construction Prototype
 ----------------------
@@ -26,9 +26,11 @@ It contains amounts of input resources, and has exactly one output unit/building
 Unit Prototype
 --------------
 Both buildings and units are treated as units in the game.
-Some neutral objects, such as trees, rocks, ore deposits, etc. are all also units.
 
-The prototype contains combat related properties, movement (speeds), building radius, a list of available recipes, and a list of applicable upgrades.
+.. note::
+	Some neutral objects, such as trees, rocks, ore deposits, etc. are all units too.
+
+The prototype contains combat related properties, movement speeds or building radius, a list of available recipes, and a list of applicable upgrades.
 Additionally, there are several boolean properties, which modify behavior or requirements of the unit/building.
 
 Upgrade Prototype

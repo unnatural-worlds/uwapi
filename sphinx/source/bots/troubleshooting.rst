@@ -8,20 +8,19 @@ Troubleshooting
 
 	Make sure you have installed Unnatural Worlds in Steam.
 
-	If your Steam games are in non-default location, define the environment variable ``UNNATURAL_ROOT`` to the directory containing the library.  
-	Example: ``C:\Program Files (x86)\Steam\steamapps\common\Unnatural Worlds\bin``
+	If your Steam games are in non-default location, define environment variable ``UNNATURAL_ROOT`` to the directory containing the library.
 
 .. dropdown:: OSError: cannot load library 'unnatural-uwapi-hard'
 
 	Make sure you have installed Unnatural Worlds in Steam.
 
-	If your Steam games are in non-default location, define the environment variable ``UNNATURAL_ROOT`` to the directory containing the library.  
-	Example: ``C:\Program Files (x86)\Steam\steamapps\common\Unnatural Worlds\bin``
+	If your Steam games are in non-default location, define environment variable ``UNNATURAL_ROOT`` to the directory containing the library.
 
 .. dropdown:: Failed to initialize Steam API
 
 	Make sure that Steam is running and logged in.  
 	It must run under the same user as the program.
+	Do not use any containerization.
 
 .. dropdown:: Linux laptop with switchable GPUs
 
