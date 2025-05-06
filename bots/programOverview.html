@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Navigation" href="navigation.html" /><link rel="prev" title="Scene" href="scene.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Troubleshooting" href="troubleshooting.html" /><link rel="prev" title="Setup" href="setup.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Collider - UW api documentation</title>
+        <title>Program Overview - UW api documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -180,7 +180,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -208,18 +208,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Maps</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Collider</a></li>
-<li class="toctree-l2"><a class="reference internal" href="navigation.html">Navigation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../maps/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../bots/index.html">Bots</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bots/setup.html">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bots/programOverview.html">Program Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bots/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Bots</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Program Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
@@ -242,7 +242,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/maps/collider.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/bots/programOverview.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -256,14 +256,92 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="collider">
-<h1>Collider<a class="headerlink" href="#collider" title="Link to this heading">¶</a></h1>
+          <section id="program-overview">
+<h1>Program Overview<a class="headerlink" href="#program-overview" title="Link to this heading">¶</a></h1>
+<p>High-level look at basic bot program.</p>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h2>
+<p>Some variables that may alter the behavior of your bot program.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> - path to the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder that contains the shared library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_LOBBY</span></code> - id of Steam lobby to connect to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_ADDR</span></code> - IP address or domain name to connect to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_PORT</span></code> - port of the game server to connect to.</p></li>
+</ul>
+</section>
+<section id="program-lifecycle">
+<h2>Program Lifecycle<a class="headerlink" href="#program-lifecycle" title="Link to this heading">¶</a></h2>
+<p>At start, you are in full control of the program.</p>
+<section id="initialization">
+<h3>Initialization<a class="headerlink" href="#initialization" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>You need to change current working directory to the <code class="docutils literal notranslate"><span class="pre">bin</span></code> directory in the game installation.
+Without it, the game will be unable to load maps and assets, even if it might load the shared library.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <em>not</em> change current working directory once configured.</p>
+</div>
+<ul class="simple">
+<li><p>Next you load the shared library.</p></li>
+</ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="python" for="sd-tab-item-0">
+Python</label><div class="sd-tab-content docutils">
+<p>TODO</p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="csharp" for="sd-tab-item-1">
+C#</label><div class="sd-tab-content docutils">
+<p>The library is automatically loaded when you first access the global <code class="docutils literal notranslate"><span class="pre">Game</span></code> object.
+This happens inside the <code class="docutils literal notranslate"><span class="pre">Bot</span></code> constructor.</p>
+</div>
+</div>
+<ul class="simple">
+<li><p>Setup all your callbacks now.
+You may also set some parameters for the connection.</p></li>
+</ul>
+</section>
+<section id="connect">
+<h3>Connect<a class="headerlink" href="#connect" title="Link to this heading">¶</a></h3>
+<p>There are multiple ways to connect to a server.
+The usual approach is to first try reconnecting, in case the game has crashed previously.
+Second, you connect to an existing server using the parameters provided in the environment variables, if any.
+Third, you spin up your own server.</p>
+<p>Alternatively, you may implement your own logic to determine how to connect to a server.</p>
+<p>No matter the method, the game will now take control over the program.
+Your program is blocked until the network connection closes.
+All your further actions will happen inside callbacks only.</p>
+</section>
+<section id="game-loop">
+<h3>Game Loop<a class="headerlink" href="#game-loop" title="Link to this heading">¶</a></h3>
+<p>All your registered callbacks are now called, when appropriate.
+Notably, the <code class="docutils literal notranslate"><span class="pre">Update</span></code> callback is periodically called, no matter the game state.
+This is where you keep track of the state of the game, and perform any of your actions.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Update</span></code> callback, and some other, may be called before the game has actually started (eg. in <code class="docutils literal notranslate"><span class="pre">Session</span></code>), or when the map is not yet <code class="docutils literal notranslate"><span class="pre">Loaded</span></code>.
+Be mindful of what operations are valid in these circumstances.</p>
+</div>
+<p>You may prematurely close the connection with the <code class="docutils literal notranslate"><span class="pre">Disconnect</span></code> function.
+This will do a graceful closing of the connection, that is, you will get some additional callbacks called.
+After that the connect function will return.</p>
+</section>
+<section id="finalization">
+<h3>Finalization<a class="headerlink" href="#finalization" title="Link to this heading">¶</a></h3>
+<p>When the connection function returns, the network connection has already been closed, and you take back control over the program.
+You may do any cleanup operations, for example you may save some statistics from the game.
+Ultimately, you should unload the shared library, and exit the program.</p>
+<p>It may be tempting to just loop and connect again to next server, however this is strongly discouraged.</p>
+</section>
+</section>
 </section>
 
         </article>
@@ -271,23 +349,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="navigation.html">
+          <a class="next-page" href="troubleshooting.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Navigation</div>
+                <div class="title">Troubleshooting</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="scene.html">
+          <a class="prev-page" href="setup.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Scene</div>
+                <div class="title">Setup</div>
                 
               </div>
             </a>
@@ -309,8 +387,34 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Program Overview</a><ul>
+<li><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
+<li><a class="reference internal" href="#program-lifecycle">Program Lifecycle</a><ul>
+<li><a class="reference internal" href="#initialization">Initialization</a></li>
+<li><a class="reference internal" href="#connect">Connect</a></li>
+<li><a class="reference internal" href="#game-loop">Game Loop</a></li>
+<li><a class="reference internal" href="#finalization">Finalization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

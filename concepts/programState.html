@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Navigation" href="navigation.html" /><link rel="prev" title="Scene" href="scene.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Maps" href="../maps/index.html" /><link rel="prev" title="Entities (ECS)" href="ecs.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Collider - UW api documentation</title>
+        <title>Program State - UW api documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -180,7 +180,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -201,17 +201,17 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../concepts/index.html">General Concepts</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/map.html">Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/ecs.html">Entities (ECS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">General Concepts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">Entities (ECS)</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Program State</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Maps</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="scene.html">Scene</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Collider</a></li>
-<li class="toctree-l2"><a class="reference internal" href="navigation.html">Navigation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../maps/scene.html">Scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -242,7 +242,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/maps/collider.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/concepts/programState.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -256,14 +256,50 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="collider">
-<h1>Collider<a class="headerlink" href="#collider" title="Link to this heading">¶</a></h1>
+          <section id="program-state">
+<h1>Program State<a class="headerlink" href="#program-state" title="Link to this heading">¶</a></h1>
+<p>The program state is controlled by several independent variables.</p>
+<section id="game-state">
+<h2>Game State<a class="headerlink" href="#game-state" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - the game is initializing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Session</span></code> - players are connecting, and are negotiating the map and other settings. An admin will start the game.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Preparation</span></code> - countdown before the game actually starts. This alerts players to get ready.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Game</span></code> - game is in progress.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Finish</span></code> - game is over. Winners and defeated have been declared.</p></li>
+</ul>
+</section>
+<section id="map-state">
+<h2>Map State<a class="headerlink" href="#map-state" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - no map is set to load.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Downloading</span></code> - the map is not available locally and is being downloaded.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Loading</span></code> - the map is being loaded.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Loaded</span></code> - map is fully available. This is the only state when you can access any of the functions that interact with the map.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Unloading</span></code> - the map is being unloaded.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Error</span></code> - loading a map has encountered an error. Loading is cancelled.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <em>not</em> access any of the map-related functions unless the map is <code class="docutils literal notranslate"><span class="pre">Loaded</span></code>.</p>
+</div>
+<p>Accessing any of the map-related functions when the map is <em>not</em> <code class="docutils literal notranslate"><span class="pre">Loaded</span></code> will crash the game, since all data are loaded concurrently.</p>
+</section>
+<section id="connection-state">
+<h2>Connection State<a class="headerlink" href="#connection-state" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - there is no connection. Do <em>not</em> send any commands.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Connecting</span></code> - connection is being attempted. You may send commands, they will be delivered once the connection is established.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Connected</span></code> - connection has been fully established. We are receiving data, and can send commands.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Error</span></code> - connection has been closed or broken. Do <em>not</em> send any commands.</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -271,23 +307,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="navigation.html">
+          <a class="next-page" href="../maps/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Navigation</div>
+                <div class="title">Maps</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="scene.html">
+          <a class="prev-page" href="ecs.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Scene</div>
+                <div class="title">Entities (ECS)</div>
                 
               </div>
             </a>
@@ -309,8 +345,29 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Program State</a><ul>
+<li><a class="reference internal" href="#game-state">Game State</a></li>
+<li><a class="reference internal" href="#map-state">Map State</a></li>
+<li><a class="reference internal" href="#connection-state">Connection State</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

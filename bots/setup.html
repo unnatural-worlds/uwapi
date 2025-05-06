@@ -3,14 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Troubleshooting" href="troubleshooting.html" /><link rel="prev" title="Bots" href="index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Program Overview" href="programOverview.html" /><link rel="prev" title="Bots" href="index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Setup - UW api documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=4c969af8" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     
@@ -206,6 +205,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/map.html">Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/prototypes.html">Prototypes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/ecs.html">Entities (ECS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -218,6 +218,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Bots</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programOverview.html">Program Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
@@ -266,7 +267,7 @@
 <p>You can write your bot in any language, as long as it can load a dynamic/shared library (.dll/.so).
 The shared library is distributed together with the game.</p>
 <p>The uwapi repository contains c/c++ headers for all functions and structures provided by the library.
-Furthermore, it contains convenient wrappers for Python and for C# for quicker start.</p>
+Furthermore, it contains convenient wrappers for Python and C# for easy start.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Copy <code class="docutils literal notranslate"><span class="pre">steam_appid.txt</span></code> into the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder.</p>
@@ -279,9 +280,20 @@ You will find the <code class="docutils literal notranslate"><span class="pre">s
 Copy it into the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder, next to the game executable.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>If your Steam games are in non-default location, define environment variable <code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> to the directory containing the library.</p>
+<p>If you installed Unnatural World in non-default location, define environment variable <code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> to the directory containing the library.</p>
 </div>
-<p>The default path on Windows: <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\Steam\steamapps\common\Unnatural</span> <span class="pre">Worlds\bin</span></code>, on linux: <code class="docutils literal notranslate"><span class="pre">~/.steam/steam/steamapps/common/Unnatural</span> <span class="pre">Worlds/bin</span></code>.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="windows" for="sd-tab-item-0">
+Windows</label><div class="sd-tab-content docutils">
+<p>Default path: <code class="docutils literal notranslate"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\Steam\steamapps\common\Unnatural</span> <span class="pre">Worlds\bin</span></code></p>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="linux" for="sd-tab-item-1">
+Linux</label><div class="sd-tab-content docutils">
+<p>Default path: <code class="docutils literal notranslate"><span class="pre">~/.steam/steam/steamapps/common/Unnatural</span> <span class="pre">Worlds/bin</span></code></p>
+</div>
+</div>
 </section>
 
         </article>
@@ -289,12 +301,12 @@ Copy it into the <code class="docutils literal notranslate"><span class="pre">bi
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="troubleshooting.html">
+          <a class="next-page" href="programOverview.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Troubleshooting</div>
+                <div class="title">Program Overview</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -339,7 +351,6 @@ Copy it into the <code class="docutils literal notranslate"><span class="pre">bi
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
-    <script src="../_static/tabs.js?v=3ee01567"></script>
     <script src="../_static/design-tabs.js?v=f930bc37"></script>
     </body>
 </html>
