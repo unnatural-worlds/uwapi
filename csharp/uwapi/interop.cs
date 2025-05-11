@@ -69,7 +69,8 @@ namespace Unnatural
         public static extern void uwAdminSendSuggestedCameraFocus(uint position);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSendChat([MarshalAs(UnmanagedType.LPStr)] string msg, UwChatTargetFlags flags, uint targetId);
+        public static extern void uwAdminSendChat([MarshalAs(UnmanagedType.LPStr)] string msg, UwChatTargetFlags flags,
+                                                  uint targetId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
@@ -131,13 +132,14 @@ namespace Unnatural
         public static extern UwConnectionStateEnum uwConnectionState();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetConnectStartGui([MarshalAs(UnmanagedType.I1)] bool enabled, [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
+        public static extern void uwSetConnectStartGui([MarshalAs(UnmanagedType.I1)] bool enabled,
+                                                       [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetConnectAsObserver([MarshalAs(UnmanagedType.I1)] bool observer);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwConnectFindLan(ulong timeoutMicroseconds);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -147,14 +149,15 @@ namespace Unnatural
         public static extern void uwConnectLobbyId(ulong lobbyId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwConnectEnvironment();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectNewServer(uint visibility, [MarshalAs(UnmanagedType.LPStr)] string name, [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
+        public static extern void uwConnectNewServer(uint visibility, [MarshalAs(UnmanagedType.LPStr)] string name,
+                                                     [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwTryReconnect();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -232,7 +235,8 @@ namespace Unnatural
         public static extern UwPathStateEnum uwUnitPathState(uint unitId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwCommandPlaceConstruction(uint constructionProto, uint position, float yaw, uint recipeProto, UwPriorityEnum priority);
+        public static extern void uwCommandPlaceConstruction(uint constructionProto, uint position, float yaw,
+                                                             uint recipeProto, UwPriorityEnum priority);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSetRecipe(uint unitOrConstructionId, uint recipeProto);
@@ -258,7 +262,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 32;
+        public const uint UW_VERSION = 33;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -313,12 +317,14 @@ namespace Unnatural
         {
             public uint playerEntityId;
             public uint forceEntityId;
-            [MarshalAs(UnmanagedType.I1)] public bool primaryController;
-            [MarshalAs(UnmanagedType.I1)] public bool admin;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool primaryController;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool admin;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwMyPlayer(ref UwMyPlayer data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -338,9 +344,12 @@ namespace Unnatural
         [StructLayout(LayoutKind.Sequential)]
         public struct UwAssistConfig
         {
-            [MarshalAs(UnmanagedType.I1)] public bool logistics;
-            [MarshalAs(UnmanagedType.I1)] public bool aiming;
-            [MarshalAs(UnmanagedType.I1)] public bool fighting;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool logistics;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool aiming;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool fighting;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -428,7 +437,8 @@ namespace Unnatural
         public static extern void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwChatCallbackType([MarshalAs(UnmanagedType.LPStr)] string msg, uint sender, UwChatTargetFlags flags);
+        public delegate void UwChatCallbackType([MarshalAs(UnmanagedType.LPStr)] string msg, uint sender,
+                                                UwChatTargetFlags flags);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetChatCallback(UwChatCallbackType callback);
@@ -462,13 +472,15 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwMapInfo(ref UwMapInfo data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMapStartingPosition
         {
             public uint position;
+            public uint minForces;
+            public uint maxForces;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -487,13 +499,16 @@ namespace Unnatural
         [StructLayout(LayoutKind.Sequential)]
         public struct UwTile
         {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public float[] position;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public float[] up;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+            public float[] position;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+            public float[] up;
             public IntPtr neighborsIndices;
             public uint neighborsCount;
             public uint clusterIndex;
             public byte terrain;
-            [MarshalAs(UnmanagedType.I1)] public bool border;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool border;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -553,15 +568,16 @@ namespace Unnatural
         public static extern void uwAreaExtended(uint position, float radius, ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwTestShooting(uint shooterPosition, uint shooterProto, float shootingRangeUpgrade, uint targetPosition, uint targetProto);
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwTestShooting(uint shooterPosition, uint shooterProto, float shootingRangeUpgrade,
+                                                 uint targetPosition, uint targetProto);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwTestShootingEntities(uint shooterId, uint targetId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -574,7 +590,7 @@ namespace Unnatural
         public static extern float uwYaw(uint position, uint towards);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwTestConstructionPlacement(uint constructionProto, uint position, uint recipeProto);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -619,7 +635,7 @@ namespace Unnatural
         public static extern void uwAllEntities(ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwEntityExists(uint id);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -629,7 +645,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchProtoComponent(IntPtr entity, ref UwProtoComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -639,7 +655,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchOwnerComponent(IntPtr entity, ref UwOwnerComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -650,7 +666,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchControllerComponent(IntPtr entity, ref UwControllerComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -661,7 +677,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchPositionComponent(IntPtr entity, ref UwPositionComponent data);
 
         [Flags]
@@ -682,7 +698,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchUnitComponent(IntPtr entity, ref UwUnitComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -692,7 +708,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchLifeComponent(IntPtr entity, ref UwLifeComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -707,7 +723,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchMoveComponent(IntPtr entity, ref UwMoveComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -717,7 +733,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchAimComponent(IntPtr entity, ref UwAimComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -727,7 +743,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchRecipeComponent(IntPtr entity, ref UwRecipeComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -737,18 +753,19 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchUpdateTimestampComponent(IntPtr entity, ref UwUpdateTimestampComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwRecipeStatisticsComponent
         {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public uint[] timestamps;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+            public uint[] timestamps;
             public uint completed;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchRecipeStatisticsComponent(IntPtr entity, ref UwRecipeStatisticsComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -758,7 +775,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchPriorityComponent(IntPtr entity, ref UwPriorityComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -768,7 +785,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchAmountComponent(IntPtr entity, ref UwAmountComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -778,7 +795,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchAttachmentComponent(IntPtr entity, ref UwAttachmentComponent data);
 
         [Flags]
@@ -803,7 +820,8 @@ namespace Unnatural
         [StructLayout(LayoutKind.Sequential)]
         public struct UwPlayerComponent
         {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 28)] public char[] name;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 28)]
+            public char[] name;
             public uint nameLength;
             public ulong steamUserId;
             public uint force;
@@ -814,7 +832,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchPlayerComponent(IntPtr entity, ref UwPlayerComponent data);
 
         [Flags]
@@ -829,7 +847,8 @@ namespace Unnatural
         [StructLayout(LayoutKind.Sequential)]
         public struct UwForceComponent
         {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)] public float[] color;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+            public float[] color;
             public ulong score;
             public uint killCount;
             public uint lossCount;
@@ -840,7 +859,7 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchForceComponent(IntPtr entity, ref UwForceComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -853,18 +872,19 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchForceDetailsComponent(IntPtr entity, ref UwForceDetailsComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwForeignPolicyComponent
         {
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)] public uint[] forces;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+            public uint[] forces;
             public UwForeignPolicyEnum policy;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
+        [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchForeignPolicyComponent(IntPtr entity, ref UwForeignPolicyComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
@@ -876,8 +896,9 @@ namespace Unnatural
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity, ref UwDiplomacyProposalComponent data);
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity,
+                                                                    ref UwDiplomacyProposalComponent data);
     }
 
     public partial class Entity
@@ -905,25 +926,139 @@ namespace Unnatural
         public void FetchComponents()
         {
             IntPtr e = Interop.uwEntityPointer(Id);
-            { Interop.UwProtoComponent tmp = new Interop.UwProtoComponent(); if (Interop.uwFetchProtoComponent(e, ref tmp)) Proto = tmp; else Proto = null; }
-            { Interop.UwOwnerComponent tmp = new Interop.UwOwnerComponent(); if (Interop.uwFetchOwnerComponent(e, ref tmp)) Owner = tmp; else Owner = null; }
-            { Interop.UwControllerComponent tmp = new Interop.UwControllerComponent(); if (Interop.uwFetchControllerComponent(e, ref tmp)) Controller = tmp; else Controller = null; }
-            { Interop.UwPositionComponent tmp = new Interop.UwPositionComponent(); if (Interop.uwFetchPositionComponent(e, ref tmp)) Position = tmp; else Position = null; }
-            { Interop.UwUnitComponent tmp = new Interop.UwUnitComponent(); if (Interop.uwFetchUnitComponent(e, ref tmp)) Unit = tmp; else Unit = null; }
-            { Interop.UwLifeComponent tmp = new Interop.UwLifeComponent(); if (Interop.uwFetchLifeComponent(e, ref tmp)) Life = tmp; else Life = null; }
-            { Interop.UwMoveComponent tmp = new Interop.UwMoveComponent(); if (Interop.uwFetchMoveComponent(e, ref tmp)) Move = tmp; else Move = null; }
-            { Interop.UwAimComponent tmp = new Interop.UwAimComponent(); if (Interop.uwFetchAimComponent(e, ref tmp)) Aim = tmp; else Aim = null; }
-            { Interop.UwRecipeComponent tmp = new Interop.UwRecipeComponent(); if (Interop.uwFetchRecipeComponent(e, ref tmp)) Recipe = tmp; else Recipe = null; }
-            { Interop.UwUpdateTimestampComponent tmp = new Interop.UwUpdateTimestampComponent(); if (Interop.uwFetchUpdateTimestampComponent(e, ref tmp)) UpdateTimestamp = tmp; else UpdateTimestamp = null; }
-            { Interop.UwRecipeStatisticsComponent tmp = new Interop.UwRecipeStatisticsComponent(); if (Interop.uwFetchRecipeStatisticsComponent(e, ref tmp)) RecipeStatistics = tmp; else RecipeStatistics = null; }
-            { Interop.UwPriorityComponent tmp = new Interop.UwPriorityComponent(); if (Interop.uwFetchPriorityComponent(e, ref tmp)) Priority = tmp; else Priority = null; }
-            { Interop.UwAmountComponent tmp = new Interop.UwAmountComponent(); if (Interop.uwFetchAmountComponent(e, ref tmp)) Amount = tmp; else Amount = null; }
-            { Interop.UwAttachmentComponent tmp = new Interop.UwAttachmentComponent(); if (Interop.uwFetchAttachmentComponent(e, ref tmp)) Attachment = tmp; else Attachment = null; }
-            { Interop.UwPlayerComponent tmp = new Interop.UwPlayerComponent(); if (Interop.uwFetchPlayerComponent(e, ref tmp)) Player = tmp; else Player = null; }
-            { Interop.UwForceComponent tmp = new Interop.UwForceComponent(); if (Interop.uwFetchForceComponent(e, ref tmp)) Force = tmp; else Force = null; }
-            { Interop.UwForceDetailsComponent tmp = new Interop.UwForceDetailsComponent(); if (Interop.uwFetchForceDetailsComponent(e, ref tmp)) ForceDetails = tmp; else ForceDetails = null; }
-            { Interop.UwForeignPolicyComponent tmp = new Interop.UwForeignPolicyComponent(); if (Interop.uwFetchForeignPolicyComponent(e, ref tmp)) ForeignPolicy = tmp; else ForeignPolicy = null; }
-            { Interop.UwDiplomacyProposalComponent tmp = new Interop.UwDiplomacyProposalComponent(); if (Interop.uwFetchDiplomacyProposalComponent(e, ref tmp)) DiplomacyProposal = tmp; else DiplomacyProposal = null; }
+            {
+                Interop.UwProtoComponent tmp = new Interop.UwProtoComponent();
+                if (Interop.uwFetchProtoComponent(e, ref tmp))
+                    Proto = tmp;
+                else
+                    Proto = null;
+            }
+            {
+                Interop.UwOwnerComponent tmp = new Interop.UwOwnerComponent();
+                if (Interop.uwFetchOwnerComponent(e, ref tmp))
+                    Owner = tmp;
+                else
+                    Owner = null;
+            }
+            {
+                Interop.UwControllerComponent tmp = new Interop.UwControllerComponent();
+                if (Interop.uwFetchControllerComponent(e, ref tmp))
+                    Controller = tmp;
+                else
+                    Controller = null;
+            }
+            {
+                Interop.UwPositionComponent tmp = new Interop.UwPositionComponent();
+                if (Interop.uwFetchPositionComponent(e, ref tmp))
+                    Position = tmp;
+                else
+                    Position = null;
+            }
+            {
+                Interop.UwUnitComponent tmp = new Interop.UwUnitComponent();
+                if (Interop.uwFetchUnitComponent(e, ref tmp))
+                    Unit = tmp;
+                else
+                    Unit = null;
+            }
+            {
+                Interop.UwLifeComponent tmp = new Interop.UwLifeComponent();
+                if (Interop.uwFetchLifeComponent(e, ref tmp))
+                    Life = tmp;
+                else
+                    Life = null;
+            }
+            {
+                Interop.UwMoveComponent tmp = new Interop.UwMoveComponent();
+                if (Interop.uwFetchMoveComponent(e, ref tmp))
+                    Move = tmp;
+                else
+                    Move = null;
+            }
+            {
+                Interop.UwAimComponent tmp = new Interop.UwAimComponent();
+                if (Interop.uwFetchAimComponent(e, ref tmp))
+                    Aim = tmp;
+                else
+                    Aim = null;
+            }
+            {
+                Interop.UwRecipeComponent tmp = new Interop.UwRecipeComponent();
+                if (Interop.uwFetchRecipeComponent(e, ref tmp))
+                    Recipe = tmp;
+                else
+                    Recipe = null;
+            }
+            {
+                Interop.UwUpdateTimestampComponent tmp = new Interop.UwUpdateTimestampComponent();
+                if (Interop.uwFetchUpdateTimestampComponent(e, ref tmp))
+                    UpdateTimestamp = tmp;
+                else
+                    UpdateTimestamp = null;
+            }
+            {
+                Interop.UwRecipeStatisticsComponent tmp = new Interop.UwRecipeStatisticsComponent();
+                if (Interop.uwFetchRecipeStatisticsComponent(e, ref tmp))
+                    RecipeStatistics = tmp;
+                else
+                    RecipeStatistics = null;
+            }
+            {
+                Interop.UwPriorityComponent tmp = new Interop.UwPriorityComponent();
+                if (Interop.uwFetchPriorityComponent(e, ref tmp))
+                    Priority = tmp;
+                else
+                    Priority = null;
+            }
+            {
+                Interop.UwAmountComponent tmp = new Interop.UwAmountComponent();
+                if (Interop.uwFetchAmountComponent(e, ref tmp))
+                    Amount = tmp;
+                else
+                    Amount = null;
+            }
+            {
+                Interop.UwAttachmentComponent tmp = new Interop.UwAttachmentComponent();
+                if (Interop.uwFetchAttachmentComponent(e, ref tmp))
+                    Attachment = tmp;
+                else
+                    Attachment = null;
+            }
+            {
+                Interop.UwPlayerComponent tmp = new Interop.UwPlayerComponent();
+                if (Interop.uwFetchPlayerComponent(e, ref tmp))
+                    Player = tmp;
+                else
+                    Player = null;
+            }
+            {
+                Interop.UwForceComponent tmp = new Interop.UwForceComponent();
+                if (Interop.uwFetchForceComponent(e, ref tmp))
+                    Force = tmp;
+                else
+                    Force = null;
+            }
+            {
+                Interop.UwForceDetailsComponent tmp = new Interop.UwForceDetailsComponent();
+                if (Interop.uwFetchForceDetailsComponent(e, ref tmp))
+                    ForceDetails = tmp;
+                else
+                    ForceDetails = null;
+            }
+            {
+                Interop.UwForeignPolicyComponent tmp = new Interop.UwForeignPolicyComponent();
+                if (Interop.uwFetchForeignPolicyComponent(e, ref tmp))
+                    ForeignPolicy = tmp;
+                else
+                    ForeignPolicy = null;
+            }
+            {
+                Interop.UwDiplomacyProposalComponent tmp = new Interop.UwDiplomacyProposalComponent();
+                if (Interop.uwFetchDiplomacyProposalComponent(e, ref tmp))
+                    DiplomacyProposal = tmp;
+                else
+                    DiplomacyProposal = null;
+            }
         }
     }
 }

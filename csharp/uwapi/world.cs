@@ -67,6 +67,12 @@ namespace Unnatural
             }
         }
 
+        static void UpdateFresh()
+        {
+            foreach (Entity e in entities.Values)
+                e.Fresh = false;
+        }
+
         static void UpdateModified()
         {
             foreach (uint id in ModifiedIds())
@@ -108,6 +114,7 @@ namespace Unnatural
             }
             Interop.uwMyForceStatistics(ref myForceStatistics);
             UpdateRemoved();
+            UpdateFresh();
             UpdateModified();
             UpdatePolicies();
         }

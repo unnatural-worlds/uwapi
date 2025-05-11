@@ -39,6 +39,8 @@ extern "C"
 	typedef struct UwMapStartingPosition
 	{
 		uint32 position;
+		uint32 minForces;
+		uint32 maxForces;
 	} UwMapStartingPosition;
 	typedef struct UwMapStartingPositionsArray
 	{

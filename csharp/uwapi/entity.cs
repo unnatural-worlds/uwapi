@@ -11,6 +11,8 @@ namespace Unnatural
 
         public bool Destroyed = false;
 
+        public bool Fresh = true;
+
         public Entity(uint id) { Id = id; }
 
         public uint Pos => Position.HasValue ? Position.Value.position : Invalid;
