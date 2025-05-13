@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Program Overview" href="programOverview.html" /><link rel="prev" title="Bots" href="index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Setup - UW api documentation</title>
+        <title>Setup - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -168,7 +168,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">UW api  documentation</div></a>
+      <a href="../index.html"><div class="brand">UW API  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -180,7 +180,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -192,7 +192,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">UW api  documentation</span>
+  <span class="sidebar-brand-text">UW API  documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -256,7 +256,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -268,6 +268,8 @@
 The shared library is distributed together with the game.</p>
 <p>The uwapi repository contains c/c++ headers for all functions and structures provided by the library.
 Furthermore, it contains convenient wrappers for Python and C# for easy start.</p>
+<section id="steam-appid-txt">
+<h2>Steam Appid Txt<a class="headerlink" href="#steam-appid-txt" title="Link to this heading">¶</a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Copy <code class="docutils literal notranslate"><span class="pre">steam_appid.txt</span></code> into the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder.</p>
@@ -278,6 +280,11 @@ This allows you to retain full control over your bot program - it makes it possi
 You may also start the game client, game server, built-in AI, or any other associated programs from your terminal.
 You will find the <code class="docutils literal notranslate"><span class="pre">steam_appid.txt</span></code> in the uwapi repository.
 Copy it into the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder, next to the game executable.</p>
+<p>It is recommended to remove the <code class="docutils literal notranslate"><span class="pre">steam_appid.txt</span></code> when you are done with your AI/bot program.
+The file may cause corruptions when the game is updated.</p>
+</section>
+<section id="game-install-path">
+<h2>Game Install Path<a class="headerlink" href="#game-install-path" title="Link to this heading">¶</a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>If you installed Unnatural World in non-default location, define environment variable <code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> to the directory containing the library.</p>
@@ -294,6 +301,7 @@ Linux</label><div class="sd-tab-content docutils">
 <p>Default path: <code class="docutils literal notranslate"><span class="pre">~/.steam/steam/steamapps/common/Unnatural</span> <span class="pre">Worlds/bin</span></code></p>
 </div>
 </div>
+</section>
 </section>
 
         </article>
@@ -339,8 +347,28 @@ Linux</label><div class="sd-tab-content docutils">
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Setup</a><ul>
+<li><a class="reference internal" href="#steam-appid-txt">Steam Appid Txt</a></li>
+<li><a class="reference internal" href="#game-install-path">Game Install Path</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

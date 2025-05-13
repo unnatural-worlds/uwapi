@@ -6,6 +6,9 @@ The shared library is distributed together with the game.
 The uwapi repository contains c/c++ headers for all functions and structures provided by the library.
 Furthermore, it contains convenient wrappers for Python and C# for easy start.
 
+Steam Appid Txt
+---------------
+
 .. important::
 	Copy ``steam_appid.txt`` into the ``bin`` folder.
 
@@ -15,6 +18,12 @@ This allows you to retain full control over your bot program - it makes it possi
 You may also start the game client, game server, built-in AI, or any other associated programs from your terminal.
 You will find the ``steam_appid.txt`` in the uwapi repository.
 Copy it into the ``bin`` folder, next to the game executable.
+
+It is recommended to remove the ``steam_appid.txt`` when you are done with your AI/bot program.
+The file may cause corruptions when the game is updated.
+
+Game Install Path
+-----------------
 
 .. important::
 	If you installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` to the directory containing the library.

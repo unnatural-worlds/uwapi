@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Program Overview" href="programOverview.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Troubleshooting - UW api documentation</title>
+        <title>Troubleshooting - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -168,7 +168,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">UW api  documentation</div></a>
+      <a href="../index.html"><div class="brand">UW API  documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -192,7 +192,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">UW api  documentation</span>
+  <span class="sidebar-brand-text">UW API  documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -294,6 +294,16 @@ Do not use any containerization.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">__NV_PRIME_RENDER_OFFLOAD</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">__GLX_VENDOR_LIBRARY_NAME</span><span class="o">=</span>nvidia<span class="w"> </span>your_program
 </pre></div>
 </div>
+<p class="sd-card-text">Alternatively, define these two environment variables in your IDE to be used when debugging your program.</p>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Corrupted game files</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text">Shut down Steam - click on the icon in the status bar, choose <em>Exit Steam</em>.
+Make sure that no Steam processes are running.
+Remove the whole folder <code class="docutils literal notranslate"><span class="pre">Unnatural</span> <span class="pre">Worlds</span></code> with the game.
+Start steam again, select UW in the library, click the settings (looks like a gear), <em>Properties…</em>, in the pop-up window select <em>Installed Files</em> tab, and click <em>Verify integrity of game files</em>.
+This will force Steam to download the whole game again.</p>
 </div>
 </details></section>
 

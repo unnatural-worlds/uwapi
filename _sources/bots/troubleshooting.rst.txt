@@ -29,3 +29,13 @@ Troubleshooting
 	.. code-block:: bash
 
 		__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia your_program
+
+	Alternatively, define these two environment variables in your IDE to be used when debugging your program.
+
+.. dropdown:: Corrupted game files
+
+	Shut down Steam - click on the icon in the status bar, choose *Exit Steam*.
+	Make sure that no Steam processes are running.
+	Remove the whole folder ``Unnatural Worlds`` with the game.
+	Start steam again, select UW in the library, click the settings (looks like a gear), *Properties...*, in the pop-up window select *Installed Files* tab, and click *Verify integrity of game files*.
+	This will force Steam to download the whole game again.
