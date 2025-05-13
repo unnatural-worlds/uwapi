@@ -21,7 +21,7 @@ Clusters
 --------
 Clusters are aggregations of tiles into smaller connected groups.
 It is intended primarily for performance optimizations.
-All tiles in one cluster have the same terrain.
+All tiles in one cluster have same terrain.
 
 Clusters are indexed `0 .. M-1`.
 

@@ -12,6 +12,6 @@ When players are starting a game, they can enable/disable individual mods in the
 Consequently, multiple mods can be enabled simultaneously.
 
 Assets found in a mod have precedence over assets in a map or in the base game.
-However, when multiple mods contain same asset ID, the map will fail to load.
-Managing mods with clashing assets IDs is left to the player.
-It is advised to prefix names of all assets in a mod with the name of the mod, to reduce a chance of clashing IDs.
+However, when multiple mods contain same asset id, the map will fail to load.
+Managing mods with clashing assets ids is left to the player.
+It is advised to prefix names of all assets in a mod with the name of the mod, to reduce a chance of clashing ids.

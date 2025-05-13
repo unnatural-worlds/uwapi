@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'UW api'
+project = 'UW API'
 copyright = '2025, Tomáš Malý'
 author = 'Tomáš Malý'
 
