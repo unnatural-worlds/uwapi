@@ -39,3 +39,12 @@ Game Install Path
       :sync: linux
 
       Default path: ``~/.steam/steam/steamapps/common/Unnatural Worlds/bin``
+
+Show Extra Information
+----------------------
+
+In the game, navigate to *Options*, *User Interface*, and change *Selected info level* to *Extra*.
+This will show you additional information about any single thing you select in the game.
+For example: unit id, its state, position (both index and 3D coordinates), etc.
+It shows at the bottom of the left panel.
+
