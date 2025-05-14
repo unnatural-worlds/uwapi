@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Scripts" href="../scripts/index.html" /><link rel="prev" title="Navigation" href="../maps/navigation.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Troubleshooting" href="troubleshooting.html" /><link rel="prev" title="Program Overview" href="programOverview.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Mods - UW API documentation</title>
+        <title>Program Safety - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -180,7 +180,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -214,13 +214,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Mods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../bots/index.html">Bots</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../bots/setup.html">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bots/programOverview.html">Program Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bots/programSafety.html">Program Safety</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../bots/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Bots</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programOverview.html">Program Overview</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Program Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
@@ -243,7 +243,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/mods/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/bots/programSafety.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -257,27 +257,30 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="mods">
-<h1>Mods<a class="headerlink" href="#mods" title="Link to this heading">¶</a></h1>
-<p>Guide on making mods for Unnatural Worlds.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Making custom mods is not yet fully supported.</p>
+          <section id="program-safety">
+<h1>Program Safety<a class="headerlink" href="#program-safety" title="Link to this heading">¶</a></h1>
+<p>Memory and threads guarantees of the api.</p>
+<section id="memory">
+<h2>Memory<a class="headerlink" href="#memory" title="Link to this heading">¶</a></h2>
+<p>Memory ownership is never transferred across the api boundary.
+Usually, any pointers returned from any of the <em>c</em> functions are valid until next call to the same function.
+Therefore, most <em>c</em> functions are <em>not</em> reentrant.</p>
+<p>The Python and C# wrappers functions always copy all necessary memory from the provided pointers into the native memory of the language.
+Be careful if you use a <em>c</em> function directly.</p>
+</section>
+<section id="threads">
+<h2>Threads<a class="headerlink" href="#threads" title="Link to this heading">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The api is strictly singlethreaded!</p>
 </div>
-<p>A mod is a collection of assets that can modify the look and/or behavior of any moddable map.
-It may contain <a class="reference internal" href="../concepts/prototypes.html#prototypes"><span class="std std-ref">prototypes</span></a>, <a class="reference internal" href="../scripts/index.html#scripts"><span class="std std-ref">scripts</span></a>, models, sounds, etc.</p>
-<p>When players are starting a game, they can enable/disable individual mods in the session.
-Consequently, multiple mods can be enabled simultaneously.</p>
-<p>Assets found in a mod have precedence over assets in a map or in the base game.
-However, when multiple mods contain same asset id, the map will fail to load.
-Managing mods with clashing assets ids is left to the player.
-It is advised to prefix names of all assets in a mod with the name of the mod, to reduce a chance of clashing ids.</p>
+</section>
 </section>
 
         </article>
@@ -285,23 +288,23 @@ It is advised to prefix names of all assets in a mod with the name of the mod, t
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../scripts/index.html">
+          <a class="next-page" href="troubleshooting.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Scripts</div>
+                <div class="title">Troubleshooting</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../maps/navigation.html">
+          <a class="prev-page" href="programOverview.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Navigation</div>
+                <div class="title">Program Overview</div>
                 
               </div>
             </a>
@@ -323,8 +326,28 @@ It is advised to prefix names of all assets in a mod with the name of the mod, t
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Program Safety</a><ul>
+<li><a class="reference internal" href="#memory">Memory</a></li>
+<li><a class="reference internal" href="#threads">Threads</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
