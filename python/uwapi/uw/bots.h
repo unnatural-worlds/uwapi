@@ -21,7 +21,7 @@
  typedef uint64_t uint64;
  typedef int64_t sint64;
 
- static const uint32 UW_VERSION = 33;
+ static const uint32 UW_VERSION = 34;
  static const uint32 UW_GameTicksPerSecond = 20;
 
  typedef struct UwIds
@@ -36,6 +36,17 @@
   UwPriorityEnum_Normal = 1,
   UwPriorityEnum_High = 2,
  } UwPriorityEnum;
+
+ typedef enum UwPathStateEnum
+ {
+  UwPathStateEnum_None = 0,
+  UwPathStateEnum_Searching = 1,
+  UwPathStateEnum_Impossible = 2,
+  UwPathStateEnum_NotFound = 3,
+  UwPathStateEnum_Recompute = 4,
+  UwPathStateEnum_Found = 5,
+  UwPathStateEnum_Finished = 6,
+ } UwPathStateEnum;
 
  typedef enum UwForeignPolicyEnum
  {
@@ -92,6 +103,8 @@
  typedef void (*UwExceptionCallbackType)(const char *message);
                void uwSetExceptionCallback(UwExceptionCallbackType callback);
 
+
+
  typedef enum UwSeverityEnum
  {
   UwSeverityEnum_Note = 0,
@@ -112,6 +125,8 @@
                void uwInitializeConsoleLogger(void);
                void uwLog(UwSeverityEnum severity, const char *message);
 
+
+
  typedef enum UwConnectionStateEnum
  {
   UwConnectionStateEnum_None = 0,
@@ -123,6 +138,8 @@
                void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
                UwConnectionStateEnum uwConnectionState(void);
 
+
+
                void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
                void uwSetConnectAsObserver(bool observer);
                bool uwConnectFindLan(uint64 timeoutMicroseconds);
@@ -132,6 +149,31 @@
                void uwConnectNewServer(uint32 visibility, const char *name, const char *extraCmdParams);
                bool uwTryReconnect(void);
                void uwDisconnect(void);
+
+
+
+               void uwSetPlayerName(const char *name);
+               void uwSetPlayerColor(float r, float g, float b);
+               void uwSetPlayerRace(uint32 raceProto);
+
+ typedef struct UwMyPlayer
+ {
+  uint32 playerEntityId;
+  uint32 forceEntityId;
+  bool primaryController;
+  bool admin;
+ } UwMyPlayer;
+               bool uwMyPlayer(UwMyPlayer *data);
+
+ typedef struct UwAssistConfig
+ {
+  bool logistics;
+  bool aiming;
+  bool fighting;
+ } UwAssistConfig;
+               void uwSetAssistConfig(const UwAssistConfig *config);
+
+
 
  typedef struct UwPerformanceStatistics
  {
@@ -176,18 +218,6 @@
  } UwOrders;
                void uwOrders(uint32 unit, UwOrders *data);
 
- typedef enum UwPathStateEnum
- {
-  UwPathStateEnum_None = 0,
-  UwPathStateEnum_Searching = 1,
-  UwPathStateEnum_Impossible = 2,
-  UwPathStateEnum_NotFound = 3,
-  UwPathStateEnum_Recompute = 4,
-  UwPathStateEnum_Found = 5,
-  UwPathStateEnum_Finished = 6,
- } UwPathStateEnum;
-               UwPathStateEnum uwUnitPathState(uint32 unitId);
-
                void uwCommandPlaceConstruction(uint32 constructionProto, uint32 position, float yaw, uint32 recipeProto, UwPriorityEnum priority);
                void uwCommandSetRecipe(uint32 unitOrConstructionId, uint32 recipeProto);
                void uwCommandSetPriority(uint32 unitOrConstructionId, UwPriorityEnum priority);
@@ -197,235 +227,6 @@
                void uwCommandAim(uint32 unitId, uint32 targetId);
                void uwCommandRenounceControl(uint32 entityId);
                void uwCommandSelfDestruct(uint32 entityId);
-               void uwSetPlayerName(const char *name);
-               void uwSetPlayerColor(float r, float g, float b);
-               void uwSetPlayerRace(uint32 raceProto);
-
- typedef struct UwMyPlayer
- {
-  uint32 playerEntityId;
-  uint32 forceEntityId;
-  bool primaryController;
-  bool admin;
- } UwMyPlayer;
-               bool uwMyPlayer(UwMyPlayer *data);
-
- typedef struct UwMyForceStatistics
- {
-  uint32 logisticsUnitsIdle;
-  uint32 logisticsUnitsTotal;
-  uint32 militaryUnitsIdle;
-  uint32 militaryUnitsTotal;
-  uint32 closestDangerPosition;
-  float closestDangerDistance;
- } UwMyForceStatistics;
-               void uwMyForceStatistics(UwMyForceStatistics *data);
-
- typedef struct UwAssistConfig
- {
-  bool logistics;
-  bool aiming;
-  bool fighting;
- } UwAssistConfig;
-               void uwSetAssistConfig(const UwAssistConfig *config);
-
-
-
-
-
- typedef enum UwGameStateEnum
- {
-  UwGameStateEnum_None = 0,
-  UwGameStateEnum_Session = 1,
-  UwGameStateEnum_Preparation = 2,
-  UwGameStateEnum_Game = 3,
-  UwGameStateEnum_Finish = 4,
- } UwGameStateEnum;
-
- typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
-               void uwSetGameStateCallback(UwGameStateCallbackType callback);
-
-
-
-
-               UwGameStateEnum uwGameState(void);
-
-
-
-
- typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
-               void uwSetUpdateCallback(UwUpdateCallbackType callback);
- typedef void (*UwForceEliminatedCallbackType)(uint32 id);
-               void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
-
-
-
-
-
-
-
- typedef struct UwShootingUnit
- {
-  uint32 position;
-  uint32 force;
-  uint32 prototype;
-  uint32 id;
- } UwShootingUnit;
- typedef struct UwShootingData
- {
-  UwShootingUnit shooter;
-  UwShootingUnit target;
- } UwShootingData;
- typedef struct UwShootingArray
- {
-  const UwShootingData * data;
-  uint32 count;
- } UwShootingArray;
-
- typedef void (*UwShootingCallbackType)(const UwShootingArray *data);
-               void uwSetShootingCallback(UwShootingCallbackType callback);
-
-
-
-
-
-
-
- typedef struct UwExplosionData
- {
-  uint32 position;
-  uint32 force;
-  uint32 prototype;
-  uint32 id;
- } UwExplosionData;
- typedef struct UwExplosionsArray
- {
-  const UwExplosionData * data;
-  uint32 count;
- } UwExplosionsArray;
-
- typedef void (*UwExplosionsCallbackType)(const UwExplosionsArray *data);
-               void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
- typedef void (*UwChatCallbackType)(const char *msg, uint32 sender, UwChatTargetFlags flags);
-               void uwSetChatCallback(UwChatCallbackType callback);
- typedef enum UwMapStateEnum
- {
-  UwMapStateEnum_None = 0,
-  UwMapStateEnum_Downloading = 1,
-  UwMapStateEnum_Loading = 2,
-  UwMapStateEnum_Loaded = 3,
-  UwMapStateEnum_Unloading = 4,
-  UwMapStateEnum_Error = 5,
- } UwMapStateEnum;
- typedef void (*UwMapStateCallbackType)(UwMapStateEnum state);
-               void uwSetMapStateCallback(UwMapStateCallbackType callback);
-               UwMapStateEnum uwMapState(void);
-
-
-
-
-
- typedef struct UwMapInfo
- {
-  const char * name;
-  const char * guid;
-  const char * path;
-  uint32 maxPlayers;
- } UwMapInfo;
-               bool uwMapInfo(UwMapInfo *data);
-
- typedef struct UwMapStartingPosition
- {
-  uint32 position;
-  uint32 minForces;
-  uint32 maxForces;
- } UwMapStartingPosition;
- typedef struct UwMapStartingPositionsArray
- {
-  const UwMapStartingPosition * data;
-  uint32 count;
- } UwMapStartingPositionsArray;
-               void uwMapStartingPositions(UwMapStartingPositionsArray *data);
-
-
-
-               uint32 uwTilesCount(void);
- typedef struct UwTile
- {
-  float position[3];
-  float up[3];
-  const uint32 * neighborsIndices;
-  uint32 neighborsCount;
-  uint32 clusterIndex;
-  uint8 terrain;
-  bool border;
- } UwTile;
-               void uwTile(uint32 index, UwTile *data);
-
-
-
-               uint32 uwClustersCount(void);
- typedef struct UwCluster
- {
-  const uint32 * neighborsIndices;
-  uint32 neighborsCount;
-  uint32 centerTileIndex;
- } UwCluster;
-               void uwCluster(uint32 index, UwCluster *data);
-
-
-
- typedef enum UwOverviewFlags
- {
-  UwOverviewFlags_None = 0,
-  UwOverviewFlags_Resource = 1 << 0,
-  UwOverviewFlags_Construction = 1 << 1,
-  UwOverviewFlags_MobileUnit = 1 << 2,
-  UwOverviewFlags_StaticUnit = 1 << 3,
-  UwOverviewFlags_Unit = UwOverviewFlags_MobileUnit | UwOverviewFlags_StaticUnit,
- } UwOverviewFlags;
-               UwOverviewFlags uwOverviewFlags(uint32 position);
-               void uwOverviewIds(uint32 position, UwIds *data);
- typedef struct UwOverviewExtract
- {
-  const UwOverviewFlags * flags;
-  uint32 count;
- } UwOverviewExtract;
-               void uwOverviewExtract(UwOverviewExtract *data);
-
-
-
-               void uwAreaRange(float x, float y, float z, float radius, UwIds *data);
-               void uwAreaConnected(uint32 position, float radius, UwIds *data);
-               void uwAreaNeighborhood(uint32 position, float radius, UwIds *data);
-               void uwAreaExtended(uint32 position, float radius, UwIds *data);
-
-               bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
-               bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, float shootingRangeUpgrade, uint32 targetPosition, uint32 targetProto);
-               bool uwTestShootingEntities(uint32 shooterId, uint32 targetId);
-               float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
-               float uwDistanceEstimate(uint32 a, uint32 b);
-               float uwYaw(uint32 position, uint32 towards);
-
-
-               bool uwTestConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto);
-               uint32 uwFindConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto);
- typedef enum UwPrototypeTypeEnum
- {
-  UwPrototypeTypeEnum_None = 0,
-  UwPrototypeTypeEnum_Resource = 1,
-  UwPrototypeTypeEnum_Recipe = 2,
-  UwPrototypeTypeEnum_Construction = 3,
-  UwPrototypeTypeEnum_Unit = 4,
-  UwPrototypeTypeEnum_Upgrade = 5,
-  UwPrototypeTypeEnum_Race = 6,
- } UwPrototypeTypeEnum;
-               void uwAllPrototypes(UwIds *data);
-               UwPrototypeTypeEnum uwPrototypeType(uint32 prototypeId);
-               const char *uwPrototypeJson(uint32 prototypeId);
-               const char *uwDefinitionsJson(void);
-
-               uint32 uwHashString(const char *str);
  typedef struct UwEntity UwEntity;
  typedef UwEntity *UwEntityPtr;
                UwEntityPtr uwEntityPointer(uint32 id);
@@ -613,4 +414,274 @@
   UwForeignPolicyEnum proposal;
  } UwDiplomacyProposalComponent;
                bool uwFetchDiplomacyProposalComponent(UwEntityPtr entity, UwDiplomacyProposalComponent *data);
+ typedef enum UwGameStateEnum
+ {
+  UwGameStateEnum_None = 0,
+  UwGameStateEnum_Session = 1,
+  UwGameStateEnum_Preparation = 2,
+  UwGameStateEnum_Game = 3,
+  UwGameStateEnum_Finish = 4,
+ } UwGameStateEnum;
+
+ typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
+               void uwSetGameStateCallback(UwGameStateCallbackType callback);
+
+
+
+
+               UwGameStateEnum uwGameState(void);
+
+
+
+
+ typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
+               void uwSetUpdateCallback(UwUpdateCallbackType callback);
+
+
+
+
+
+
+
+ typedef struct UwShootingUnit
+ {
+  uint32 position;
+  uint32 force;
+  uint32 prototype;
+  uint32 id;
+ } UwShootingUnit;
+ typedef struct UwShootingData
+ {
+  UwShootingUnit shooter;
+  UwShootingUnit target;
+ } UwShootingData;
+ typedef struct UwShootingArray
+ {
+  const UwShootingData * data;
+  uint32 count;
+ } UwShootingArray;
+
+ typedef void (*UwShootingCallbackType)(const UwShootingArray *data);
+               void uwSetShootingCallback(UwShootingCallbackType callback);
+
+
+
+
+
+
+
+ typedef struct UwExplosionData
+ {
+  uint32 position;
+  uint32 force;
+  uint32 prototype;
+  uint32 id;
+ } UwExplosionData;
+ typedef struct UwExplosionsArray
+ {
+  const UwExplosionData * data;
+  uint32 count;
+ } UwExplosionsArray;
+
+ typedef void (*UwExplosionsCallbackType)(const UwExplosionsArray *data);
+               void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
+ typedef void (*UwForceEliminatedCallbackType)(uint32 id);
+               void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
+ typedef void (*UwChatCallbackType)(const char *msg, uint32 sender, UwChatTargetFlags flags);
+               void uwSetChatCallback(UwChatCallbackType callback);
+
+
+
+
+
+
+
+ typedef enum UwTaskTypeEnum
+ {
+  UwTaskTypeEnum_None = 0,
+  UwTaskTypeEnum_UnitPathfinding = 1,
+  UwTaskTypeEnum_TilesPathfinding = 2,
+  UwTaskTypeEnum_ClustersPathfinding = 3,
+ } UwTaskTypeEnum;
+
+
+ typedef void (*UwTaskCompletedCallbackType)(uint64 taskUserData, UwTaskTypeEnum type);
+               void uwSetTaskCompletedCallback(UwTaskCompletedCallbackType callback);
+ typedef enum UwMapStateEnum
+ {
+  UwMapStateEnum_None = 0,
+  UwMapStateEnum_Downloading = 1,
+  UwMapStateEnum_Loading = 2,
+  UwMapStateEnum_Loaded = 3,
+  UwMapStateEnum_Unloading = 4,
+  UwMapStateEnum_Error = 5,
+ } UwMapStateEnum;
+ typedef void (*UwMapStateCallbackType)(UwMapStateEnum state);
+               void uwSetMapStateCallback(UwMapStateCallbackType callback);
+               UwMapStateEnum uwMapState(void);
+
+
+
+
+
+ typedef struct UwMapInfo
+ {
+  const char * name;
+  const char * guid;
+  const char * path;
+  uint32 maxPlayers;
+ } UwMapInfo;
+               bool uwMapInfo(UwMapInfo *data);
+
+ typedef struct UwMapStartingPosition
+ {
+  uint32 position;
+  uint32 minForces;
+  uint32 maxForces;
+ } UwMapStartingPosition;
+ typedef struct UwMapStartingPositionsArray
+ {
+  const UwMapStartingPosition * data;
+  uint32 count;
+ } UwMapStartingPositionsArray;
+               void uwMapStartingPositions(UwMapStartingPositionsArray *data);
+
+
+
+               uint32 uwTilesCount(void);
+ typedef struct UwTile
+ {
+  float position[3];
+  float up[3];
+  const uint32 * neighborsIndices;
+  uint32 neighborsCount;
+  uint32 clusterIndex;
+  uint8 terrain;
+  bool border;
+ } UwTile;
+               void uwTile(uint32 index, UwTile *data);
+
+
+
+               uint32 uwClustersCount(void);
+ typedef struct UwCluster
+ {
+  const uint32 * neighborsIndices;
+  uint32 neighborsCount;
+  uint32 centerTileIndex;
+ } UwCluster;
+               void uwCluster(uint32 index, UwCluster *data);
+
+
+
+               void uwAreaRange(float x, float y, float z, float radius, UwIds *data);
+               void uwAreaConnected(uint32 position, float radius, UwIds *data);
+               void uwAreaNeighborhood(uint32 position, float radius, UwIds *data);
+               void uwAreaExtended(uint32 position, float radius, UwIds *data);
+
+               bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
+               bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, float shootingRangeUpgrade, uint32 targetPosition, uint32 targetProto);
+               float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
+               float uwDistanceEstimate(uint32 a, uint32 b);
+               float uwYaw(uint32 position, uint32 towards);
+ typedef enum UwPrototypeTypeEnum
+ {
+  UwPrototypeTypeEnum_None = 0,
+  UwPrototypeTypeEnum_Resource = 1,
+  UwPrototypeTypeEnum_Recipe = 2,
+  UwPrototypeTypeEnum_Construction = 3,
+  UwPrototypeTypeEnum_Unit = 4,
+  UwPrototypeTypeEnum_Upgrade = 5,
+  UwPrototypeTypeEnum_Race = 6,
+ } UwPrototypeTypeEnum;
+               void uwAllPrototypes(UwIds *data);
+               UwPrototypeTypeEnum uwPrototypeType(uint32 prototypeId);
+               const char *uwPrototypeJson(uint32 prototypeId);
+               const char *uwDefinitionsJson(void);
+
+               uint32 uwHashString(const char *str);
+ typedef struct UwMyForceStatistics
+ {
+  uint32 logisticsUnitsIdle;
+  uint32 logisticsUnitsTotal;
+  uint32 militaryUnitsIdle;
+  uint32 militaryUnitsTotal;
+  uint32 closestDangerPosition;
+  float closestDangerDistance;
+ } UwMyForceStatistics;
+               void uwMyForceStatistics(UwMyForceStatistics *data);
+
+               UwPathStateEnum uwUnitPathState(uint32 unitId);
+
+
+ typedef struct UwUnitUpgrades
+ {
+  float damage;
+  float shootingRange;
+  float defense;
+  float movementSpeed;
+  float processingSpeed;
+ } UwUnitUpgrades;
+               void uwUnitUpgrades(uint32 unit, UwUnitUpgrades *data);
+
+               bool uwTestShootingEntities(uint32 shooterId, uint32 targetId);
+
+
+               bool uwTestConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto);
+               uint32 uwFindConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto);
+ typedef enum UwOverviewFlags
+ {
+  UwOverviewFlags_None = 0,
+  UwOverviewFlags_Resource = 1 << 0,
+  UwOverviewFlags_Construction = 1 << 1,
+  UwOverviewFlags_MobileUnit = 1 << 2,
+  UwOverviewFlags_StaticUnit = 1 << 3,
+  UwOverviewFlags_Unit = UwOverviewFlags_MobileUnit | UwOverviewFlags_StaticUnit,
+ } UwOverviewFlags;
+               UwOverviewFlags uwOverviewFlags(uint32 position);
+               void uwOverviewIds(uint32 position, UwIds *data);
+ typedef struct UwOverviewExtract
+ {
+  const UwOverviewFlags * flags;
+  uint32 count;
+ } UwOverviewExtract;
+               void uwOverviewExtract(UwOverviewExtract *data);
+
+
+
+ typedef struct UwUnitPathfindingQuery
+ {
+  uint64 taskUserData;
+  uint32 startingPosition;
+  uint32 goalPosition;
+  uint32 unitPrototype;
+ } UwUnitPathfindingQuery;
+
+ typedef struct UwUnitPathfindingResult
+ {
+  const uint32 * tilesData;
+  uint32 tilesCount;
+  UwPathStateEnum state;
+ } UwUnitPathfindingResult;
+
+               void uwStartUnitPathfinding(const UwUnitPathfindingQuery *query);
+               void uwRetrieveUnitPathfinding(UwUnitPathfindingResult *query);
+
+ typedef struct UwMapPathfindingQuery
+ {
+  uint64 taskUserData;
+  uint32 start;
+  uint32 goal;
+ } UwMapPathfindingQuery;
+
+ typedef struct UwMapPathfindingResult
+ {
+  const uint32 * data;
+  uint32 count;
+ } UwMapPathfindingResult;
+
+               void uwStartTilesPathfinding(const UwMapPathfindingQuery *query);
+               void uwStartClustersPathfinding(const UwMapPathfindingQuery *query);
+               void uwRetrieveTilesPathfinding(UwMapPathfindingResult *query);
+               void uwRetrieveClustersPathfinding(UwMapPathfindingResult *query);
 

@@ -29,6 +29,7 @@ Game Install Path
 	If you installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` to the directory containing the library.
 
 .. tab-set::
+   :sync-group: platform
 
    .. tab-item:: Windows
       :sync: windows

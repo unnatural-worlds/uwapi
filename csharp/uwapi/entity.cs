@@ -2,6 +2,7 @@ namespace Unnatural
 {
     using PolicyEnum = Interop.UwForeignPolicyEnum;
     using TypeEnum = Interop.UwPrototypeTypeEnum;
+    using UnitUpgrades = Interop.UwUnitUpgrades;
 
     public partial class Entity
     {
@@ -9,9 +10,9 @@ namespace Unnatural
 
         public readonly uint Id;
 
-        public bool Destroyed = false;
-
         public bool Fresh = true;
+
+        public bool Destroyed = false;
 
         public Entity(uint id) { Id = id; }
 
@@ -34,6 +35,8 @@ namespace Unnatural
         public ProtoConstruction ProtoConstruction => Proto.HasValue ? Prototypes.Construction(Proto.Value.proto) : null;
 
         public ProtoUnit ProtoUnit => Proto.HasValue ? Prototypes.Unit(Proto.Value.proto) : null;
+
+        public UnitUpgrades UnitUpgrades => Type == TypeEnum.Unit ? World.UnitUpgrades(Id) : new UnitUpgrades();
 
         public bool Tagged(uint tag)
         {

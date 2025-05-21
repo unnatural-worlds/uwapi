@@ -27,6 +27,7 @@ namespace Unnatural
         public static event EventHandler<bool> Updating;
         public static event EventHandler<ShootingData[]> Shooting;
         public static event EventHandler<ExplosionData[]> Explosions;
+        public static event EventHandler<uint> ForceEliminated;
         public static event EventHandler<ChatMessage> ChatReceived;
 
         public static void LogInfo(string msg)
@@ -95,7 +96,7 @@ namespace Unnatural
         }
 
         // returns false if no data for reconnect are available
-        // returns true if a reconnect was attempted (irrespective of whether actual connection was established)
+        // returns true after a reconnect was attempted (irrespective of whether actual connection has succeded)
         public static bool TryReconnect()
         {
             return Interop.uwTryReconnect();
@@ -134,13 +135,13 @@ namespace Unnatural
         }
 
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);
-        static readonly Interop.UwLogCallbackType LogDelegate = new Interop.UwLogCallbackType(LogCallback);
         static readonly Interop.UwConnectionStateCallbackType ConnectionStateDelegate = new Interop.UwConnectionStateCallbackType(ConnectionStateCallback);
         static readonly Interop.UwGameStateCallbackType GameStateDelegate = new Interop.UwGameStateCallbackType(GameStateCallback);
         static readonly Interop.UwMapStateCallbackType MapStateDelegate = new Interop.UwMapStateCallbackType(MapStateCallback);
         static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
         static readonly Interop.UwShootingCallbackType ShootingDelegate = new Interop.UwShootingCallbackType(ShootingCallback);
         static readonly Interop.UwExplosionsCallbackType ExplosionsDelegate = new Interop.UwExplosionsCallbackType(ExplosionsCallback);
+        static readonly Interop.UwForceEliminatedCallbackType ForceEliminatedDelegate = new Interop.UwForceEliminatedCallbackType(ForceEliminatedCallback);
         static readonly Interop.UwChatCallbackType ChatDelegate = new Interop.UwChatCallbackType(ChatCallback);
         static uint tick;
 
@@ -149,11 +150,6 @@ namespace Unnatural
             Console.WriteLine("exception: " + message);
             if (System.Diagnostics.Debugger.IsAttached)
                 System.Diagnostics.Debugger.Break();
-        }
-
-        static void LogCallback(ref Interop.UwLogCallback data)
-        {
-            Console.WriteLine(Marshal.PtrToStringAnsi(data.message));
         }
 
         static void ConnectionStateCallback(ConnectionStateEnum state)
@@ -209,6 +205,13 @@ namespace Unnatural
             Explosions(null, arr);
         }
 
+        static void ForceEliminatedCallback(uint force)
+        {
+            if (ForceEliminated == null)
+                return;
+            ForceEliminated(null, force);
+        }
+
         static void ChatCallback(string msg, uint sender, ChatTargetFLags flags)
         {
             if (ChatReceived == null)
@@ -220,19 +223,22 @@ namespace Unnatural
             ChatReceived(null, c);
         }
 
+        // todo task completed callback
+
         static Game()
         {
             AppDomain.CurrentDomain.ProcessExit += Destructor;
 
             Interop.uwInitialize(Interop.UW_VERSION);
             Interop.uwSetExceptionCallback(ExceptionDelegate);
-            Interop.uwSetLogCallback(LogDelegate);
+            Interop.uwInitializeConsoleLogger();
             Interop.uwSetConnectionStateCallback(ConnectionStateDelegate);
             Interop.uwSetGameStateCallback(GameStateDelegate);
             Interop.uwSetMapStateCallback(MapStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
             Interop.uwSetShootingCallback(ShootingDelegate);
             Interop.uwSetExplosionsCallback(ExplosionsDelegate);
+            Interop.uwSetForceEliminatedCallback(ForceEliminatedDelegate);
             Interop.uwSetChatCallback(ChatDelegate);
 
             // make sure that others register their callbacks too

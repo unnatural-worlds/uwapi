@@ -5,7 +5,6 @@ namespace Unnatural
     using Order = Interop.UwOrder;
     using Type = Interop.UwOrderTypeEnum;
     using Priority = Interop.UwOrderPriorityFlags;
-    using PathStateEnum = Interop.UwPathStateEnum;
 
     public static class Commands
     {
@@ -84,11 +83,6 @@ namespace Unnatural
             o.order = Type.Fight;
             o.priority = Priority.User;
             return o;
-        }
-
-        public static PathStateEnum UnitPathState(uint unitId)
-        {
-            return Interop.uwUnitPathState(unitId);
         }
 
         public static void PlaceConstruction(uint constructionProto, uint position, float yaw = 0, uint recipeProto = 0, Interop.UwPriorityEnum priority = Interop.UwPriorityEnum.Normal)

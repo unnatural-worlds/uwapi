@@ -10,40 +10,6 @@ extern "C"
 
 #ifdef UNNATURAL_BOTS
 
-	// my player
-
-	UNNATURAL_API void uwSetPlayerName(const char *name);
-	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b); // [0 .. 1]
-	UNNATURAL_API void uwSetPlayerRace(uint32 raceProto);
-
-	typedef struct UwMyPlayer
-	{
-		uint32 playerEntityId;
-		uint32 forceEntityId;
-		bool primaryController;
-		bool admin;
-	} UwMyPlayer;
-	UNNATURAL_API bool uwMyPlayer(UwMyPlayer *data);
-
-	typedef struct UwMyForceStatistics
-	{
-		uint32 logisticsUnitsIdle;
-		uint32 logisticsUnitsTotal;
-		uint32 militaryUnitsIdle;
-		uint32 militaryUnitsTotal;
-		uint32 closestDangerPosition;
-		float closestDangerDistance;
-	} UwMyForceStatistics;
-	UNNATURAL_API void uwMyForceStatistics(UwMyForceStatistics *data);
-
-	typedef struct UwAssistConfig
-	{
-		bool logistics;
-		bool aiming;
-		bool fighting;
-	} UwAssistConfig;
-	UNNATURAL_API void uwSetAssistConfig(const UwAssistConfig *config);
-
 #endif
 
 	// game state
@@ -73,16 +39,6 @@ extern "C"
 #endif
 #ifdef UNNATURAL_SCRIPTS
 	UNNATURAL_ENTRY void uwUpdateCallback(uint32 tick, bool stepping);
-#endif
-
-	// force eliminated callback
-
-#ifdef UNNATURAL_BOTS
-	typedef void (*UwForceEliminatedCallbackType)(uint32 id);
-	UNNATURAL_API void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
-#endif
-#ifdef UNNATURAL_SCRIPTS
-	UNNATURAL_ENTRY void uwForceEliminatedCallback(uint32 id);
 #endif
 
 	// shooting callback
@@ -134,6 +90,16 @@ extern "C"
 	UNNATURAL_ENTRY void uwExplosionsCallback(const UwExplosionsArray *data);
 #endif
 
+	// force eliminated callback
+
+#ifdef UNNATURAL_BOTS
+	typedef void (*UwForceEliminatedCallbackType)(uint32 id);
+	UNNATURAL_API void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
+#endif
+#ifdef UNNATURAL_SCRIPTS
+	UNNATURAL_ENTRY void uwForceEliminatedCallback(uint32 id);
+#endif
+
 	// chat
 
 #ifdef UNNATURAL_BOTS
@@ -142,6 +108,24 @@ extern "C"
 #endif
 #ifdef UNNATURAL_SCRIPTS
 	UNNATURAL_ENTRY void uwChatCallback(const char *msg, uint32 sender, UwChatTargetFlags flags);
+#endif
+
+	// tasks callback
+
+	typedef enum UwTaskTypeEnum
+	{
+		UwTaskTypeEnum_None = 0,
+		UwTaskTypeEnum_UnitPathfinding = 1,
+		UwTaskTypeEnum_TilesPathfinding = 2,
+		UwTaskTypeEnum_ClustersPathfinding = 3,
+	} UwTaskTypeEnum;
+
+#ifdef UNNATURAL_BOTS
+	typedef void (*UwTaskCompletedCallbackType)(uint64 taskUserData, UwTaskTypeEnum type);
+	UNNATURAL_API void uwSetTaskCompletedCallback(UwTaskCompletedCallbackType callback);
+#endif
+#ifdef UNNATURAL_SCRIPTS
+	UNNATURAL_ENTRY void uwTaskCompletedCallback(uint64 taskUserData, UwTaskTypeEnum type);
 #endif
 
 #ifdef __cplusplus

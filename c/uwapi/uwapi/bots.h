@@ -6,6 +6,7 @@
 #include "modules/botsAdmin.h"
 #include "modules/botsConnection.h"
 #include "modules/commands.h"
+#include "modules/components.h"
 #include "modules/game.h"
 #include "modules/map.h"
 #include "modules/prototypes.h"

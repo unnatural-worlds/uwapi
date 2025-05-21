@@ -44,18 +44,6 @@ extern "C"
 	} UwOrders;
 	UNNATURAL_API void uwOrders(uint32 unit, UwOrders *data);
 
-	typedef enum UwPathStateEnum
-	{
-		UwPathStateEnum_None = 0,
-		UwPathStateEnum_Searching = 1,
-		UwPathStateEnum_Impossible = 2,
-		UwPathStateEnum_NotFound = 3,
-		UwPathStateEnum_Recompute = 4,
-		UwPathStateEnum_Found = 5,
-		UwPathStateEnum_Finished = 6,
-	} UwPathStateEnum;
-	UNNATURAL_API UwPathStateEnum uwUnitPathState(uint32 unitId);
-
 	UNNATURAL_API void uwCommandPlaceConstruction(uint32 constructionProto, uint32 position, float yaw, uint32 recipeProto, UwPriorityEnum priority); // recipeProto may be 0
 	UNNATURAL_API void uwCommandSetRecipe(uint32 unitOrConstructionId, uint32 recipeProto);
 	UNNATURAL_API void uwCommandSetPriority(uint32 unitOrConstructionId, UwPriorityEnum priority);

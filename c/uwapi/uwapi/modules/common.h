@@ -34,7 +34,7 @@ extern "C"
 	typedef uint64_t uint64;
 	typedef int64_t sint64;
 
-	static const uint32 UW_VERSION = 33;
+	static const uint32 UW_VERSION = 34;
 	static const uint32 UW_GameTicksPerSecond = 20;
 
 	typedef struct UwIds
@@ -49,6 +49,17 @@ extern "C"
 		UwPriorityEnum_Normal = 1,
 		UwPriorityEnum_High = 2,
 	} UwPriorityEnum;
+
+	typedef enum UwPathStateEnum
+	{
+		UwPathStateEnum_None = 0,
+		UwPathStateEnum_Searching = 1,
+		UwPathStateEnum_Impossible = 2,
+		UwPathStateEnum_NotFound = 3,
+		UwPathStateEnum_Recompute = 4,
+		UwPathStateEnum_Found = 5,
+		UwPathStateEnum_Finished = 6,
+	} UwPathStateEnum;
 
 	typedef enum UwForeignPolicyEnum
 	{

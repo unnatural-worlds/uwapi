@@ -10,11 +10,15 @@ extern "C"
 
 #ifdef UNNATURAL_BOTS
 
+	// initialization
+
 	UNNATURAL_API void uwInitialize(uint32 version);
 	UNNATURAL_API void uwDeinitialize(void);
 
 	typedef void (*UwExceptionCallbackType)(const char *message);
 	UNNATURAL_API void uwSetExceptionCallback(UwExceptionCallbackType callback);
+
+	// logging
 
 	typedef enum UwSeverityEnum
 	{
@@ -36,6 +40,8 @@ extern "C"
 	UNNATURAL_API void uwInitializeConsoleLogger(void);
 	UNNATURAL_API void uwLog(UwSeverityEnum severity, const char *message);
 
+	// connection state
+
 	typedef enum UwConnectionStateEnum
 	{
 		UwConnectionStateEnum_None = 0,
@@ -47,6 +53,8 @@ extern "C"
 	UNNATURAL_API void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
 	UNNATURAL_API UwConnectionStateEnum uwConnectionState(void);
 
+	// connect
+
 	UNNATURAL_API void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
 	UNNATURAL_API void uwSetConnectAsObserver(bool observer);
 	UNNATURAL_API bool uwConnectFindLan(uint64 timeoutMicroseconds);
@@ -56,6 +64,31 @@ extern "C"
 	UNNATURAL_API void uwConnectNewServer(uint32 visibility, const char *name, const char *extraCmdParams);
 	UNNATURAL_API bool uwTryReconnect(void);
 	UNNATURAL_API void uwDisconnect(void);
+
+	// my player
+
+	UNNATURAL_API void uwSetPlayerName(const char *name);
+	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b); // [0 .. 1]
+	UNNATURAL_API void uwSetPlayerRace(uint32 raceProto);
+
+	typedef struct UwMyPlayer
+	{
+		uint32 playerEntityId;
+		uint32 forceEntityId;
+		bool primaryController;
+		bool admin;
+	} UwMyPlayer;
+	UNNATURAL_API bool uwMyPlayer(UwMyPlayer *data);
+
+	typedef struct UwAssistConfig
+	{
+		bool logistics;
+		bool aiming;
+		bool fighting;
+	} UwAssistConfig;
+	UNNATURAL_API void uwSetAssistConfig(const UwAssistConfig *config);
+
+	// performance
 
 	typedef struct UwPerformanceStatistics
 	{

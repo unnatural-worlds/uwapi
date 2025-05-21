@@ -16,5 +16,28 @@ Threads
 -------
 
 .. important::
-	The api is strictly singlethreaded!
+	The api is strictly single-threaded!
+
+Hardened Library
+----------------
+We provide a separate library that contains additional validation of correct use of the api.
+The library will provide you an opportunity to stop the program in debugger when a problem is detected.
+It will terminate the program afterwards.
+This library is the default.
+
+It is recommended to use the optimized (non-hardened) library when not actively developing your bots, or when in a tournament game.
+
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      TODO
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      Define ``UW_USE_OPTIMIZED_LIBRARY`` macro to use non-hard library.
+
 

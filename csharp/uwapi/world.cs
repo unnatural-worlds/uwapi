@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
     using MyForceStatistics = Interop.UwMyForceStatistics;
     using ForeignPolicy = Interop.UwForeignPolicyComponent;
     using PolicyEnum = Interop.UwForeignPolicyEnum;
+    using UnitUpgrades = Interop.UwUnitUpgrades;
+    using PathStateEnum = Interop.UwPathStateEnum;
+    using OverviewFlags = Interop.UwOverviewFlags;
 
     public static class World
     {
@@ -17,6 +21,52 @@ namespace Unnatural
         {
             return myForceStatistics;
         }
+
+        public static PathStateEnum UnitPathState(uint unitId)
+        {
+            return Interop.uwUnitPathState(unitId);
+        }
+
+        public static UnitUpgrades UnitUpgrades(uint unitId)
+        {
+            UnitUpgrades data = new UnitUpgrades();
+            Interop.uwUnitUpgrades(unitId, ref data);
+            return data;
+        }
+
+        public static bool TestShooting(uint shooterId, uint targetId)
+        {
+            return Interop.uwTestShootingEntities(shooterId, targetId);
+        }
+
+        public static bool TestConstructionPlacement(uint constructionProto, uint position, uint recipeProto = 0)
+        {
+            return Interop.uwTestConstructionPlacement(constructionProto, position, recipeProto);
+        }
+
+        public static uint FindConstructionPlacement(uint constructionProto, uint position, uint recipeProto = 0)
+        {
+            return Interop.uwFindConstructionPlacement(constructionProto, position, recipeProto);
+        }
+
+        public static IReadOnlyList<OverviewFlags> OverviewFlags()
+        {
+            return overview;
+        }
+
+        public static OverviewFlags OverviewFlags(uint position)
+        {
+            return overview[(int)position];
+        }
+
+        public static uint[] OverviewEntities(uint position)
+        {
+            Interop.UwIds ns = new Interop.UwIds();
+            Interop.uwOverviewIds(position, ref ns);
+            return InteropHelpers.Ids(ns);
+        }
+
+        // todo pathfinding
 
         public static IReadOnlyDictionary<uint, Entity> Entities()
         {
@@ -38,6 +88,7 @@ namespace Unnatural
         static MyForceStatistics myForceStatistics = new MyForceStatistics();
         static readonly Dictionary<uint, Entity> entities = new Dictionary<uint, Entity>();
         static readonly Dictionary<uint, PolicyEnum> policies = new Dictionary<uint, PolicyEnum>();
+        static OverviewFlags[] overview = new OverviewFlags[0];
 
         static uint[] AllIds()
         {
@@ -105,6 +156,21 @@ namespace Unnatural
             }
         }
 
+        static void UpdateOverview(bool stepping)
+        {
+            if (stepping)
+            {
+                Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
+                Interop.uwOverviewExtract(ref ex);
+                if (overview.Length != ex.count)
+                    overview = new OverviewFlags[ex.count];
+                if (ex.count > 0)
+                    Marshal.Copy(ex.flags, (int[])(object)overview, 0, (int)ex.count);
+            }
+            else
+                overview = new OverviewFlags[0];
+        }
+
         static void Updating(object sender, bool stepping)
         {
             {
@@ -117,6 +183,7 @@ namespace Unnatural
             UpdateFresh();
             UpdateModified();
             UpdatePolicies();
+            UpdateOverview(stepping);
         }
 
         static World()

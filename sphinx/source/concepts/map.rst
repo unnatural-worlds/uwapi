@@ -38,3 +38,42 @@ This is used for performance optimization.
 Entities with larger radius will be present in all tiles that they cover, not just the center.
 
 Additionally, bit-flags are available for each tile, with different bits denoting different types of entities present on the tile.
+
+Area Queries
+------------
+There are multiple functions for finding tiles within some distance.
+
+.. grid:: 1 1 2 2
+   :gutter: 2
+
+   .. grid-item::
+
+      .. card::
+         :img-bottom: /_static/area-query-range.svg
+         :text-align: center
+
+         **AreaRange**
+
+   .. grid-item::
+
+      .. card::
+         :img-bottom: /_static/area-query-connected.svg
+         :text-align: center
+
+         **AreaConnected**
+
+   .. grid-item::
+
+      .. card::
+         :img-bottom: /_static/area-query-neighborhood.svg
+         :text-align: center
+
+         **AreaNeighborhood**
+
+   .. grid-item::
+
+      .. card::
+         :img-bottom: /_static/area-query-extended.svg
+         :text-align: center
+
+         **AreaExtended**

@@ -75,26 +75,6 @@ extern "C"
 	} UwCluster;
 	UNNATURAL_API void uwCluster(uint32 index, UwCluster *data);
 
-	// overview
-
-	typedef enum UwOverviewFlags
-	{
-		UwOverviewFlags_None = 0,
-		UwOverviewFlags_Resource = 1 << 0,
-		UwOverviewFlags_Construction = 1 << 1,
-		UwOverviewFlags_MobileUnit = 1 << 2,
-		UwOverviewFlags_StaticUnit = 1 << 3,
-		UwOverviewFlags_Unit = UwOverviewFlags_MobileUnit | UwOverviewFlags_StaticUnit,
-	} UwOverviewFlags;
-	UNNATURAL_API UwOverviewFlags uwOverviewFlags(uint32 position);
-	UNNATURAL_API void uwOverviewIds(uint32 position, UwIds *data);
-	typedef struct UwOverviewExtract
-	{
-		UNNATURAL_POINTER(const UwOverviewFlags *) flags;
-		uint32 count;
-	} UwOverviewExtract;
-	UNNATURAL_API void uwOverviewExtract(UwOverviewExtract *data);
-
 	// map miscellaneous
 
 	UNNATURAL_API void uwAreaRange(float x, float y, float z, float radius, UwIds *data);
@@ -104,22 +84,9 @@ extern "C"
 
 	UNNATURAL_API bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
 	UNNATURAL_API bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, float shootingRangeUpgrade, uint32 targetPosition, uint32 targetProto);
-	UNNATURAL_API bool uwTestShootingEntities(uint32 shooterId, uint32 targetId);
 	UNNATURAL_API float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
 	UNNATURAL_API float uwDistanceEstimate(uint32 a, uint32 b);
 	UNNATURAL_API float uwYaw(uint32 position, uint32 towards);
-
-#ifdef UNNATURAL_BOTS
-	UNNATURAL_API bool uwTestConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto); // recipeProto may be 0
-	UNNATURAL_API uint32 uwFindConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto); // recipeProto may be 0
-#endif
-
-#ifdef UNNATURAL_SCRIPTS
-	UNNATURAL_API bool uwTestPlacement(uint32 proto, uint32 position, uint32 owner);
-	UNNATURAL_API uint32 uwFindPlacement(uint32 proto, uint32 position, uint32 owner);
-	UNNATURAL_API bool uwTestConstructionPlacement(uint32 constructionProto, uint32 position, uint32 owner, uint32 recipeProto); // recipeProto may be 0
-	UNNATURAL_API uint32 uwFindConstructionPlacement(uint32 constructionProto, uint32 position, uint32 owner, uint32 recipeProto); // recipeProto may be 0
-#endif
 
 #ifdef __cplusplus
 } // extern C

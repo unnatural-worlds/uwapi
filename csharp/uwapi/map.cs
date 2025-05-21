@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace Unnatural
 {
     using MapStateEnum = Interop.UwMapStateEnum;
-    using OverviewFlags = Interop.UwOverviewFlags;
+    using StartingPosition = Interop.UwMapStartingPosition;
 
     public struct Vector3
     {
@@ -32,6 +32,11 @@ namespace Unnatural
         public static uint MaxPlayers()
         {
             return maxPlayers;
+        }
+
+        public static IReadOnlyList<StartingPosition> StartingPositions()
+        {
+            return startingPositions;
         }
 
         public static IReadOnlyList<Vector3> Positions()
@@ -74,23 +79,6 @@ namespace Unnatural
             return terrains[(int)position];
         }
 
-        public static IReadOnlyList<OverviewFlags> Overview()
-        {
-            return overview;
-        }
-
-        public static OverviewFlags Overview(uint position)
-        {
-            return overview[(int)position];
-        }
-
-        public static uint[] Entities(uint position)
-        {
-            Interop.UwIds ns = new Interop.UwIds();
-            Interop.uwOverviewIds(position, ref ns);
-            return InteropHelpers.Ids(ns);
-        }
-
         public static uint[] AreaRange(Vector3 point, float radius)
         {
             Interop.UwIds tiles = new Interop.UwIds();
@@ -129,11 +117,6 @@ namespace Unnatural
             return Interop.uwTestShooting(shooterPosition, shooterProto, shootingRangeUpgrade, targetPosition, targetProto);
         }
 
-        public static bool TestShooting(uint shooterId, uint targetId)
-        {
-            return Interop.uwTestShootingEntities(shooterId, targetId);
-        }
-
         public static float DistanceLine(uint a, uint b)
         {
             Vector3 a3 = positions[(int)a];
@@ -155,16 +138,6 @@ namespace Unnatural
         public static float Yaw(uint a, uint b)
         {
             return Interop.uwYaw(a, b);
-        }
-
-        public static bool TestConstructionPlacement(uint constructionProto, uint position, uint recipeProto = 0)
-        {
-            return Interop.uwTestConstructionPlacement(constructionProto, position, recipeProto);
-        }
-
-        public static uint FindConstructionPlacement(uint constructionProto, uint position, uint recipeProto = 0)
-        {
-            return Interop.uwFindConstructionPlacement(constructionProto, position, recipeProto);
         }
 
         public static IReadOnlyList<uint> TileToCluster()
@@ -201,11 +174,11 @@ namespace Unnatural
         static string guid;
         static string path;
         static uint maxPlayers;
+        static readonly List<StartingPosition> startingPositions = new List<StartingPosition>();
         static readonly List<Vector3> positions = new List<Vector3>();
         static readonly List<Vector3> ups = new List<Vector3>();
         static readonly List<uint[]> neighbors = new List<uint[]>();
         static readonly List<byte> terrains = new List<byte>();
-        static OverviewFlags[] overview = new OverviewFlags[0];
         static readonly List<uint> mapTileToCluster = new List<uint>();
         static readonly List<uint> mapClusterToTile = new List<uint>();
         static readonly List<uint[]> clustersNeighbors = new List<uint[]>();
@@ -214,11 +187,11 @@ namespace Unnatural
         {
             Game.LogInfo("loading map");
 
+            startingPositions.Clear();
             positions.Clear();
             ups.Clear();
             neighbors.Clear();
             terrains.Clear();
-            overview = new OverviewFlags[0];
             mapTileToCluster.Clear();
             mapClusterToTile.Clear();
             clustersNeighbors.Clear();
@@ -230,6 +203,18 @@ namespace Unnatural
                 guid = Marshal.PtrToStringAnsi(info.guid);
                 path = Marshal.PtrToStringAnsi(info.path);
                 maxPlayers = info.maxPlayers;
+            }
+
+            {
+                Interop.UwMapStartingPositionsArray data = new Interop.UwMapStartingPositionsArray();
+                Interop.uwMapStartingPositions(ref data);
+                int size = Marshal.SizeOf(typeof(StartingPosition));
+                for (int i = 0; i < data.count; i++)
+                {
+                    IntPtr currentPtr = IntPtr.Add(data.data, i * size);
+                    var tmp = Marshal.PtrToStructure<StartingPosition>(currentPtr);
+                    startingPositions.Add(tmp);
+                }
             }
 
             {
@@ -288,25 +273,9 @@ namespace Unnatural
                 Load();
         }
 
-        static void Updating(object sender, bool stepping)
-        {
-            if (stepping)
-            {
-                Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
-                Interop.uwOverviewExtract(ref ex);
-                if (overview.Length != ex.count)
-                    overview = new OverviewFlags[ex.count];
-                if (ex.count > 0)
-                    Marshal.Copy(ex.flags, (int[])(object)overview, 0, (int)ex.count);
-            }
-            else
-                overview = new OverviewFlags[0];
-        }
-
         static Map()
         {
             Game.MapStateChanged += MapStateChanged;
-            Game.Updating += Updating;
         }
     }
 }
