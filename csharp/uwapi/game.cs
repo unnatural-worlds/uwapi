@@ -223,8 +223,6 @@ namespace Unnatural
             ChatReceived(null, c);
         }
 
-        // todo task completed callback
-
         static Game()
         {
             AppDomain.CurrentDomain.ProcessExit += Destructor;
@@ -245,6 +243,7 @@ namespace Unnatural
             Prototypes.All();
             Map.Positions();
             World.Entities();
+            UwapiTasks.Init();
         }
 
         static void Destructor(object sender, EventArgs e)

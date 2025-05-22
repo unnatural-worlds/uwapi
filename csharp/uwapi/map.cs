@@ -130,14 +130,14 @@ namespace Unnatural
             return (float)Math.Sqrt(x + y + z);
         }
 
-        public static float DistanceEstimate(uint a, uint b)
+        public static float DistanceEstimate(uint positionA, uint positionB)
         {
-            return Interop.uwDistanceEstimate(a, b);
+            return Interop.uwDistanceEstimate(positionA, positionB);
         }
 
-        public static float Yaw(uint a, uint b)
+        public static float Yaw(uint startPosition, uint goalPosition)
         {
-            return Interop.uwYaw(a, b);
+            return Interop.uwYaw(startPosition, goalPosition);
         }
 
         public static IReadOnlyList<uint> TileToCluster()
@@ -168,6 +168,24 @@ namespace Unnatural
         public static IReadOnlyList<uint> ClustersNeighbors(uint cluster)
         {
             return clustersNeighbors[(int)cluster];
+        }
+
+        public static void ClustersDistances(Action<ClustersDistancesResult> callback, uint startingCluster, uint unitPrototype, bool allowImpassableTerrain = false)
+        {
+            Action fin = () =>
+            {
+                Interop.UwClustersDistancesResult tmp = new Interop.UwClustersDistancesResult();
+                Interop.uwRetrieveClustersDistances(ref tmp);
+                ClustersDistancesResult res = new ClustersDistancesResult();
+                res.distances = InteropHelpers.Ids(tmp.distances);
+                callback(res);
+            };
+            Interop.UwClustersDistancesQuery q = new Interop.UwClustersDistancesQuery();
+            q.startingCluster = startingCluster;
+            q.unitPrototype = unitPrototype;
+            q.allowImpassableTerrain = allowImpassableTerrain;
+            q.taskUserData = UwapiTasks.InsertTask(fin);
+            Interop.uwStartClustersDistances(ref q);
         }
 
         static string name;
@@ -277,5 +295,10 @@ namespace Unnatural
         {
             Game.MapStateChanged += MapStateChanged;
         }
+    }
+
+    public struct ClustersDistancesResult
+    {
+        public uint[] distances;
     }
 }

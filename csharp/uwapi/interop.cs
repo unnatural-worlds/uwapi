@@ -708,8 +708,7 @@ namespace Unnatural
         {
             None = 0,
             UnitPathfinding = 1,
-            TilesPathfinding = 2,
-            ClustersPathfinding = 3,
+            ClustersDistances = 2,
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -828,10 +827,32 @@ namespace Unnatural
         public static extern float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern float uwDistanceEstimate(uint a, uint b);
+        public static extern float uwDistanceEstimate(uint positionA, uint positionB);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern float uwYaw(uint position, uint towards);
+        public static extern float uwYaw(uint startPosition, uint goalPosition);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwClustersDistancesQuery
+        {
+            public ulong taskUserData;
+            public uint startingCluster;
+            public uint unitPrototype;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool allowImpassableTerrain;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwClustersDistancesResult
+        {
+            public UwIds distances;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwStartClustersDistances(ref UwClustersDistancesQuery query);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwRetrieveClustersDistances(ref UwClustersDistancesResult data);
 
         public enum UwPrototypeTypeEnum
         {
@@ -934,13 +955,15 @@ namespace Unnatural
             public uint startingPosition;
             public uint goalPosition;
             public uint unitPrototype;
+            public uint maxIterations;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool allowNearbyPosition;
         }
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwUnitPathfindingResult
         {
-            public IntPtr tilesData;
-            public uint tilesCount;
+            public UwIds path;
             public UwPathStateEnum state;
         }
 
@@ -948,34 +971,7 @@ namespace Unnatural
         public static extern void uwStartUnitPathfinding(ref UwUnitPathfindingQuery query);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwRetrieveUnitPathfinding(ref UwUnitPathfindingResult query);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMapPathfindingQuery
-        {
-            public ulong taskUserData;
-            public uint start;
-            public uint goal;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMapPathfindingResult
-        {
-            public IntPtr data;
-            public uint count;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwStartTilesPathfinding(ref UwMapPathfindingQuery query);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwStartClustersPathfinding(ref UwMapPathfindingQuery query);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwRetrieveTilesPathfinding(ref UwMapPathfindingResult query);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwRetrieveClustersPathfinding(ref UwMapPathfindingResult query);
+        public static extern void uwRetrieveUnitPathfinding(ref UwUnitPathfindingResult data);
     }
 
     public partial class Entity

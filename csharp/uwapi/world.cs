@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -66,7 +67,26 @@ namespace Unnatural
             return InteropHelpers.Ids(ns);
         }
 
-        // todo pathfinding
+        public static void UnitPathfinding(Action<UnitPathfindingResult> callback, uint startingPosition, uint goalPosition, uint unitPrototype, bool allowNearbyPosition = false, uint maxIterations = 0)
+        {
+            Action fin = () =>
+            {
+                Interop.UwUnitPathfindingResult tmp = new Interop.UwUnitPathfindingResult();
+                Interop.uwRetrieveUnitPathfinding(ref tmp);
+                UnitPathfindingResult res = new UnitPathfindingResult();
+                res.path = InteropHelpers.Ids(tmp.path);
+                res.state = tmp.state;
+                callback(res);
+            };
+            Interop.UwUnitPathfindingQuery q = new Interop.UwUnitPathfindingQuery();
+            q.startingPosition = startingPosition;
+            q.goalPosition = goalPosition;
+            q.unitPrototype = unitPrototype;
+            q.allowNearbyPosition = allowNearbyPosition;
+            q.maxIterations = maxIterations;
+            q.taskUserData = UwapiTasks.InsertTask(fin);
+            Interop.uwStartUnitPathfinding(ref q);
+        }
 
         public static IReadOnlyDictionary<uint, Entity> Entities()
         {
@@ -190,5 +210,11 @@ namespace Unnatural
         {
             Game.Updating += Updating;
         }
+    }
+
+    public struct UnitPathfindingResult
+    {
+        public uint[] path;
+        public PathStateEnum state;
     }
 }

@@ -500,8 +500,7 @@
  {
   UwTaskTypeEnum_None = 0,
   UwTaskTypeEnum_UnitPathfinding = 1,
-  UwTaskTypeEnum_TilesPathfinding = 2,
-  UwTaskTypeEnum_ClustersPathfinding = 3,
+  UwTaskTypeEnum_ClustersDistances = 2,
  } UwTaskTypeEnum;
 
 
@@ -582,8 +581,24 @@
                bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
                bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, float shootingRangeUpgrade, uint32 targetPosition, uint32 targetProto);
                float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
-               float uwDistanceEstimate(uint32 a, uint32 b);
-               float uwYaw(uint32 position, uint32 towards);
+               float uwDistanceEstimate(uint32 positionA, uint32 positionB);
+               float uwYaw(uint32 startPosition, uint32 goalPosition);
+
+
+
+ typedef struct UwClustersDistancesQuery
+ {
+  uint64 taskUserData;
+  uint32 startingCluster;
+  uint32 unitPrototype;
+  bool allowImpassableTerrain;
+ } UwClustersDistancesQuery;
+ typedef struct UwClustersDistancesResult
+ {
+  UwIds distances;
+ } UwClustersDistancesResult;
+               void uwStartClustersDistances(const UwClustersDistancesQuery *query);
+               void uwRetrieveClustersDistances(UwClustersDistancesResult *data);
  typedef enum UwPrototypeTypeEnum
  {
   UwPrototypeTypeEnum_None = 0,
@@ -655,33 +670,14 @@
   uint32 startingPosition;
   uint32 goalPosition;
   uint32 unitPrototype;
+  uint32 maxIterations;
+  bool allowNearbyPosition;
  } UwUnitPathfindingQuery;
-
  typedef struct UwUnitPathfindingResult
  {
-  const uint32 * tilesData;
-  uint32 tilesCount;
+  UwIds path;
   UwPathStateEnum state;
  } UwUnitPathfindingResult;
-
                void uwStartUnitPathfinding(const UwUnitPathfindingQuery *query);
-               void uwRetrieveUnitPathfinding(UwUnitPathfindingResult *query);
-
- typedef struct UwMapPathfindingQuery
- {
-  uint64 taskUserData;
-  uint32 start;
-  uint32 goal;
- } UwMapPathfindingQuery;
-
- typedef struct UwMapPathfindingResult
- {
-  const uint32 * data;
-  uint32 count;
- } UwMapPathfindingResult;
-
-               void uwStartTilesPathfinding(const UwMapPathfindingQuery *query);
-               void uwStartClustersPathfinding(const UwMapPathfindingQuery *query);
-               void uwRetrieveTilesPathfinding(UwMapPathfindingResult *query);
-               void uwRetrieveClustersPathfinding(UwMapPathfindingResult *query);
+               void uwRetrieveUnitPathfinding(UwUnitPathfindingResult *data);
 

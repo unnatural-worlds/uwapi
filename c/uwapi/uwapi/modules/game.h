@@ -116,8 +116,7 @@ extern "C"
 	{
 		UwTaskTypeEnum_None = 0,
 		UwTaskTypeEnum_UnitPathfinding = 1,
-		UwTaskTypeEnum_TilesPathfinding = 2,
-		UwTaskTypeEnum_ClustersPathfinding = 3,
+		UwTaskTypeEnum_ClustersDistances = 2,
 	} UwTaskTypeEnum;
 
 #ifdef UNNATURAL_BOTS

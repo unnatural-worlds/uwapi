@@ -67,7 +67,7 @@ extern "C"
 	} UwOverviewExtract;
 	UNNATURAL_API void uwOverviewExtract(UwOverviewExtract *data);
 
-	// pathfinding
+	// unit pathfinding
 
 	typedef struct UwUnitPathfindingQuery
 	{
@@ -75,35 +75,16 @@ extern "C"
 		uint32 startingPosition;
 		uint32 goalPosition;
 		uint32 unitPrototype;
+		uint32 maxIterations;
+		bool allowNearbyPosition;
 	} UwUnitPathfindingQuery;
-
 	typedef struct UwUnitPathfindingResult
 	{
-		UNNATURAL_POINTER(const uint32 *) tilesData;
-		uint32 tilesCount;
+		UwIds path;
 		UwPathStateEnum state;
 	} UwUnitPathfindingResult;
-
 	UNNATURAL_API void uwStartUnitPathfinding(const UwUnitPathfindingQuery *query);
-	UNNATURAL_API void uwRetrieveUnitPathfinding(UwUnitPathfindingResult *query);
-
-	typedef struct UwMapPathfindingQuery
-	{
-		uint64 taskUserData;
-		uint32 start; // tile or cluster
-		uint32 goal; // tile or cluster
-	} UwMapPathfindingQuery;
-
-	typedef struct UwMapPathfindingResult
-	{
-		UNNATURAL_POINTER(const uint32 *) data; // tiles or clusters
-		uint32 count;
-	} UwMapPathfindingResult;
-
-	UNNATURAL_API void uwStartTilesPathfinding(const UwMapPathfindingQuery *query);
-	UNNATURAL_API void uwStartClustersPathfinding(const UwMapPathfindingQuery *query);
-	UNNATURAL_API void uwRetrieveTilesPathfinding(UwMapPathfindingResult *query);
-	UNNATURAL_API void uwRetrieveClustersPathfinding(UwMapPathfindingResult *query);
+	UNNATURAL_API void uwRetrieveUnitPathfinding(UwUnitPathfindingResult *data);
 
 #ifdef __cplusplus
 } // extern C

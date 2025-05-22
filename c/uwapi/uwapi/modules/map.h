@@ -85,8 +85,24 @@ extern "C"
 	UNNATURAL_API bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
 	UNNATURAL_API bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, float shootingRangeUpgrade, uint32 targetPosition, uint32 targetProto);
 	UNNATURAL_API float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
-	UNNATURAL_API float uwDistanceEstimate(uint32 a, uint32 b);
-	UNNATURAL_API float uwYaw(uint32 position, uint32 towards);
+	UNNATURAL_API float uwDistanceEstimate(uint32 positionA, uint32 positionB);
+	UNNATURAL_API float uwYaw(uint32 startPosition, uint32 goalPosition);
+
+	// clusters distances
+
+	typedef struct UwClustersDistancesQuery
+	{
+		uint64 taskUserData;
+		uint32 startingCluster;
+		uint32 unitPrototype;
+		bool allowImpassableTerrain;
+	} UwClustersDistancesQuery;
+	typedef struct UwClustersDistancesResult
+	{
+		UwIds distances;
+	} UwClustersDistancesResult;
+	UNNATURAL_API void uwStartClustersDistances(const UwClustersDistancesQuery *query);
+	UNNATURAL_API void uwRetrieveClustersDistances(UwClustersDistancesResult *data);
 
 #ifdef __cplusplus
 } // extern C
