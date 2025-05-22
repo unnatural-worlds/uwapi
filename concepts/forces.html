@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Program Safety" href="programSafety.html" /><link rel="prev" title="Setup" href="setup.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Map" href="map.html" /><link rel="prev" title="General Concepts" href="index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Program Overview - UW API documentation</title>
+        <title>Players &amp; Forces - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -201,12 +201,12 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../concepts/index.html">General Concepts</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/forces.html">Players &amp; Forces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/map.html">Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/ecs.html">Entities (ECS)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">General Concepts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Players &amp; Forces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecs.html">Entities (ECS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -217,11 +217,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Bots</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Program Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="programSafety.html">Program Safety</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../bots/index.html">Bots</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bots/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bots/programOverview.html">Program Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bots/programSafety.html">Program Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bots/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
@@ -244,7 +244,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/bots/programOverview.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/concepts/forces.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -264,85 +264,61 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="program-overview">
-<h1>Program Overview<a class="headerlink" href="#program-overview" title="Link to this heading">¶</a></h1>
-<p>High-level look at basic bot program.</p>
-<section id="environment-variables">
-<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h2>
-<p>Some variables that may alter the behavior of your bot program.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> - path to the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder that contains the shared library.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_LOBBY</span></code> - id of Steam lobby to connect to.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_ADDR</span></code> - IP address or domain name to connect to.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_PORT</span></code> - port of the game server to connect to.</p></li>
-</ul>
+          <section id="players-forces">
+<h1>Players &amp; Forces<a class="headerlink" href="#players-forces" title="Link to this heading">¶</a></h1>
+<p>Usually, there is one-to-one mapping between players and forces.
+But the game is designed for other modes too.</p>
+<section id="players">
+<h2>Players<a class="headerlink" href="#players" title="Link to this heading">¶</a></h2>
+<p>Each client connected to the game server is separate player.
+Each player has a name, and an avatar.
+Finally, each player is associated with up to one force.</p>
+<section id="observers">
+<h3>Observers<a class="headerlink" href="#observers" title="Link to this heading">¶</a></h3>
+<p>A player that is not associated with any force is an observer.</p>
 </section>
-<section id="program-lifecycle">
-<h2>Program Lifecycle<a class="headerlink" href="#program-lifecycle" title="Link to this heading">¶</a></h2>
-<p>At start, you are in full control of the program.</p>
-<section id="initialization">
-<h3>Initialization<a class="headerlink" href="#initialization" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p>You need to change current working directory to the <code class="docutils literal notranslate"><span class="pre">bin</span></code> directory in the game installation.
-Without it, the game will be unable to load maps and assets, even if it might load the shared library.</p></li>
-</ul>
+</section>
+<section id="forces">
+<h2>Forces<a class="headerlink" href="#forces" title="Link to this heading">¶</a></h2>
+<p>Forces represent the actual armies in the world.
+Each force has associated a color, a starting position, and a race.
+Each unit has associated owner - one of the forces.</p>
+<section id="controllers">
+<h3>Controllers<a class="headerlink" href="#controllers" title="Link to this heading">¶</a></h3>
+<p>Notice that multiple players can be associated with one force.
+In that case, these players share ownership of all the units associated with the force.</p>
+<p>Each unit remembers the last player that gave it any order, this player is called the controller.
+Any automated system in the game (eg. logistics controls for trucks) will not give any orders to units with different controller.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Do <em>not</em> change current working directory once configured.</p>
+<p>Controllers are only partially implemented in the game for now.</p>
 </div>
-<ul class="simple">
-<li><p>Next you load the shared library.</p></li>
-</ul>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
-Python</label><div class="sd-tab-content docutils">
-<p>TODO</p>
-</div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
-C#</label><div class="sd-tab-content docutils">
-<p>The library is automatically loaded when you first access the global <code class="docutils literal notranslate"><span class="pre">Game</span></code> object.
-This happens inside the <code class="docutils literal notranslate"><span class="pre">Bot</span></code> constructor.</p>
-</div>
-</div>
-<ul class="simple">
-<li><p>Setup all your callbacks now.
-You may also set some parameters for the connection.
-Also setup player’s name, and player’s color.</p></li>
-</ul>
 </section>
-<section id="connect">
-<h3>Connect<a class="headerlink" href="#connect" title="Link to this heading">¶</a></h3>
-<p>There are multiple ways to connect to a server.
-The usual approach is to first try reconnecting, in case the game has crashed previously.
-Second, you connect to an existing server using the parameters provided in the environment variables, if any.
-Third, you spin up your own server.</p>
-<p>Alternatively, you may implement your own logic to determine how to connect to a server.</p>
-<p>No matter the method, the game will now take control over the program.
-Your program is blocked until the network connection closes.
-All your further actions will happen inside callbacks only.</p>
+<section id="neutral">
+<h3>Neutral<a class="headerlink" href="#neutral" title="Link to this heading">¶</a></h3>
+<p>Some units in the game are not associated with any force.
+These are neutral rocks, trees, decorations, ore deposits, etc.</p>
 </section>
-<section id="game-loop">
-<h3>Game Loop<a class="headerlink" href="#game-loop" title="Link to this heading">¶</a></h3>
-<p>All your registered callbacks are now called, when appropriate.
-Notably, the <code class="docutils literal notranslate"><span class="pre">Update</span></code> callback is periodically called, no matter the game state.
-This is where you keep track of the state of the game, and perform any of your actions.</p>
+</section>
+<section id="foreign-policies">
+<h2>Foreign Policies<a class="headerlink" href="#foreign-policies" title="Link to this heading">¶</a></h2>
+<p>Each force has associated a policy with each other force.
+Policies define how armies of different forces act towards each other.</p>
+<p>Two forces can be allies, neutral, or enemies with each other.</p>
+<p>The game has additional enumeration values for some edge cases.</p>
+<section id="diplomacy">
+<h3>Diplomacy<a class="headerlink" href="#diplomacy" title="Link to this heading">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Update</span></code> callback, and some other, may be called before the game has actually started (eg. in <code class="docutils literal notranslate"><span class="pre">Session</span></code>), or when the map is not yet <code class="docutils literal notranslate"><span class="pre">Loaded</span></code>.
-Be mindful of what operations are valid in these circumstances.</p>
+<p>Diplomacy is not yet implemented.</p>
 </div>
-<p>You may prematurely close the connection with the <code class="docutils literal notranslate"><span class="pre">Disconnect</span></code> function.
-This will do a graceful closing of the connection, that is, you will get some additional callbacks called.
-After that the connect function will return.</p>
 </section>
-<section id="finalization">
-<h3>Finalization<a class="headerlink" href="#finalization" title="Link to this heading">¶</a></h3>
-<p>When the connection function returns, the network connection has already been closed, and you take back control over the program.
-You may do any cleanup operations, for example you may save some statistics from the game.
-Ultimately, you should unload the shared library, and exit the program.</p>
-<p>It may be tempting to just loop and connect again to next server, however this is strongly discouraged.</p>
+<section id="teams">
+<h3>Teams<a class="headerlink" href="#teams" title="Link to this heading">¶</a></h3>
+<p>Before a match starts, all forces are assigned into teams.
+All forces in same team are assigned as allies with each other.
+Forces in different teams are assigned as enemies.
+Teams are not used afterwards.</p>
 </section>
 </section>
 </section>
@@ -352,23 +328,23 @@ Ultimately, you should unload the shared library, and exit the program.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="programSafety.html">
+          <a class="next-page" href="map.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Program Safety</div>
+                <div class="title">Map</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="setup.html">
+          <a class="prev-page" href="index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Setup</div>
+                <div class="title">General Concepts</div>
                 
               </div>
             </a>
@@ -402,13 +378,19 @@ Ultimately, you should unload the shared library, and exit the program.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Program Overview</a><ul>
-<li><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
-<li><a class="reference internal" href="#program-lifecycle">Program Lifecycle</a><ul>
-<li><a class="reference internal" href="#initialization">Initialization</a></li>
-<li><a class="reference internal" href="#connect">Connect</a></li>
-<li><a class="reference internal" href="#game-loop">Game Loop</a></li>
-<li><a class="reference internal" href="#finalization">Finalization</a></li>
+<li><a class="reference internal" href="#">Players &amp; Forces</a><ul>
+<li><a class="reference internal" href="#players">Players</a><ul>
+<li><a class="reference internal" href="#observers">Observers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#forces">Forces</a><ul>
+<li><a class="reference internal" href="#controllers">Controllers</a></li>
+<li><a class="reference internal" href="#neutral">Neutral</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#foreign-policies">Foreign Policies</a><ul>
+<li><a class="reference internal" href="#diplomacy">Diplomacy</a></li>
+<li><a class="reference internal" href="#teams">Teams</a></li>
 </ul>
 </li>
 </ul>
