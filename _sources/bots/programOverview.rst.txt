@@ -42,7 +42,6 @@ Initialization
 
 - Setup all your callbacks now.
   You may also set some parameters for the connection.
-  Also setup player's name, and player's color.
 
 Connect
 ^^^^^^^
