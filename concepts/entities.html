@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Bots" href="../bots/index.html" /><link rel="prev" title="Mods" href="../mods/index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Resources &amp; Logistics" href="resources.html" /><link rel="prev" title="Prototypes" href="prototypes.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Scripts - UW API documentation</title>
+        <title>Entities &amp; Components - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -180,7 +180,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -201,14 +201,14 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../concepts/index.html">General Concepts</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/players.html">Players &amp; Forces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/map.html">Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/entities.html">Entities &amp; Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/resources.html">Resources &amp; Logistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/combat.html">Combat &amp; Upgrades</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">General Concepts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="players.html">Players &amp; Forces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Entities &amp; Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -218,7 +218,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../bots/index.html">Bots</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../bots/setup.html">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bots/programOverview.html">Program Overview</a></li>
@@ -246,7 +246,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/scripts/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/concepts/entities.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -260,24 +260,138 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="scripts">
-<h1>Scripts<a class="headerlink" href="#scripts" title="Link to this heading">¶</a></h1>
-<p>Guide on making scripts for custom maps for Unnatural Worlds.</p>
+          <section id="entities-components">
+<h1>Entities &amp; Components<a class="headerlink" href="#entities-components" title="Link to this heading">¶</a></h1>
+<blockquote class="epigraph">
+<div><a class="reference internal image-reference" href="../_images/ecs.svg"><img alt="ECS Diagram from Wikipedia" class="align-right" src="../_images/ecs.svg" style="height: 100pt;" />
+</a>
+<p>“Entity–component–system (ECS) is a software architectural pattern mostly used in video game development for the representation of game world objects. An ECS comprises entities composed from components of data, with systems which operate on the components.</p>
+<p>ECS follows the principle of composition over inheritance, meaning that every entity is defined not by a type hierarchy, but by the components that are associated with it. Systems act globally over all entities which have the required components.”</p>
+<p class="attribution">—<a class="reference external" href="https://en.wikipedia.org/wiki/Entity_component_system">Wikipedia - Entity Component System</a></p>
+</div></blockquote>
+<section id="entity">
+<h2>Entity<a class="headerlink" href="#entity" title="Link to this heading">¶</a></h2>
+<p>In Unnatural Worlds specifically, each entity is identified by its unique 32-bit integer.
+These ids are assigned by the server, and client cannot predict the values.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In a very long game, it is possible that an id is reused.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some entities and/or components are synchronized only with the owner of the entity.</p>
+</div>
+</section>
+<section id="proto">
+<h2>Proto<a class="headerlink" href="#proto" title="Link to this heading">¶</a></h2>
+<p>Defines the prototype of the entity.</p>
+<p>It is allowed to change from construction to unit, or from unit to another unit.
+It is forbidden to change eg. from unit to resource.</p>
+</section>
+<section id="owner">
+<h2>Owner<a class="headerlink" href="#owner" title="Link to this heading">¶</a></h2>
+<p>Defines which force owns this entity.</p>
+<p>Immutable.</p>
+</section>
+<section id="controller">
+<h2>Controller<a class="headerlink" href="#controller" title="Link to this heading">¶</a></h2>
+<p>In case that multiple players belong to the same force, the last player to give any orders to this entity will become the controller of the entity.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Making custom scripts is not yet fully supported.</p>
+<p>Controllers are not yet implemented.</p>
 </div>
-<p>Scripts are executed within the server.
-They have access to all data within the game, and may modify all data.</p>
-<p>Scripts can be written in any language that can be compiled into <a class="reference external" href="https://en.wikipedia.org/wiki/WebAssembly">WASM</a>.</p>
-<p>The uwapi repository provides c/c++ headers for scripts.
-If you want to use another language, you will need to specify all the imported functions and structures yourself.</p>
+</section>
+<section id="position">
+<h2>Position<a class="headerlink" href="#position" title="Link to this heading">¶</a></h2>
+<p>Index of the tile this entity is placed on.
+In case the entity has large radius, this component defines the center tile.</p>
+<p>The yaw defines the orientation (a rotation along the local vertical axis) of this entity on the tile.
+The actual direction of 0 degrees yaw is different for each tile.</p>
+</section>
+<section id="unit">
+<h2>Unit<a class="headerlink" href="#unit" title="Link to this heading">¶</a></h2>
+<p>Contains additional state for a unit (or building).</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Shooting</span></code> - waiting for the cannon to cool down.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Processing</span></code> - the unit has processed a recipe and is waiting for it to complete.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Rebuilding</span></code> - recipe for the unit has changed, and the unit is waiting for the changes to complete.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Stalling</span></code> - the unit’s recipe cannot be executed, usually because a limit for the outputs has been reached.</p></li>
+</ul>
+</section>
+<section id="life">
+<h2>Life<a class="headerlink" href="#life" title="Link to this heading">¶</a></h2>
+<p>Amount of life of the unit (or building).</p>
+</section>
+<section id="move">
+<h2>Move<a class="headerlink" href="#move" title="Link to this heading">¶</a></h2>
+<p>Contains information about current movement of the unit.
+Information is available for the next neighboring tile only.</p>
+</section>
+<section id="aim">
+<h2>Aim<a class="headerlink" href="#aim" title="Link to this heading">¶</a></h2>
+<p>Id of a target unit that this unit will automatically shoot at.</p>
+</section>
+<section id="recipe">
+<h2>Recipe<a class="headerlink" href="#recipe" title="Link to this heading">¶</a></h2>
+<p>Id of the prototype of the recipe that this unit will automatically process.</p>
+</section>
+<section id="updatetimestamp">
+<h2>UpdateTimestamp<a class="headerlink" href="#updatetimestamp" title="Link to this heading">¶</a></h2>
+<p>Contains a timestamp (tick) of when this construction started, or when this unit’s recipe was last processed.
+It is used for planning logistics deliveries.</p>
+</section>
+<section id="recipestatistics">
+<h2>RecipeStatistics<a class="headerlink" href="#recipestatistics" title="Link to this heading">¶</a></h2>
+<p>Used for calculating this unit’s processing efficiency.</p>
+<p>It is reset when the recipe changes.</p>
+</section>
+<section id="priority">
+<h2>Priority<a class="headerlink" href="#priority" title="Link to this heading">¶</a></h2>
+<p>Contains the priority assigned by the player.
+The priority applies to both constructions and recipe processing.
+It is used by the logistics planning.</p>
+</section>
+<section id="amount">
+<h2>Amount<a class="headerlink" href="#amount" title="Link to this heading">¶</a></h2>
+<p>Contains the count of the resource in this entity.</p>
+</section>
+<section id="attachment">
+<h2>Attachment<a class="headerlink" href="#attachment" title="Link to this heading">¶</a></h2>
+<p>Defines that this entity is attached to another entity.
+This entity is automatically moved to the position (and orientation) of the target.
+This is commonly used by a resource carried by a truck.</p>
+</section>
+<section id="player">
+<h2>Player<a class="headerlink" href="#player" title="Link to this heading">¶</a></h2>
+<p>This entity represents a client - a player or an observer.</p>
+</section>
+<section id="force">
+<h2>Force<a class="headerlink" href="#force" title="Link to this heading">¶</a></h2>
+<p>This entity represents a force.
+The component contains public information about the force.</p>
+</section>
+<section id="forcedetails">
+<h2>ForceDetails<a class="headerlink" href="#forcedetails" title="Link to this heading">¶</a></h2>
+<p>This component contains private information about the force.</p>
+</section>
+<section id="foreignpolicy">
+<h2>ForeignPolicy<a class="headerlink" href="#foreignpolicy" title="Link to this heading">¶</a></h2>
+<p>This entity declares the policy between two forces.</p>
+</section>
+<section id="diplomacyproposal">
+<h2>DiplomacyProposal<a class="headerlink" href="#diplomacyproposal" title="Link to this heading">¶</a></h2>
+<p>This entity contains a proposal of a policy to another force.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Diplomacy is not yet implemented.</p>
+</div>
+</section>
 </section>
 
         </article>
@@ -285,23 +399,23 @@ If you want to use another language, you will need to specify all the imported f
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../bots/index.html">
+          <a class="next-page" href="resources.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Bots</div>
+                <div class="title">Resources &amp; Logistics</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../mods/index.html">
+          <a class="prev-page" href="prototypes.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Mods</div>
+                <div class="title">Prototypes</div>
                 
               </div>
             </a>
@@ -323,8 +437,46 @@ If you want to use another language, you will need to specify all the imported f
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Entities &amp; Components</a><ul>
+<li><a class="reference internal" href="#entity">Entity</a></li>
+<li><a class="reference internal" href="#proto">Proto</a></li>
+<li><a class="reference internal" href="#owner">Owner</a></li>
+<li><a class="reference internal" href="#controller">Controller</a></li>
+<li><a class="reference internal" href="#position">Position</a></li>
+<li><a class="reference internal" href="#unit">Unit</a></li>
+<li><a class="reference internal" href="#life">Life</a></li>
+<li><a class="reference internal" href="#move">Move</a></li>
+<li><a class="reference internal" href="#aim">Aim</a></li>
+<li><a class="reference internal" href="#recipe">Recipe</a></li>
+<li><a class="reference internal" href="#updatetimestamp">UpdateTimestamp</a></li>
+<li><a class="reference internal" href="#recipestatistics">RecipeStatistics</a></li>
+<li><a class="reference internal" href="#priority">Priority</a></li>
+<li><a class="reference internal" href="#amount">Amount</a></li>
+<li><a class="reference internal" href="#attachment">Attachment</a></li>
+<li><a class="reference internal" href="#player">Player</a></li>
+<li><a class="reference internal" href="#force">Force</a></li>
+<li><a class="reference internal" href="#forcedetails">ForceDetails</a></li>
+<li><a class="reference internal" href="#foreignpolicy">ForeignPolicy</a></li>
+<li><a class="reference internal" href="#diplomacyproposal">DiplomacyProposal</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Players &amp; Forces" href="forces.html" /><link rel="prev" title="Unnatural Worlds API" href="../index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Players &amp; Forces" href="players.html" /><link rel="prev" title="Unnatural Worlds API" href="../index.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>General Concepts - UW API documentation</title>
@@ -202,10 +202,12 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">General Concepts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="forces.html">Players &amp; Forces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="players.html">Players &amp; Forces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecs.html">Entities (ECS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Entities &amp; Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
 </ul>
 </li>
@@ -269,19 +271,19 @@
 <p>Glossary and explanation of concepts used throughout this documentation and in the game.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="forces.html">Players &amp; Forces</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="forces.html#players">Players</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="forces.html#observers">Observers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="players.html">Players &amp; Forces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="players.html#players">Players</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="players.html#observers">Observers</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="forces.html#forces">Forces</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="forces.html#controllers">Controllers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="forces.html#neutral">Neutral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="players.html#forces">Forces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="players.html#controllers">Controllers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="players.html#neutral">Neutral</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="forces.html#foreign-policies">Foreign Policies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="forces.html#diplomacy">Diplomacy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="forces.html#teams">Teams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="players.html#foreign-policies">Foreign Policies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="players.html#diplomacy">Diplomacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="players.html#teams">Teams</a></li>
 </ul>
 </li>
 </ul>
@@ -303,7 +305,31 @@
 <li class="toctree-l2"><a class="reference internal" href="prototypes.html#tags">Tags</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ecs.html">Entities (ECS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">Entities &amp; Components</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#entity">Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#proto">Proto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#owner">Owner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#controller">Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#position">Position</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#unit">Unit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#life">Life</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#move">Move</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#aim">Aim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#recipe">Recipe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#updatetimestamp">UpdateTimestamp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#recipestatistics">RecipeStatistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#priority">Priority</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#amount">Amount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#attachment">Attachment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#player">Player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#force">Force</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#forcedetails">ForceDetails</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#foreignpolicy">ForeignPolicy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#diplomacyproposal">DiplomacyProposal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
 <li class="toctree-l1"><a class="reference internal" href="programState.html">Program State</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="programState.html#game-state">Game State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html#map-state">Map State</a></li>
@@ -319,7 +345,7 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="forces.html">
+          <a class="next-page" href="players.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>

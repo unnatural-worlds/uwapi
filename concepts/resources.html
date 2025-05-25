@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Bots" href="../bots/index.html" /><link rel="prev" title="Mods" href="../mods/index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Combat &amp; Upgrades" href="combat.html" /><link rel="prev" title="Entities &amp; Components" href="entities.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Scripts - UW API documentation</title>
+        <title>Resources &amp; Logistics - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -201,14 +201,14 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../concepts/index.html">General Concepts</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/players.html">Players &amp; Forces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/map.html">Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/entities.html">Entities &amp; Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/resources.html">Resources &amp; Logistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/combat.html">Combat &amp; Upgrades</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">General Concepts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="players.html">Players &amp; Forces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Entities &amp; Components</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Resources &amp; Logistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -218,7 +218,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../bots/index.html">Bots</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../bots/setup.html">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../bots/programOverview.html">Program Overview</a></li>
@@ -246,7 +246,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/scripts/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/concepts/resources.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -266,18 +266,8 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="scripts">
-<h1>Scripts<a class="headerlink" href="#scripts" title="Link to this heading">¶</a></h1>
-<p>Guide on making scripts for custom maps for Unnatural Worlds.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Making custom scripts is not yet fully supported.</p>
-</div>
-<p>Scripts are executed within the server.
-They have access to all data within the game, and may modify all data.</p>
-<p>Scripts can be written in any language that can be compiled into <a class="reference external" href="https://en.wikipedia.org/wiki/WebAssembly">WASM</a>.</p>
-<p>The uwapi repository provides c/c++ headers for scripts.
-If you want to use another language, you will need to specify all the imported functions and structures yourself.</p>
+          <section id="resources-logistics">
+<h1>Resources &amp; Logistics<a class="headerlink" href="#resources-logistics" title="Link to this heading">¶</a></h1>
 </section>
 
         </article>
@@ -285,23 +275,23 @@ If you want to use another language, you will need to specify all the imported f
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../bots/index.html">
+          <a class="next-page" href="combat.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Bots</div>
+                <div class="title">Combat &amp; Upgrades</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../mods/index.html">
+          <a class="prev-page" href="entities.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Mods</div>
+                <div class="title">Entities &amp; Components</div>
                 
               </div>
             </a>
