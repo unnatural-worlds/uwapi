@@ -3,8 +3,10 @@ General Concepts
 Glossary and explanation of concepts used throughout this documentation and in the game.
 
 .. toctree::
-	forces
+	players
 	map
 	prototypes
-	ecs
+	entities
+	resources
+	combat
 	programState
