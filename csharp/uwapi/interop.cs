@@ -69,6 +69,9 @@ namespace Unnatural
         public static extern void uwAdminSendSuggestedCameraFocus(uint position);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetAutomaticSuggestedCameraFocus([MarshalAs(UnmanagedType.I1)] bool enabled);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminSendChat([MarshalAs(UnmanagedType.LPStr)] string msg, UwChatTargetFlags flags,
                                                   uint targetId);
 
@@ -134,9 +137,6 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetConnectStartGui([MarshalAs(UnmanagedType.I1)] bool enabled,
                                                        [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetConnectAsObserver([MarshalAs(UnmanagedType.I1)] bool observer);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
@@ -286,7 +286,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 34;
+        public const uint UW_VERSION = 35;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds

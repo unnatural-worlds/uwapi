@@ -65,11 +65,6 @@ namespace Unnatural
             Interop.uwSetConnectStartGui(startGui, extraParams);
         }
 
-        public static void SetConnectAsObserver(bool observer)
-        {
-            Interop.uwSetConnectAsObserver(observer);
-        }
-
         public static bool ConnectFindLan(ulong timeoutMicroseconds = 1000000)
         {
             return Interop.uwConnectFindLan(timeoutMicroseconds);

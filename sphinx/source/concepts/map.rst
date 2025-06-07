@@ -7,6 +7,8 @@ Tiles
 -----
 The map uses discrete tiles representation (similar to chess), as opposed to continuous space.
 
+Two neighboring tiles are typically 10 meters apart, however, different neighboring pairs will have different distances.
+
 Tiles are indexed `0 .. N-1`.
 
 Data available for each tile:

@@ -21,7 +21,7 @@
  typedef uint64_t uint64;
  typedef int64_t sint64;
 
- static const uint32 UW_VERSION = 34;
+ static const uint32 UW_VERSION = 35;
  static const uint32 UW_GameTicksPerSecond = 20;
 
  typedef struct UwIds
@@ -96,6 +96,7 @@
                void uwAdminForceSetColor(uint32 forceId, float r, float g, float b);
                void uwAdminForceSetRace(uint32 forceId, uint32 raceProto);
                void uwAdminSendSuggestedCameraFocus(uint32 position);
+               void uwAdminSetAutomaticSuggestedCameraFocus(bool enabled);
                void uwAdminSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
                void uwInitialize(uint32 version);
                void uwDeinitialize(void);
@@ -141,7 +142,6 @@
 
 
                void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
-               void uwSetConnectAsObserver(bool observer);
                bool uwConnectFindLan(uint64 timeoutMicroseconds);
                void uwConnectDirect(const char *address, uint16 port);
                void uwConnectLobbyId(uint64 lobbyId);

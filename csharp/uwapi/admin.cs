@@ -89,6 +89,11 @@ namespace Unnatural
             Interop.uwAdminSendSuggestedCameraFocus(position);
         }
 
+        public static void SetAutomaticSuggestedCameraFocus(bool enabled)
+        {
+            Interop.uwAdminSetAutomaticSuggestedCameraFocus(enabled);
+        }
+
         public static void SendChat(string msg, ChatTargetFLags flags, uint id = uint.MaxValue)
         {
             Interop.uwAdminSendChat(msg, flags, id);

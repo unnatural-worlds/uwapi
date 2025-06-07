@@ -27,6 +27,7 @@ extern "C"
 	UNNATURAL_API void uwAdminForceSetColor(uint32 forceId, float r, float g, float b);
 	UNNATURAL_API void uwAdminForceSetRace(uint32 forceId, uint32 raceProto);
 	UNNATURAL_API void uwAdminSendSuggestedCameraFocus(uint32 position);
+	UNNATURAL_API void uwAdminSetAutomaticSuggestedCameraFocus(bool enabled);
 	UNNATURAL_API void uwAdminSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
 
 #endif
