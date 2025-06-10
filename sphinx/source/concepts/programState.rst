@@ -34,3 +34,12 @@ Connection State
 - ``Connected`` - connection has been fully established. We are receiving data, and can send commands.
 - ``Error`` - connection has been closed or broken. Do *not* send any commands.
 
+Ticks
+-----
+Ticks are the measurement of time in the game simulation.
+
+When ticks are ticking, units are moving.
+When tick is the same, no units are moving, no one is shooting, etc.
+
+There is 20 ticks per second, by default.
+This is provided as a constant in the api.

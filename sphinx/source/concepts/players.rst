@@ -27,7 +27,7 @@ In that case, these players share ownership of all the units associated with the
 Each unit remembers the last player that gave it any order, this player is called the controller.
 Any automated system in the game (eg. logistics controls for trucks) will not give any orders to units with different controller.
 
-.. warning::
+.. note::
 	Controllers are only partially implemented in the game for now.
 
 Neutral
@@ -47,7 +47,7 @@ The game has additional enumeration values for some edge cases.
 Diplomacy
 ^^^^^^^^^
 
-.. warning::
+.. note::
 	Diplomacy is not yet implemented.
 
 Teams
