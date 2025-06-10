@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Maps" href="../maps/index.html" /><link rel="prev" title="Combat &amp; Upgrades" href="combat.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Callbacks" href="callbacks.html" /><link rel="prev" title="Combat &amp; Upgrades" href="combat.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
         <title>Program State - UW API documentation</title>
@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Program State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -304,6 +305,14 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">Error</span></code> - connection has been closed or broken. Do <em>not</em> send any commands.</p></li>
 </ul>
 </section>
+<section id="ticks">
+<h2>Ticks<a class="headerlink" href="#ticks" title="Link to this heading">¶</a></h2>
+<p>Ticks are the measurement of time in the game simulation.</p>
+<p>When ticks are ticking, units are moving.
+When tick is the same, no units are moving, no one is shooting, etc.</p>
+<p>There is 20 ticks per second, by default.
+This is provided as a constant in the api.</p>
+</section>
 </section>
 
         </article>
@@ -311,12 +320,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../maps/index.html">
+          <a class="next-page" href="callbacks.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Maps</div>
+                <div class="title">Callbacks</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -365,6 +374,7 @@
 <li><a class="reference internal" href="#game-state">Game State</a></li>
 <li><a class="reference internal" href="#map-state">Map State</a></li>
 <li><a class="reference internal" href="#connection-state">Connection State</a></li>
+<li><a class="reference internal" href="#ticks">Ticks</a></li>
 </ul>
 </li>
 </ul>

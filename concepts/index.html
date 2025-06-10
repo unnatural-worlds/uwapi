@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -307,25 +308,25 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="entities.html">Entities &amp; Components</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="entities.html#entity">Entity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#proto">Proto</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#owner">Owner</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#controller">Controller</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#position">Position</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#unit">Unit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#life">Life</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#move">Move</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#aim">Aim</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#recipe">Recipe</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#updatetimestamp">UpdateTimestamp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#recipestatistics">RecipeStatistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#priority">Priority</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#amount">Amount</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#attachment">Attachment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#player">Player</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#force">Force</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#forcedetails">ForceDetails</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#foreignpolicy">ForeignPolicy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html#diplomacyproposal">DiplomacyProposal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#proto-component">Proto Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#owner-component">Owner Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#controller-component">Controller Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#position-component">Position Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#unit-component">Unit Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#life-component">Life Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#move-component">Move Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#aim-component">Aim Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#recipe-component">Recipe Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#update-timestamp-component">Update Timestamp Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#recipe-statistics-component">Recipe Statistics Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#priority-component">Priority Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#amount-component">Amount Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#attachment-component">Attachment Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#player-component">Player Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#force-component">Force Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#force-details-component">Force Details Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#foreign-policy-component">Foreign Policy Component</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#diplomacy-proposal-component">Diplomacy Proposal Component</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
@@ -334,6 +335,17 @@
 <li class="toctree-l2"><a class="reference internal" href="programState.html#game-state">Game State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html#map-state">Map State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html#connection-state">Connection State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programState.html#ticks">Ticks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="callbacks.html">Callbacks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html#game-map-connection-state-callback">Game/Map/Connection State Callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html#update-callback">Update Callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html#shooting-callback">Shooting Callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html#explosions-callback">Explosions Callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html#task-completed-callback">Task Completed Callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html#force-eliminated-callback">Force Eliminated Callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html#chat-callback">Chat Callback</a></li>
 </ul>
 </li>
 </ul>

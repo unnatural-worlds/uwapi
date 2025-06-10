@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -288,34 +289,34 @@ These ids are assigned by the server, and client cannot predict the values.</p>
 <p>Some entities and/or components are synchronized only with the owner of the entity.</p>
 </div>
 </section>
-<section id="proto">
-<h2>Proto<a class="headerlink" href="#proto" title="Link to this heading">¶</a></h2>
+<section id="proto-component">
+<h2>Proto Component<a class="headerlink" href="#proto-component" title="Link to this heading">¶</a></h2>
 <p>Defines the prototype of the entity.</p>
 <p>It is allowed to change from construction to unit, or from unit to another unit.
 It is forbidden to change eg. from unit to resource.</p>
 </section>
-<section id="owner">
-<h2>Owner<a class="headerlink" href="#owner" title="Link to this heading">¶</a></h2>
+<section id="owner-component">
+<h2>Owner Component<a class="headerlink" href="#owner-component" title="Link to this heading">¶</a></h2>
 <p>Defines which force owns this entity.</p>
 <p>Immutable.</p>
 </section>
-<section id="controller">
-<h2>Controller<a class="headerlink" href="#controller" title="Link to this heading">¶</a></h2>
+<section id="controller-component">
+<h2>Controller Component<a class="headerlink" href="#controller-component" title="Link to this heading">¶</a></h2>
 <p>In case that multiple players belong to the same force, the last player to give any orders to this entity will become the controller of the entity.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Controllers are not yet implemented.</p>
 </div>
 </section>
-<section id="position">
-<h2>Position<a class="headerlink" href="#position" title="Link to this heading">¶</a></h2>
+<section id="position-component">
+<h2>Position Component<a class="headerlink" href="#position-component" title="Link to this heading">¶</a></h2>
 <p>Index of the tile this entity is placed on.
 In case the entity has large radius, this component defines the center tile.</p>
 <p>The yaw defines the orientation (a rotation along the local vertical axis) of this entity on the tile.
-The actual direction of 0 degrees yaw is different for each tile.</p>
+The actual facing of 0 degrees yaw is different for each tile.</p>
 </section>
-<section id="unit">
-<h2>Unit<a class="headerlink" href="#unit" title="Link to this heading">¶</a></h2>
+<section id="unit-component">
+<h2>Unit Component<a class="headerlink" href="#unit-component" title="Link to this heading">¶</a></h2>
 <p>Contains additional state for a unit (or building).</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Shooting</span></code> - waiting for the cannon to cool down.</p></li>
@@ -324,71 +325,71 @@ The actual direction of 0 degrees yaw is different for each tile.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Stalling</span></code> - the unit’s recipe cannot be executed, usually because a limit for the outputs has been reached.</p></li>
 </ul>
 </section>
-<section id="life">
-<h2>Life<a class="headerlink" href="#life" title="Link to this heading">¶</a></h2>
+<section id="life-component">
+<h2>Life Component<a class="headerlink" href="#life-component" title="Link to this heading">¶</a></h2>
 <p>Amount of life of the unit (or building).</p>
 </section>
-<section id="move">
-<h2>Move<a class="headerlink" href="#move" title="Link to this heading">¶</a></h2>
+<section id="move-component">
+<h2>Move Component<a class="headerlink" href="#move-component" title="Link to this heading">¶</a></h2>
 <p>Contains information about current movement of the unit.
 Information is available for the next neighboring tile only.</p>
 </section>
-<section id="aim">
-<h2>Aim<a class="headerlink" href="#aim" title="Link to this heading">¶</a></h2>
+<section id="aim-component">
+<h2>Aim Component<a class="headerlink" href="#aim-component" title="Link to this heading">¶</a></h2>
 <p>Id of a target unit that this unit will automatically shoot at.</p>
 </section>
-<section id="recipe">
-<h2>Recipe<a class="headerlink" href="#recipe" title="Link to this heading">¶</a></h2>
+<section id="recipe-component">
+<h2>Recipe Component<a class="headerlink" href="#recipe-component" title="Link to this heading">¶</a></h2>
 <p>Id of the prototype of the recipe that this unit will automatically process.</p>
 </section>
-<section id="updatetimestamp">
-<h2>UpdateTimestamp<a class="headerlink" href="#updatetimestamp" title="Link to this heading">¶</a></h2>
+<section id="update-timestamp-component">
+<h2>Update Timestamp Component<a class="headerlink" href="#update-timestamp-component" title="Link to this heading">¶</a></h2>
 <p>Contains a timestamp (tick) of when this construction started, or when this unit’s recipe was last processed.
 It is used for planning logistics deliveries.</p>
 </section>
-<section id="recipestatistics">
-<h2>RecipeStatistics<a class="headerlink" href="#recipestatistics" title="Link to this heading">¶</a></h2>
+<section id="recipe-statistics-component">
+<h2>Recipe Statistics Component<a class="headerlink" href="#recipe-statistics-component" title="Link to this heading">¶</a></h2>
 <p>Used for calculating this unit’s processing efficiency.</p>
 <p>It is reset when the recipe changes.</p>
 </section>
-<section id="priority">
-<h2>Priority<a class="headerlink" href="#priority" title="Link to this heading">¶</a></h2>
+<section id="priority-component">
+<h2>Priority Component<a class="headerlink" href="#priority-component" title="Link to this heading">¶</a></h2>
 <p>Contains the priority assigned by the player.
 The priority applies to both constructions and recipe processing.
 It is used by the logistics planning.</p>
 </section>
-<section id="amount">
-<h2>Amount<a class="headerlink" href="#amount" title="Link to this heading">¶</a></h2>
+<section id="amount-component">
+<h2>Amount Component<a class="headerlink" href="#amount-component" title="Link to this heading">¶</a></h2>
 <p>Contains the count of the resource in this entity.</p>
 </section>
-<section id="attachment">
-<h2>Attachment<a class="headerlink" href="#attachment" title="Link to this heading">¶</a></h2>
+<section id="attachment-component">
+<h2>Attachment Component<a class="headerlink" href="#attachment-component" title="Link to this heading">¶</a></h2>
 <p>Defines that this entity is attached to another entity.
 This entity is automatically moved to the position (and orientation) of the target.
 This is commonly used by a resource carried by a truck.</p>
 </section>
-<section id="player">
-<h2>Player<a class="headerlink" href="#player" title="Link to this heading">¶</a></h2>
+<section id="player-component">
+<h2>Player Component<a class="headerlink" href="#player-component" title="Link to this heading">¶</a></h2>
 <p>This entity represents a client - a player or an observer.</p>
 </section>
-<section id="force">
-<h2>Force<a class="headerlink" href="#force" title="Link to this heading">¶</a></h2>
+<section id="force-component">
+<h2>Force Component<a class="headerlink" href="#force-component" title="Link to this heading">¶</a></h2>
 <p>This entity represents a force.
 The component contains public information about the force.</p>
 </section>
-<section id="forcedetails">
-<h2>ForceDetails<a class="headerlink" href="#forcedetails" title="Link to this heading">¶</a></h2>
+<section id="force-details-component">
+<h2>Force Details Component<a class="headerlink" href="#force-details-component" title="Link to this heading">¶</a></h2>
 <p>This component contains private information about the force.</p>
 </section>
-<section id="foreignpolicy">
-<h2>ForeignPolicy<a class="headerlink" href="#foreignpolicy" title="Link to this heading">¶</a></h2>
+<section id="foreign-policy-component">
+<h2>Foreign Policy Component<a class="headerlink" href="#foreign-policy-component" title="Link to this heading">¶</a></h2>
 <p>This entity declares the policy between two forces.</p>
 </section>
-<section id="diplomacyproposal">
-<h2>DiplomacyProposal<a class="headerlink" href="#diplomacyproposal" title="Link to this heading">¶</a></h2>
+<section id="diplomacy-proposal-component">
+<h2>Diplomacy Proposal Component<a class="headerlink" href="#diplomacy-proposal-component" title="Link to this heading">¶</a></h2>
 <p>This entity contains a proposal of a policy to another force.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Diplomacy is not yet implemented.</p>
 </div>
 </section>
@@ -451,25 +452,25 @@ The component contains public information about the force.</p>
             <ul>
 <li><a class="reference internal" href="#">Entities &amp; Components</a><ul>
 <li><a class="reference internal" href="#entity">Entity</a></li>
-<li><a class="reference internal" href="#proto">Proto</a></li>
-<li><a class="reference internal" href="#owner">Owner</a></li>
-<li><a class="reference internal" href="#controller">Controller</a></li>
-<li><a class="reference internal" href="#position">Position</a></li>
-<li><a class="reference internal" href="#unit">Unit</a></li>
-<li><a class="reference internal" href="#life">Life</a></li>
-<li><a class="reference internal" href="#move">Move</a></li>
-<li><a class="reference internal" href="#aim">Aim</a></li>
-<li><a class="reference internal" href="#recipe">Recipe</a></li>
-<li><a class="reference internal" href="#updatetimestamp">UpdateTimestamp</a></li>
-<li><a class="reference internal" href="#recipestatistics">RecipeStatistics</a></li>
-<li><a class="reference internal" href="#priority">Priority</a></li>
-<li><a class="reference internal" href="#amount">Amount</a></li>
-<li><a class="reference internal" href="#attachment">Attachment</a></li>
-<li><a class="reference internal" href="#player">Player</a></li>
-<li><a class="reference internal" href="#force">Force</a></li>
-<li><a class="reference internal" href="#forcedetails">ForceDetails</a></li>
-<li><a class="reference internal" href="#foreignpolicy">ForeignPolicy</a></li>
-<li><a class="reference internal" href="#diplomacyproposal">DiplomacyProposal</a></li>
+<li><a class="reference internal" href="#proto-component">Proto Component</a></li>
+<li><a class="reference internal" href="#owner-component">Owner Component</a></li>
+<li><a class="reference internal" href="#controller-component">Controller Component</a></li>
+<li><a class="reference internal" href="#position-component">Position Component</a></li>
+<li><a class="reference internal" href="#unit-component">Unit Component</a></li>
+<li><a class="reference internal" href="#life-component">Life Component</a></li>
+<li><a class="reference internal" href="#move-component">Move Component</a></li>
+<li><a class="reference internal" href="#aim-component">Aim Component</a></li>
+<li><a class="reference internal" href="#recipe-component">Recipe Component</a></li>
+<li><a class="reference internal" href="#update-timestamp-component">Update Timestamp Component</a></li>
+<li><a class="reference internal" href="#recipe-statistics-component">Recipe Statistics Component</a></li>
+<li><a class="reference internal" href="#priority-component">Priority Component</a></li>
+<li><a class="reference internal" href="#amount-component">Amount Component</a></li>
+<li><a class="reference internal" href="#attachment-component">Attachment Component</a></li>
+<li><a class="reference internal" href="#player-component">Player Component</a></li>
+<li><a class="reference internal" href="#force-component">Force Component</a></li>
+<li><a class="reference internal" href="#force-details-component">Force Details Component</a></li>
+<li><a class="reference internal" href="#foreign-policy-component">Foreign Policy Component</a></li>
+<li><a class="reference internal" href="#diplomacy-proposal-component">Diplomacy Proposal Component</a></li>
 </ul>
 </li>
 </ul>

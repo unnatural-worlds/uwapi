@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Troubleshooting" href="troubleshooting.html" /><link rel="prev" title="Program Overview" href="programOverview.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Maps" href="../maps/index.html" /><link rel="prev" title="Program State" href="programState.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Program Safety - UW API documentation</title>
+        <title>Callbacks - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -201,15 +201,15 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../concepts/index.html">General Concepts</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/players.html">Players &amp; Forces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/map.html">Map</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/entities.html">Entities &amp; Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/resources.html">Resources &amp; Logistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/combat.html">Combat &amp; Upgrades</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../concepts/callbacks.html">Callbacks</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">General Concepts</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of General Concepts</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="players.html">Players &amp; Forces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Entities &amp; Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Callbacks</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -220,11 +220,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../scripts/index.html">Scripts</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Bots</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="programOverview.html">Program Overview</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Program Safety</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../bots/index.html">Bots</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Bots</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../bots/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bots/programOverview.html">Program Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bots/programSafety.html">Program Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bots/troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </li>
 </ul>
@@ -247,7 +247,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/bots/programSafety.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/concepts/callbacks.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -267,43 +267,66 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="program-safety">
-<h1>Program Safety<a class="headerlink" href="#program-safety" title="Link to this heading">¶</a></h1>
-<p>Memory and threads guarantees of the api.</p>
-<section id="memory">
-<h2>Memory<a class="headerlink" href="#memory" title="Link to this heading">¶</a></h2>
-<p>Memory ownership is never transferred across the api boundary.
-Usually, any pointers returned from any of the <em>c</em> functions are valid until next call to the same function.
-Therefore, most <em>c</em> functions are <em>not</em> reentrant.</p>
-<p>The Python and C# wrappers functions always copy all necessary memory from the provided pointers into the native memory of the language.
-Be careful if you use a <em>c</em> function directly.</p>
+          <section id="callbacks">
+<h1>Callbacks<a class="headerlink" href="#callbacks" title="Link to this heading">¶</a></h1>
+<section id="game-map-connection-state-callback">
+<h2>Game/Map/Connection State Callback<a class="headerlink" href="#game-map-connection-state-callback" title="Link to this heading">¶</a></h2>
+<p>Viz <a class="reference internal" href="programState.html#game-state"><span class="std std-ref">Game State</span></a>, <a class="reference internal" href="programState.html#map-state"><span class="std std-ref">Map State</span></a>, and <a class="reference internal" href="programState.html#connection-state"><span class="std std-ref">Connection State</span></a>.</p>
 </section>
-<section id="threads">
-<h2>Threads<a class="headerlink" href="#threads" title="Link to this heading">¶</a></h2>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The api is strictly single-threaded!</p>
+<section id="update-callback">
+<h2>Update Callback<a class="headerlink" href="#update-callback" title="Link to this heading">¶</a></h2>
+<p>This callback is called every time the simulation time progresses (<a class="reference internal" href="programState.html#ticks"><span class="std std-ref">tick</span></a> changes).
+It is also called when game time is not progressing (eg. when paused, or in session), but real time elapses.
+The difference is indicated with the <code class="docutils literal notranslate"><span class="pre">stepping</span></code> parameter.</p>
+<p>This callback is the primary driving point for your program.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some ticks may be skipped, eg. when the game is lagging.
+Use <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> when waiting for number of ticks to pass.</p>
 </div>
 </section>
-<section id="hardened-library">
-<h2>Hardened Library<a class="headerlink" href="#hardened-library" title="Link to this heading">¶</a></h2>
-<p>We provide a separate library that contains additional validation of correct use of the api.
-The library will provide you an opportunity to stop the program in debugger when a problem is detected.
-It will terminate the program afterwards.
-This library is the default.</p>
-<p>It is recommended to use the optimized (non-hardened) library when not actively developing your bots, or when in a tournament game.</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
-Python</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<section id="shooting-callback">
+<h2>Shooting Callback<a class="headerlink" href="#shooting-callback" title="Link to this heading">¶</a></h2>
+<p>Shooting events are synchronized <em>asynchronously and unreliably</em>.
+This event is useful for measuring threat levels.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The entity id may be expired.</p>
 </div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
-C#</label><div class="sd-tab-content docutils">
-<p>Define <code class="docutils literal notranslate"><span class="pre">UW_USE_OPTIMIZED_LIBRARY</span></code> macro to use non-hard library.</p>
+</section>
+<section id="explosions-callback">
+<h2>Explosions Callback<a class="headerlink" href="#explosions-callback" title="Link to this heading">¶</a></h2>
+<p>Explosions events are synchronized <em>asynchronously and unreliably</em> - some events may be lost, or delivered much later.
+Do <em>not</em> depend on explosions events for important decisions.
+It is useful for measuring threat levels.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The entity id may be expired.</p>
 </div>
+</section>
+<section id="task-completed-callback">
+<h2>Task Completed Callback<a class="headerlink" href="#task-completed-callback" title="Link to this heading">¶</a></h2>
+<p>Some functions, such as pathfinding and clusters distances, need more time to compute the results.
+The calculations happen on separate threads internally in the uwapi library.
+Finally, this callback is called, passing in the results, when it finishes.</p>
+<p>This callback may be called at any time, relative to other callbacks - there are no guarantees.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <em>not</em> try to wait (blocking) for the tasks.
+It will block the whole program indefinitely.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Any entity id may have expired by the time the task completed.</p>
+</div>
+</section>
+<section id="force-eliminated-callback">
+<h2>Force Eliminated Callback<a class="headerlink" href="#force-eliminated-callback" title="Link to this heading">¶</a></h2>
+<p>This informs you that a player lost.</p>
+</section>
+<section id="chat-callback">
+<h2>Chat Callback<a class="headerlink" href="#chat-callback" title="Link to this heading">¶</a></h2>
+<p>You have received a message.</p>
 </section>
 </section>
 
@@ -312,23 +335,23 @@ C#</label><div class="sd-tab-content docutils">
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="troubleshooting.html">
+          <a class="next-page" href="../maps/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Troubleshooting</div>
+                <div class="title">Maps</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="programOverview.html">
+          <a class="prev-page" href="programState.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Program Overview</div>
+                <div class="title">Program State</div>
                 
               </div>
             </a>
@@ -362,10 +385,14 @@ C#</label><div class="sd-tab-content docutils">
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Program Safety</a><ul>
-<li><a class="reference internal" href="#memory">Memory</a></li>
-<li><a class="reference internal" href="#threads">Threads</a></li>
-<li><a class="reference internal" href="#hardened-library">Hardened Library</a></li>
+<li><a class="reference internal" href="#">Callbacks</a><ul>
+<li><a class="reference internal" href="#game-map-connection-state-callback">Game/Map/Connection State Callback</a></li>
+<li><a class="reference internal" href="#update-callback">Update Callback</a></li>
+<li><a class="reference internal" href="#shooting-callback">Shooting Callback</a></li>
+<li><a class="reference internal" href="#explosions-callback">Explosions Callback</a></li>
+<li><a class="reference internal" href="#task-completed-callback">Task Completed Callback</a></li>
+<li><a class="reference internal" href="#force-eliminated-callback">Force Eliminated Callback</a></li>
+<li><a class="reference internal" href="#chat-callback">Chat Callback</a></li>
 </ul>
 </li>
 </ul>

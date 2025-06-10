@@ -5,7 +5,7 @@ Documentation for user-generated content for the game Unnatural Worlds.
 .. note::
 	This document assumes familiarity with the base game.
 
-.. warning::
+.. important::
 	All user-generated content requires full version of the game.
 	It will not work with the Demo.
 

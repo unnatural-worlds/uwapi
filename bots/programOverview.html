@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../concepts/resources.html">Resources &amp; Logistics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/combat.html">Combat &amp; Upgrades</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../concepts/programState.html">Program State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concepts/callbacks.html">Callbacks</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../maps/index.html">Maps</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Maps</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -269,16 +270,6 @@
           <section id="program-overview">
 <h1>Program Overview<a class="headerlink" href="#program-overview" title="Link to this heading">¶</a></h1>
 <p>High-level look at basic bot program.</p>
-<section id="environment-variables">
-<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h2>
-<p>Some variables that may alter the behavior of your bot program.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> - path to the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder that contains the shared library.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_LOBBY</span></code> - id of Steam lobby to connect to.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_ADDR</span></code> - IP address or domain name to connect to.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_PORT</span></code> - port of the game server to connect to.</p></li>
-</ul>
-</section>
 <section id="program-lifecycle">
 <h2>Program Lifecycle<a class="headerlink" href="#program-lifecycle" title="Link to this heading">¶</a></h2>
 <p>At start, you are in full control of the program.</p>
@@ -293,7 +284,7 @@ Without it, the game will be unable to load maps and assets, even if it might lo
 <p>Do <em>not</em> change current working directory once configured.</p>
 </div>
 <ul class="simple">
-<li><p>Next you load the shared library.</p></li>
+<li><p>Next, you load the shared library.</p></li>
 </ul>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
@@ -315,14 +306,14 @@ You may also set some parameters for the connection.</p></li>
 </section>
 <section id="connect">
 <h3>Connect<a class="headerlink" href="#connect" title="Link to this heading">¶</a></h3>
-<p>There are multiple ways to connect to a server.
+<p>There are multiple ways to connect to a game server.
 The usual approach is to first try reconnecting, in case the game has crashed previously.
 Second, you connect to an existing server using the parameters provided in the environment variables, if any.
 Third, you spin up your own server.</p>
 <p>Alternatively, you may implement your own logic to determine how to connect to a server.</p>
 <p>No matter the method, the game will now take control over the program.
 Your program is blocked until the network connection closes.
-All your further actions will happen inside callbacks only.</p>
+<em>All your further actions will happen inside callbacks only.</em></p>
 </section>
 <section id="game-loop">
 <h3>Game Loop<a class="headerlink" href="#game-loop" title="Link to this heading">¶</a></h3>
@@ -331,7 +322,7 @@ Notably, the <code class="docutils literal notranslate"><span class="pre">Update
 This is where you keep track of the state of the game, and perform any of your actions.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Update</span></code> callback, and some other, may be called before the game has actually started (eg. in <code class="docutils literal notranslate"><span class="pre">Session</span></code>), or when the map is not yet <code class="docutils literal notranslate"><span class="pre">Loaded</span></code>.
+<p>The <code class="docutils literal notranslate"><span class="pre">Update</span></code> callback, and some others, may be called before the game has actually started (eg. in <code class="docutils literal notranslate"><span class="pre">Session</span></code>), or when the map is not yet <code class="docutils literal notranslate"><span class="pre">Loaded</span></code>.
 Be mindful of what operations are valid in these circumstances.</p>
 </div>
 <p>You may prematurely close the connection with the <code class="docutils literal notranslate"><span class="pre">Disconnect</span></code> function.
@@ -343,8 +334,41 @@ After that the connect function will return.</p>
 <p>When the connection function returns, the network connection has already been closed, and you take back control over the program.
 You may do any cleanup operations, for example you may save some statistics from the game.
 Ultimately, you should unload the shared library, and exit the program.</p>
-<p>It may be tempting to just loop and connect again to next server, however this is strongly discouraged.</p>
+<p>It may be tempting to just loop over and connect to next server, however this is strongly discouraged.</p>
 </section>
+</section>
+<section id="network">
+<h2>Network<a class="headerlink" href="#network" title="Link to this heading">¶</a></h2>
+<p>The game is designed for multiplayer, and always plays over network, even in single-player scenarios.</p>
+<p>Any actions that you do in your program are first send to the game server, then processed, and then the results are send back to your client.</p>
+<p>Example: you call a function to place a construction.
+After that you look through all the entities and the construction is not there, as expected.
+You will not know the id of the entity either.
+The construction will appear only after the game server has processed the request.
+It is recommended to wait several ticks between these kinds of actions, to avoid placing same construction multiple times in different places.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Test your program over a real network, not just localhost.</p>
+</div>
+<section id="client-only-state">
+<h3>Client-only State<a class="headerlink" href="#client-only-state" title="Link to this heading">¶</a></h3>
+<p>Some state is stored on client only, notably:</p>
+<ul class="simple">
+<li><p>Units orders</p></li>
+<li><p>Pathfinding</p></li>
+<li><p>Logistics planning</p></li>
+</ul>
+</section>
+</section>
+<section id="environment-variables">
+<h2>Environment Variables<a class="headerlink" href="#environment-variables" title="Link to this heading">¶</a></h2>
+<p>Some variables that may alter the behavior of your bot program.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_ROOT</span></code> - path to the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder that contains the shared library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_LOBBY</span></code> - id of Steam lobby to connect to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_ADDR</span></code> - IP address or domain name to connect to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UNNATURAL_CONNECT_PORT</span></code> - port of the game server to connect to.</p></li>
+</ul>
 </section>
 </section>
 
@@ -404,7 +428,6 @@ Ultimately, you should unload the shared library, and exit the program.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Program Overview</a><ul>
-<li><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
 <li><a class="reference internal" href="#program-lifecycle">Program Lifecycle</a><ul>
 <li><a class="reference internal" href="#initialization">Initialization</a></li>
 <li><a class="reference internal" href="#connect">Connect</a></li>
@@ -412,6 +435,11 @@ Ultimately, you should unload the shared library, and exit the program.</p>
 <li><a class="reference internal" href="#finalization">Finalization</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#network">Network</a><ul>
+<li><a class="reference internal" href="#client-only-state">Client-only State</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#environment-variables">Environment Variables</a></li>
 </ul>
 </li>
 </ul>

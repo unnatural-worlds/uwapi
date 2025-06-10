@@ -54,7 +54,7 @@ There are multiple functions for finding tiles within some distance.
          :img-bottom: /_static/area-query-range.svg
          :text-align: center
 
-         **AreaRange**
+         **Area Range**
 
    .. grid-item::
 
@@ -62,7 +62,7 @@ There are multiple functions for finding tiles within some distance.
          :img-bottom: /_static/area-query-connected.svg
          :text-align: center
 
-         **AreaConnected**
+         **Area Connected**
 
    .. grid-item::
 
@@ -70,7 +70,7 @@ There are multiple functions for finding tiles within some distance.
          :img-bottom: /_static/area-query-neighborhood.svg
          :text-align: center
 
-         **AreaNeighborhood**
+         **Area Neighborhood**
 
    .. grid-item::
 
@@ -78,4 +78,4 @@ There are multiple functions for finding tiles within some distance.
          :img-bottom: /_static/area-query-extended.svg
          :text-align: center
 
-         **AreaExtended**
+         **Area Extended**

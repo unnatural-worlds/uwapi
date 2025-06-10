@@ -1,7 +1,7 @@
 Troubleshooting
 ===============
 
-.. warning::
+.. important::
 	Do *not* use Flatpak for Steam on Linux.
 
 .. dropdown:: Unable to load DLL 'unnatural-uwapi-hard'
