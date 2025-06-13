@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sphinx-autobuild source build
+sphinx-autobuild --open-browser source build
