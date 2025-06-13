@@ -275,7 +275,7 @@
 <p>Memory ownership is never transferred across the api boundary.
 Usually, any pointers returned from any of the <em>c</em> functions are valid until next call to the same function.
 Therefore, most <em>c</em> functions are <em>not</em> reentrant.</p>
-<p>The Python and C# wrappers functions always copy all necessary memory from the provided pointers into the native memory of the language.
+<p>The Python and C# wrappers functions always copy all necessary memory from the provided pointers into the managed memory of the language.
 Be careful if you use a <em>c</em> function directly.</p>
 </section>
 <section id="threads">
