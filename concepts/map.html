@@ -344,6 +344,28 @@ This is used for performance optimization.</p>
 </div>
 </div>
 </section>
+<section id="pathfinding">
+<h2>Pathfinding<a class="headerlink" href="#pathfinding" title="Link to this heading">¶</a></h2>
+<p>Finds fastest path for a specified type of unit from tile A to tile B.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">maxIterations</span></code> - maximum number of steps of the A* algorithm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allowNearbyPosition</span></code> - accept a path to the nearest available point, otherwise the search fails.</p></li>
+</ul>
+<p>This will request a new asynchronous task.
+The result will be provided with the <a class="reference internal" href="callbacks.html#task-completed-callback"><span class="std std-ref">callback</span></a> some time later.
+You may enqueue multiple tasks and they will be processed in parallel.</p>
+</section>
+<section id="clusters-distances">
+<h2>Clusters Distances<a class="headerlink" href="#clusters-distances" title="Link to this heading">¶</a></h2>
+<p>Finds approximate time required for a specified unit type to reach all other areas from specific starting cluster.
+The results are calculated for the clusters, not tiles.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">allowImpassableTerrain</span></code> - use large penalty for crossing unsuitable terrain type, otherwise mark the clusters as unreachable.</p></li>
+</ul>
+<p>This will request a new asynchronous task.
+The result will be provided with the <a class="reference internal" href="callbacks.html#task-completed-callback"><span class="std std-ref">callback</span></a> some time later.
+You may enqueue multiple tasks and they will be processed in parallel.</p>
+</section>
 </section>
 
         </article>
@@ -406,6 +428,8 @@ This is used for performance optimization.</p>
 <li><a class="reference internal" href="#clusters">Clusters</a></li>
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#area-queries">Area Queries</a></li>
+<li><a class="reference internal" href="#pathfinding">Pathfinding</a></li>
+<li><a class="reference internal" href="#clusters-distances">Clusters Distances</a></li>
 </ul>
 </li>
 </ul>

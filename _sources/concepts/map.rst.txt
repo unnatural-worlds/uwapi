@@ -79,3 +79,25 @@ There are multiple functions for finding tiles within some distance.
          :text-align: center
 
          **Area Extended**
+
+Pathfinding
+-----------
+Finds fastest path for a specified type of unit from tile A to tile B.
+
+- ``maxIterations`` - maximum number of steps of the A* algorithm.
+- ``allowNearbyPosition`` - accept a path to the nearest available point, otherwise the search fails.
+
+This will request a new asynchronous task.
+The result will be provided with the :ref:`callback <concepts/callbacks:Task Completed Callback>` some time later.
+You may enqueue multiple tasks and they will be processed in parallel.
+
+Clusters Distances
+------------------
+Finds approximate time required for a specified unit type to reach all other areas from specific starting cluster.
+The results are calculated for the clusters, not tiles.
+
+- ``allowImpassableTerrain`` - use large penalty for crossing unsuitable terrain type, otherwise mark the clusters as unreachable.
+
+This will request a new asynchronous task.
+The result will be provided with the :ref:`callback <concepts/callbacks:Task Completed Callback>` some time later.
+You may enqueue multiple tasks and they will be processed in parallel.

@@ -20,7 +20,7 @@ In Unnatural Worlds specifically, each entity is identified by its unique 32-bit
 These ids are assigned by the server, and client cannot predict the values.
 
 .. note::
-	In a very long game, it is possible that an id is reused.
+	An id may be reused, especially in longer game.
 
 .. note::
 	Some entities and/or components are synchronized only with the owner of the entity.
@@ -61,10 +61,15 @@ Contains additional state for a unit (or building).
 - ``Processing`` - the unit has processed a recipe and is waiting for it to complete.
 - ``Rebuilding`` - recipe for the unit has changed, and the unit is waiting for the changes to complete.
 - ``Stalling`` - the unit's recipe cannot be executed, usually because a limit for the outputs has been reached.
+- ``Damaged`` - the unit has less than half life.
 
 Life Component
 --------------
 Amount of life of the unit (or building).
+
+Mana Component
+--------------
+Amount of mana of the unit (or building).
 
 Move Component
 --------------
@@ -79,16 +84,16 @@ Recipe Component
 ----------------
 Id of the prototype of the recipe that this unit will automatically process.
 
-Update Timestamp Component
---------------------------
-Contains a timestamp (tick) of when this construction started, or when this unit's recipe was last processed.
-It is used for planning logistics deliveries.
-
 Recipe Statistics Component
 ---------------------------
 Used for calculating this unit's processing efficiency.
 
 It is reset when the recipe changes.
+
+Logistics Timestamp Component
+-----------------------------
+Contains a timestamp (tick) of when this construction started, or when this unit's recipe was last processed.
+It is used for planning logistics deliveries.
 
 Priority Component
 ------------------
@@ -106,9 +111,24 @@ Defines that this entity is attached to another entity.
 This entity is automatically moved to the position (and orientation) of the target.
 This is commonly used by a resource carried by a truck.
 
+Ping Component
+--------------
+This entity represents a signal sent by an ally.
+
+- ``Attention`` - generic warning signal.
+- ``Attack`` - request to attack this location.
+- ``Defend`` - request to quard this location.
+- ``Rally`` - prepare troops there and await further signals.
+- ``Build`` - build base in this location.
+- ``Evacuate`` - request to leave this area.
+
 Player Component
 ----------------
 This entity represents a client - a player or an observer.
+
+Player Ai Config Component
+--------------------------
+Behavioral configuration for AI player.
 
 Force Component
 ---------------

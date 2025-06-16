@@ -282,7 +282,7 @@
 These ids are assigned by the server, and client cannot predict the values.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In a very long game, it is possible that an id is reused.</p>
+<p>An id may be reused, especially in longer game.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -323,11 +323,16 @@ The actual facing of 0 degrees yaw is different for each tile.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Processing</span></code> - the unit has processed a recipe and is waiting for it to complete.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Rebuilding</span></code> - recipe for the unit has changed, and the unit is waiting for the changes to complete.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Stalling</span></code> - the unit’s recipe cannot be executed, usually because a limit for the outputs has been reached.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Damaged</span></code> - the unit has less than half life.</p></li>
 </ul>
 </section>
 <section id="life-component">
 <h2>Life Component<a class="headerlink" href="#life-component" title="Link to this heading">¶</a></h2>
 <p>Amount of life of the unit (or building).</p>
+</section>
+<section id="mana-component">
+<h2>Mana Component<a class="headerlink" href="#mana-component" title="Link to this heading">¶</a></h2>
+<p>Amount of mana of the unit (or building).</p>
 </section>
 <section id="move-component">
 <h2>Move Component<a class="headerlink" href="#move-component" title="Link to this heading">¶</a></h2>
@@ -342,15 +347,15 @@ Information is available for the next neighboring tile only.</p>
 <h2>Recipe Component<a class="headerlink" href="#recipe-component" title="Link to this heading">¶</a></h2>
 <p>Id of the prototype of the recipe that this unit will automatically process.</p>
 </section>
-<section id="update-timestamp-component">
-<h2>Update Timestamp Component<a class="headerlink" href="#update-timestamp-component" title="Link to this heading">¶</a></h2>
-<p>Contains a timestamp (tick) of when this construction started, or when this unit’s recipe was last processed.
-It is used for planning logistics deliveries.</p>
-</section>
 <section id="recipe-statistics-component">
 <h2>Recipe Statistics Component<a class="headerlink" href="#recipe-statistics-component" title="Link to this heading">¶</a></h2>
 <p>Used for calculating this unit’s processing efficiency.</p>
 <p>It is reset when the recipe changes.</p>
+</section>
+<section id="logistics-timestamp-component">
+<h2>Logistics Timestamp Component<a class="headerlink" href="#logistics-timestamp-component" title="Link to this heading">¶</a></h2>
+<p>Contains a timestamp (tick) of when this construction started, or when this unit’s recipe was last processed.
+It is used for planning logistics deliveries.</p>
 </section>
 <section id="priority-component">
 <h2>Priority Component<a class="headerlink" href="#priority-component" title="Link to this heading">¶</a></h2>
@@ -368,9 +373,25 @@ It is used by the logistics planning.</p>
 This entity is automatically moved to the position (and orientation) of the target.
 This is commonly used by a resource carried by a truck.</p>
 </section>
+<section id="ping-component">
+<h2>Ping Component<a class="headerlink" href="#ping-component" title="Link to this heading">¶</a></h2>
+<p>This entity represents a signal sent by an ally.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Attention</span></code> - generic warning signal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Attack</span></code> - request to attack this location.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Defend</span></code> - request to quard this location.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Rally</span></code> - prepare troops there and await further signals.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Build</span></code> - build base in this location.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Evacuate</span></code> - request to leave this area.</p></li>
+</ul>
+</section>
 <section id="player-component">
 <h2>Player Component<a class="headerlink" href="#player-component" title="Link to this heading">¶</a></h2>
 <p>This entity represents a client - a player or an observer.</p>
+</section>
+<section id="player-ai-config-component">
+<h2>Player Ai Config Component<a class="headerlink" href="#player-ai-config-component" title="Link to this heading">¶</a></h2>
+<p>Behavioral configuration for AI player.</p>
 </section>
 <section id="force-component">
 <h2>Force Component<a class="headerlink" href="#force-component" title="Link to this heading">¶</a></h2>
@@ -458,15 +479,18 @@ The component contains public information about the force.</p>
 <li><a class="reference internal" href="#position-component">Position Component</a></li>
 <li><a class="reference internal" href="#unit-component">Unit Component</a></li>
 <li><a class="reference internal" href="#life-component">Life Component</a></li>
+<li><a class="reference internal" href="#mana-component">Mana Component</a></li>
 <li><a class="reference internal" href="#move-component">Move Component</a></li>
 <li><a class="reference internal" href="#aim-component">Aim Component</a></li>
 <li><a class="reference internal" href="#recipe-component">Recipe Component</a></li>
-<li><a class="reference internal" href="#update-timestamp-component">Update Timestamp Component</a></li>
 <li><a class="reference internal" href="#recipe-statistics-component">Recipe Statistics Component</a></li>
+<li><a class="reference internal" href="#logistics-timestamp-component">Logistics Timestamp Component</a></li>
 <li><a class="reference internal" href="#priority-component">Priority Component</a></li>
 <li><a class="reference internal" href="#amount-component">Amount Component</a></li>
 <li><a class="reference internal" href="#attachment-component">Attachment Component</a></li>
+<li><a class="reference internal" href="#ping-component">Ping Component</a></li>
 <li><a class="reference internal" href="#player-component">Player Component</a></li>
+<li><a class="reference internal" href="#player-ai-config-component">Player Ai Config Component</a></li>
 <li><a class="reference internal" href="#force-component">Force Component</a></li>
 <li><a class="reference internal" href="#force-details-component">Force Details Component</a></li>
 <li><a class="reference internal" href="#foreign-policy-component">Foreign Policy Component</a></li>
