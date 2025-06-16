@@ -2,6 +2,7 @@
 #define unnatural_uwapi_scripts_hpp_zhgfa8g4
 
 #include <vector>
+#include <cstring> // memcpy
 
 #include "scripts.h"
 
@@ -12,12 +13,12 @@ namespace uw
 	{
 		std::vector<std::remove_cv_t<T>> res;
 		res.resize(cnt);
-		memcpy(res.data(), data, cnt * sizeof(T));
+		std::memcpy(res.data(), data, cnt * sizeof(T));
 		return res;
 	}
 
 	template<class S>
-	requires(requires { S::data; })
+		requires(requires { S::data; })
 	auto makeVector(const S *src)
 	{
 		return makeVector(src->data, src->count);

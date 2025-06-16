@@ -27,7 +27,9 @@ extern "C"
 	{
 		float damage;
 		float shootingRange;
+		float splashRadius;
 		float defense;
+		float regenSpeed;
 		float movementSpeed;
 		float processingSpeed;
 	} UwUnitUpgrades;

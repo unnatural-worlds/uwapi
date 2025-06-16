@@ -29,6 +29,7 @@ extern "C"
 	UNNATURAL_API void uwAdminSendSuggestedCameraFocus(uint32 position);
 	UNNATURAL_API void uwAdminSetAutomaticSuggestedCameraFocus(bool enabled);
 	UNNATURAL_API void uwAdminSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
+	UNNATURAL_API void uwAdminSendPing(uint32 position, UwPingEnum ping, uint32 targetForce);
 
 #endif
 

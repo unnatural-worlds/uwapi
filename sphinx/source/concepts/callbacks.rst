@@ -2,7 +2,7 @@ Callbacks
 =========
 
 Game/Map/Connection State Callback
--------------------
+----------------------------------
 Viz :ref:`concepts/programState:Game State`, :ref:`concepts/programState:Map State`, and :ref:`concepts/programState:Connection State`.
 
 Update Callback
@@ -51,8 +51,8 @@ This callback may be called at any time, relative to other callbacks - there are
 
 Force Eliminated Callback
 -------------------------
-This informs you that a player lost.
+This informs you that a force/player lost.
 
 Chat Callback
 -------------
-You have received a message.
+You have received a message. Chat events are synchronized *asynchronously*.

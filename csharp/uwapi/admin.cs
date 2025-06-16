@@ -1,6 +1,7 @@
 namespace Unnatural
 {
     using ChatTargetFLags = Interop.UwChatTargetFlags;
+    using PingEnum = Interop.UwPingEnum;
 
     public static class Admin
     {
@@ -97,6 +98,11 @@ namespace Unnatural
         public static void SendChat(string msg, ChatTargetFLags flags, uint id = uint.MaxValue)
         {
             Interop.uwAdminSendChat(msg, flags, id);
+        }
+
+        public static void SendPing(uint position, PingEnum ping, uint id)
+        {
+            Interop.uwAdminSendPing(position, ping, id);
         }
     }
 }

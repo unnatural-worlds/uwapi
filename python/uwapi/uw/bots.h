@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 35;
+static const uint32 UW_VERSION = 36;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -24,6 +24,17 @@ typedef enum UwPriorityEnum
 	UwPriorityEnum_Normal = 1,
 	UwPriorityEnum_High = 2,
 } UwPriorityEnum;
+
+typedef enum UwPingEnum
+{
+	UwPingEnum_None = 0,
+	UwPingEnum_Attention = 1,
+	UwPingEnum_Attack = 2,
+	UwPingEnum_Defend = 3,
+	UwPingEnum_Rally = 4,
+	UwPingEnum_Build = 5,
+	UwPingEnum_Evacuate = 6,
+} UwPingEnum;
 
 typedef enum UwPathStateEnum
 {
@@ -79,6 +90,7 @@ void uwAdminForceSetRace(uint32 forceId, uint32 raceProto);
 void uwAdminSendSuggestedCameraFocus(uint32 position);
 void uwAdminSetAutomaticSuggestedCameraFocus(bool enabled);
 void uwAdminSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
+void uwAdminSendPing(uint32 position, UwPingEnum ping, uint32 targetForce);
 void uwInitialize(uint32 version);
 void uwDeinitialize(void);
 
@@ -240,6 +252,7 @@ typedef enum UwUnitStateFlags
 	UwUnitStateFlags_Processing = 1 << 1,
 	UwUnitStateFlags_Rebuilding = 1 << 2,
 	UwUnitStateFlags_Stalling = 1 << 3,
+	UwUnitStateFlags_Damaged = 1 << 4,
 } UwUnitStateFlags;
 typedef struct UwUnitComponent
 {
@@ -253,6 +266,12 @@ typedef struct UwLifeComponent
 	sint32 life;
 } UwLifeComponent;
 bool uwFetchLifeComponent(UwEntityPtr entity, UwLifeComponent *data);
+
+typedef struct UwManaComponent
+{
+	sint32 mana;
+} UwManaComponent;
+bool uwFetchManaComponent(UwEntityPtr entity, UwManaComponent *data);
 
 typedef struct UwMoveComponent
 {
@@ -277,18 +296,18 @@ typedef struct UwRecipeComponent
 } UwRecipeComponent;
 bool uwFetchRecipeComponent(UwEntityPtr entity, UwRecipeComponent *data);
 
-typedef struct UwUpdateTimestampComponent
-{
-	uint32 timestamp;
-} UwUpdateTimestampComponent;
-bool uwFetchUpdateTimestampComponent(UwEntityPtr entity, UwUpdateTimestampComponent *data);
-
 typedef struct UwRecipeStatisticsComponent
 {
 	uint32 timestamps[3];
 	uint32 completed;
 } UwRecipeStatisticsComponent;
 bool uwFetchRecipeStatisticsComponent(UwEntityPtr entity, UwRecipeStatisticsComponent *data);
+
+typedef struct UwLogisticsTimestampComponent
+{
+	uint32 timestamp;
+} UwLogisticsTimestampComponent;
+bool uwFetchLogisticsTimestampComponent(UwEntityPtr entity, UwLogisticsTimestampComponent *data);
 
 typedef struct UwPriorityComponent
 {
@@ -307,6 +326,12 @@ typedef struct UwAttachmentComponent
 	uint32 target;
 } UwAttachmentComponent;
 bool uwFetchAttachmentComponent(UwEntityPtr entity, UwAttachmentComponent *data);
+
+typedef struct UwPingComponent
+{
+	UwPingEnum ping;
+} UwPingComponent;
+bool uwFetchPingComponent(UwEntityPtr entity, UwPingComponent *data);
 
 typedef enum UwPlayerStateFlags
 {
@@ -336,6 +361,15 @@ typedef struct UwPlayerComponent
 	UwPlayerConnectionClassEnum playerConnectionClass;
 } UwPlayerComponent;
 bool uwFetchPlayerComponent(UwEntityPtr entity, UwPlayerComponent *data);
+
+typedef struct UwPlayerAiConfigComponent
+{
+	float dumbness;
+	float aggressive;
+	float stretched;
+	float expansive;
+} UwPlayerAiConfigComponent;
+bool uwFetchPlayerAiConfigComponent(UwEntityPtr entity, UwPlayerAiConfigComponent *data);
 
 typedef enum UwForceStateFlags
 {
@@ -561,7 +595,9 @@ typedef struct UwUnitUpgrades
 {
 	float damage;
 	float shootingRange;
+	float splashRadius;
 	float defense;
+	float regenSpeed;
 	float movementSpeed;
 	float processingSpeed;
 } UwUnitUpgrades;

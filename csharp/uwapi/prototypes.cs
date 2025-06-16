@@ -55,7 +55,12 @@ namespace Unnatural
         public bool emptyNeighbors; // the building requires empty space around
         public bool neutralCategory; // the unit is put in neutral category in lexicon
         public float processingSpeed;
+        public float lifeRegen; // life per second
+        public float manaRegen; // mana per second
         public uint maxLife;
+        public uint maxMana;
+        public uint startingMana;
+        public uint regenDelay; // ticks
         public uint armorType;
         public string armorTypeName;
 
@@ -65,24 +70,29 @@ namespace Unnatural
         public float dps;
         public float dpsAtLowLife;
         public float fireRange; // meters
-        public float rateOfFire;
+        public float rateOfFire; // shots per second
         public float shooterElevation; // radians
         public float targetElevation; // radians
+        public float splashRadius; // meters
+        public float splashFractionAtEdge;
+        public float splashFractionToFriendly;
 
         // mobile only
         public Dictionary<uint, float> speeds; // terrain type -> speed (meters per second)
 
-        // building only
+        // buildings only
         public float buildingRadius; // meters
     }
 
     public class ProtoUpgrade : ProtoCommon
     {
         public uint duration; // ticks
-        public uint limit;
+        public uint limit; // maximum stack size of the upgrade applied
         public float damage;
         public float shootingRange;
+        public float splashRadius;
         public float defense;
+        public float regenSpeed;
         public float movementSpeed;
         public float processingSpeed;
     }

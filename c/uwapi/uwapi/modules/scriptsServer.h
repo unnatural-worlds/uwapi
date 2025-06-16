@@ -19,29 +19,38 @@ extern "C"
 	UNNATURAL_API void uwSetPosition(uint32 entity, uint32 position);
 	UNNATURAL_API void uwSetYaw(uint32 entity, float yaw);
 	UNNATURAL_API void uwMove(uint32 entity, uint32 position); // neighbor only
-	UNNATURAL_API void uwMoveYaw(uint32 entity, uint32 position, float yaw);
-	UNNATURAL_API void uwMoveTo(uint32 entity, uint32 position);
+	UNNATURAL_API void uwMoveYaw(uint32 entity, uint32 position, float yaw); // neighbor only
+	UNNATURAL_API void uwMoveTowards(uint32 entity, uint32 position); // performs serves-side pathfinding - use with care
 
 	UNNATURAL_API void uwSetLife(uint32 entity, uint32 life);
+	UNNATURAL_API void uwSetMana(uint32 entity, uint32 mana);
 	UNNATURAL_API void uwSetAim(uint32 entity, uint32 target); // target = 0 to remove
 	UNNATURAL_API void uwSetRecipe(uint32 entity, uint32 recipe); // recipe = 0 to remove
 	UNNATURAL_API void uwSetPriority(uint32 entity, UwPriorityEnum priority);
-	UNNATURAL_API void uwSetCooldown(uint32 entity, uint32 ticks);
+	UNNATURAL_API void uwSetShootingCooldown(uint32 entity, uint32 ticks); // ticks = 0 to remove cooldown
+	UNNATURAL_API void uwSetRegenCooldown(uint32 entity, uint32 ticks); // ticks = 0 to remove cooldown
+	UNNATURAL_API void uwSetProcessingCooldown(uint32 entity, uint32 ticks); // ticks = 0 to remove cooldown
+	UNNATURAL_API void uwSetDecay(uint32 entity, uint32 ticks); // ticks = -1 to remove decay
 
 	UNNATURAL_API void uwSetAmount(uint32 entity, uint32 amount);
 	UNNATURAL_API void uwSetAttached(uint32 entity, uint32 target); // target = 0 to detach
 
 	UNNATURAL_API uint32 uwCreateForce(void);
 	UNNATURAL_API void uwDestroyForce(uint32 force);
-	UNNATURAL_API void uwSetPlayerForce(uint32 player, uint32 force);
 	UNNATURAL_API void uwSetForceColor(uint32 force, float r, float g, float b);
 	UNNATURAL_API void uwSetForceFinish(uint32 force, bool winner, bool defeated);
 	UNNATURAL_API void uwSetForceStartingTeam(uint32 force, uint32 team);
 	UNNATURAL_API void uwSetForceStartingPosition(uint32 force, uint32 position);
 	UNNATURAL_API void uwSetForeignPolicy(uint32 force1, uint32 force2, UwForeignPolicyEnum policy);
 
+	UNNATURAL_API uint32 uwCreateAiPlayer(void);
+	// UNNATURAL_API void uwDestroyAiPlayer(uint32 player);
+	UNNATURAL_API void uwSetPlayerAiConfig(uint32 player, const UwPlayerAiConfigComponent *config);
+	UNNATURAL_API void uwSetPlayerForce(uint32 player, uint32 force);
+
 	UNNATURAL_API void uwStandardVictoryConditions(bool enable);
-	UNNATURAL_API void uwSendChat(const char *msg, UwChatTargetFlags flags, uint32 target);
+	UNNATURAL_API void uwSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
+	UNNATURAL_API void uwSendPing(uint32 position, UwPingEnum ping, uint32 targetForce);
 
 	UNNATURAL_API void uwPrint(const char *msg);
 	UNNATURAL_API uint32 uwRand(void);

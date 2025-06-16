@@ -76,6 +76,9 @@ namespace Unnatural
                                                   uint targetId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSendPing(uint position, UwPingEnum ping, uint targetForce);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwInitialize(uint version);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -286,7 +289,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 35;
+        public const uint UW_VERSION = 36;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -300,6 +303,17 @@ namespace Unnatural
             Disabled = 0,
             Normal = 1,
             High = 2,
+        }
+
+        public enum UwPingEnum
+        {
+            None = 0,
+            Attention = 1,
+            Attack = 2,
+            Defend = 3,
+            Rally = 4,
+            Build = 5,
+            Evacuate = 6,
         }
 
         public enum UwPathStateEnum
@@ -404,6 +418,7 @@ namespace Unnatural
             Processing = 1 << 1,
             Rebuilding = 1 << 2,
             Stalling = 1 << 3,
+            Damaged = 1 << 4,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -426,6 +441,16 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchLifeComponent(IntPtr entity, ref UwLifeComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwManaComponent
+        {
+            public int mana;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchManaComponent(IntPtr entity, ref UwManaComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMoveComponent
@@ -463,16 +488,6 @@ namespace Unnatural
         public static extern bool uwFetchRecipeComponent(IntPtr entity, ref UwRecipeComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct UwUpdateTimestampComponent
-        {
-            public uint timestamp;
-        }
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return:MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwFetchUpdateTimestampComponent(IntPtr entity, ref UwUpdateTimestampComponent data);
-
-        [StructLayout(LayoutKind.Sequential)]
         public struct UwRecipeStatisticsComponent
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
@@ -483,6 +498,17 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchRecipeStatisticsComponent(IntPtr entity, ref UwRecipeStatisticsComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwLogisticsTimestampComponent
+        {
+            public uint timestamp;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchLogisticsTimestampComponent(IntPtr entity,
+                                                                     ref UwLogisticsTimestampComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwPriorityComponent
@@ -513,6 +539,16 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchAttachmentComponent(IntPtr entity, ref UwAttachmentComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwPingComponent
+        {
+            public UwPingEnum ping;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchPingComponent(IntPtr entity, ref UwPingComponent data);
 
         [Flags]
         public enum UwPlayerStateFlags
@@ -550,6 +586,19 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwFetchPlayerComponent(IntPtr entity, ref UwPlayerComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwPlayerAiConfigComponent
+        {
+            public float dumbness;
+            public float aggressive;
+            public float stretched;
+            public float expansive;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchPlayerAiConfigComponent(IntPtr entity, ref UwPlayerAiConfigComponent data);
 
         [Flags]
         public enum UwForceStateFlags
@@ -902,7 +951,9 @@ namespace Unnatural
         {
             public float damage;
             public float shootingRange;
+            public float splashRadius;
             public float defense;
+            public float regenSpeed;
             public float movementSpeed;
             public float processingSpeed;
         }
@@ -982,15 +1033,18 @@ namespace Unnatural
         public Interop.UwPositionComponent? Position;
         public Interop.UwUnitComponent? Unit;
         public Interop.UwLifeComponent? Life;
+        public Interop.UwManaComponent? Mana;
         public Interop.UwMoveComponent? Move;
         public Interop.UwAimComponent? Aim;
         public Interop.UwRecipeComponent? Recipe;
-        public Interop.UwUpdateTimestampComponent? UpdateTimestamp;
         public Interop.UwRecipeStatisticsComponent? RecipeStatistics;
+        public Interop.UwLogisticsTimestampComponent? LogisticsTimestamp;
         public Interop.UwPriorityComponent? Priority;
         public Interop.UwAmountComponent? Amount;
         public Interop.UwAttachmentComponent? Attachment;
+        public Interop.UwPingComponent? Ping;
         public Interop.UwPlayerComponent? Player;
+        public Interop.UwPlayerAiConfigComponent? PlayerAiConfig;
         public Interop.UwForceComponent? Force;
         public Interop.UwForceDetailsComponent? ForceDetails;
         public Interop.UwForeignPolicyComponent? ForeignPolicy;
@@ -1042,6 +1096,13 @@ namespace Unnatural
                     Life = null;
             }
             {
+                Interop.UwManaComponent tmp = new Interop.UwManaComponent();
+                if (Interop.uwFetchManaComponent(e, ref tmp))
+                    Mana = tmp;
+                else
+                    Mana = null;
+            }
+            {
                 Interop.UwMoveComponent tmp = new Interop.UwMoveComponent();
                 if (Interop.uwFetchMoveComponent(e, ref tmp))
                     Move = tmp;
@@ -1063,18 +1124,18 @@ namespace Unnatural
                     Recipe = null;
             }
             {
-                Interop.UwUpdateTimestampComponent tmp = new Interop.UwUpdateTimestampComponent();
-                if (Interop.uwFetchUpdateTimestampComponent(e, ref tmp))
-                    UpdateTimestamp = tmp;
-                else
-                    UpdateTimestamp = null;
-            }
-            {
                 Interop.UwRecipeStatisticsComponent tmp = new Interop.UwRecipeStatisticsComponent();
                 if (Interop.uwFetchRecipeStatisticsComponent(e, ref tmp))
                     RecipeStatistics = tmp;
                 else
                     RecipeStatistics = null;
+            }
+            {
+                Interop.UwLogisticsTimestampComponent tmp = new Interop.UwLogisticsTimestampComponent();
+                if (Interop.uwFetchLogisticsTimestampComponent(e, ref tmp))
+                    LogisticsTimestamp = tmp;
+                else
+                    LogisticsTimestamp = null;
             }
             {
                 Interop.UwPriorityComponent tmp = new Interop.UwPriorityComponent();
@@ -1098,11 +1159,25 @@ namespace Unnatural
                     Attachment = null;
             }
             {
+                Interop.UwPingComponent tmp = new Interop.UwPingComponent();
+                if (Interop.uwFetchPingComponent(e, ref tmp))
+                    Ping = tmp;
+                else
+                    Ping = null;
+            }
+            {
                 Interop.UwPlayerComponent tmp = new Interop.UwPlayerComponent();
                 if (Interop.uwFetchPlayerComponent(e, ref tmp))
                     Player = tmp;
                 else
                     Player = null;
+            }
+            {
+                Interop.UwPlayerAiConfigComponent tmp = new Interop.UwPlayerAiConfigComponent();
+                if (Interop.uwFetchPlayerAiConfigComponent(e, ref tmp))
+                    PlayerAiConfig = tmp;
+                else
+                    PlayerAiConfig = null;
             }
             {
                 Interop.UwForceComponent tmp = new Interop.UwForceComponent();

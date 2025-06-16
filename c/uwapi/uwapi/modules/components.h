@@ -52,10 +52,11 @@ extern "C"
 	typedef enum UwUnitStateFlags
 	{
 		UwUnitStateFlags_None = 0,
-		UwUnitStateFlags_Shooting = 1 << 0,
+		UwUnitStateFlags_Shooting = 1 << 0, // reloading
 		UwUnitStateFlags_Processing = 1 << 1, // processing recipe
 		UwUnitStateFlags_Rebuilding = 1 << 2, // changing recipe
 		UwUnitStateFlags_Stalling = 1 << 3, // usually due to maximumProcessingOutput
+		UwUnitStateFlags_Damaged = 1 << 4, // less than half life
 	} UwUnitStateFlags;
 	typedef struct UwUnitComponent
 	{
@@ -69,6 +70,12 @@ extern "C"
 		sint32 life;
 	} UwLifeComponent;
 	UNNATURAL_API bool uwFetchLifeComponent(UwEntityPtr entity, UwLifeComponent *data);
+
+	typedef struct UwManaComponent
+	{
+		sint32 mana;
+	} UwManaComponent;
+	UNNATURAL_API bool uwFetchManaComponent(UwEntityPtr entity, UwManaComponent *data);
 
 	typedef struct UwMoveComponent
 	{
@@ -93,18 +100,18 @@ extern "C"
 	} UwRecipeComponent;
 	UNNATURAL_API bool uwFetchRecipeComponent(UwEntityPtr entity, UwRecipeComponent *data);
 
-	typedef struct UwUpdateTimestampComponent
-	{
-		uint32 timestamp;
-	} UwUpdateTimestampComponent;
-	UNNATURAL_API bool uwFetchUpdateTimestampComponent(UwEntityPtr entity, UwUpdateTimestampComponent *data);
-
 	typedef struct UwRecipeStatisticsComponent
 	{
 		uint32 timestamps[3];
 		uint32 completed;
 	} UwRecipeStatisticsComponent;
 	UNNATURAL_API bool uwFetchRecipeStatisticsComponent(UwEntityPtr entity, UwRecipeStatisticsComponent *data);
+
+	typedef struct UwLogisticsTimestampComponent
+	{
+		uint32 timestamp;
+	} UwLogisticsTimestampComponent;
+	UNNATURAL_API bool uwFetchLogisticsTimestampComponent(UwEntityPtr entity, UwLogisticsTimestampComponent *data);
 
 	typedef struct UwPriorityComponent
 	{
@@ -123,6 +130,12 @@ extern "C"
 		uint32 target;
 	} UwAttachmentComponent;
 	UNNATURAL_API bool uwFetchAttachmentComponent(UwEntityPtr entity, UwAttachmentComponent *data);
+
+	typedef struct UwPingComponent
+	{
+		UwPingEnum ping;
+	} UwPingComponent;
+	UNNATURAL_API bool uwFetchPingComponent(UwEntityPtr entity, UwPingComponent *data);
 
 	typedef enum UwPlayerStateFlags
 	{
@@ -152,6 +165,15 @@ extern "C"
 		UwPlayerConnectionClassEnum playerConnectionClass;
 	} UwPlayerComponent;
 	UNNATURAL_API bool uwFetchPlayerComponent(UwEntityPtr entity, UwPlayerComponent *data);
+
+	typedef struct UwPlayerAiConfigComponent
+	{
+		float dumbness;
+		float aggressive; // army is frequently attacking, or mostly just defends
+		float stretched; // army is spread into many small groups, or mostly concentrated
+		float expansive; // takes many bases, or turtles on few
+	} UwPlayerAiConfigComponent;
+	UNNATURAL_API bool uwFetchPlayerAiConfigComponent(UwEntityPtr entity, UwPlayerAiConfigComponent *data);
 
 	typedef enum UwForceStateFlags
 	{
