@@ -31,15 +31,6 @@ except OSError:
     # Try to find the library in standard locations
     try:
         lib = ctypes.cdll.LoadLibrary(LIB_NAME)
-    except OSError as e:
-        import sys
-        if 'pytest' in sys.modules or 'unittest' in sys.modules:
-            # For testing purposes, create a mock library
-            class MockLib:
-                def __getattr__(self, name):
-                    return lambda *args, **kwargs: None
-            lib = MockLib()
-            print(f"Warning: Using mock library because could not load {LIB_NAME}: {e}")
         else:
             raise ImportError(f"Could not load library {LIB_NAME}: {e}")
 
