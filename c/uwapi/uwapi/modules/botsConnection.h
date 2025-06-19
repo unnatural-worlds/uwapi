@@ -67,8 +67,10 @@ extern "C"
 	// my player
 
 	UNNATURAL_API void uwSetPlayerName(const char *name);
-	UNNATURAL_API void uwSetPlayerColor(float r, float g, float b); // [0 .. 1]
-	UNNATURAL_API void uwSetPlayerRace(uint32 raceProto);
+	UNNATURAL_API void uwPlayerJoinForce(uint32 force);
+	UNNATURAL_API void uwSetForceColor(float r, float g, float b); // [0 .. 1]
+	UNNATURAL_API void uwSetForceRace(uint32 raceProto);
+	UNNATURAL_API void uwForceJoinTeam(uint32 team);
 
 	typedef struct UwMyPlayer
 	{
@@ -98,6 +100,10 @@ extern "C"
 		uint32 networkDown; // kb/s
 	} UwPerformanceStatistics;
 	UNNATURAL_API void uwPerformanceStatistics(UwPerformanceStatistics *data);
+
+	UNNATURAL_API void uwPerformanceProfiling(bool enable);
+	UNNATURAL_API uint64 uwProfilingEventBegin(void);
+	UNNATURAL_API void uwProfilingEventEnd(const char *name, uint64 eventStartTime);
 
 #endif
 

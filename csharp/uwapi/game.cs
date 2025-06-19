@@ -50,14 +50,24 @@ namespace Unnatural
             Interop.uwSetPlayerName(name);
         }
 
-        public static void SetPlayerColor(float r, float g, float b) // [0 .. 1]
+        public static void PlayerJoinForce(uint forceId)
         {
-            Interop.uwSetPlayerColor(r, g, b);
+            Interop.uwPlayerJoinForce(forceId);
         }
 
-        public static void SetPlayerRace(uint raceProto)
+        public static void SetForceColor(float r, float g, float b) // [0 .. 1]
         {
-            Interop.uwSetPlayerRace(raceProto);
+            Interop.uwSetForceColor(r, g, b);
+        }
+
+        public static void SetForceRace(uint raceProto)
+        {
+            Interop.uwSetForceRace(raceProto);
+        }
+
+        public static void ForceJoinTeam(uint team)
+        {
+            Interop.uwForceJoinTeam(team);
         }
 
         public static void SetConnectStartGui(bool startGui, string extraParams = "--observer 1")
@@ -127,6 +137,21 @@ namespace Unnatural
             Interop.UwPerformanceStatistics data = new Interop.UwPerformanceStatistics();
             Interop.uwPerformanceStatistics(ref data);
             return data;
+        }
+
+        public static void PerformanceProfiling(bool enable)
+        {
+            Interop.uwPerformanceProfiling(enable);
+        }
+
+        public static ulong ProfilingEventBegin()
+        {
+            return Interop.uwProfilingEventBegin();
+        }
+
+        public static void ProfilingEventEnd(string name, ulong eventStartTime)
+        {
+            Interop.uwProfilingEventEnd(name, eventStartTime);
         }
 
         static readonly Interop.UwExceptionCallbackType ExceptionDelegate = new Interop.UwExceptionCallbackType(ExceptionCallback);

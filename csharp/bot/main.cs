@@ -9,7 +9,8 @@ namespace Unnatural
     internal class Bot
     {
         readonly Random random = new Random();
-        uint step = 0; // save some cpu cycles by splitting work over multiple steps
+        bool isConfigured = false;
+        uint workStep = 0; // save some cpu cycles by splitting work over multiple steps
 
         void AttackNearestEnemies()
         {
@@ -35,6 +36,8 @@ namespace Unnatural
         {
             foreach (Entity own in World.Entities().Values.Where(x => x.Own && x.Unit.HasValue))
             {
+                if (own.Recipe.HasValue)
+                    continue;
                 List<uint> recipes = own.ProtoUnit.recipes;
                 if (recipes?.Count > 0)
                 {
@@ -46,12 +49,14 @@ namespace Unnatural
 
         void Configure()
         {
+            if (isConfigured)
+                return;
+            isConfigured = true;
+
             Game.SetPlayerName("bot-cs");
-            Game.SetPlayerColor(1f, 0f, 0f);
-            if (Game.MapState() == Interop.UwMapStateEnum.Loaded)
-            {
-                // todo choose race
-            }
+            Game.PlayerJoinForce(0); // create new force
+            Game.SetForceColor(1f, 0f, 0f);
+            // todo choose race
         }
 
         void Updating(object sender, bool stepping)
@@ -61,9 +66,11 @@ namespace Unnatural
                 Configure();
                 return;
             }
+
             if (!stepping)
                 return;
-            switch (step++ % 10) // save some cpu cycles by splitting work over multiple steps
+
+            switch (workStep++ % 10) // save some cpu cycles by splitting work over multiple steps
             {
                 case 1:
                     AttackNearestEnemies();

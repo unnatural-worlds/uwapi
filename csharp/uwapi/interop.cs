@@ -170,10 +170,16 @@ namespace Unnatural
         public static extern void uwSetPlayerName([MarshalAs(UnmanagedType.LPStr)] string name);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetPlayerColor(float r, float g, float b);
+        public static extern void uwPlayerJoinForce(uint force);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetPlayerRace(uint raceProto);
+        public static extern void uwSetForceColor(float r, float g, float b);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetForceRace(uint raceProto);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwForceJoinTeam(uint team);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMyPlayer
@@ -216,6 +222,16 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwPerformanceStatistics(ref UwPerformanceStatistics data);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwPerformanceProfiling([MarshalAs(UnmanagedType.I1)] bool enable);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern ulong uwProfilingEventBegin();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwProfilingEventEnd([MarshalAs(UnmanagedType.LPStr)] string name,
+                                                      ulong eventStartTime);
 
         public enum UwOrderTypeEnum
         {

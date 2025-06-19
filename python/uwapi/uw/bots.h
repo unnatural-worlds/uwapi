@@ -138,8 +138,10 @@ bool uwTryReconnect(void);
 void uwDisconnect(void);
 
 void uwSetPlayerName(const char *name);
-void uwSetPlayerColor(float r, float g, float b);
-void uwSetPlayerRace(uint32 raceProto);
+void uwPlayerJoinForce(uint32 force);
+void uwSetForceColor(float r, float g, float b);
+void uwSetForceRace(uint32 raceProto);
+void uwForceJoinTeam(uint32 team);
 
 typedef struct UwMyPlayer
 {
@@ -167,6 +169,10 @@ typedef struct UwPerformanceStatistics
 	uint32 networkDown;
 } UwPerformanceStatistics;
 void uwPerformanceStatistics(UwPerformanceStatistics *data);
+
+void uwPerformanceProfiling(bool enable);
+uint64 uwProfilingEventBegin(void);
+void uwProfilingEventEnd(const char *name, uint64 eventStartTime);
 typedef enum UwOrderTypeEnum
 {
 	UwOrderTypeEnum_None = 0,
