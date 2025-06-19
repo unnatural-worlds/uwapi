@@ -1,7 +1,7 @@
-from typing import Any
+from typing import Dict, List, Optional, Any
 from enum import Enum
 
-from .helpers import _unpack_list
+from .interop import UwApi, _unpack_list, Entity as ApiEntity, ForeignPolicyEnum
 
 
 class Policy(Enum):
@@ -13,57 +13,80 @@ class Policy(Enum):
 
 
 class Entity:
-    def __init__(self, world):
+    """Enhanced entity class with world context."""
+    def __init__(self, world, id: int = 0):
+        self.Id = id
         self._world = world
-
-    def has(self, component: str):
+        self._api_entity = ApiEntity(id) if id > 0 else None
+        
+    def has(self, component: str) -> bool:
+        """Check if entity has a specific component."""
         return hasattr(self, component)
-
+        
     def own(self) -> bool:
+        """Check if this entity is owned by the player."""
         return self.has("Owner") and self.Owner.force == self._world.my_force()
-
+        
     def policy(self) -> Policy:
+        """Get the policy status of this entity (ally, enemy, etc.)."""
         if not self.has("Owner"):
             return Policy.NONE
-
+            
         return self._world.policy(self.Owner.force)
+        
+    def update(self) -> "Entity":
+        """Update all components of this entity."""
+        if self._api_entity:
+            self._api_entity.update()
+            # Copy component data from API entity to this entity
+            for attr_name in dir(self._api_entity):
+                if not attr_name.startswith('_') and attr_name not in ('Id', 'update', 'has', 'own', 'policy', 'fetch_components'):
+                    setattr(self, attr_name, getattr(self._api_entity, attr_name))
+        return self
 
 
 class World:
-    def __init__(self, api, ffi, game):
-        self._api = api
-        self._ffi = ffi
+    """Manages the game world and entity tracking."""
+    def __init__(self, game):
+        """Initialize the world manager.
+        
+        Args:
+            game: The game instance
+        """
         self._game = game
-
         self._my_force: int = 0
-        self._entities: dict[int, Any] = {}
-        self._policies: dict[int, Policy] = {}
-
+        self._entities: Dict[int, Entity] = {}
+        self._policies: Dict[int, Policy] = {}
+        
+        # Register for updates
         self._game.add_update_callback(self._updating)
-
+        
     def my_force(self) -> int:
+        """Get the player's force ID."""
         return self._my_force
-
-    def entities(self) -> dict[int, Any]:
+        
+    def entities(self) -> Dict[int, Entity]:
+        """Get all entities in the world."""
         return self._entities
-
-    def entity(self, _id: int) -> Any:
+        
+    def entity(self, _id: int) -> Entity:
+        """Get a specific entity by ID."""
         return self._entities[_id]
-
+        
     def policy(self, force: int) -> Policy:
+        """Get the policy towards a specific force."""
         return self._policies.get(force, Policy.NONE)
-
-    def _all_ids(self) -> list[int]:
-        ids = self._ffi.new("struct UwIds *")
-        self._api.uwAllEntities(ids)
-        return _unpack_list(self._ffi, ids)
-
-    def _modified_ids(self) -> list[int]:
-        ids = self._ffi.new("struct UwIds *")
-        self._api.uwModifiedEntities(ids)
-        return _unpack_list(self._ffi, ids)
-
+        
+    def _all_ids(self) -> List[int]:
+        """Get IDs of all entities in the world."""
+        return UwApi.all_entities()
+        
+    def _modified_ids(self) -> List[int]:
+        """Get IDs of recently modified entities."""
+        return UwApi.modified_entities()
+        
     def _update_removed(self):
+        """Remove entities that no longer exist."""
         all_ids = set(self._all_ids())
         removed = []
         for _id in self._entities.keys():
@@ -71,62 +94,56 @@ class World:
                 removed.append(_id)
         for _id in removed:
             del self._entities[_id]
-
-    def _maybe_assign_or_remove(self, e, o, fetch_method):
-        struct = fetch_method.replace("uwFetch", "Uw")
-        field = fetch_method.replace("uwFetch", "").replace("Component", "")
-        tmp = self._ffi.new(f"struct {struct} *")
-        if getattr(self._api, fetch_method)(e, tmp):
-            setattr(o, field, tmp)
-        else:
-            if hasattr(o, field):
-                delattr(o, field)
-
+            
     def _update_modified(self):
+        """Update all modified entities."""
         for _id in self._modified_ids():
-            o = self._entities.get(_id, Entity(self))
-            o.Id = _id
-            self._entities[_id] = o
-            e = self._api.uwEntityPointer(_id)
-
-            self._maybe_assign_or_remove(e, o, "uwFetchProtoComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchOwnerComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchControllerComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchPositionComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchUnitComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchLifeComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchMoveComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchAimComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchRecipeComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchUpdateTimestampComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchRecipeStatisticsComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchPriorityComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchAmountComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchAttachmentComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchPlayerComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchForceComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchForceDetailsComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchForeignPolicyComponent")
-            self._maybe_assign_or_remove(e, o, "uwFetchDiplomacyProposalComponent")
-
+            # Get or create entity
+            entity = self._entities.get(_id)
+            if not entity:
+                entity = Entity(self, _id)
+                self._entities[_id] = entity
+                
+            # Update entity components
+            entity.update()
+            
     def _update_policies(self):
+        """Update foreign policies between forces."""
         self._policies = {}
         for e in self._entities.values():
             if not hasattr(e, "ForeignPolicy"):
                 continue
+                
             fp = getattr(e, "ForeignPolicy")
-            forces = self._ffi.unpack(fp.forces, 2)
-            policy = Policy(fp.policy)
-            if forces[0] == self._my_force:
-                self._policies[forces[1]] = policy
-            if forces[1] == self._my_force:
-                self._policies[forces[0]] = policy
-
+            # Convert enum values to Policy enum
+            if fp.policy == ForeignPolicyEnum.Ally:
+                policy = Policy.Ally
+            elif fp.policy == ForeignPolicyEnum.Enemy:
+                policy = Policy.Enemy
+            elif fp.policy == ForeignPolicyEnum.Neutral:
+                policy = Policy.Neutral
+            elif fp.policy == ForeignPolicyEnum.Self:
+                policy = Policy.Self
+            else:
+                policy = Policy.NONE
+                
+            # Update policies between forces
+            if fp.forces[0] == self._my_force:
+                self._policies[fp.forces[1]] = policy
+            if fp.forces[1] == self._my_force:
+                self._policies[fp.forces[0]] = policy
+                
     def _updating(self, stepping: bool):
-        player = self._ffi.new("struct UwMyPlayer *")
-        self._api.uwMyPlayer(player)
-        self._my_force = player.forceEntityId
-
+        """Update callback triggered by the game."""
+        if not stepping:
+            return
+            
+        # Get player force
+        player = UwApi.my_player()
+        if player:
+            self._my_force = player.forceEntityId
+            
+        # Update entities
         self._update_removed()
         self._update_modified()
         self._update_policies()
