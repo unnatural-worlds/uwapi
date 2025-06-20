@@ -8,6 +8,7 @@ Specifically, bots cannot cheat - no more than a regular player could.
 
 .. toctree::
 	setup
+	setupPython
 	programOverview
 	programSafety
 	performance
