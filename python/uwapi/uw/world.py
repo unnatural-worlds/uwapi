@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional, Any
 from enum import Enum
 
-from .interop import UwApi, _unpack_list, Entity as ApiEntity, ForeignPolicyEnum
+from .interop import UwApi, _unpack_list, Entity as ApiEntity, UwForeignPolicyEnum as ForeignPolicyEnum
 
 
 class Policy(Enum):
@@ -133,7 +133,7 @@ class World:
             if fp.forces[1] == self._my_force:
                 self._policies[fp.forces[0]] = policy
                 
-    def _updating(self, stepping: bool):
+    def _updating(self, tick: int, stepping: bool):
         """Update callback triggered by the game."""
         if not stepping:
             return

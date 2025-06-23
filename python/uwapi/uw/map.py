@@ -2,7 +2,7 @@ import math
 from typing import List, Optional
 from dataclasses import dataclass
 
-from .interop import UwApi, MapStateEnum, OverviewFlagsEnum
+from .interop import UwApi, UwMapStateEnum as MapStateEnum, UwOverviewFlags as OverviewFlagsEnum
 
 
 @dataclass
@@ -212,7 +212,7 @@ class Map:
         if map_state == MapStateEnum.Loaded:
             self._load()
             
-    def _updating(self, stepping: bool):
+    def _updating(self, tick: int, stepping: bool):
         """Handle game updates."""
         if stepping:
             # Update overview flags
