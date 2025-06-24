@@ -13,6 +13,18 @@ Observers
 ^^^^^^^^^
 A player that is not associated with any force is an observer.
 
+Admin
+^^^^^
+Admin player has full control over the game:
+
+- starts the game,
+- chooses map,
+- can add/remove ai players or kick real players,
+- can change game settings, ai settings, etc.
+
+Typically, the player that hosts the game will become the admin.
+However, in some cases, such as tournaments, it is possible that the host and admin are separate.
+
 Forces
 ------
 Forces represent the actual armies in the world.

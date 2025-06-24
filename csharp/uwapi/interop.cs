@@ -30,16 +30,22 @@ namespace Unnatural
         public static extern void uwAdminSetMapSelection([MarshalAs(UnmanagedType.LPStr)] string path);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetGameSpeed(float speed);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetWeatherSpeed(float speed, float offset);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminStartGame();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminTerminateGame();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSetGameSpeed(float speed);
+        public static extern void uwAdminPauseGame([MarshalAs(UnmanagedType.I1)] bool pause);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSetWeatherSpeed(float speed, float offset);
+        public static extern void uwAdminSkipCutscene();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminAddAi();
@@ -52,6 +58,9 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminPlayerSetName(uint playerId, [MarshalAs(UnmanagedType.LPStr)] string name);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminPlayerAiConfig(uint playerId, ref UwPlayerAiConfigComponent config);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminPlayerJoinForce(uint playerId, uint forceId);
@@ -305,7 +314,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 36;
+        public const uint UW_VERSION = 37;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -570,10 +579,11 @@ namespace Unnatural
         public enum UwPlayerStateFlags
         {
             None = 0,
-            Loaded = 1 << 0,
-            Pause = 1 << 1,
-            Disconnected = 1 << 2,
-            Admin = 1 << 3,
+            Disconnected = 1 << 0,
+            Admin = 1 << 1,
+            Loaded = 1 << 2,
+            Pause = 1 << 3,
+            SkipCutscene = 1 << 4,
         }
 
         public enum UwPlayerConnectionClassEnum
@@ -606,9 +616,9 @@ namespace Unnatural
         [StructLayout(LayoutKind.Sequential)]
         public struct UwPlayerAiConfigComponent
         {
-            public float dumbness;
+            public float difficulty;
             public float aggressive;
-            public float stretched;
+            public float stretching;
             public float expansive;
         }
 
@@ -620,9 +630,9 @@ namespace Unnatural
         public enum UwForceStateFlags
         {
             None = 0,
-            Winner = 1 << 0,
-            Defeated = 1 << 1,
-            Disconnected = 1 << 2,
+            Disconnected = 1 << 0,
+            Winner = 1 << 1,
+            Defeated = 1 << 2,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -688,6 +698,9 @@ namespace Unnatural
             Preparation = 2,
             Game = 3,
             Finish = 4,
+            Paused = 5,
+            CutscenePaused = 6,
+            CutsceneRunning = 7,
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

@@ -10,18 +10,23 @@ extern "C"
 
 #ifdef UNNATURAL_BOTS
 
+	typedef struct UwPlayerAiConfigComponent UwPlayerAiConfigComponent;
+
 	UNNATURAL_API uint64 uwGetLobbyId(void);
 	UNNATURAL_API uint64 uwGetUserId(void);
 	UNNATURAL_API uint16 uwGetServerPort(void);
 	UNNATURAL_API void uwAdminSetMapSelection(const char *path);
-	UNNATURAL_API void uwAdminStartGame(void);
-	UNNATURAL_API void uwAdminTerminateGame(void);
 	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
 	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
+	UNNATURAL_API void uwAdminStartGame(void);
+	UNNATURAL_API void uwAdminTerminateGame(void);
+	UNNATURAL_API void uwAdminPauseGame(bool pause);
+	UNNATURAL_API void uwAdminSkipCutscene(void);
 	UNNATURAL_API void uwAdminAddAi(void);
 	UNNATURAL_API void uwAdminKickPlayer(uint32 playerId);
 	UNNATURAL_API void uwAdminPlayerSetAdmin(uint32 playerId, bool admin);
 	UNNATURAL_API void uwAdminPlayerSetName(uint32 playerId, const char *name);
+	UNNATURAL_API void uwAdminPlayerAiConfig(uint32 playerId, const UwPlayerAiConfigComponent *config);
 	UNNATURAL_API void uwAdminPlayerJoinForce(uint32 playerId, uint32 forceId);
 	UNNATURAL_API void uwAdminForceJoinTeam(uint32 forceId, uint32 team);
 	UNNATURAL_API void uwAdminForceSetColor(uint32 forceId, float r, float g, float b);

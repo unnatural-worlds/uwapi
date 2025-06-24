@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 36;
+static const uint32 UW_VERSION = 37;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -71,18 +71,23 @@ typedef enum UwChatTargetFlags
 	UwChatTargetFlags_Everyone = UwChatTargetFlags_Players | UwChatTargetFlags_Observer | UwChatTargetFlags_Admin,
 } UwChatTargetFlags;
 
+typedef struct UwPlayerAiConfigComponent UwPlayerAiConfigComponent;
+
 uint64 uwGetLobbyId(void);
 uint64 uwGetUserId(void);
 uint16 uwGetServerPort(void);
 void uwAdminSetMapSelection(const char *path);
-void uwAdminStartGame(void);
-void uwAdminTerminateGame(void);
 void uwAdminSetGameSpeed(float speed);
 void uwAdminSetWeatherSpeed(float speed, float offset);
+void uwAdminStartGame(void);
+void uwAdminTerminateGame(void);
+void uwAdminPauseGame(bool pause);
+void uwAdminSkipCutscene(void);
 void uwAdminAddAi(void);
 void uwAdminKickPlayer(uint32 playerId);
 void uwAdminPlayerSetAdmin(uint32 playerId, bool admin);
 void uwAdminPlayerSetName(uint32 playerId, const char *name);
+void uwAdminPlayerAiConfig(uint32 playerId, const UwPlayerAiConfigComponent *config);
 void uwAdminPlayerJoinForce(uint32 playerId, uint32 forceId);
 void uwAdminForceJoinTeam(uint32 forceId, uint32 team);
 void uwAdminForceSetColor(uint32 forceId, float r, float g, float b);
@@ -342,10 +347,11 @@ bool uwFetchPingComponent(UwEntityPtr entity, UwPingComponent *data);
 typedef enum UwPlayerStateFlags
 {
 	UwPlayerStateFlags_None = 0,
-	UwPlayerStateFlags_Loaded = 1 << 0,
-	UwPlayerStateFlags_Pause = 1 << 1,
-	UwPlayerStateFlags_Disconnected = 1 << 2,
-	UwPlayerStateFlags_Admin = 1 << 3,
+	UwPlayerStateFlags_Disconnected = 1 << 0,
+	UwPlayerStateFlags_Admin = 1 << 1,
+	UwPlayerStateFlags_Loaded = 1 << 2,
+	UwPlayerStateFlags_Pause = 1 << 3,
+	UwPlayerStateFlags_SkipCutscene = 1 << 4,
 } UwPlayerStateFlags;
 typedef enum UwPlayerConnectionClassEnum
 {
@@ -370,9 +376,9 @@ bool uwFetchPlayerComponent(UwEntityPtr entity, UwPlayerComponent *data);
 
 typedef struct UwPlayerAiConfigComponent
 {
-	float dumbness;
+	float difficulty;
 	float aggressive;
-	float stretched;
+	float stretching;
 	float expansive;
 } UwPlayerAiConfigComponent;
 bool uwFetchPlayerAiConfigComponent(UwEntityPtr entity, UwPlayerAiConfigComponent *data);
@@ -380,9 +386,9 @@ bool uwFetchPlayerAiConfigComponent(UwEntityPtr entity, UwPlayerAiConfigComponen
 typedef enum UwForceStateFlags
 {
 	UwForceStateFlags_None = 0,
-	UwForceStateFlags_Winner = 1 << 0,
-	UwForceStateFlags_Defeated = 1 << 1,
-	UwForceStateFlags_Disconnected = 1 << 2,
+	UwForceStateFlags_Disconnected = 1 << 0,
+	UwForceStateFlags_Winner = 1 << 1,
+	UwForceStateFlags_Defeated = 1 << 2,
 } UwForceStateFlags;
 typedef struct UwForceComponent
 {
@@ -427,6 +433,9 @@ typedef enum UwGameStateEnum
 	UwGameStateEnum_Preparation = 2,
 	UwGameStateEnum_Game = 3,
 	UwGameStateEnum_Finish = 4,
+	UwGameStateEnum_Paused = 5,
+	UwGameStateEnum_CutscenePaused = 6,
+	UwGameStateEnum_CutsceneRunning = 7,
 } UwGameStateEnum;
 
 typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);

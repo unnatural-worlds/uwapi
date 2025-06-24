@@ -2,6 +2,7 @@ namespace Unnatural
 {
     using ChatTargetFLags = Interop.UwChatTargetFlags;
     using PingEnum = Interop.UwPingEnum;
+    using PlayerAiConfig = Interop.UwPlayerAiConfigComponent;
 
     public static class Admin
     {
@@ -25,6 +26,16 @@ namespace Unnatural
             Interop.uwAdminSetMapSelection(path);
         }
 
+        public static void SetGameSpeed(float speed)
+        {
+            Interop.uwAdminSetGameSpeed(speed);
+        }
+
+        public static void SetWeatherSpeed(float speed, float offset)
+        {
+            Interop.uwAdminSetWeatherSpeed(speed, offset);
+        }
+
         public static void StartGame()
         {
             Interop.uwAdminStartGame();
@@ -35,14 +46,14 @@ namespace Unnatural
             Interop.uwAdminTerminateGame();
         }
 
-        public static void SetGameSpeed(float speed)
+        public static void PauseGame(bool pause)
         {
-            Interop.uwAdminSetGameSpeed(speed);
+            Interop.uwAdminPauseGame(pause);
         }
 
-        public static void SetWeatherSpeed(float speed, float offset)
+        public static void SkipCutscene()
         {
-            Interop.uwAdminSetWeatherSpeed(speed, offset);
+            Interop.uwAdminSkipCutscene();
         }
 
         public static void AddAi()
@@ -63,6 +74,11 @@ namespace Unnatural
         public static void PlayerSetName(uint playerId, string name)
         {
             Interop.uwAdminPlayerSetName(playerId, name);
+        }
+
+        public static void PlayerAiConfig(uint playerId, PlayerAiConfig config)
+        {
+            Interop.uwAdminPlayerAiConfig(playerId, ref config);
         }
 
         public static void PlayerJoinForce(uint playerId, uint forceId)

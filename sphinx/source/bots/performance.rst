@@ -2,7 +2,7 @@ Performance
 ===========
 Some hints on improving performance.
 
-Distribute work over multiple ticks
+Distribute Work Over Multiple Ticks
 -----------------------------------
 Most events in the game take some time: shooting, moving, building, processing, etc.
 Therefore, it is generally unnecessary to keep updating everything all the time.

@@ -140,10 +140,11 @@ extern "C"
 	typedef enum UwPlayerStateFlags
 	{
 		UwPlayerStateFlags_None = 0,
-		UwPlayerStateFlags_Loaded = 1 << 0,
-		UwPlayerStateFlags_Pause = 1 << 1,
-		UwPlayerStateFlags_Disconnected = 1 << 2,
-		UwPlayerStateFlags_Admin = 1 << 3,
+		UwPlayerStateFlags_Disconnected = 1 << 0,
+		UwPlayerStateFlags_Admin = 1 << 1,
+		UwPlayerStateFlags_Loaded = 1 << 2,
+		UwPlayerStateFlags_Pause = 1 << 3,
+		UwPlayerStateFlags_SkipCutscene = 1 << 4,
 	} UwPlayerStateFlags;
 	typedef enum UwPlayerConnectionClassEnum
 	{
@@ -168,9 +169,9 @@ extern "C"
 
 	typedef struct UwPlayerAiConfigComponent
 	{
-		float dumbness;
+		float difficulty;
 		float aggressive; // army is frequently attacking, or mostly just defends
-		float stretched; // army is spread into many small groups, or mostly concentrated
+		float stretching; // army is spread into many small groups, or mostly concentrated
 		float expansive; // takes many bases, or turtles on few
 	} UwPlayerAiConfigComponent;
 	UNNATURAL_API bool uwFetchPlayerAiConfigComponent(UwEntityPtr entity, UwPlayerAiConfigComponent *data);
@@ -178,9 +179,9 @@ extern "C"
 	typedef enum UwForceStateFlags
 	{
 		UwForceStateFlags_None = 0,
-		UwForceStateFlags_Winner = 1 << 0,
-		UwForceStateFlags_Defeated = 1 << 1,
-		UwForceStateFlags_Disconnected = 1 << 2,
+		UwForceStateFlags_Disconnected = 1 << 0,
+		UwForceStateFlags_Winner = 1 << 1,
+		UwForceStateFlags_Defeated = 1 << 2,
 	} UwForceStateFlags;
 	typedef struct UwForceComponent
 	{

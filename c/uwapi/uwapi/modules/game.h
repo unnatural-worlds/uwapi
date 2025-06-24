@@ -21,6 +21,9 @@ extern "C"
 		UwGameStateEnum_Preparation = 2,
 		UwGameStateEnum_Game = 3,
 		UwGameStateEnum_Finish = 4,
+		UwGameStateEnum_Paused = 5,
+		UwGameStateEnum_CutscenePaused = 6,
+		UwGameStateEnum_CutsceneRunning = 7,
 	} UwGameStateEnum;
 #ifdef UNNATURAL_BOTS
 	typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
