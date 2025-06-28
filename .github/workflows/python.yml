@@ -1,0 +1,38 @@
+name: Python
+
+on: [push, pull_request]
+
+jobs:
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: install dependencies
+        run: |
+          pip install mypy cffi types-cffi
+
+      - name: run mypy
+        run: mypy python
+
+  pyright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: install dependencies
+        run: |
+          pip install pyright cffi types-cffi
+
+      - name: run pyright
+        run: pyright python
