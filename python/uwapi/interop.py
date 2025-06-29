@@ -94,10 +94,11 @@ class UwUnitStateFlags(IntFlag):
 
 class UwPlayerStateFlags(IntFlag):
     Nothing = 0
-    Loaded = 1 << 0
-    Pause = 1 << 1
-    Disconnected = 1 << 2
-    Admin = 1 << 3
+    Disconnected = 1 << 0
+    Admin = 1 << 1
+    Loaded = 1 << 2
+    Pause = 1 << 3
+    SkipCutscene = 1 << 4
 
 class UwPlayerConnectionClassEnum(Enum):
     Nothing = 0
@@ -108,9 +109,9 @@ class UwPlayerConnectionClassEnum(Enum):
 
 class UwForceStateFlags(IntFlag):
     Nothing = 0
-    Winner = 1 << 0
-    Defeated = 1 << 1
-    Disconnected = 1 << 2
+    Disconnected = 1 << 0
+    Winner = 1 << 1
+    Defeated = 1 << 2
 
 class UwGameStateEnum(Enum):
     Nothing = 0
@@ -118,6 +119,9 @@ class UwGameStateEnum(Enum):
     Preparation = 2
     Game = 3
     Finish = 4
+    Paused = 5
+    CutscenePaused = 6
+    CutsceneRunning = 7
 
 class UwTaskTypeEnum(Enum):
     Nothing = 0
@@ -280,9 +284,9 @@ class UwPlayerComponent:
 
 @dataclass
 class UwPlayerAiConfigComponent:
-    dumbness: float
+    difficulty: float
     aggressive: float
-    stretched: float
+    stretching: float
     expansive: float
 
 @dataclass
@@ -545,17 +549,23 @@ class Interop:
         path_ = self._str_pytoc(path)
         self._api.uwAdminSetMapSelection(path_)
 
+    def uwAdminSetGameSpeed(self, speed: float) -> None:
+        self._api.uwAdminSetGameSpeed(speed)
+
+    def uwAdminSetWeatherSpeed(self, speed: float, offset: float) -> None:
+        self._api.uwAdminSetWeatherSpeed(speed, offset)
+
     def uwAdminStartGame(self) -> None:
         self._api.uwAdminStartGame()
 
     def uwAdminTerminateGame(self) -> None:
         self._api.uwAdminTerminateGame()
 
-    def uwAdminSetGameSpeed(self, speed: float) -> None:
-        self._api.uwAdminSetGameSpeed(speed)
+    def uwAdminPauseGame(self, pause: bool) -> None:
+        self._api.uwAdminPauseGame(pause)
 
-    def uwAdminSetWeatherSpeed(self, speed: float, offset: float) -> None:
-        self._api.uwAdminSetWeatherSpeed(speed, offset)
+    def uwAdminSkipCutscene(self) -> None:
+        self._api.uwAdminSkipCutscene()
 
     def uwAdminAddAi(self) -> None:
         self._api.uwAdminAddAi()
@@ -569,6 +579,10 @@ class Interop:
     def uwAdminPlayerSetName(self, playerId: int, name: str) -> None:
         name_ = self._str_pytoc(name)
         self._api.uwAdminPlayerSetName(playerId, name_)
+
+    def uwAdminPlayerAiConfig(self, playerId: int, config: UwPlayerAiConfigComponent) -> None:
+        config_ = self._UwPlayerAiConfigComponent_pytoc(config)
+        self._api.uwAdminPlayerAiConfig(playerId, config_)
 
     def uwAdminPlayerJoinForce(self, playerId: int, forceId: int) -> None:
         self._api.uwAdminPlayerJoinForce(playerId, forceId)
@@ -1284,7 +1298,15 @@ class Interop:
         return UwPlayerComponent(self._str_ctopy(val.name), int(val.nameLength), int(val.steamUserId), int(val.force), float(val.progress), int(val.ping), UwPlayerStateFlags(val.state), UwPlayerConnectionClassEnum(val.playerConnectionClass))
 
     def _UwPlayerAiConfigComponent_ctopy(self, val) -> UwPlayerAiConfigComponent:
-        return UwPlayerAiConfigComponent(float(val.dumbness), float(val.aggressive), float(val.stretched), float(val.expansive))
+        return UwPlayerAiConfigComponent(float(val.difficulty), float(val.aggressive), float(val.stretching), float(val.expansive))
+
+    def _UwPlayerAiConfigComponent_pytoc(self, val: UwPlayerAiConfigComponent):
+        r = self._ffi.new("UwPlayerAiConfigComponent *")
+        r.difficulty = val.difficulty
+        r.aggressive = val.aggressive
+        r.stretching = val.stretching
+        r.expansive = val.expansive
+        return r
 
     def _UwForceComponent_ctopy(self, val) -> UwForceComponent:
         return UwForceComponent(list[float]([float(val.color[i]) for i in range(3)]), int(val.score), int(val.killCount), int(val.lossCount), int(val.finishTimestamp), int(val.intendedTeam), int(val.intendedRace), UwForceStateFlags(val.state))

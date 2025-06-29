@@ -6,6 +6,9 @@ The shared library is distributed together with the game.
 The uwapi repository contains c/c++ headers for all functions and structures provided by the library.
 Furthermore, it contains convenient wrappers for Python and C# for easy start.
 
+.. important::
+	Do *not* use Flatpak or Snap for Steam on Linux.
+
 Steam Appid Txt
 ---------------
 
