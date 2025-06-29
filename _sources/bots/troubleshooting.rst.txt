@@ -1,9 +1,6 @@
 Troubleshooting
 ===============
 
-.. important::
-	Do *not* use Flatpak for Steam on Linux.
-
 .. dropdown:: Unable to load DLL 'unnatural-uwapi-hard'
 
 	Make sure you have installed Unnatural Worlds in Steam.
@@ -20,6 +17,9 @@ Troubleshooting
 
 	Make sure that Steam is running and logged in.  
 	It must run under the same user as the program.
+
+	Also make sure that you have copied the steam_appid.txt file correctly.
+
 	Do not use any containerization.
 
 .. dropdown:: Linux laptop with switchable GPUs

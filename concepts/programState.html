@@ -280,6 +280,9 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">Preparation</span></code> - countdown before the game actually starts. This alerts players to get ready.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Game</span></code> - game is in progress.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Finish</span></code> - game is over. Winners and defeated have been declared.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Paused</span></code> - some players have requested the game to pause. It will return to the <code class="docutils literal notranslate"><span class="pre">Game</span></code> state when all players are ready again.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CutscenePaused</span></code> - the game is playing a cut-scene, and game time is stopped. It will return to the <code class="docutils literal notranslate"><span class="pre">Game</span></code> state when the cut-scene finishes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CutsceneRunning</span></code> - the game is playing a cut-scene, and simulation continues. It will return to the <code class="docutils literal notranslate"><span class="pre">Game</span></code> state when the cut-scene finishes.</p></li>
 </ul>
 </section>
 <section id="map-state">

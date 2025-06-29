@@ -10,10 +10,10 @@ Initialization
 ^^^^^^^^^^^^^^
 
 - You need to change current working directory to the ``bin`` directory in the game installation.
-  Without it, the game will be unable to load maps and assets, even if it might load the shared library.
+  Without it, the game will be unable to load maps and assets (even if it might happen to load the shared library).
 
 .. warning::
-	Do *not* change current working directory once configured.
+	Do *not* change current working directory from now on.
 
 - Next, you load the shared library.
 

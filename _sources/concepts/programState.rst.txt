@@ -10,6 +10,9 @@ Game State
 - ``Preparation`` - countdown before the game actually starts. This alerts players to get ready.
 - ``Game`` - game is in progress.
 - ``Finish`` - game is over. Winners and defeated have been declared.
+- ``Paused`` - some players have requested the game to pause. It will return to the ``Game`` state when all players are ready again.
+- ``CutscenePaused`` - the game is playing a cut-scene, and game time is stopped. It will return to the ``Game`` state when the cut-scene finishes.
+- ``CutsceneRunning`` - the game is playing a cut-scene, and simulation continues. It will return to the ``Game`` state when the cut-scene finishes.
 
 Map State
 ---------
