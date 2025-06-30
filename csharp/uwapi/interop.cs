@@ -314,7 +314,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 37;
+        public const uint UW_VERSION = 38;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -696,11 +696,12 @@ namespace Unnatural
             None = 0,
             Session = 1,
             Preparation = 2,
-            Game = 3,
-            Finish = 4,
-            Paused = 5,
-            CutscenePaused = 6,
-            CutsceneRunning = 7,
+            Starting = 3,
+            Game = 4,
+            Finish = 5,
+            Pause = 6,
+            CutscenePaused = 7,
+            CutsceneRunning = 8,
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -712,8 +713,11 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern UwGameStateEnum uwGameState();
 
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint uwGameTick();
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwUpdateCallbackType(uint tick, [MarshalAs(UnmanagedType.I1)] bool stepping);
+        public delegate void UwUpdateCallbackType([MarshalAs(UnmanagedType.I1)] bool stepping);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetUpdateCallback(UwUpdateCallbackType callback);

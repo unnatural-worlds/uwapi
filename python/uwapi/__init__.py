@@ -5,7 +5,7 @@
 from .interop import *
 from .admin import uw_admin
 from .commands import uw_commands
-from .entity import Entity, INVALID
+from .entity import Entity
 from .events import uw_events
 from .game import uw_game
 from .library import UwapiLibrary

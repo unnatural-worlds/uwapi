@@ -62,6 +62,9 @@ class Game:
     def game_state(self) -> UwGameStateEnum:
         return uw_interop.uwGameState()
 
+    def game_tick(self) -> int:
+        return uw_interop.uwGameTick()
+
     def map_state(self) -> UwMapStateEnum:
         return uw_interop.uwMapState()
 

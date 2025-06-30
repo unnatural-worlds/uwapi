@@ -208,7 +208,7 @@ namespace Unnatural
 
         static World()
         {
-            Game.Updating += Updating;
+            Events.Updating += Updating;
         }
     }
 

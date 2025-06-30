@@ -3,8 +3,6 @@ from typing import Optional
 from .interop import *
 from .prototypes import uw_prototypes, Prototype
 
-INVALID: int = 0xFFFFFFFF
-
 def _make_empty_UwUnitUpgrades() -> UwUnitUpgrades:
     return UwUnitUpgrades(0, 0, 0, 0, 0, 0, 0)
 

@@ -303,7 +303,7 @@ namespace Unnatural
 
         static Prototypes()
         {
-            Game.MapStateChanged += MapStateChanged;
+            Events.MapStateChanged += MapStateChanged;
         }
     }
 }

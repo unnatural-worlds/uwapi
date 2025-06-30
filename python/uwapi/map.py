@@ -3,8 +3,6 @@ from dataclasses import dataclass
 from .interop import *
 from .events import uw_events
 
-INVALID: int = 0xFFFFFFFF
-
 @dataclass
 class Vector3:
     x: float = 0

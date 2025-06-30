@@ -26,7 +26,7 @@ namespace Unnatural
             {
                 if (Commands.Orders(own.Id).Length == 0)
                 {
-                    Entity enemy = enemyUnits.OrderByDescending(x => Map.DistanceEstimate(own.Pos, x.Pos)).First();
+                    Entity enemy = enemyUnits.OrderBy(x => Map.DistanceEstimate(own.Pos, x.Pos)).First();
                     Commands.Order(own.Id, Commands.FightToEntity(enemy.Id));
                 }
             }
@@ -81,7 +81,7 @@ namespace Unnatural
             }
         }
 
-        void Start()
+        void Run()
         {
             Game.LogInfo("bot-cs start");
             if (!Game.TryReconnect())
@@ -95,7 +95,7 @@ namespace Unnatural
 
         Bot()
         {
-            Game.Updating += Updating;
+            Events.Updating += Updating;
         }
 
         static int Main(string[] args)
@@ -120,7 +120,7 @@ namespace Unnatural
             Directory.SetCurrentDirectory(root);
 
             Bot bot = new Bot();
-            bot.Start();
+            bot.Run();
             return 0;
         }
     }

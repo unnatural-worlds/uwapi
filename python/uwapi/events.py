@@ -6,7 +6,7 @@ class Events:
     _instance = None
     _connection_state_listeners: List[Callable[[UwConnectionStateEnum], None]] = []
     _game_state_listeners: List[Callable[[UwGameStateEnum], None]] = []
-    _update_listeners: List[Callable[[int, bool], None]] = []
+    _update_listeners: List[Callable[[bool], None]] = []
     _shooting_listeners: List[Callable[[UwShootingArray], None]] = []
     _explosions_listeners: List[Callable[[UwExplosionsArray], None]] = []
     _force_eliminated_listeners: List[Callable[[int], None]] = []
@@ -39,7 +39,7 @@ class Events:
     def on_game_state(self, listener: Callable[[UwGameStateEnum], None]) -> None:
         self._game_state_listeners.append(listener)
 
-    def on_update(self, listener: Callable[[int, bool], None]) -> None:
+    def on_update(self, listener: Callable[[bool], None]) -> None:
         self._update_listeners.append(listener)
 
     def on_shooting(self, listener: Callable[[UwShootingArray], None]) -> None:
@@ -71,9 +71,9 @@ class Events:
         for listener in self._game_state_listeners:
             listener(state)
 
-    def _update_callback(self, tick: int, stepping: bool) -> None:
+    def _update_callback(self, stepping: bool) -> None:
         for listener in self._update_listeners:
-            listener(tick, stepping)
+            listener(stepping)
 
     def _shooting_callback(self, data: UwShootingArray) -> None:
         for listener in self._shooting_listeners:

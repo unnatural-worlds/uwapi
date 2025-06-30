@@ -1,7 +1,5 @@
 from .interop import *
 
-INVALID: int = 0xFFFFFFFF
-
 class Admin:
     _instance = None
 

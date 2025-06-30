@@ -102,7 +102,7 @@ class World:
         else:
             self._overview = []
 
-    def _update(self, tick: int, stepping: bool) -> None:
+    def _update(self, stepping: bool) -> None:
         tmp = uw_interop.uwMyPlayer()
         self._my_force_id = tmp[1].forceEntityId if tmp[0] else 0
         self._my_force_statistics = uw_interop.uwMyForceStatistics()

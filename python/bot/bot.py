@@ -34,12 +34,12 @@ class Bot:
             return
         self.is_configured = True
 
-        uw_game.set_player_name("bot-cs")
+        uw_game.set_player_name("bot-py")
         uw_game.player_join_force(0) # create new force
         uw_game.set_force_color(1, 0, 0)
         # todo choose race
 
-    def on_update(self, tick: int, stepping: bool):
+    def on_update(self, stepping: bool):
         if uw_game.game_state() == GameState.Session:
             self.configure()
             return

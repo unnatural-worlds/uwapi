@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 37;
+static const uint32 UW_VERSION = 38;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -431,11 +431,12 @@ typedef enum UwGameStateEnum
 	UwGameStateEnum_None = 0,
 	UwGameStateEnum_Session = 1,
 	UwGameStateEnum_Preparation = 2,
-	UwGameStateEnum_Game = 3,
-	UwGameStateEnum_Finish = 4,
-	UwGameStateEnum_Paused = 5,
-	UwGameStateEnum_CutscenePaused = 6,
-	UwGameStateEnum_CutsceneRunning = 7,
+	UwGameStateEnum_Starting = 3,
+	UwGameStateEnum_Game = 4,
+	UwGameStateEnum_Finish = 5,
+	UwGameStateEnum_Pause = 6,
+	UwGameStateEnum_CutscenePaused = 7,
+	UwGameStateEnum_CutsceneRunning = 8,
 } UwGameStateEnum;
 
 typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
@@ -443,7 +444,9 @@ void uwSetGameStateCallback(UwGameStateCallbackType callback);
 
 UwGameStateEnum uwGameState(void);
 
-typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
+uint32 uwGameTick(void);
+
+typedef void (*UwUpdateCallbackType)(bool stepping);
 void uwSetUpdateCallback(UwUpdateCallbackType callback);
 
 typedef struct UwShootingUnit

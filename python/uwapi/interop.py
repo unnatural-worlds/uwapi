@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from typing import Callable, Tuple, List
 from cffi import FFI
 
+INVALID: int = 0xFFFFFFFF
+
 
 class UwSeverityEnum(Enum):
     Note = 0
@@ -117,11 +119,12 @@ class UwGameStateEnum(Enum):
     Nothing = 0
     Session = 1
     Preparation = 2
-    Game = 3
-    Finish = 4
-    Paused = 5
-    CutscenePaused = 6
-    CutsceneRunning = 7
+    Starting = 3
+    Game = 4
+    Finish = 5
+    Pause = 6
+    CutscenePaused = 7
+    CutsceneRunning = 8
 
 class UwTaskTypeEnum(Enum):
     Nothing = 0
@@ -499,7 +502,7 @@ UwExceptionCallbackType = Callable[[str], None]
 UwLogCallbackType = Callable[[UwLogCallback], None]
 UwConnectionStateCallbackType = Callable[[UwConnectionStateEnum], None]
 UwGameStateCallbackType = Callable[[UwGameStateEnum], None]
-UwUpdateCallbackType = Callable[[int, bool], None]
+UwUpdateCallbackType = Callable[[bool], None]
 UwShootingCallbackType = Callable[[UwShootingArray], None]
 UwExplosionsCallbackType = Callable[[UwExplosionsArray], None]
 UwForceEliminatedCallbackType = Callable[[int], None]
@@ -965,12 +968,16 @@ class Interop:
         ret = UwGameStateEnum(ret)
         return ret
 
+    def uwGameTick(self) -> int:
+        ret = self._api.uwGameTick()
+        ret = int(ret)
+        return ret
+
     def uwSetUpdateCallback(self, callback: UwUpdateCallbackType) -> None:
         @self._ffi.callback("UwUpdateCallbackType")
-        def c_callback(tick, stepping):
-            tick = int(tick)
+        def c_callback(stepping):
             stepping = bool(stepping)
-            callback(tick, stepping)
+            callback(stepping)
         self._uwSetUpdateCallback_callback = c_callback
         self._api.uwSetUpdateCallback(c_callback)
 

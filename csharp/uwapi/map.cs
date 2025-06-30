@@ -293,7 +293,7 @@ namespace Unnatural
 
         static Map()
         {
-            Game.MapStateChanged += MapStateChanged;
+            Events.MapStateChanged += MapStateChanged;
         }
     }
 

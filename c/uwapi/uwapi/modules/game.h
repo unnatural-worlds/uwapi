@@ -19,11 +19,12 @@ extern "C"
 		UwGameStateEnum_None = 0,
 		UwGameStateEnum_Session = 1,
 		UwGameStateEnum_Preparation = 2,
-		UwGameStateEnum_Game = 3,
-		UwGameStateEnum_Finish = 4,
-		UwGameStateEnum_Paused = 5,
-		UwGameStateEnum_CutscenePaused = 6,
-		UwGameStateEnum_CutsceneRunning = 7,
+		UwGameStateEnum_Starting = 3,
+		UwGameStateEnum_Game = 4,
+		UwGameStateEnum_Finish = 5,
+		UwGameStateEnum_Pause = 6,
+		UwGameStateEnum_CutscenePaused = 7,
+		UwGameStateEnum_CutsceneRunning = 8,
 	} UwGameStateEnum;
 #ifdef UNNATURAL_BOTS
 	typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
@@ -34,14 +35,16 @@ extern "C"
 #endif
 	UNNATURAL_API UwGameStateEnum uwGameState(void);
 
+	UNNATURAL_API uint32 uwGameTick(void);
+
 	// update callback
 
 #ifdef UNNATURAL_BOTS
-	typedef void (*UwUpdateCallbackType)(uint32 tick, bool stepping);
+	typedef void (*UwUpdateCallbackType)(bool stepping);
 	UNNATURAL_API void uwSetUpdateCallback(UwUpdateCallbackType callback);
 #endif
 #ifdef UNNATURAL_SCRIPTS
-	UNNATURAL_ENTRY void uwUpdateCallback(uint32 tick, bool stepping);
+	UNNATURAL_ENTRY void uwUpdateCallback(bool stepping);
 #endif
 
 	// shooting callback
