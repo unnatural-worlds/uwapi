@@ -121,10 +121,10 @@ class UwGameStateEnum(Enum):
     Preparation = 2
     Starting = 3
     Game = 4
-    Finish = 5
-    Pause = 6
-    CutscenePaused = 7
-    CutsceneRunning = 8
+    Pause = 5
+    CutscenePaused = 6
+    CutsceneRunning = 7
+    Finish = 8
 
 class UwTaskTypeEnum(Enum):
     Nothing = 0
@@ -706,6 +706,9 @@ class Interop:
 
     def uwForceJoinTeam(self, team: int) -> None:
         self._api.uwForceJoinTeam(team)
+
+    def uwSkipCutscene(self) -> None:
+        self._api.uwSkipCutscene()
 
     def uwMyPlayer(self) -> Tuple[bool, UwMyPlayer]:
         data = self._ffi.new("UwMyPlayer *")

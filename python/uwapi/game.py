@@ -1,5 +1,6 @@
 from .interop import *
 
+
 class Game:
     _instance = None
 
@@ -32,7 +33,12 @@ class Game:
     def force_join_team(self, team: int) -> None:
         uw_interop.uwForceJoinTeam(team)
 
-    def set_connect_start_gui(self, start_gui: bool, extra_params: str = "--observer 1") -> None:
+    def skip_cutscene(self) -> None:
+        uw_interop.uwSkipCutscene()
+
+    def set_connect_start_gui(
+        self, start_gui: bool, extra_params: str = "--observer 1"
+    ) -> None:
         uw_interop.uwSetConnectStartGui(start_gui, extra_params)
 
     def connect_find_lan(self, timeout_microseconds: int = 1000000) -> bool:
@@ -47,7 +53,9 @@ class Game:
     def connect_environment(self) -> bool:
         return uw_interop.uwConnectEnvironment()
 
-    def connect_new_server(self, visibility: int = 0, name: str = "", extra_params: str = "") -> None:
+    def connect_new_server(
+        self, visibility: int = 0, name: str = "", extra_params: str = ""
+    ) -> None:
         uw_interop.uwConnectNewServer(visibility, name, extra_params)
 
     def try_reconnect(self) -> bool:
@@ -79,5 +87,6 @@ class Game:
 
     def profiling_event_end(self, name: str, event_start_time: int) -> None:
         uw_interop.uwProfilingEventEnd(name, event_start_time)
+
 
 uw_game = Game()

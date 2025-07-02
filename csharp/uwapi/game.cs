@@ -46,6 +46,11 @@ namespace Unnatural
             Interop.uwForceJoinTeam(team);
         }
 
+        public static void SkipCutscene()
+        {
+            Interop.uwSkipCutscene();
+        }
+
         public static void SetConnectStartGui(bool startGui, string extraParams = "--observer 1")
         {
             Interop.uwSetConnectStartGui(startGui, extraParams);

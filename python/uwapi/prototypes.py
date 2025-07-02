@@ -4,12 +4,14 @@ from typing import Dict, Any
 from .interop import *
 from .events import uw_events
 
+
 @dataclass
 class Prototype:
     id: int = 0
     type: UwPrototypeTypeEnum = UwPrototypeTypeEnum.Nothing
     name: str = ""
     data: Dict[str, Any] = field(default_factory=dict)
+
 
 class Prototypes:
     _instance = None
@@ -47,5 +49,6 @@ class Prototypes:
     def _map_state(self, state: UwMapStateEnum) -> None:
         if state == UwMapStateEnum.Loaded:
             self._load()
+
 
 uw_prototypes = Prototypes()

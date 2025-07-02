@@ -190,6 +190,9 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwForceJoinTeam(uint team);
 
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSkipCutscene();
+
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMyPlayer
         {
@@ -698,10 +701,10 @@ namespace Unnatural
             Preparation = 2,
             Starting = 3,
             Game = 4,
-            Finish = 5,
-            Pause = 6,
-            CutscenePaused = 7,
-            CutsceneRunning = 8,
+            Pause = 5,
+            CutscenePaused = 6,
+            CutsceneRunning = 7,
+            Finish = 8,
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

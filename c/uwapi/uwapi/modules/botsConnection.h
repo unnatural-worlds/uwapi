@@ -71,6 +71,7 @@ extern "C"
 	UNNATURAL_API void uwSetForceColor(float r, float g, float b); // [0 .. 1]
 	UNNATURAL_API void uwSetForceRace(uint32 raceProto);
 	UNNATURAL_API void uwForceJoinTeam(uint32 team);
+	UNNATURAL_API void uwSkipCutscene(void);
 
 	typedef struct UwMyPlayer
 	{

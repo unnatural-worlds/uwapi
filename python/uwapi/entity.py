@@ -3,8 +3,10 @@ from typing import Optional
 from .interop import *
 from .prototypes import uw_prototypes, Prototype
 
+
 def _make_empty_UwUnitUpgrades() -> UwUnitUpgrades:
     return UwUnitUpgrades(0, 0, 0, 0, 0, 0, 0)
+
 
 @dataclass
 class Entity:
@@ -40,10 +42,16 @@ class Entity:
 
     def policy(self) -> UwForeignPolicyEnum:
         from .world import uw_world
-        return uw_world.policy(self.Owner.force) if self.Owner is not None else UwForeignPolicyEnum.Nothing
+
+        return (
+            uw_world.policy(self.Owner.force)
+            if self.Owner is not None
+            else UwForeignPolicyEnum.Nothing
+        )
 
     def own(self) -> bool:
         from .world import uw_world
+
         return self.Owner is not None and self.Owner.force == uw_world.my_force_id()
 
     def ally(self) -> bool:
@@ -53,7 +61,11 @@ class Entity:
         return self.policy() == UwForeignPolicyEnum.Enemy
 
     def type(self) -> UwPrototypeTypeEnum:
-        return uw_prototypes.type(self.Proto.proto) if self.Proto is not None else UwPrototypeTypeEnum.Nothing
+        return (
+            uw_prototypes.type(self.Proto.proto)
+            if self.Proto is not None
+            else UwPrototypeTypeEnum.Nothing
+        )
 
     def proto(self) -> Prototype:
         if self.Proto is not None:
@@ -63,4 +75,9 @@ class Entity:
 
     def unit_upgrades(self) -> UwUnitUpgrades:
         from .world import uw_world
-        return uw_world.unit_upgrades(self.id) if self.type() == UwPrototypeTypeEnum.Unit else _make_empty_UwUnitUpgrades()
+
+        return (
+            uw_world.unit_upgrades(self.id)
+            if self.type() == UwPrototypeTypeEnum.Unit
+            else _make_empty_UwUnitUpgrades()
+        )

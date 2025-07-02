@@ -3,8 +3,10 @@ from .events import uw_events
 from .entity import Entity
 from .entity_update_components import entity_update_components
 
+
 def _make_empty_UwMyForceStatistics() -> UwMyForceStatistics:
     return UwMyForceStatistics(0, 0, 0, 0, 0, 0)
+
 
 class World:
     _instance = None
@@ -35,11 +37,19 @@ class World:
     def test_shooting(self, shooter_id: int, target_id: int) -> bool:
         return uw_interop.uwTestShootingEntities(shooter_id, target_id)
 
-    def test_construction_placement(self, construction_proto: int, position: int, recipe_proto: int = 0) -> bool:
-        return uw_interop.uwTestConstructionPlacement(construction_proto, position, recipe_proto)
+    def test_construction_placement(
+        self, construction_proto: int, position: int, recipe_proto: int = 0
+    ) -> bool:
+        return uw_interop.uwTestConstructionPlacement(
+            construction_proto, position, recipe_proto
+        )
 
-    def find_construction_placement(self, construction_proto: int, position: int, recipe_proto: int = 0) -> int:
-        return uw_interop.uwFindConstructionPlacement(construction_proto, position, recipe_proto)
+    def find_construction_placement(
+        self, construction_proto: int, position: int, recipe_proto: int = 0
+    ) -> int:
+        return uw_interop.uwFindConstructionPlacement(
+            construction_proto, position, recipe_proto
+        )
 
     def overview_flags_all(self) -> list[UwOverviewFlags]:
         return self._overview
@@ -111,5 +121,6 @@ class World:
         self._update_modified()
         self._update_policies()
         self._update_overview(stepping)
+
 
 uw_world = World()

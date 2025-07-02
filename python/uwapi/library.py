@@ -4,6 +4,7 @@ from cffi import FFI
 from .interop import *
 from .events import uw_events
 
+
 class UwapiLibrary:
     _instance = None
 
@@ -24,7 +25,9 @@ class UwapiLibrary:
         self.dispose()
 
     def initialize(self) -> None:
-        api_def = open(os.path.join(os.path.split(os.path.abspath(__file__))[0], "bots.h"), "r").read()
+        api_def = open(
+            os.path.join(os.path.split(os.path.abspath(__file__))[0], "bots.h"), "r"
+        ).read()
 
         steam_path = os.path.expanduser(self.library_path())
         print("looking for uw library in: " + steam_path, flush=True)
@@ -35,7 +38,7 @@ class UwapiLibrary:
         self._api = self._ffi.dlopen(os.path.join(steam_path, self.library_name()))
 
         uw_interop.initialize(self._ffi, self._api)
-        uw_interop.uwInitialize(self._api.UW_VERSION) # type: ignore
+        uw_interop.uwInitialize(self._api.UW_VERSION)  # type: ignore
         uw_interop.uwInitializeConsoleLogger()
         uw_events.initialize()
 
@@ -45,12 +48,12 @@ class UwapiLibrary:
         # attempting graceful closing causes the process to hung somewhere in steam shutdown code
         # we will instead terminate the process, skipping most of python's clean-up code
         print("terminating the process")
-        os._exit(0) # this is considered a success
+        os._exit(0)  # this is considered a success
 
-        #print("disposing of uwapi library")
-        #self._ffi = None
-        #self._api = None
-        #uw_interop.initialize(self._ffi, self._api)
+        # print("disposing of uwapi library")
+        # self._ffi = None
+        # self._api = None
+        # uw_interop.initialize(self._ffi, self._api)
 
     def library_path(self) -> str:
         steam_path = os.environ.get("UNNATURAL_ROOT", "")

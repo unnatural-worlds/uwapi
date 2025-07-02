@@ -2,6 +2,7 @@ from dataclasses import field
 from typing import Callable, List
 from .interop import *
 
+
 class Events:
     _instance = None
     _connection_state_listeners: List[Callable[[UwConnectionStateEnum], None]] = []
@@ -33,7 +34,9 @@ class Events:
 
     # ---------------------
 
-    def on_connection_state(self, listener: Callable[[UwConnectionStateEnum], None]) -> None:
+    def on_connection_state(
+        self, listener: Callable[[UwConnectionStateEnum], None]
+    ) -> None:
         self._connection_state_listeners.append(listener)
 
     def on_game_state(self, listener: Callable[[UwGameStateEnum], None]) -> None:
@@ -87,15 +90,20 @@ class Events:
         for listener in self._force_eliminated_listeners:
             listener(force)
 
-    def _chat_callback(self, message: str, sender: int, flags: UwChatTargetFlags) -> None:
+    def _chat_callback(
+        self, message: str, sender: int, flags: UwChatTargetFlags
+    ) -> None:
         for listener in self._chat_listeners:
             listener(message, sender, flags)
 
-    def _task_completed_callback(self, task_user_data: int, type: UwTaskTypeEnum) -> None:
-        pass # todo
+    def _task_completed_callback(
+        self, task_user_data: int, type: UwTaskTypeEnum
+    ) -> None:
+        pass  # todo
 
     def _map_state_callback(self, state: UwMapStateEnum) -> None:
         for listener in self._map_state_listeners:
             listener(state)
+
 
 uw_events = Events()

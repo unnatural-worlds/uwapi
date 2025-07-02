@@ -1,5 +1,6 @@
 from .interop import *
 
+
 class Admin:
     _instance = None
 
@@ -67,5 +68,6 @@ class Admin:
 
     def send_ping(self, position: int, ping, id: int) -> None:
         uw_interop.uwAdminSendPing(position, ping, id)
+
 
 uw_admin = Admin()

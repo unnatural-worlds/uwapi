@@ -1,5 +1,6 @@
 from .interop import *
 
+
 class Commands:
     _instance = None
 
@@ -54,14 +55,16 @@ class Commands:
         position: int,
         yaw: float = 0,
         recipe_proto: int = 0,
-        priority: UwPriorityEnum = UwPriorityEnum.Normal
+        priority: UwPriorityEnum = UwPriorityEnum.Normal,
     ) -> None:
-        uw_interop.uwCommandPlaceConstruction(construction_proto, position, yaw, recipe_proto, priority)
+        uw_interop.uwCommandPlaceConstruction(
+            construction_proto, position, yaw, recipe_proto, priority
+        )
 
     def set_recipe(self, unit_id: int, recipe_proto: int) -> None:
         uw_interop.uwCommandSetRecipe(unit_id, recipe_proto)
 
-    def set_priority(self, unit_id: int, priority : UwPriorityEnum) -> None:
+    def set_priority(self, unit_id: int, priority: UwPriorityEnum) -> None:
         uw_interop.uwCommandSetPriority(unit_id, priority)
 
     def load(self, unit_id: int, resource_proto: int) -> None:
@@ -83,6 +86,9 @@ class Commands:
         uw_interop.uwCommandSelfDestruct(entity_id)
 
     def _default_order(self) -> UwOrder:
-        return UwOrder(INVALID, INVALID, UwOrderTypeEnum.Nothing, UwOrderPriorityFlags.User)
+        return UwOrder(
+            INVALID, INVALID, UwOrderTypeEnum.Nothing, UwOrderPriorityFlags.User
+        )
+
 
 uw_commands = Commands()

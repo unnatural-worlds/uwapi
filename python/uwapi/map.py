@@ -3,11 +3,13 @@ from dataclasses import dataclass
 from .interop import *
 from .events import uw_events
 
+
 @dataclass
 class Vector3:
     x: float = 0
     y: float = 0
     z: float = 0
+
 
 class Map:
     _instance = None
@@ -90,11 +92,14 @@ class Map:
         shooter_proto: int,
         shooting_range_upgrade: float,
         target_position: int,
-        target_proto: int
+        target_proto: int,
     ) -> bool:
         return uw_interop.uwTestShooting(
-            shooter_position, shooter_proto, shooting_range_upgrade,
-            target_position, target_proto
+            shooter_position,
+            shooter_proto,
+            shooting_range_upgrade,
+            target_position,
+            target_proto,
         )
 
     def distance_line(self, a: int, b: int) -> float:
@@ -146,16 +151,18 @@ class Map:
     def _load_info(self) -> None:
         info = uw_interop.uwMapInfo()
         if info[0]:
-            self._name = info[1].name;
-            self._guid = info[1].guid;
-            self._path = info[1].path;
+            self._name = info[1].name
+            self._guid = info[1].guid
+            self._path = info[1].path
             self._max_players = info[1].maxPlayers
 
     def _load_tiles(self) -> None:
         count = uw_interop.uwTilesCount()
         for i in range(count):
             tile = uw_interop.uwTile(i)
-            self._positions.append(Vector3(tile.position[0], tile.position[1], tile.position[2]))
+            self._positions.append(
+                Vector3(tile.position[0], tile.position[1], tile.position[2])
+            )
             self._ups.append(Vector3(tile.up[0], tile.up[1], tile.up[2]))
             self._neighbors.append(tile.neighborsIndices)
             self._terrains.append(tile.terrain)
@@ -180,5 +187,6 @@ class Map:
     def _map_state(self, state: UwMapStateEnum) -> None:
         if state == UwMapStateEnum.Loaded:
             self._load()
+
 
 uw_map = Map()
