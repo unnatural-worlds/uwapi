@@ -9,13 +9,13 @@ At start, you are in full control of the program.
 Initialization
 ^^^^^^^^^^^^^^
 
-- You need to change current working directory to the ``bin`` directory in the game installation.
-  Without it, the game will be unable to load maps and assets (even if it might happen to load the shared library).
+1) Change current working directory to the ``bin`` directory in the game installation.
+   Without it, the game will be unable to load maps and assets (even if it might happen to load the shared library).
 
 .. warning::
-	Do *not* change current working directory from now on.
+   Do *not* change current working directory afterwards.
 
-- Next, you load the shared library.
+2) Load the shared library.
 
 .. tab-set::
    :sync-group: language
@@ -23,23 +23,24 @@ Initialization
    .. tab-item:: Python
       :sync: python
 
-      TODO
+      Class UwapiLibrary is responsible for loading the library.
+      This is done in the ``main.py``.
 
    .. tab-item:: C#
       :sync: csharp
 
-      The library is automatically loaded when you first access the global ``Game`` object.
+      The library is automatically loaded when you first access the global ``Events`` object.
       This happens inside the ``Bot`` constructor.
 
-- Setup all your callbacks now.
-  You may also set some parameters for the connection.
+3) Setup all callbacks now.
+   You may also set some parameters for the connection.
 
 Connect
 ^^^^^^^
 There are multiple ways to connect to a game server.
 The usual approach is to first try reconnecting, in case the game has crashed previously.
-Second, you connect to an existing server using the parameters provided in the environment variables, if any.
-Third, you spin up your own server.
+Second, you connect to an existing game server using parameters provided in the environment, if any.
+Third, you spin up your own game server.
 
 Alternatively, you may implement your own logic to determine how to connect to a server.
 
@@ -54,10 +55,10 @@ Notably, the ``Update`` callback is periodically called, no matter the game stat
 This is where you keep track of the state of the game, and perform any of your actions.
 
 .. warning::
-	The ``Update`` callback, and some others, may be called before the game has actually started (eg. in ``Session``), or when the map is not yet ``Loaded``.
-	Be mindful of what operations are valid in these circumstances.
+   The ``Update`` callback, and some others, may be called before the game has actually started (eg. in ``Session``), or when the map is not yet ``Loaded``.
+   Be mindful of what operations are valid in these circumstances.
 
-You may prematurely close the connection with the ``Disconnect`` function.
+You may prematurely close the connection with the ``disconnect`` function.
 This will do a graceful closing of the connection, that is, you will get some additional callbacks called.
 After that the connect function will return.
 
@@ -82,7 +83,7 @@ The construction will appear only after the game server has processed the reques
 It is recommended to wait several ticks between these kinds of actions, to avoid placing same construction multiple times in different places.
 
 .. note::
-	Test your program over a real network, not just localhost.
+   Test your program over a real network, not just localhost.
 
 Client-only State
 ^^^^^^^^^^^^^^^^^

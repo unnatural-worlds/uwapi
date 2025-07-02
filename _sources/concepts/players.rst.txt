@@ -40,7 +40,7 @@ Each unit remembers the last player that gave it any order, this player is calle
 Any automated system in the game (eg. logistics controls for trucks) will not give any orders to units with different controller.
 
 .. note::
-	Controllers are only partially implemented in the game for now.
+   Controllers are only partially implemented in the game for now.
 
 Neutral
 ^^^^^^^
@@ -60,7 +60,7 @@ Diplomacy
 ^^^^^^^^^
 
 .. note::
-	Diplomacy is not yet implemented.
+   Diplomacy is not yet implemented.
 
 Teams
 ^^^^^

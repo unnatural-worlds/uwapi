@@ -3,7 +3,7 @@ Scripts
 Guide on making scripts for custom maps for Unnatural Worlds.
 
 .. warning::
-	Making custom scripts is not yet fully supported.
+   Making custom scripts is not yet fully supported.
 
 Scripts are executed within the server.
 They have access to all data within the game, and may modify all data.

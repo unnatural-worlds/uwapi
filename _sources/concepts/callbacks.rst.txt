@@ -14,8 +14,8 @@ The difference is indicated with the ``stepping`` parameter.
 This callback is the primary driving point for your program.
 
 .. note::
-	Some ticks may be skipped, eg. when the game is lagging.
-	Use ``>=`` when waiting for number of ticks to pass.
+   Some ticks may be skipped, eg. when the game is lagging.
+   Use ``>=`` when waiting for number of ticks to pass.
 
 Shooting Callback
 -----------------
@@ -23,7 +23,7 @@ Shooting events are synchronized *asynchronously and unreliably*.
 This event is useful for measuring threat levels.
 
 .. warning::
-	The entity id may be expired.
+   The entity id may be expired.
 
 Explosions Callback
 -------------------
@@ -32,7 +32,7 @@ Do *not* depend on explosions events for important decisions.
 It is useful for measuring threat levels.
 
 .. warning::
-	The entity id may be expired.
+   The entity id may be expired.
 
 Task Completed Callback
 -----------------------
@@ -43,11 +43,11 @@ Finally, this callback is called, passing in the results, when it finishes.
 This callback may be called at any time, relative to other callbacks - there are no guarantees.
 
 .. warning::
-	Do *not* try to wait (blocking) for the tasks.
-	It will block the whole program indefinitely.
+   Do *not* try to wait (blocking) for the tasks.
+   It will block the whole program indefinitely.
 
 .. warning::
-	Any entity id may have expired by the time the task completed.
+   Any entity id may have expired by the time the task completed.
 
 Force Eliminated Callback
 -------------------------

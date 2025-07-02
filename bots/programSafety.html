@@ -284,7 +284,7 @@ Be careful if you use a <em>c</em> function directly.</p>
 <h2>Threads<a class="headerlink" href="#threads" title="Link to this heading">¶</a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The api is strictly single-threaded!</p>
+<p>Entire uwapi is strictly single-threaded!</p>
 </div>
 </section>
 <section id="hardened-library">
@@ -298,12 +298,12 @@ This library is the default.</p>
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
 Python</label><div class="sd-tab-content docutils">
-<p>TODO</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">-O</span></code>, eg. <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-O</span> <span class="pre">your_bot.py</span></code>, to use the optimized (non-hard) library.</p>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
 C#</label><div class="sd-tab-content docutils">
-<p>Define <code class="docutils literal notranslate"><span class="pre">UW_USE_OPTIMIZED_LIBRARY</span></code> macro to use non-hard library.</p>
+<p>Define <code class="docutils literal notranslate"><span class="pre">UW_USE_OPTIMIZED_LIBRARY</span></code> macro to use the optimized (non-hard) library.</p>
 </div>
 </div>
 </section>

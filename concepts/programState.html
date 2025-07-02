@@ -278,11 +278,13 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> - the game is initializing.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Session</span></code> - players are connecting, and are negotiating the map and other settings. An admin will start the game.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Preparation</span></code> - countdown before the game actually starts. This alerts players to get ready.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Starting</span></code> - briefly used between the transition from <code class="docutils literal notranslate"><span class="pre">Preparation</span></code> to <code class="docutils literal notranslate"><span class="pre">Game</span></code>.
+This state is best used for initialization - all forces already know their real race (in case of random), and their starting positions.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Game</span></code> - game is in progress.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Finish</span></code> - game is over. Winners and defeated have been declared.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Paused</span></code> - some players have requested the game to pause. It will return to the <code class="docutils literal notranslate"><span class="pre">Game</span></code> state when all players are ready again.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pause</span></code> - some players have requested the game to pause. It will return to the <code class="docutils literal notranslate"><span class="pre">Game</span></code> state when all players are ready again.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CutscenePaused</span></code> - the game is playing a cut-scene, and game time is stopped. It will return to the <code class="docutils literal notranslate"><span class="pre">Game</span></code> state when the cut-scene finishes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">CutsceneRunning</span></code> - the game is playing a cut-scene, and simulation continues. It will return to the <code class="docutils literal notranslate"><span class="pre">Game</span></code> state when the cut-scene finishes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Finish</span></code> - game is over. Winners and defeated have been declared.</p></li>
 </ul>
 </section>
 <section id="map-state">
@@ -315,7 +317,7 @@
 <p>Ticks are the measurement of time in the game simulation.</p>
 <p>When ticks are ticking, units are moving.
 When tick is the same, no units are moving, no one is shooting, etc.</p>
-<p>There is 20 ticks per second, by default.
+<p>There are 20 ticks per second, by default.
 This is provided as a constant in the api.</p>
 </section>
 </section>

@@ -276,26 +276,36 @@
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="platform" data-sync-id="windows" for="sd-tab-item-0">
 Windows</label><div class="sd-tab-content docutils">
-<p>Install latest stable version of python from: <a class="reference external" href="https://www.python.org/downloads/windows/">https://www.python.org/downloads/windows/</a>.
-Make sure to add it to system path.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># update pip</span>
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <em>not</em> use <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">install</span> <span class="pre">manager</span></code>. It causes a lot of issues.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In the installer wizard, make sure to add python to system path.</p>
+</div>
+<p>Install latest stable version of python from: <a class="reference external" href="https://www.python.org/downloads/windows/">https://www.python.org/downloads/windows/</a>.</p>
+<p>Update pip (package manager for python):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="platform" data-sync-id="linux" for="sd-tab-item-1">
 Linux</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install python</span>
-sudo<span class="w"> </span>apt<span class="w"> </span>update
+<p>Install python using system package manager:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip
 </pre></div>
 </div>
 </div>
 </div>
-<p>Also install dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install cffi</span>
-pip<span class="w"> </span>install<span class="w"> </span>cffi
+<p>Install mandatory dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>cffi
+</pre></div>
+</div>
+<p>Optionally install tools for python type checking:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pyright<span class="w"> </span>mypy<span class="w"> </span>types-cffi
 </pre></div>
 </div>
 </section>

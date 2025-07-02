@@ -8,27 +8,39 @@ Instructions to install Python:
    .. tab-item:: Windows
       :sync: windows
 
+      .. warning::
+         Do *not* use ``Python install manager``. It causes a lot of issues.
+
+      .. important::
+         In the installer wizard, make sure to add python to system path.
+
       Install latest stable version of python from: https://www.python.org/downloads/windows/.
-      Make sure to add it to system path.
+
+      Update pip (package manager for python):
 
       .. code-block:: bash
 
-         # update pip
          python -m pip install --upgrade pip
 
    .. tab-item:: Linux
       :sync: linux
 
+      Install python using system package manager:
+
       .. code-block:: bash
 
-         # install python
          sudo apt update
          sudo apt install python3-dev python3-pip
 
-Also install dependencies:
+Install mandatory dependencies:
 
 .. code-block:: bash
 
-   # install cffi
    pip install cffi
+
+Optionally install tools for python type checking:
+
+.. code-block:: bash
+
+   pip install pyright mypy types-cffi
 
