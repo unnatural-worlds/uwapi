@@ -49,12 +49,13 @@ extern "C"
 	UNNATURAL_API void uwPlayerCamera(uint32 player, uint32 tileIndex, bool resetToDefaultZoomAndOrientation, float duration, float smooth); // use -1 to send to all players, use NaN for default values
 	UNNATURAL_API void uwPlayerCameraPosition(uint32 player, uint32 tileIndex, float yaw, float pitch, float eyeDistance, float duration, float smooth); // use -1 to send to all players, use NaN for default values
 	UNNATURAL_API void uwPlayerCameraTransform(uint32 player, const float targetPosition[3], const float eyePosition[3], const float eyeUp[3], float duration, float smooth); // use -1 to send to all players, use NaN for default values
-	UNNATURAL_API float uwPlayerDialogue(uint32 player, uint32 avatarId, uint32 voicelineId, uint32 translatedTextId); // use -1 to send to all players, use 0 for no avatar/voice/text, returns duration of the voice/text
+	UNNATURAL_API void uwPlayerDialogue(uint32 player, uint32 avatarId, uint32 voicelineId, uint32 translatedTextId); // use -1 to send to all players, use 0 for no avatar/voice/text
 
 	UNNATURAL_API void uwCutsceneBegin(void);
 	UNNATURAL_API void uwCutsceneEnd(void);
 	UNNATURAL_API void uwCutsceneGameSimulation(bool runGameSimulation);
 	UNNATURAL_API float uwCutsceneTime(void); // seconds since start of the cutscene
+	UNNATURAL_ENTRY void uwCutsceneSkipCallback(void);
 
 	UNNATURAL_API void uwStandardVictoryConditions(bool enable);
 	UNNATURAL_API void uwSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
