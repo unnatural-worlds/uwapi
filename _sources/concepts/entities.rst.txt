@@ -117,7 +117,7 @@ This entity represents a signal sent by an ally.
 
 - ``Attention`` - generic warning signal.
 - ``Attack`` - request to attack this location.
-- ``Defend`` - request to quard this location.
+- ``Defend`` - request to guard this location.
 - ``Rally`` - prepare troops there and await further signals.
 - ``Build`` - build base in this location.
 - ``Evacuate`` - request to leave this area.
