@@ -53,7 +53,11 @@ namespace Unnatural
         public bool logistics; // vehicle that is automatically controlled by the logistics system
         public bool assembler; // the unit must have at least one valid recipe
         public bool emptyNeighbors; // the building requires empty space around
+        public bool maximumDistance; // the unit moves to maximum distance when shooting
         public bool neutralCategory; // the unit is put in neutral category in lexicon
+        public bool explodesWhenAttacks; // suicidal unit
+        public bool explodesWhenKilled;
+        public bool explodesWhenSelfDestructed;
         public float processingSpeed;
         public float lifeRegen; // life per second
         public float manaRegen; // mana per second
@@ -76,6 +80,14 @@ namespace Unnatural
         public float splashRadius; // meters
         public float splashFractionAtEdge;
         public float splashFractionToFriendly;
+
+        // explosion
+        public uint explosionDamageType;
+        public string explosionDamageTypeName;
+        public float explosionDamage;
+        public float explosionRadius; // meters
+        public float explosionFractionAtEdge;
+        public float explosionFractionToFriendly;
 
         // mobile only
         public Dictionary<uint, float> speeds; // terrain type -> speed (meters per second)
