@@ -334,20 +334,21 @@ class UwShootingData:
     target: UwShootingUnit
 
 @dataclass
-class UwShootingArray:
+class UwShootingsArray:
     data: list[UwShootingData]
     count: int
 
 @dataclass
-class UwExplosionData:
+class UwDeathData:
     position: int
     force: int
     prototype: int
     id: int
+    explosion: bool
 
 @dataclass
-class UwExplosionsArray:
-    data: list[UwExplosionData]
+class UwDeathsArray:
+    data: list[UwDeathData]
     count: int
 
 @dataclass
@@ -478,9 +479,9 @@ DiplomacyProposalComponent = UwDiplomacyProposalComponent
 GameState = UwGameStateEnum
 ShootingUnit = UwShootingUnit
 ShootingData = UwShootingData
-ShootingArray = UwShootingArray
-ExplosionData = UwExplosionData
-ExplosionsArray = UwExplosionsArray
+ShootingsArray = UwShootingsArray
+DeathData = UwDeathData
+DeathsArray = UwDeathsArray
 TaskType = UwTaskTypeEnum
 MapState = UwMapStateEnum
 MapInfo = UwMapInfo
@@ -503,8 +504,8 @@ UwLogCallbackType = Callable[[UwLogCallback], None]
 UwConnectionStateCallbackType = Callable[[UwConnectionStateEnum], None]
 UwGameStateCallbackType = Callable[[UwGameStateEnum], None]
 UwUpdateCallbackType = Callable[[bool], None]
-UwShootingCallbackType = Callable[[UwShootingArray], None]
-UwExplosionsCallbackType = Callable[[UwExplosionsArray], None]
+UwShootingsCallbackType = Callable[[UwShootingsArray], None]
+UwDeathsCallbackType = Callable[[UwDeathsArray], None]
 UwForceEliminatedCallbackType = Callable[[int], None]
 UwChatCallbackType = Callable[[str, int, UwChatTargetFlags], None]
 UwTaskCompletedCallbackType = Callable[[int, UwTaskTypeEnum], None]
@@ -984,21 +985,21 @@ class Interop:
         self._uwSetUpdateCallback_callback = c_callback
         self._api.uwSetUpdateCallback(c_callback)
 
-    def uwSetShootingCallback(self, callback: UwShootingCallbackType) -> None:
-        @self._ffi.callback("UwShootingCallbackType")
+    def uwSetShootingsCallback(self, callback: UwShootingsCallbackType) -> None:
+        @self._ffi.callback("UwShootingsCallbackType")
         def c_callback(data):
-            data = self._UwShootingArray_ctopy(data)
+            data = self._UwShootingsArray_ctopy(data)
             callback(data)
-        self._uwSetShootingCallback_callback = c_callback
-        self._api.uwSetShootingCallback(c_callback)
+        self._uwSetShootingsCallback_callback = c_callback
+        self._api.uwSetShootingsCallback(c_callback)
 
-    def uwSetExplosionsCallback(self, callback: UwExplosionsCallbackType) -> None:
-        @self._ffi.callback("UwExplosionsCallbackType")
+    def uwSetDeathsCallback(self, callback: UwDeathsCallbackType) -> None:
+        @self._ffi.callback("UwDeathsCallbackType")
         def c_callback(data):
-            data = self._UwExplosionsArray_ctopy(data)
+            data = self._UwDeathsArray_ctopy(data)
             callback(data)
-        self._uwSetExplosionsCallback_callback = c_callback
-        self._api.uwSetExplosionsCallback(c_callback)
+        self._uwSetDeathsCallback_callback = c_callback
+        self._api.uwSetDeathsCallback(c_callback)
 
     def uwSetForceEliminatedCallback(self, callback: UwForceEliminatedCallbackType) -> None:
         @self._ffi.callback("UwForceEliminatedCallbackType")
@@ -1336,14 +1337,14 @@ class Interop:
     def _UwShootingData_ctopy(self, val) -> UwShootingData:
         return UwShootingData(self._UwShootingUnit_ctopy(val.shooter), self._UwShootingUnit_ctopy(val.target))
 
-    def _UwShootingArray_ctopy(self, val) -> UwShootingArray:
-        return UwShootingArray(list[UwShootingData]([self._UwShootingData_ctopy(val.data[i]) for i in range(val.count)]), int(val.count))
+    def _UwShootingsArray_ctopy(self, val) -> UwShootingsArray:
+        return UwShootingsArray(list[UwShootingData]([self._UwShootingData_ctopy(val.data[i]) for i in range(val.count)]), int(val.count))
 
-    def _UwExplosionData_ctopy(self, val) -> UwExplosionData:
-        return UwExplosionData(int(val.position), int(val.force), int(val.prototype), int(val.id))
+    def _UwDeathData_ctopy(self, val) -> UwDeathData:
+        return UwDeathData(int(val.position), int(val.force), int(val.prototype), int(val.id), bool(val.explosion))
 
-    def _UwExplosionsArray_ctopy(self, val) -> UwExplosionsArray:
-        return UwExplosionsArray(list[UwExplosionData]([self._UwExplosionData_ctopy(val.data[i]) for i in range(val.count)]), int(val.count))
+    def _UwDeathsArray_ctopy(self, val) -> UwDeathsArray:
+        return UwDeathsArray(list[UwDeathData]([self._UwDeathData_ctopy(val.data[i]) for i in range(val.count)]), int(val.count))
 
     def _UwMapInfo_ctopy(self, val) -> UwMapInfo:
         return UwMapInfo(self._str_ctopy(val.name), self._str_ctopy(val.guid), self._str_ctopy(val.path), int(val.maxPlayers))

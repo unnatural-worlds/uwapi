@@ -1,0 +1,24 @@
+name: C#
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: compile
+        run: |
+          mkdir temp_proj
+          cd temp_proj
+          dotnet new console --framework net8.0
+          find ../ -name '*.cs' -not -path "../temp_proj/*" -exec cp {} . \; # copy source files
+          dotnet add package System.Text.Json
+          dotnet add package System.Memory
+          dotnet build --configuration Release

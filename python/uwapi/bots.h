@@ -462,30 +462,31 @@ typedef struct UwShootingData
 	UwShootingUnit shooter;
 	UwShootingUnit target;
 } UwShootingData;
-typedef struct UwShootingArray
+typedef struct UwShootingsArray
 {
 	const UwShootingData *data;
 	uint32 count;
-} UwShootingArray;
+} UwShootingsArray;
 
-typedef void (*UwShootingCallbackType)(const UwShootingArray *data);
-void uwSetShootingCallback(UwShootingCallbackType callback);
+typedef void (*UwShootingsCallbackType)(const UwShootingsArray *data);
+void uwSetShootingsCallback(UwShootingsCallbackType callback);
 
-typedef struct UwExplosionData
+typedef struct UwDeathData
 {
 	uint32 position;
 	uint32 force;
 	uint32 prototype;
 	uint32 id;
-} UwExplosionData;
-typedef struct UwExplosionsArray
+	bool explosion;
+} UwDeathData;
+typedef struct UwDeathsArray
 {
-	const UwExplosionData *data;
+	const UwDeathData *data;
 	uint32 count;
-} UwExplosionsArray;
+} UwDeathsArray;
 
-typedef void (*UwExplosionsCallbackType)(const UwExplosionsArray *data);
-void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
+typedef void (*UwDeathsCallbackType)(const UwDeathsArray *data);
+void uwSetDeathsCallback(UwDeathsCallbackType callback);
 typedef void (*UwForceEliminatedCallbackType)(uint32 id);
 void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
 typedef void (*UwChatCallbackType)(const char *msg, uint32 sender, UwChatTargetFlags flags);

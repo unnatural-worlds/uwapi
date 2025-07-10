@@ -7,9 +7,9 @@ namespace Unnatural
     using GameStateEnum = Interop.UwGameStateEnum;
     using MapStateEnum = Interop.UwMapStateEnum;
     using ShootingData = Interop.UwShootingData;
-    using ShootingArray = Interop.UwShootingArray;
-    using ExplosionData = Interop.UwExplosionData;
-    using ExplosionsArray = Interop.UwExplosionsArray;
+    using ShootingsArray = Interop.UwShootingsArray;
+    using DeathData = Interop.UwDeathData;
+    using DeathsArray = Interop.UwDeathsArray;
     using ChatTargetFLags = Interop.UwChatTargetFlags;
 
     public class ChatMessage
@@ -26,8 +26,8 @@ namespace Unnatural
         public static event EventHandler<GameStateEnum> GameStateChanged;
         public static event EventHandler<MapStateEnum> MapStateChanged;
         public static event EventHandler<bool> Updating;
-        public static event EventHandler<ShootingData[]> Shooting;
-        public static event EventHandler<ExplosionData[]> Explosions;
+        public static event EventHandler<ShootingData[]> Shootings;
+        public static event EventHandler<DeathData[]> Deaths;
         public static event EventHandler<uint> ForceEliminated;
         public static event EventHandler<ChatMessage> ChatReceived;
 
@@ -36,8 +36,8 @@ namespace Unnatural
         static readonly Interop.UwGameStateCallbackType GameStateDelegate = new Interop.UwGameStateCallbackType(GameStateCallback);
         static readonly Interop.UwMapStateCallbackType MapStateDelegate = new Interop.UwMapStateCallbackType(MapStateCallback);
         static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
-        static readonly Interop.UwShootingCallbackType ShootingDelegate = new Interop.UwShootingCallbackType(ShootingCallback);
-        static readonly Interop.UwExplosionsCallbackType ExplosionsDelegate = new Interop.UwExplosionsCallbackType(ExplosionsCallback);
+        static readonly Interop.UwShootingsCallbackType ShootingsDelegate = new Interop.UwShootingsCallbackType(ShootingsCallback);
+        static readonly Interop.UwDeathsCallbackType DeathsDelegate = new Interop.UwDeathsCallbackType(DeathsCallback);
         static readonly Interop.UwForceEliminatedCallbackType ForceEliminatedDelegate = new Interop.UwForceEliminatedCallbackType(ForceEliminatedCallback);
         static readonly Interop.UwChatCallbackType ChatDelegate = new Interop.UwChatCallbackType(ChatCallback);
 
@@ -72,9 +72,9 @@ namespace Unnatural
                 Updating(null, stepping);
         }
 
-        static void ShootingCallback(ref ShootingArray data)
+        static void ShootingsCallback(ref ShootingsArray data)
         {
-            if (Shooting == null)
+            if (Shootings == null)
                 return;
             ShootingData[] arr = new ShootingData[data.count];
             int size = Marshal.SizeOf(typeof(ShootingData));
@@ -83,21 +83,21 @@ namespace Unnatural
                 IntPtr currentPtr = IntPtr.Add(data.data, i * size);
                 arr[i] = Marshal.PtrToStructure<ShootingData>(currentPtr);
             }
-            Shooting(null, arr);
+            Shootings(null, arr);
         }
 
-        static void ExplosionsCallback(ref ExplosionsArray data)
+        static void DeathsCallback(ref DeathsArray data)
         {
-            if (Explosions == null)
+            if (Deaths == null)
                 return;
-            ExplosionData[] arr = new ExplosionData[data.count];
-            int size = Marshal.SizeOf(typeof(ExplosionData));
+            DeathData[] arr = new DeathData[data.count];
+            int size = Marshal.SizeOf(typeof(DeathData));
             for (int i = 0; i < data.count; i++)
             {
                 IntPtr currentPtr = IntPtr.Add(data.data, i * size);
-                arr[i] = Marshal.PtrToStructure<ExplosionData>(currentPtr);
+                arr[i] = Marshal.PtrToStructure<DeathData>(currentPtr);
             }
-            Explosions(null, arr);
+            Deaths(null, arr);
         }
 
         static void ForceEliminatedCallback(uint force)
@@ -130,8 +130,8 @@ namespace Unnatural
             Interop.uwSetGameStateCallback(GameStateDelegate);
             Interop.uwSetMapStateCallback(MapStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
-            Interop.uwSetShootingCallback(ShootingDelegate);
-            Interop.uwSetExplosionsCallback(ExplosionsDelegate);
+            Interop.uwSetShootingsCallback(ShootingsDelegate);
+            Interop.uwSetDeathsCallback(DeathsDelegate);
             Interop.uwSetForceEliminatedCallback(ForceEliminatedDelegate);
             Interop.uwSetChatCallback(ChatDelegate);
 

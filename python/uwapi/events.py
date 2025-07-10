@@ -8,8 +8,8 @@ class Events:
     _connection_state_listeners: List[Callable[[UwConnectionStateEnum], None]] = []
     _game_state_listeners: List[Callable[[UwGameStateEnum], None]] = []
     _update_listeners: List[Callable[[bool], None]] = []
-    _shooting_listeners: List[Callable[[UwShootingArray], None]] = []
-    _explosions_listeners: List[Callable[[UwExplosionsArray], None]] = []
+    _shootings_listeners: List[Callable[[UwShootingsArray], None]] = []
+    _deaths_listeners: List[Callable[[UwDeathsArray], None]] = []
     _force_eliminated_listeners: List[Callable[[int], None]] = []
     _chat_listeners: List[Callable[[str, int, UwChatTargetFlags], None]] = []
     _map_state_listeners: List[Callable[[UwMapStateEnum], None]] = []
@@ -25,8 +25,8 @@ class Events:
         uw_interop.uwSetConnectionStateCallback(self._connection_state_callback)
         uw_interop.uwSetGameStateCallback(self._game_state_callback)
         uw_interop.uwSetUpdateCallback(self._update_callback)
-        uw_interop.uwSetShootingCallback(self._shooting_callback)
-        uw_interop.uwSetExplosionsCallback(self._explosions_callback)
+        uw_interop.uwSetShootingsCallback(self._shootings_callback)
+        uw_interop.uwSetDeathsCallback(self._deaths_callback)
         uw_interop.uwSetForceEliminatedCallback(self._force_eliminated_callback)
         uw_interop.uwSetChatCallback(self._chat_callback)
         uw_interop.uwSetTaskCompletedCallback(self._task_completed_callback)
@@ -45,11 +45,11 @@ class Events:
     def on_update(self, listener: Callable[[bool], None]) -> None:
         self._update_listeners.append(listener)
 
-    def on_shooting(self, listener: Callable[[UwShootingArray], None]) -> None:
-        self._shooting_listeners.append(listener)
+    def on_shootings(self, listener: Callable[[UwShootingsArray], None]) -> None:
+        self._shootings_listeners.append(listener)
 
-    def on_explosions(self, listener: Callable[[UwExplosionsArray], None]) -> None:
-        self._explosions_listeners.append(listener)
+    def on_deaths(self, listener: Callable[[UwDeathsArray], None]) -> None:
+        self._deaths_listeners.append(listener)
 
     def on_force_eliminated(self, listener: Callable[[int], None]) -> None:
         self._force_eliminated_listeners.append(listener)
@@ -78,12 +78,12 @@ class Events:
         for listener in self._update_listeners:
             listener(stepping)
 
-    def _shooting_callback(self, data: UwShootingArray) -> None:
-        for listener in self._shooting_listeners:
+    def _shootings_callback(self, data: UwShootingsArray) -> None:
+        for listener in self._shootings_listeners:
             listener(data)
 
-    def _explosions_callback(self, data: UwExplosionsArray) -> None:
-        for listener in self._explosions_listeners:
+    def _deaths_callback(self, data: UwDeathsArray) -> None:
+        for listener in self._deaths_listeners:
             listener(data)
 
     def _force_eliminated_callback(self, force: int) -> None:

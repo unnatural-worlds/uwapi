@@ -742,39 +742,41 @@ namespace Unnatural
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct UwShootingArray
+        public struct UwShootingsArray
         {
             public IntPtr data;
             public uint count;
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwShootingCallbackType(ref UwShootingArray data);
+        public delegate void UwShootingsCallbackType(ref UwShootingsArray data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetShootingCallback(UwShootingCallbackType callback);
+        public static extern void uwSetShootingsCallback(UwShootingsCallbackType callback);
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct UwExplosionData
+        public struct UwDeathData
         {
             public uint position;
             public uint force;
             public uint prototype;
             public uint id;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool explosion;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct UwExplosionsArray
+        public struct UwDeathsArray
         {
             public IntPtr data;
             public uint count;
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwExplosionsCallbackType(ref UwExplosionsArray data);
+        public delegate void UwDeathsCallbackType(ref UwDeathsArray data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
+        public static extern void uwSetDeathsCallback(UwDeathsCallbackType callback);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UwForceEliminatedCallbackType(uint id);

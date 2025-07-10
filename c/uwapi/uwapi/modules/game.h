@@ -47,7 +47,7 @@ extern "C"
 	UNNATURAL_ENTRY void uwUpdateCallback(bool stepping);
 #endif
 
-	// shooting callback
+	// shootings callback
 
 	typedef struct UwShootingUnit
 	{
@@ -61,39 +61,40 @@ extern "C"
 		UwShootingUnit shooter;
 		UwShootingUnit target;
 	} UwShootingData;
-	typedef struct UwShootingArray
+	typedef struct UwShootingsArray
 	{
 		UNNATURAL_POINTER(const UwShootingData *) data;
 		uint32 count;
-	} UwShootingArray;
+	} UwShootingsArray;
 #ifdef UNNATURAL_BOTS
-	typedef void (*UwShootingCallbackType)(const UwShootingArray *data);
-	UNNATURAL_API void uwSetShootingCallback(UwShootingCallbackType callback);
+	typedef void (*UwShootingsCallbackType)(const UwShootingsArray *data);
+	UNNATURAL_API void uwSetShootingsCallback(UwShootingsCallbackType callback);
 #endif
 #ifdef UNNATURAL_SCRIPTS
-	UNNATURAL_ENTRY void uwShootingCallback(const UwShootingArray *data);
+	UNNATURAL_ENTRY void uwShootingsCallback(const UwShootingsArray *data);
 #endif
 
-	// explosions callback
+	// deaths callback
 
-	typedef struct UwExplosionData
+	typedef struct UwDeathData
 	{
 		uint32 position;
 		uint32 force;
 		uint32 prototype;
 		uint32 id; // beware, it is expired
-	} UwExplosionData;
-	typedef struct UwExplosionsArray
+		bool explosion;
+	} UwDeathData;
+	typedef struct UwDeathsArray
 	{
-		UNNATURAL_POINTER(const UwExplosionData *) data;
+		UNNATURAL_POINTER(const UwDeathData *) data;
 		uint32 count;
-	} UwExplosionsArray;
+	} UwDeathsArray;
 #ifdef UNNATURAL_BOTS
-	typedef void (*UwExplosionsCallbackType)(const UwExplosionsArray *data);
-	UNNATURAL_API void uwSetExplosionsCallback(UwExplosionsCallbackType callback);
+	typedef void (*UwDeathsCallbackType)(const UwDeathsArray *data);
+	UNNATURAL_API void uwSetDeathsCallback(UwDeathsCallbackType callback);
 #endif
 #ifdef UNNATURAL_SCRIPTS
-	UNNATURAL_ENTRY void uwExplosionsCallback(const UwExplosionsArray *data);
+	UNNATURAL_ENTRY void uwDeathsCallback(const UwDeathsArray *data);
 #endif
 
 	// force eliminated callback
