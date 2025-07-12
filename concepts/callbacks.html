@@ -287,20 +287,20 @@ The difference is indicated with the <code class="docutils literal notranslate">
 Use <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> when waiting for number of ticks to pass.</p>
 </div>
 </section>
-<section id="shooting-callback">
-<h2>Shooting Callback<a class="headerlink" href="#shooting-callback" title="Link to this heading">¶</a></h2>
-<p>Shooting events are synchronized <em>asynchronously and unreliably</em>.
-This event is useful for measuring threat levels.</p>
+<section id="shootings-callback">
+<h2>Shootings Callback<a class="headerlink" href="#shootings-callback" title="Link to this heading">¶</a></h2>
+<p>Shootings events are synchronized <em>asynchronously and unreliably</em>.
+This event is useful for measuring threat.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The entity id may be expired.</p>
 </div>
 </section>
-<section id="explosions-callback">
-<h2>Explosions Callback<a class="headerlink" href="#explosions-callback" title="Link to this heading">¶</a></h2>
-<p>Explosions events are synchronized <em>asynchronously and unreliably</em> - some events may be lost, or delivered much later.
-Do <em>not</em> depend on explosions events for important decisions.
-It is useful for measuring threat levels.</p>
+<section id="deaths-callback">
+<h2>Deaths Callback<a class="headerlink" href="#deaths-callback" title="Link to this heading">¶</a></h2>
+<p>Deaths events are synchronized <em>asynchronously and unreliably</em> - some events may be lost, or delivered much later.
+Do <em>not</em> depend on deaths events for important decisions.
+It is useful for measuring threat.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The entity id may be expired.</p>
@@ -390,8 +390,8 @@ It will block the whole program indefinitely.</p>
 <li><a class="reference internal" href="#">Callbacks</a><ul>
 <li><a class="reference internal" href="#game-map-connection-state-callback">Game/Map/Connection State Callback</a></li>
 <li><a class="reference internal" href="#update-callback">Update Callback</a></li>
-<li><a class="reference internal" href="#shooting-callback">Shooting Callback</a></li>
-<li><a class="reference internal" href="#explosions-callback">Explosions Callback</a></li>
+<li><a class="reference internal" href="#shootings-callback">Shootings Callback</a></li>
+<li><a class="reference internal" href="#deaths-callback">Deaths Callback</a></li>
 <li><a class="reference internal" href="#task-completed-callback">Task Completed Callback</a></li>
 <li><a class="reference internal" href="#force-eliminated-callback">Force Eliminated Callback</a></li>
 <li><a class="reference internal" href="#chat-callback">Chat Callback</a></li>

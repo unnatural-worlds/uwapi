@@ -17,19 +17,19 @@ This callback is the primary driving point for your program.
    Some ticks may be skipped, eg. when the game is lagging.
    Use ``>=`` when waiting for number of ticks to pass.
 
-Shooting Callback
+Shootings Callback
 -----------------
-Shooting events are synchronized *asynchronously and unreliably*.
-This event is useful for measuring threat levels.
+Shootings events are synchronized *asynchronously and unreliably*.
+This event is useful for measuring threat.
 
 .. warning::
    The entity id may be expired.
 
-Explosions Callback
--------------------
-Explosions events are synchronized *asynchronously and unreliably* - some events may be lost, or delivered much later.
-Do *not* depend on explosions events for important decisions.
-It is useful for measuring threat levels.
+Deaths Callback
+---------------
+Deaths events are synchronized *asynchronously and unreliably* - some events may be lost, or delivered much later.
+Do *not* depend on deaths events for important decisions.
+It is useful for measuring threat.
 
 .. warning::
    The entity id may be expired.
