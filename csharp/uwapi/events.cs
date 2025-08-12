@@ -6,10 +6,7 @@ namespace Unnatural
     using ConnectionStateEnum = Interop.UwConnectionStateEnum;
     using GameStateEnum = Interop.UwGameStateEnum;
     using MapStateEnum = Interop.UwMapStateEnum;
-    using ShootingData = Interop.UwShootingData;
     using ShootingsArray = Interop.UwShootingsArray;
-    using DeathData = Interop.UwDeathData;
-    using DeathsArray = Interop.UwDeathsArray;
     using ChatTargetFLags = Interop.UwChatTargetFlags;
 
     public class ChatMessage
@@ -26,8 +23,6 @@ namespace Unnatural
         public static event EventHandler<GameStateEnum> GameStateChanged;
         public static event EventHandler<MapStateEnum> MapStateChanged;
         public static event EventHandler<bool> Updating;
-        public static event EventHandler<ShootingData[]> Shootings;
-        public static event EventHandler<DeathData[]> Deaths;
         public static event EventHandler<uint> ForceEliminated;
         public static event EventHandler<ChatMessage> ChatReceived;
 
@@ -37,7 +32,6 @@ namespace Unnatural
         static readonly Interop.UwMapStateCallbackType MapStateDelegate = new Interop.UwMapStateCallbackType(MapStateCallback);
         static readonly Interop.UwUpdateCallbackType UpdateDelegate = new Interop.UwUpdateCallbackType(UpdateCallback);
         static readonly Interop.UwShootingsCallbackType ShootingsDelegate = new Interop.UwShootingsCallbackType(ShootingsCallback);
-        static readonly Interop.UwDeathsCallbackType DeathsDelegate = new Interop.UwDeathsCallbackType(DeathsCallback);
         static readonly Interop.UwForceEliminatedCallbackType ForceEliminatedDelegate = new Interop.UwForceEliminatedCallbackType(ForceEliminatedCallback);
         static readonly Interop.UwChatCallbackType ChatDelegate = new Interop.UwChatCallbackType(ChatCallback);
 
@@ -74,30 +68,7 @@ namespace Unnatural
 
         static void ShootingsCallback(ref ShootingsArray data)
         {
-            if (Shootings == null)
-                return;
-            ShootingData[] arr = new ShootingData[data.count];
-            int size = Marshal.SizeOf(typeof(ShootingData));
-            for (int i = 0; i < data.count; i++)
-            {
-                IntPtr currentPtr = IntPtr.Add(data.data, i * size);
-                arr[i] = Marshal.PtrToStructure<ShootingData>(currentPtr);
-            }
-            Shootings(null, arr);
-        }
-
-        static void DeathsCallback(ref DeathsArray data)
-        {
-            if (Deaths == null)
-                return;
-            DeathData[] arr = new DeathData[data.count];
-            int size = Marshal.SizeOf(typeof(DeathData));
-            for (int i = 0; i < data.count; i++)
-            {
-                IntPtr currentPtr = IntPtr.Add(data.data, i * size);
-                arr[i] = Marshal.PtrToStructure<DeathData>(currentPtr);
-            }
-            Deaths(null, arr);
+            // todo decode shooting
         }
 
         static void ForceEliminatedCallback(uint force)
@@ -131,7 +102,6 @@ namespace Unnatural
             Interop.uwSetMapStateCallback(MapStateDelegate);
             Interop.uwSetUpdateCallback(UpdateDelegate);
             Interop.uwSetShootingsCallback(ShootingsDelegate);
-            Interop.uwSetDeathsCallback(DeathsDelegate);
             Interop.uwSetForceEliminatedCallback(ForceEliminatedDelegate);
             Interop.uwSetChatCallback(ChatDelegate);
 

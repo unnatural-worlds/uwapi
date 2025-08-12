@@ -317,7 +317,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 39;
+        public const uint UW_VERSION = 40;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -725,20 +725,12 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetUpdateCallback(UwUpdateCallbackType callback);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwShootingUnit
+        public enum UwShootingEventEnum
         {
-            public uint position;
-            public uint force;
-            public uint prototype;
-            public uint id;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwShootingData
-        {
-            public UwShootingUnit shooter;
-            public UwShootingUnit target;
+            None = 0,
+            Shooting = 1,
+            Death = 2,
+            Explosion = 3,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -753,30 +745,6 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetShootingsCallback(UwShootingsCallbackType callback);
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwDeathData
-        {
-            public uint position;
-            public uint force;
-            public uint prototype;
-            public uint id;
-            [MarshalAs(UnmanagedType.I1)]
-            public bool explosion;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwDeathsArray
-        {
-            public IntPtr data;
-            public uint count;
-        }
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwDeathsCallbackType(ref UwDeathsArray data);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetDeathsCallback(UwDeathsCallbackType callback);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UwForceEliminatedCallbackType(uint id);

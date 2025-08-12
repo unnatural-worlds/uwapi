@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 39;
+static const uint32 UW_VERSION = 40;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -450,43 +450,21 @@ uint32 uwGameTick(void);
 typedef void (*UwUpdateCallbackType)(bool stepping);
 void uwSetUpdateCallback(UwUpdateCallbackType callback);
 
-typedef struct UwShootingUnit
+typedef enum UwShootingEventEnum
 {
-	uint32 position;
-	uint32 force;
-	uint32 prototype;
-	uint32 id;
-} UwShootingUnit;
-typedef struct UwShootingData
-{
-	UwShootingUnit shooter;
-	UwShootingUnit target;
-} UwShootingData;
+	UwShootingEventEnum_None = 0,
+	UwShootingEventEnum_Shooting = 1,
+	UwShootingEventEnum_Death = 2,
+	UwShootingEventEnum_Explosion = 3,
+} UwShootingEventEnum;
 typedef struct UwShootingsArray
 {
-	const UwShootingData *data;
+	const uint32 *data;
 	uint32 count;
 } UwShootingsArray;
 
 typedef void (*UwShootingsCallbackType)(const UwShootingsArray *data);
 void uwSetShootingsCallback(UwShootingsCallbackType callback);
-
-typedef struct UwDeathData
-{
-	uint32 position;
-	uint32 force;
-	uint32 prototype;
-	uint32 id;
-	bool explosion;
-} UwDeathData;
-typedef struct UwDeathsArray
-{
-	const UwDeathData *data;
-	uint32 count;
-} UwDeathsArray;
-
-typedef void (*UwDeathsCallbackType)(const UwDeathsArray *data);
-void uwSetDeathsCallback(UwDeathsCallbackType callback);
 typedef void (*UwForceEliminatedCallbackType)(uint32 id);
 void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
 typedef void (*UwChatCallbackType)(const char *msg, uint32 sender, UwChatTargetFlags flags);

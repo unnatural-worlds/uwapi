@@ -1,8 +1,8 @@
 #ifndef unnatural_uwapi_scripts_hpp_zhgfa8g4
 #define unnatural_uwapi_scripts_hpp_zhgfa8g4
 
-#include <vector>
 #include <cstring> // memcpy
+#include <vector>
 
 #include "scripts.h"
 
@@ -18,7 +18,7 @@ namespace uw
 	}
 
 	template<class S>
-		requires(requires { S::data; })
+	requires(requires { S::data; })
 	auto makeVector(const S *src)
 	{
 		return makeVector(src->data, src->count);
@@ -34,6 +34,19 @@ namespace uw
 		UwIds ids;
 		uwAllEntities(&ids);
 		return makeVector(ids);
+	}
+
+	inline auto shootingControlData(uint32 id)
+	{
+		struct ShootingControlData
+		{
+			UwShootingEventEnum type;
+			uint16 count;
+		};
+
+		uint16_t high = static_cast<uint16_t>(id >> 16);
+		uint16_t low = static_cast<uint16_t>(id & 0xFFFF);
+		return ShootingControlData{ (UwShootingEventEnum)high, low };
 	}
 }
 

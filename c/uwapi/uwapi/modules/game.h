@@ -49,21 +49,16 @@ extern "C"
 
 	// shootings callback
 
-	typedef struct UwShootingUnit
+	typedef enum UwShootingEventEnum
 	{
-		uint32 position;
-		uint32 force;
-		uint32 prototype;
-		uint32 id; // beware, it may have expired
-	} UwShootingUnit;
-	typedef struct UwShootingData
-	{
-		UwShootingUnit shooter;
-		UwShootingUnit target;
-	} UwShootingData;
+		UwShootingEventEnum_None = 0,
+		UwShootingEventEnum_Shooting = 1,
+		UwShootingEventEnum_Death = 2,
+		UwShootingEventEnum_Explosion = 3,
+	} UwShootingEventEnum;
 	typedef struct UwShootingsArray
 	{
-		UNNATURAL_POINTER(const UwShootingData *) data;
+		UNNATURAL_POINTER(const uint32 *) data;
 		uint32 count;
 	} UwShootingsArray;
 #ifdef UNNATURAL_BOTS
@@ -72,29 +67,6 @@ extern "C"
 #endif
 #ifdef UNNATURAL_SCRIPTS
 	UNNATURAL_ENTRY void uwShootingsCallback(const UwShootingsArray *data);
-#endif
-
-	// deaths callback
-
-	typedef struct UwDeathData
-	{
-		uint32 position;
-		uint32 force;
-		uint32 prototype;
-		uint32 id; // beware, it is expired
-		bool explosion;
-	} UwDeathData;
-	typedef struct UwDeathsArray
-	{
-		UNNATURAL_POINTER(const UwDeathData *) data;
-		uint32 count;
-	} UwDeathsArray;
-#ifdef UNNATURAL_BOTS
-	typedef void (*UwDeathsCallbackType)(const UwDeathsArray *data);
-	UNNATURAL_API void uwSetDeathsCallback(UwDeathsCallbackType callback);
-#endif
-#ifdef UNNATURAL_SCRIPTS
-	UNNATURAL_ENTRY void uwDeathsCallback(const UwDeathsArray *data);
 #endif
 
 	// force eliminated callback
