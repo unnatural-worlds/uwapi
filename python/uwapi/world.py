@@ -8,9 +8,13 @@ def _make_empty_UwMyForceStatistics() -> UwMyForceStatistics:
     return UwMyForceStatistics(0, 0, 0, 0, 0, 0)
 
 
+def _make_empty_UwMyPlayer() -> UwMyPlayer:
+    return UwMyPlayer(0, 0, False, False)
+
+
 class World:
     _instance = None
-    _my_force_id: int = 0
+    _my_player = _make_empty_UwMyPlayer()
     _my_force_statistics = _make_empty_UwMyForceStatistics()
     _entities: dict[int, Entity] = {}
     _policies: dict[int, UwForeignPolicyEnum] = {}
@@ -22,8 +26,17 @@ class World:
             uw_events.on_update(cls._instance._update)
         return cls._instance
 
+    def my_player_id(self) -> int:
+        return self._my_player.playerEntityId
+
     def my_force_id(self) -> int:
-        return self._my_force_id
+        return self._my_player.forceEntityId
+
+    def is_primary_controller(self) -> bool:
+        return self._my_player.primaryController
+
+    def is_admin(self) -> bool:
+        return self._my_player.admin
 
     def my_force_statistics(self) -> UwMyForceStatistics:
         return self._my_force_statistics

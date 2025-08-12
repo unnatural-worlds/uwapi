@@ -18,7 +18,6 @@ namespace Unnatural
 
     public static class Events
     {
-
         public static event EventHandler<ConnectionStateEnum> ConnectionStateChanged;
         public static event EventHandler<GameStateEnum> GameStateChanged;
         public static event EventHandler<MapStateEnum> MapStateChanged;
@@ -89,7 +88,6 @@ namespace Unnatural
             ChatReceived(null, c);
         }
 
-
         static Events()
         {
             AppDomain.CurrentDomain.ProcessExit += Destructor;
@@ -115,17 +113,6 @@ namespace Unnatural
         static void Destructor(object sender, EventArgs e)
         {
             Interop.uwDeinitialize();
-        }
-    }
-
-    public static class InteropHelpers
-    {
-        public static uint[] Ids(Interop.UwIds ids)
-        {
-            uint[] tmp = new uint[ids.count];
-            if (ids.count > 0)
-                Marshal.Copy(ids.ids, (int[])(object)tmp, 0, (int)ids.count);
-            return tmp;
         }
     }
 

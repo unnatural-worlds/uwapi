@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.IO;
 
 namespace Unnatural
 {
@@ -100,25 +98,7 @@ namespace Unnatural
 
         static int Main(string[] args)
         {
-            string root = Environment.GetEnvironmentVariable("UNNATURAL_ROOT");
-            if (root == null)
-            {
-                string cwd = Directory.GetCurrentDirectory();
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Directory.GetFiles(cwd, Interop.LibName + ".dll").Length > 0)
-                    root = cwd;
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && Directory.GetFiles(cwd, "lib" + Interop.LibName + ".so").Length > 0)
-                    root = cwd;
-            }
-            if (root == null)
-            {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    root = "C:/Program Files (x86)/Steam/steamapps/common/Unnatural Worlds/bin";
-                else
-                    root = Environment.GetEnvironmentVariable("HOME") + "/.steam/steam/steamapps/common/Unnatural Worlds/bin";
-            }
-            Console.WriteLine("looking for uw library in: " + root);
-            Directory.SetCurrentDirectory(root);
-
+            LibraryHelpers.SetCurrentDirectory();
             Bot bot = new Bot();
             bot.Run();
             return 0;

@@ -13,9 +13,24 @@ namespace Unnatural
 
     public static class World
     {
+        public static uint MyPlayerId()
+        {
+            return myPlayer.playerEntityId;
+        }
+
         public static uint MyForceId()
         {
-            return myForceId;
+            return myPlayer.forceEntityId;
+        }
+
+        public static bool IsPrimaryController()
+        {
+            return myPlayer.primaryController;
+        }
+
+        public static bool IsAdmin()
+        {
+            return myPlayer.admin;
         }
 
         public static MyForceStatistics MyForceStatistics()
@@ -104,7 +119,7 @@ namespace Unnatural
             return policies.TryGetValue(force, out val) ? val : PolicyEnum.None;
         }
 
-        static uint myForceId;
+        static Interop.UwMyPlayer myPlayer;
         static MyForceStatistics myForceStatistics = new MyForceStatistics();
         static readonly Dictionary<uint, Entity> entities = new Dictionary<uint, Entity>();
         static readonly Dictionary<uint, PolicyEnum> policies = new Dictionary<uint, PolicyEnum>();
@@ -169,9 +184,9 @@ namespace Unnatural
                 if (!e.ForeignPolicy.HasValue)
                     continue;
                 ForeignPolicy fp = e.ForeignPolicy.Value;
-                if (fp.forces[0] == myForceId)
+                if (fp.forces[0] == myPlayer.forceEntityId)
                     policies[fp.forces[1]] = fp.policy;
-                if (fp.forces[1] == myForceId)
+                if (fp.forces[1] == myPlayer.forceEntityId)
                     policies[fp.forces[0]] = fp.policy;
             }
         }
@@ -193,11 +208,7 @@ namespace Unnatural
 
         static void Updating(object sender, bool stepping)
         {
-            {
-                Interop.UwMyPlayer tmp = new Interop.UwMyPlayer();
-                Interop.uwMyPlayer(ref tmp);
-                myForceId = tmp.forceEntityId;
-            }
+            Interop.uwMyPlayer(ref myPlayer);
             Interop.uwMyForceStatistics(ref myForceStatistics);
             UpdateRemoved();
             UpdateFresh();
