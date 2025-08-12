@@ -114,9 +114,9 @@ class World:
             if not e.ForeignPolicy:
                 continue
             fp = e.ForeignPolicy
-            if fp.forces[0] == self._my_force_id:
+            if fp.forces[0] == self._my_player.forceEntityId:
                 self._policies[fp.forces[1]] = fp.policy
-            if fp.forces[1] == self._my_force_id:
+            if fp.forces[1] == self._my_player.forceEntityId:
                 self._policies[fp.forces[0]] = fp.policy
 
     def _update_overview(self, stepping: bool) -> None:
@@ -127,7 +127,7 @@ class World:
 
     def _update(self, stepping: bool) -> None:
         tmp = uw_interop.uwMyPlayer()
-        self._my_force_id = tmp[1].forceEntityId if tmp[0] else 0
+        self._my_player = tmp[1] if tmp[0] else _make_empty_UwMyPlayer()
         self._my_force_statistics = uw_interop.uwMyForceStatistics()
         self._update_removed()
         self._update_fresh()

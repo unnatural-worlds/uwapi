@@ -11,6 +11,20 @@ class Prototype:
     type: UwPrototypeTypeEnum = UwPrototypeTypeEnum.Nothing
     name: str = ""
     data: Dict[str, Any] = field(default_factory=dict)
+    tags: List[int] = field(default_factory=list)
+    tagsNames: List[str] = field(default_factory=list)
+    json: str = ""
+
+    def tagged(self, tag: int) -> bool:
+        return tag in self.tags
+
+    def _load(self) -> None:
+        self.type = uw_interop.uwPrototypeType(self.id)
+        self.json = uw_interop.uwPrototypeJson(self.id)
+        self.data = json.loads(self.json)
+        self.name = self.data.get("name", "")
+        self.tags = self.data.get("tags", [])
+        self.tagsNames = self.data.get("tagsNames", [])
 
 
 class Prototypes:
@@ -33,15 +47,33 @@ class Prototypes:
             return p.type
         return UwPrototypeTypeEnum.Nothing
 
+    def name(self, id: int) -> str:
+        p = self._all.get(id, None)
+        return p.name if p is not None else ""
+
+    def json(self, id: int) -> str:
+        p = self._all.get(id, None)
+        return p.json if p is not None else ""
+
+    def definitions(self) -> Dict[str, Any]:
+        return self._definitions
+
+    def hashString(self, name: str) -> int:
+        return uw_interop.uwHashString(name)
+
+    def tagId(self, name: str) -> int:
+        try:
+            return self._definitions["tagsNames"].index(name)
+        except ValueError:
+            raise KeyError(f"tag name '{name}' not found")
+
     def _load(self) -> None:
         uw_interop.uwLog(UwSeverityEnum.Info, "loading prototypes")
-        self._all: Dict[int, Prototype] = {}
-        self._definitions: Dict[str, Any] = {}
+        self._all.clear()
+        self._definitions.clear()
         for id in uw_interop.uwAllPrototypes().ids:
             p = Prototype(id)
-            p.type = uw_interop.uwPrototypeType(id)
-            p.data = json.loads(uw_interop.uwPrototypeJson(id))
-            p.name = p.data["name"]
+            p._load()
             self._all[id] = p
         self._definitions = json.loads(uw_interop.uwDefinitionsJson())
         uw_interop.uwLog(UwSeverityEnum.Info, "prototypes loaded")

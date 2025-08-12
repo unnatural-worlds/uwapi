@@ -1,23 +1,33 @@
 import random
 from uwapi import *
 
+
 class Bot:
     is_configured: bool = False
-    work_step: int = 0 # save some cpu cycles by splitting work over multiple steps
+    work_step: int = 0  # save some cpu cycles by splitting work over multiple steps
 
     def __init__(self):
         uw_events.on_update(self.on_update)
 
     def attack_nearest_enemies(self):
-        own_units = [x for x in uw_world.entities().values() if x.own() and x.Unit is not None and x.proto().data.get("dps", 0) > 0]
+        own_units = [
+            x
+            for x in uw_world.entities().values()
+            if x.own() and x.Unit is not None and x.proto().data.get("dps", 0) > 0
+        ]
         if not own_units:
             return
-        enemy_units = [x for x in uw_world.entities().values() if x.enemy() and x.Unit is not None]
+        enemy_units = [
+            x for x in uw_world.entities().values() if x.enemy() and x.Unit is not None
+        ]
         if not enemy_units:
             return
         for own in own_units:
             if len(uw_commands.orders(own.id)) == 0:
-                enemy = min(enemy_units, key=lambda x: uw_map.distance_estimate(own.pos(), x.pos()))
+                enemy = min(
+                    enemy_units,
+                    key=lambda x: uw_map.distance_estimate(own.pos(), x.pos()),
+                )
                 uw_commands.order(own.id, uw_commands.fight_to_entity(enemy.id))
 
     def assign_random_recipes(self):
@@ -35,7 +45,7 @@ class Bot:
         self.is_configured = True
 
         uw_game.set_player_name("bot-py")
-        uw_game.player_join_force(0) # create new force
+        uw_game.player_join_force(0)  # create new force
         uw_game.set_force_color(1, 0, 0)
         # todo choose race
 
@@ -48,7 +58,7 @@ class Bot:
             return
 
         self.work_step += 1
-        match self.work_step % 10: # save some cpu cycles by splitting work over multiple steps
+        match self.work_step % 10:  # save some cpu cycles by splitting work over multiple steps
             case 1:
                 self.attack_nearest_enemies()
             case 5:

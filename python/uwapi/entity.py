@@ -81,3 +81,6 @@ class Entity:
             if self.type() == UwPrototypeTypeEnum.Unit
             else _make_empty_UwUnitUpgrades()
         )
+
+    def tagged(self, tag: int) -> bool:
+        return self.proto().tagged(tag)
