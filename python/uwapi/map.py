@@ -134,6 +134,24 @@ class Map:
     def clusters_neighbors(self, cluster: int) -> List[int]:
         return self._clusters_neighbors[cluster]
 
+    def clusters_distances(
+        self,
+        callback: Callable,
+        starting_cluster: int,
+        unit_prototype: int,
+        allow_impassable_terrain: bool = False,
+    ) -> None:
+        def fin():
+            callback(uw_interop.uwRetrieveClustersDistances())
+
+        q = UwClustersDistancesQuery(
+            uw_events._insert_task(fin),
+            starting_cluster,
+            unit_prototype,
+            allow_impassable_terrain,
+        )
+        uw_interop.uwStartClustersDistances(q)
+
     def _reset(self) -> None:
         self._name: str = ""
         self._guid: str = ""

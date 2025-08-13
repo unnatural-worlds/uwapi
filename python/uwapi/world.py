@@ -73,6 +73,28 @@ class World:
     def overview_entities(self, position: int) -> list[int]:
         return uw_interop.uwOverviewIds(position).ids
 
+    def unit_pathfinding(
+        self,
+        callback: Callable,
+        starting_position: int,
+        goal_position: int,
+        unit_prototype: int,
+        allow_nearby_position: bool = False,
+        max_iterations: int = 0,
+    ) -> None:
+        def fin():
+            callback(uw_interop.uwRetrieveUnitPathfinding())
+
+        q = UwUnitPathfindingQuery(
+            uw_events._insert_task(fin),
+            starting_position,
+            goal_position,
+            unit_prototype,
+            max_iterations,
+            allow_nearby_position,
+        )
+        uw_interop.uwStartUnitPathfinding(q)
+
     def entities(self) -> dict[int, Entity]:
         return self._entities
 

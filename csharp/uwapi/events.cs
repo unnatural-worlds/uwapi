@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Unnatural
@@ -16,12 +17,19 @@ namespace Unnatural
         public ChatTargetFLags Flags;
     }
 
+    public struct ShootingControlData
+    {
+        public Interop.UwShootingEventEnum type;
+        public ushort count;
+    }
+
     public static class Events
     {
         public static event EventHandler<ConnectionStateEnum> ConnectionStateChanged;
         public static event EventHandler<GameStateEnum> GameStateChanged;
         public static event EventHandler<MapStateEnum> MapStateChanged;
         public static event EventHandler<bool> Updating;
+        public static event EventHandler<IReadOnlyList<uint>> Shootings;
         public static event EventHandler<uint> ForceEliminated;
         public static event EventHandler<ChatMessage> ChatReceived;
 
@@ -43,31 +51,51 @@ namespace Unnatural
 
         static void ConnectionStateCallback(ConnectionStateEnum state)
         {
-            if (ConnectionStateChanged != null)
-                ConnectionStateChanged(null, state);
+            if (ConnectionStateChanged == null)
+                return;
+            ConnectionStateChanged(null, state);
         }
 
         static void GameStateCallback(GameStateEnum state)
         {
-            if (GameStateChanged != null)
-                GameStateChanged(null, state);
+            if (GameStateChanged == null)
+                return;
+            GameStateChanged(null, state);
         }
 
         static void MapStateCallback(MapStateEnum state)
         {
-            if (MapStateChanged != null)
-                MapStateChanged(null, state);
+            if (MapStateChanged == null)
+                return;
+            MapStateChanged(null, state);
         }
 
         static void UpdateCallback(bool stepping)
         {
-            if (Updating != null)
-                Updating(null, stepping);
+            if (Updating == null)
+                return;
+            Updating(null, stepping);
         }
 
         static void ShootingsCallback(ref ShootingsArray data)
         {
-            // todo decode shooting
+            if (Shootings == null)
+                return;
+            uint[] tmp = new uint[data.count];
+            if (data.count > 0)
+                Marshal.Copy(data.data, (int[])(object)tmp, 0, (int)data.count);
+            Shootings(null, tmp);
+        }
+
+        public static ShootingControlData ShootingControlData(uint id)
+        {
+            ushort low = (ushort)(id & 0xFFFF);
+            ushort high = (ushort)(id >> 16);
+            return new ShootingControlData
+            {
+                type = (Interop.UwShootingEventEnum)low,
+                count = high
+            };
         }
 
         static void ForceEliminatedCallback(uint force)
@@ -126,7 +154,7 @@ namespace Unnatural
         }
 
         static ulong index = 1;
-        static System.Collections.Generic.Dictionary<ulong, Action> actions = new System.Collections.Generic.Dictionary<ulong, Action>();
+        static Dictionary<ulong, Action> actions = new Dictionary<ulong, Action>();
         static readonly Interop.UwTaskCompletedCallbackType TaskCompletedDelegate = new Interop.UwTaskCompletedCallbackType(TaskCompleted);
 
         static void TaskCompleted(ulong taskUserData, Interop.UwTaskTypeEnum type)
