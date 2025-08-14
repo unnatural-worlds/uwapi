@@ -44,9 +44,9 @@ namespace uw
 			uint16 count;
 		};
 
-		uint16_t high = static_cast<uint16_t>(id >> 16);
 		uint16_t low = static_cast<uint16_t>(id & 0xFFFF);
-		return ShootingControlData{ (UwShootingEventEnum)high, low };
+		uint16_t high = static_cast<uint16_t>(id >> 16);
+		return ShootingControlData{ (UwShootingEventEnum)low, high };
 	}
 }
 
