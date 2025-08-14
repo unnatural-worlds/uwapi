@@ -52,3 +52,4 @@ This will show you additional information about any single thing you select in t
 For example: unit id, its state, position (both index and 3D coordinates), etc.
 It shows at the bottom of the left panel.
 
+Enable *Detailed tooltips* too.
