@@ -19,7 +19,7 @@ Performance Statistics
 The game provides several statistics related to performance, which you can monitor and adapt your program.
 
 - mainThreadUtilization - fraction (0..1) of the time the main thread does any work, vs time it sleeps.
-- ping - network delay measured in milliseconds.
+- ping - network round-trip time measured in milliseconds.
 - networkUp - network bandwidth use measured in KB/s, from client to game server.
 - networkDown - same going from game server to client.
 

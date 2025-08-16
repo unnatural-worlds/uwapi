@@ -7,7 +7,7 @@ The uwapi repository contains c/c++ headers for all functions and structures pro
 Furthermore, it contains convenient wrappers for Python and C# for easy start.
 
 .. important::
-   Do *not* use Flatpak or Snap for Steam on Linux.
+   Do *not* use Flatpak, or Snap, or any other containerization for Steam on Linux.
 
 Steam Appid Txt
 ---------------
@@ -23,13 +23,13 @@ You will find the ``steam_appid.txt`` in the uwapi repository.
 Copy it into the ``bin`` folder, next to the game executable.
 
 It is recommended to remove the ``steam_appid.txt`` when you are done with your AI/bot program.
-Presence of the file may cause a corruption when the game is updated.
+Presence of the file may cause corruption of some files when the game is updated.
 
 Game Install Path
 -----------------
 
 .. important::
-   If you installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` to the directory containing the library.
+   If you installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` pointing to the ``bin`` directory containing the library.
 
 .. tab-set::
    :sync-group: platform
