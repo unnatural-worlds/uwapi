@@ -18,7 +18,7 @@ Troubleshooting
    Make sure that Steam is running and logged in.  
    It must run under the same user as the program.
 
-   Also make sure that you have copied the steam_appid.txt file correctly.
+   Also make sure that you have copied the :ref:`steam_appid.txt <bots/setup:Steam Appid Txt>` file correctly.
 
    Do not use any containerization.
 
