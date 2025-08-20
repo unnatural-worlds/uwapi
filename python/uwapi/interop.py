@@ -240,12 +240,7 @@ class UwManaComponent:
 
 @dataclass
 class UwMoveComponent:
-    posStart: int
-    posEnd: int
-    tickStart: int
-    tickEnd: int
-    yawStart: float
-    yawEnd: float
+    timestamp: int
 
 @dataclass
 class UwAimComponent:
@@ -1248,7 +1243,7 @@ class Interop:
         return UwManaComponent(int(val.mana))
 
     def _UwMoveComponent_ctopy(self, val) -> UwMoveComponent:
-        return UwMoveComponent(int(val.posStart), int(val.posEnd), int(val.tickStart), int(val.tickEnd), float(val.yawStart), float(val.yawEnd))
+        return UwMoveComponent(int(val.timestamp))
 
     def _UwAimComponent_ctopy(self, val) -> UwAimComponent:
         return UwAimComponent(int(val.target))

@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 41;
+static const uint32 UW_VERSION = 42;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -287,12 +287,7 @@ bool uwFetchManaComponent(UwEntityPtr entity, UwManaComponent *data);
 
 typedef struct UwMoveComponent
 {
-	uint32 posStart;
-	uint32 posEnd;
-	uint32 tickStart;
-	uint32 tickEnd;
-	float yawStart;
-	float yawEnd;
+	uint32 timestamp;
 } UwMoveComponent;
 bool uwFetchMoveComponent(UwEntityPtr entity, UwMoveComponent *data);
 

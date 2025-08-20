@@ -79,12 +79,7 @@ extern "C"
 
 	typedef struct UwMoveComponent
 	{
-		uint32 posStart;
-		uint32 posEnd;
-		uint32 tickStart;
-		uint32 tickEnd;
-		float yawStart;
-		float yawEnd;
+		uint32 timestamp;
 	} UwMoveComponent;
 	UNNATURAL_API bool uwFetchMoveComponent(UwEntityPtr entity, UwMoveComponent *data);
 

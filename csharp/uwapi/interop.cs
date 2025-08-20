@@ -317,7 +317,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 41;
+        public const uint UW_VERSION = 42;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -483,12 +483,7 @@ namespace Unnatural
         [StructLayout(LayoutKind.Sequential)]
         public struct UwMoveComponent
         {
-            public uint posStart;
-            public uint posEnd;
-            public uint tickStart;
-            public uint tickEnd;
-            public float yawStart;
-            public float yawEnd;
+            public uint timestamp;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
