@@ -73,7 +73,7 @@ Amount of mana of the unit (or building).
 
 Move Component
 --------------
-Contains information about current movement of the unit.
+Timestamp of when the unit finishes its current movement.
 Information is available for the next neighboring tile only.
 
 Aim Component
@@ -141,7 +141,7 @@ This component contains private information about the force.
 
 Foreign Policy Component
 ------------------------
-This entity declares the policy between two forces.
+This entity declares a policy between two forces.
 
 Diplomacy Proposal Component
 ----------------------------

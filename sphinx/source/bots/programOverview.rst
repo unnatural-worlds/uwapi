@@ -2,8 +2,38 @@ Program Overview
 ================
 High-level look at basic bot program.
 
-Program Lifecycle
+Accessor Objects
 -----------------
+
+These are globally accessible objects that you use to interact with the game.
+
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      - ``uw_admin`` - managing the game server and other players; requires administrator privilege on the game server.
+      - ``uw_commands`` - sending commands and orders to your units, and queries for current orders.
+      - ``uw_events`` - register your callbacks here.
+      - ``uw_game`` - managing game connection, and other settings.
+      - ``uw_map`` - queries about tiles, clusters, etc; data that do *not* change during game.
+      - ``uw_prototypes`` - access to all prototypes; they do *not* change during game.
+      - ``uw_world`` - list all entities, and some additional queries for data that do change during game.
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      - ``Admin`` - managing the game server and other players; requires administrator privilege on the game server.
+      - ``Commands`` - sending commands and orders to your units, and queries for current orders.
+      - ``Events`` - register your callbacks here.
+      - ``Game`` - managing game connection, and other settings.
+      - ``Map`` - queries about tiles, clusters, etc; data that do *not* change during game.
+      - ``Prototypes`` - access to all prototypes; they do *not* change during game.
+      - ``World`` - list all entities, and some additional queries for data that do change during game.
+
+Program Lifetime
+----------------
 At start, you are in full control of the program.
 
 Initialization

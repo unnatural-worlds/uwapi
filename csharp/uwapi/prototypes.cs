@@ -54,6 +54,7 @@ namespace Unnatural
         public bool assembler; // the unit must have at least one valid recipe
         public bool emptyNeighbors; // the building requires empty space around
         public bool maximumDistance; // the unit moves to maximum distance when shooting
+        public bool excludeFromMilitary; // the unit is excluded from all-army hotkey
         public bool neutralCategory; // the unit is put in neutral category in lexicon
         public bool explodesWhenAttacks; // suicidal unit
         public bool explodesWhenKilled;
