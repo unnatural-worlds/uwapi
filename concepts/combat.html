@@ -180,7 +180,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -262,7 +262,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -270,6 +270,52 @@
         <article role="main" id="furo-main-content">
           <section id="combat-upgrades">
 <h1>Combat &amp; Upgrades<a class="headerlink" href="#combat-upgrades" title="Link to this heading">¶</a></h1>
+<section id="shooting">
+<h2>Shooting<a class="headerlink" href="#shooting" title="Link to this heading">¶</a></h2>
+<p>todo</p>
+<section id="visibility">
+<h3>Visibility<a class="headerlink" href="#visibility" title="Link to this heading">¶</a></h3>
+<p>todo</p>
+</section>
+<section id="elevation">
+<h3>Elevation<a class="headerlink" href="#elevation" title="Link to this heading">¶</a></h3>
+<p>todo</p>
+</section>
+</section>
+<section id="explosions">
+<h2>Explosions<a class="headerlink" href="#explosions" title="Link to this heading">¶</a></h2>
+<p>A unit may have any combination (or none) of the following triggers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">explodesWhenAttacks</span></code> - suicidal unit.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">explodesWhenKilled</span></code> - explodes when the unit is naturally killed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">explodesWhenSelfDestructed</span></code> - explodes when the unit receives self-destruct command from owner.</p></li>
+</ul>
+<p>When a unit explodes, it does splash damage in area around it.
+Damage type of the explosion may be different from shooting.</p>
+</section>
+<section id="splash">
+<h2>Splash<a class="headerlink" href="#splash" title="Link to this heading">¶</a></h2>
+<p>Splash means the damage is an area-of-effect.
+It is centered at the target of shooting, or at the unit that explodes, and is circular with specified radius.</p>
+<p>Damage of splash decreases with distance from center, which is determined by <code class="docutils literal notranslate"><span class="pre">splashFractionAtEdge</span></code>.
+It may also affect own/ally units, depending on <code class="docutils literal notranslate"><span class="pre">splashFractionToFriendly</span></code>.</p>
+</section>
+<section id="damage-and-armor-types">
+<h2>Damage And Armor Types<a class="headerlink" href="#damage-and-armor-types" title="Link to this heading">¶</a></h2>
+<p>Each unit has associated armor type, and each shooting (or explosion) has associated damage type.
+The game has a table that defines a fraction for each combination of damage type with each armor type.
+Some values are over 100 % and some are below.</p>
+<p>For example, energy shield is designed to be highly resistant to lasers and plasma, which are most often used in long-range guns; and antimatter guns are designed for destroying buildings.</p>
+</section>
+<section id="life-regeneration">
+<h2>Life Regeneration<a class="headerlink" href="#life-regeneration" title="Link to this heading">¶</a></h2>
+<p>Life regeneration has a delay, which is extended whenever the unit is attacked, or whenever the unit itself shoots.
+When the delay expires, the unit starts healing at the specified rate.</p>
+</section>
+<section id="upgrades">
+<h2>Upgrades<a class="headerlink" href="#upgrades" title="Link to this heading">¶</a></h2>
+<p>todo</p>
+</section>
 </section>
 
         </article>
@@ -315,8 +361,36 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Combat &amp; Upgrades</a><ul>
+<li><a class="reference internal" href="#shooting">Shooting</a><ul>
+<li><a class="reference internal" href="#visibility">Visibility</a></li>
+<li><a class="reference internal" href="#elevation">Elevation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#explosions">Explosions</a></li>
+<li><a class="reference internal" href="#splash">Splash</a></li>
+<li><a class="reference internal" href="#damage-and-armor-types">Damage And Armor Types</a></li>
+<li><a class="reference internal" href="#life-regeneration">Life Regeneration</a></li>
+<li><a class="reference internal" href="#upgrades">Upgrades</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
