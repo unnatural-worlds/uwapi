@@ -13,6 +13,12 @@ Troubleshooting
 
    If your Steam games are in non-default location, define environment variable ``UNNATURAL_ROOT`` to the directory containing the library.
 
+.. dropdown:: Incompatible UW library version
+
+   Your version of uwapi is different from your game.
+   
+   Restart steam to force an update of the game. And pull from git new version of uwapi.
+
 .. dropdown:: Failed to initialize Steam API
 
    Make sure that Steam is running and logged in.  
