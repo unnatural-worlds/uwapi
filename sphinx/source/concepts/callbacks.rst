@@ -98,7 +98,6 @@ Make sure to carefully decode them, as shown in the example below.
           	}
           }
 
-
 Task Completed Callback
 -----------------------
 Some functions, such as pathfinding and clusters distances, need more time to compute the results.
