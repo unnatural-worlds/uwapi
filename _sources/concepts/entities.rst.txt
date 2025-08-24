@@ -25,6 +25,38 @@ These ids are assigned by the server, and client cannot predict the values.
 .. note::
    Some entities and/or components are synchronized only with the owner of the entity.
 
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          # get list of all entities:
+          uw_world.entities().values()
+
+          # find entity by id:
+          uw_world.entity(id) # raises KeyError if not found
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          // get list of all entities:
+          World.Entities().Values
+
+          // find entity by id:
+          World.Entity(id) // throws KeyNotFoundException if not found
+
+   .. tab-item:: C++
+      :sync: cpp
+
+      .. code-block:: cpp
+
+          // todo
+
 Proto Component
 ---------------
 Defines the prototype of the entity.
@@ -32,11 +64,93 @@ Defines the prototype of the entity.
 It is allowed to change from construction to unit, or from unit to another unit.
 It is forbidden to change eg. from unit to resource.
 
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          x = uw_world.entity(id)
+
+          # find type (unit, resource, construction, ...) of the entity:
+          x.type()
+
+          # check if entity has Proto component:
+          x.Proto is not None
+
+          # find id of the prototype of an entity:
+          x.Proto.proto # assumes that the entity actually has Proto component
+
+          # access a value from the prototype:
+          x.proto().data.get("dps", 0)
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          Entity x = World.Entity(id);
+
+          // find type (unit, resource, construction, ...) of the entity:
+          x.type
+
+          // check if entity has Proto component:
+          x.Proto.HasValue
+
+          // find id of the prototype of an entity:
+          x.Proto.Value.proto // assumes that the entity actually has Proto component
+
+          // access a value from the prototype:
+          x.ProtoUnit.dps // assumes that the entity is a unit
+
+   .. tab-item:: C++
+      :sync: cpp
+
+      .. code-block:: cpp
+
+          // todo
+
 Owner Component
 ---------------
 Defines which force owns this entity.
 
 Immutable.
+
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          # id of the force that owns this entity:
+          x.Owner.force
+
+          # check if entity is own or enemy:
+          x.own()
+          x.enemy()
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          // id of the force that owns this entity:
+          x.Owner.Value.force
+
+          // check if entity is own or enemy:
+          x.Own()
+          x.Enemy()
+
+   .. tab-item:: C++
+      :sync: cpp
+
+      .. code-block:: cpp
+
+          // todo
 
 Controller Component
 --------------------
@@ -53,6 +167,32 @@ In case the entity has large radius, this component defines the center tile.
 The yaw defines the orientation (a rotation along the local vertical axis) of this entity on the tile.
 The actual facing of 0 degrees yaw is different for each tile.
 
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          # shortcut to get tile index:
+          x.pos()
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          // shortcut to get tile index:
+          x.Pos
+
+   .. tab-item:: C++
+      :sync: cpp
+
+      .. code-block:: cpp
+
+          // todo
+
 Unit Component
 --------------
 Contains additional state for a unit (or building).
@@ -62,6 +202,32 @@ Contains additional state for a unit (or building).
 - ``Rebuilding`` - recipe for the unit has changed, and the unit is waiting for the changes to complete.
 - ``Stalling`` - the unit's recipe cannot be executed, usually because a limit for the outputs has been reached.
 - ``Damaged`` - the unit has less than half life.
+
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          # check if unit is Processing:
+          (x.Unit.state & UwUnitStateFlags.Processing) != 0
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          // check if unit is Processing:
+          (x.Unit.Value.state & UwUnitStateFlags::Processing) != 0
+
+   .. tab-item:: C++
+      :sync: cpp
+
+      .. code-block:: cpp
+
+          // todo
 
 Life Component
 --------------

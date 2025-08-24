@@ -13,14 +13,15 @@ Steam Appid Txt
 ---------------
 
 .. important::
-   Copy ``steam_appid.txt`` into the ``bin`` folder.
+   Copy ``steam_appid.txt`` into ``Unnatural Worlds/bin`` folder.
 
-The file ``steam_appid.txt`` tells Steam that this is developer copy of the game.
+You will find the ``steam_appid.txt`` in the uwapi repository.
+Copy it into ``bin`` folder, next to the game executable.
+
+This file tells Steam that this is a developer copy of the game.
 It allows running multiple processes of the game simultaneously, and to start the programs directly from outside the Steam.
 This allows you to start and debug your bot program from inside your IDE.
 You may also start the game client, game server, built-in AI, or any other associated programs from your terminal.
-You will find the ``steam_appid.txt`` in the uwapi repository.
-Copy it into the ``bin`` folder, next to the game executable.
 
 It is recommended to remove the ``steam_appid.txt`` when you are done with your AI/bot program.
 Presence of the file may cause corruption of some files when the game is updated.
@@ -29,7 +30,7 @@ Game Install Path
 -----------------
 
 .. important::
-   If you installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` pointing to the ``bin`` directory containing the library.
+   If you have installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` pointing to the ``bin`` directory containing the library.
 
 .. tab-set::
    :sync-group: platform

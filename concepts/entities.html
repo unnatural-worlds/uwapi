@@ -289,17 +289,128 @@ These ids are assigned by the server, and client cannot predict the values.</p>
 <p class="admonition-title">Note</p>
 <p>Some entities and/or components are synchronized only with the owner of the entity.</p>
 </div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># get list of all entities:</span>
+<span class="n">uw_world</span><span class="o">.</span><span class="n">entities</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+<span class="c1"># find entity by id:</span>
+<span class="n">uw_world</span><span class="o">.</span><span class="n">entity</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="c1"># raises KeyError if not found</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// get list of all entities:</span>
+<span class="n">World</span><span class="p">.</span><span class="n">Entities</span><span class="p">().</span><span class="n">Values</span>
+
+<span class="c1">// find entity by id:</span>
+<span class="n">World</span><span class="p">.</span><span class="n">Entity</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="c1">// throws KeyNotFoundException if not found</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-2">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// todo</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="proto-component">
 <h2>Proto Component<a class="headerlink" href="#proto-component" title="Link to this heading">¶</a></h2>
 <p>Defines the prototype of the entity.</p>
 <p>It is allowed to change from construction to unit, or from unit to another unit.
 It is forbidden to change eg. from unit to resource.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-3">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">uw_world</span><span class="o">.</span><span class="n">entity</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+
+<span class="c1"># find type (unit, resource, construction, ...) of the entity:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">type</span><span class="p">()</span>
+
+<span class="c1"># check if entity has Proto component:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">Proto</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+<span class="c1"># find id of the prototype of an entity:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">Proto</span><span class="o">.</span><span class="n">proto</span> <span class="c1"># assumes that the entity actually has Proto component</span>
+
+<span class="c1"># access a value from the prototype:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">proto</span><span class="p">()</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dps&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-4">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">Entity</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="p">.</span><span class="n">Entity</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+
+<span class="c1">// find type (unit, resource, construction, ...) of the entity:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">type</span>
+
+<span class="c1">// check if entity has Proto component:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Proto</span><span class="p">.</span><span class="n">HasValue</span>
+
+<span class="c1">// find id of the prototype of an entity:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Proto</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">proto</span><span class="w"> </span><span class="c1">// assumes that the entity actually has Proto component</span>
+
+<span class="c1">// access a value from the prototype:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">ProtoUnit</span><span class="p">.</span><span class="n">dps</span><span class="w"> </span><span class="c1">// assumes that the entity is a unit</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-5">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// todo</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="owner-component">
 <h2>Owner Component<a class="headerlink" href="#owner-component" title="Link to this heading">¶</a></h2>
 <p>Defines which force owns this entity.</p>
 <p>Immutable.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-6">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># id of the force that owns this entity:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">Owner</span><span class="o">.</span><span class="n">force</span>
+
+<span class="c1"># check if entity is own or enemy:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">own</span><span class="p">()</span>
+<span class="n">x</span><span class="o">.</span><span class="n">enemy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-7">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// id of the force that owns this entity:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Owner</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">force</span>
+
+<span class="c1">// check if entity is own or enemy:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Own</span><span class="p">()</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Enemy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-8">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// todo</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="controller-component">
 <h2>Controller Component<a class="headerlink" href="#controller-component" title="Link to this heading">¶</a></h2>
@@ -315,6 +426,31 @@ It is forbidden to change eg. from unit to resource.</p>
 In case the entity has large radius, this component defines the center tile.</p>
 <p>The yaw defines the orientation (a rotation along the local vertical axis) of this entity on the tile.
 The actual facing of 0 degrees yaw is different for each tile.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-9">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># shortcut to get tile index:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-10">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// shortcut to get tile index:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Pos</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-11">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// todo</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="unit-component">
 <h2>Unit Component<a class="headerlink" href="#unit-component" title="Link to this heading">¶</a></h2>
@@ -326,6 +462,31 @@ The actual facing of 0 degrees yaw is different for each tile.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Stalling</span></code> - the unit’s recipe cannot be executed, usually because a limit for the outputs has been reached.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Damaged</span></code> - the unit has less than half life.</p></li>
 </ul>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-12">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># check if unit is Processing:</span>
+<span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">Unit</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="n">UwUnitStateFlags</span><span class="o">.</span><span class="n">Processing</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-13">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// check if unit is Processing:</span>
+<span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">Unit</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">state</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">UwUnitStateFlags</span><span class="p">::</span><span class="n">Processing</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-14">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// todo</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="life-component">
 <h2>Life Component<a class="headerlink" href="#life-component" title="Link to this heading">¶</a></h2>
