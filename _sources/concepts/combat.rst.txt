@@ -4,17 +4,18 @@ Combat & Upgrades
 Shooting
 --------
 
-todo
+Requirements for shooting:
 
-Visibility
-^^^^^^^^^^
+- the target is withing shooting range.
+- the target is visible in line (or arc).
+- the target is not covered by fog-of-war.
 
-todo
+.. note::
+   Fog-of-war is not yet implemented.
 
-Elevation
-^^^^^^^^^
-
-todo
+Most units can shoot in straight line only.
+Some units can shoot in an arc, which is defined by ``shooterElevation`` and ``targetElevation``.
+This allows to shoot "over a horizon", or "behind a corner".
 
 Explosions
 ----------
@@ -55,4 +56,11 @@ When the delay expires, the unit starts healing at the specified rate.
 Upgrades
 --------
 
-todo
+Research usually consumes some resources to produce upgrades.
+Upgrades will stack, up to a specified limit.
+This means that the upgrades have a ramp-up phase.
+When research stops, the upgrades will dissipate after some time.
+
+Most upgrades apply percentage increase to one or more of the properties of a unit.
+
+Each unit has a list of upgrades that apply to it.

@@ -272,15 +272,19 @@
 <h1>Combat &amp; Upgrades<a class="headerlink" href="#combat-upgrades" title="Link to this heading">¶</a></h1>
 <section id="shooting">
 <h2>Shooting<a class="headerlink" href="#shooting" title="Link to this heading">¶</a></h2>
-<p>todo</p>
-<section id="visibility">
-<h3>Visibility<a class="headerlink" href="#visibility" title="Link to this heading">¶</a></h3>
-<p>todo</p>
-</section>
-<section id="elevation">
-<h3>Elevation<a class="headerlink" href="#elevation" title="Link to this heading">¶</a></h3>
-<p>todo</p>
-</section>
+<p>Requirements for shooting:</p>
+<ul class="simple">
+<li><p>the target is withing shooting range.</p></li>
+<li><p>the target is visible in line (or arc).</p></li>
+<li><p>the target is not covered by fog-of-war.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fog-of-war is not yet implemented.</p>
+</div>
+<p>Most units can shoot in straight line only.
+Some units can shoot in an arc, which is defined by <code class="docutils literal notranslate"><span class="pre">shooterElevation</span></code> and <code class="docutils literal notranslate"><span class="pre">targetElevation</span></code>.
+This allows to shoot “over a horizon”, or “behind a corner”.</p>
 </section>
 <section id="explosions">
 <h2>Explosions<a class="headerlink" href="#explosions" title="Link to this heading">¶</a></h2>
@@ -314,7 +318,12 @@ When the delay expires, the unit starts healing at the specified rate.</p>
 </section>
 <section id="upgrades">
 <h2>Upgrades<a class="headerlink" href="#upgrades" title="Link to this heading">¶</a></h2>
-<p>todo</p>
+<p>Research usually consumes some resources to produce upgrades.
+Upgrades will stack, up to a specified limit.
+This means that the upgrades have a ramp-up phase.
+When research stops, the upgrades will dissipate after some time.</p>
+<p>Most upgrades apply percentage increase to one or more of the properties of a unit.</p>
+<p>Each unit has a list of upgrades that apply to it.</p>
 </section>
 </section>
 
@@ -374,11 +383,7 @@ When the delay expires, the unit starts healing at the specified rate.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Combat &amp; Upgrades</a><ul>
-<li><a class="reference internal" href="#shooting">Shooting</a><ul>
-<li><a class="reference internal" href="#visibility">Visibility</a></li>
-<li><a class="reference internal" href="#elevation">Elevation</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#shooting">Shooting</a></li>
 <li><a class="reference internal" href="#explosions">Explosions</a></li>
 <li><a class="reference internal" href="#splash">Splash</a></li>
 <li><a class="reference internal" href="#damage-and-armor-types">Damage And Armor Types</a></li>
