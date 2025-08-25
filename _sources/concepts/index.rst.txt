@@ -7,7 +7,7 @@ Glossary and explanation of concepts used throughout this documentation and in t
    map
    prototypes
    entities
-   resources
-   combat
+   economy
+   military
    programState
    callbacks

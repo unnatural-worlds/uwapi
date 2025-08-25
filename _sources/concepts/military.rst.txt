@@ -1,8 +1,60 @@
-Combat & Upgrades
-=================
+Military
+========
+
+Orders
+------
+
+.. note::
+   Orders are usable by clients only. Server-side scripts do not have the concept of orders.
+
+You can have multiple orders queued for each unit.
+
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          # get list of orders of own unit:
+          os = uw_commands.orders(own_id)
+          
+          # order own unit to attack enemy unit (cancels all previous orders):
+          uw_commands.order(own_id, uw_commands.fight_to_entity(enemy_id))
+          
+          # alternatively, enqueue attack order:
+          o = uw_commands.fight_to_entity(enemy_id)
+          o.priority = o.priority | UwOrderPriorityFlags.Enqueue
+          uw_commands.order(own_id, o)
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          // get list of orders of own unit:
+          var os = Commands.Orders(own_id);
+          
+          // order own unit to attack enemy unit (cancels all previous orders):
+          Commands.Order(own_id, Commands.FightToEntity(enemy_id));
+          
+          // alternatively, enqueue attack order:
+          Order o = Commands.FightToEntity(enemy_id);
+          o.priority |= Interop.UwOrderPriorityFlags.Enqueue;
+          Commands.Order(own_id, o);
+
+   .. tab-item:: C++
+      :sync: cpp
+
+      .. code-block:: cpp
+
+          // nothing
 
 Shooting
 --------
+
+Units will automatically target appropriate enemies in their vicinity.
 
 Requirements for shooting:
 

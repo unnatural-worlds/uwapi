@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Program State" href="programState.html" /><link rel="prev" title="Resources &amp; Logistics" href="resources.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Program State" href="programState.html" /><link rel="prev" title="Economy" href="economy.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
-        <title>Combat &amp; Upgrades - UW API documentation</title>
+        <title>Military - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -204,9 +204,9 @@
 <li class="toctree-l2"><a class="reference internal" href="players.html">Players &amp; Forces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html">Entities &amp; Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Combat &amp; Upgrades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="economy.html">Economy</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Military</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
 </ul>
@@ -248,7 +248,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/concepts/combat.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/concepts/military.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -268,10 +268,60 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="combat-upgrades">
-<h1>Combat &amp; Upgrades<a class="headerlink" href="#combat-upgrades" title="Link to this heading">¶</a></h1>
+          <section id="military">
+<h1>Military<a class="headerlink" href="#military" title="Link to this heading">¶</a></h1>
+<section id="orders">
+<h2>Orders<a class="headerlink" href="#orders" title="Link to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Orders are usable by clients only. Server-side scripts do not have the concept of orders.</p>
+</div>
+<p>You can have multiple orders queued for each unit.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># get list of orders of own unit:</span>
+<span class="n">os</span> <span class="o">=</span> <span class="n">uw_commands</span><span class="o">.</span><span class="n">orders</span><span class="p">(</span><span class="n">own_id</span><span class="p">)</span>
+
+<span class="c1"># order own unit to attack enemy unit (cancels all previous orders):</span>
+<span class="n">uw_commands</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">uw_commands</span><span class="o">.</span><span class="n">fight_to_entity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">))</span>
+
+<span class="c1"># alternatively, enqueue attack order:</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">uw_commands</span><span class="o">.</span><span class="n">fight_to_entity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">)</span>
+<span class="n">o</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">priority</span> <span class="o">|</span> <span class="n">UwOrderPriorityFlags</span><span class="o">.</span><span class="n">Enqueue</span>
+<span class="n">uw_commands</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// get list of orders of own unit:</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">Orders</span><span class="p">(</span><span class="n">own_id</span><span class="p">);</span>
+
+<span class="c1">// order own unit to attack enemy unit (cancels all previous orders):</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">Order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">FightToEntity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">));</span>
+
+<span class="c1">// alternatively, enqueue attack order:</span>
+<span class="n">Order</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">FightToEntity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">);</span>
+<span class="n">o</span><span class="p">.</span><span class="n">priority</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">Interop</span><span class="p">.</span><span class="n">UwOrderPriorityFlags</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">;</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">Order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-2">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// nothing</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="shooting">
 <h2>Shooting<a class="headerlink" href="#shooting" title="Link to this heading">¶</a></h2>
+<p>Units will automatically target appropriate enemies in their vicinity.</p>
 <p>Requirements for shooting:</p>
 <ul class="simple">
 <li><p>the target is withing shooting range.</p></li>
@@ -341,14 +391,14 @@ When research stops, the upgrades will dissipate after some time.</p>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="resources.html">
+          <a class="prev-page" href="economy.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Resources &amp; Logistics</div>
+                <div class="title">Economy</div>
                 
               </div>
             </a>
@@ -382,7 +432,8 @@ When research stops, the upgrades will dissipate after some time.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Combat &amp; Upgrades</a><ul>
+<li><a class="reference internal" href="#">Military</a><ul>
+<li><a class="reference internal" href="#orders">Orders</a></li>
 <li><a class="reference internal" href="#shooting">Shooting</a></li>
 <li><a class="reference internal" href="#explosions">Explosions</a></li>
 <li><a class="reference internal" href="#splash">Splash</a></li>

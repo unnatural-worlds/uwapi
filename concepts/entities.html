@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Resources &amp; Logistics" href="resources.html" /><link rel="prev" title="Prototypes" href="prototypes.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Economy" href="economy.html" /><link rel="prev" title="Prototypes" href="prototypes.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
-        <title>Entities &amp; Components - UW API documentation</title>
+        <title>Entities - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -204,9 +204,9 @@
 <li class="toctree-l2"><a class="reference internal" href="players.html">Players &amp; Forces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Entities &amp; Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="resources.html">Resources &amp; Logistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="economy.html">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="military.html">Military</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
 </ul>
@@ -268,8 +268,8 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="entities-components">
-<h1>Entities &amp; Components<a class="headerlink" href="#entities-components" title="Link to this heading">¶</a></h1>
+          <section id="entities">
+<h1>Entities<a class="headerlink" href="#entities" title="Link to this heading">¶</a></h1>
 <blockquote class="epigraph">
 <div><a class="reference internal image-reference" href="../_images/ecs.svg"><img alt="ECS Diagram from Wikipedia" class="align-right" src="../_images/ecs.svg" style="height: 100pt;" />
 </a>
@@ -361,7 +361,7 @@ C#</label><div class="sd-tab-content docutils">
 <span class="n">x</span><span class="p">.</span><span class="n">Proto</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">proto</span><span class="w"> </span><span class="c1">// assumes that the entity actually has Proto component</span>
 
 <span class="c1">// access a value from the prototype:</span>
-<span class="n">x</span><span class="p">.</span><span class="n">ProtoUnit</span><span class="p">.</span><span class="n">dps</span><span class="w"> </span><span class="c1">// assumes that the entity is a unit</span>
+<span class="n">x</span><span class="p">.</span><span class="n">ProtoUnit</span><span class="o">?.</span><span class="n">dps</span><span class="w"> </span><span class="c1">// assumes that the entity is a unit</span>
 </pre></div>
 </div>
 </div>
@@ -475,7 +475,7 @@ Python</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-13">
 C#</label><div class="sd-tab-content docutils">
 <div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// check if unit is Processing:</span>
-<span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">Unit</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">state</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">UwUnitStateFlags</span><span class="p">::</span><span class="n">Processing</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">0</span>
+<span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">Unit</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">state</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">UwUnitStateFlags</span><span class="p">.</span><span class="n">Processing</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 </div>
@@ -583,12 +583,12 @@ The component contains public information about the force.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="resources.html">
+          <a class="next-page" href="economy.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Resources &amp; Logistics</div>
+                <div class="title">Economy</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -633,7 +633,7 @@ The component contains public information about the force.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Entities &amp; Components</a><ul>
+<li><a class="reference internal" href="#">Entities</a><ul>
 <li><a class="reference internal" href="#entity">Entity</a></li>
 <li><a class="reference internal" href="#proto-component">Proto Component</a></li>
 <li><a class="reference internal" href="#owner-component">Owner Component</a></li>

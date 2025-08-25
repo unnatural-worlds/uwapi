@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Combat &amp; Upgrades" href="combat.html" /><link rel="prev" title="Entities &amp; Components" href="entities.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Military" href="military.html" /><link rel="prev" title="Entities" href="entities.html" />
 
     <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
-        <title>Resources &amp; Logistics - UW API documentation</title>
+        <title>Economy - UW API documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=acfd86a5" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=25af2a20" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -180,7 +180,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -204,9 +204,9 @@
 <li class="toctree-l2"><a class="reference internal" href="players.html">Players &amp; Forces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="map.html">Map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="prototypes.html">Prototypes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="entities.html">Entities &amp; Components</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Resources &amp; Logistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="combat.html">Combat &amp; Upgrades</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Entities</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Economy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="military.html">Military</a></li>
 <li class="toctree-l2"><a class="reference internal" href="programState.html">Program State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
 </ul>
@@ -248,7 +248,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/concepts/resources.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/concepts/economy.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -262,15 +262,89 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="resources-logistics">
-<h1>Resources &amp; Logistics<a class="headerlink" href="#resources-logistics" title="Link to this heading">¶</a></h1>
-<p>todo</p>
+          <section id="economy">
+<h1>Economy<a class="headerlink" href="#economy" title="Link to this heading">¶</a></h1>
+<p>Resources are mined from deposits, or processed from other resources.
+Producing units or researching upgrades works the same way as recipes.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># find closest viable position for miner:</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">uw_world</span><span class="o">.</span><span class="n">find_construction_placement</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span> <span class="n">home_position</span><span class="p">,</span> <span class="n">METAL_RECIPE_ID</span><span class="p">)</span> <span class="c1"># recipe id is optional</span>
+<span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="n">INVALID</span><span class="p">:</span>
+  <span class="k">return</span>
+
+<span class="c1"># place construction:</span>
+<span class="n">uw_commands</span><span class="o">.</span><span class="n">place_construction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">METAL_RECIPE_ID</span><span class="p">,</span> <span class="n">UwPriorityEnum</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span> <span class="c1"># yaw, recipe, and priority are optional</span>
+
+<span class="c1"># recipe and priority can be changed later:</span>
+<span class="n">uw_commands</span><span class="o">.</span><span class="n">set_recipe</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">ANOTHER_RECIPE_ID</span><span class="p">)</span>
+<span class="n">uw_commands</span><span class="o">.</span><span class="n">set_priority</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">UwPriorityEnum</span><span class="o">.</span><span class="n">High</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// find closest viable position for miner:</span>
+<span class="kt">uint</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="p">.</span><span class="n">FindConstructionPlacement</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span><span class="w"> </span><span class="n">homePosition</span><span class="p">,</span><span class="w"> </span><span class="n">METAL_RECIPE_ID</span><span class="p">);</span><span class="w"> </span><span class="c1">// recipe id is optional</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Entity</span><span class="p">.</span><span class="n">Invalid</span><span class="p">):</span>
+<span class="w">  </span><span class="k">return</span><span class="p">;</span>
+
+<span class="c1">// place construction:</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">PlaceConstruction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">METAL_RECIPE_ID</span><span class="p">,</span><span class="w"> </span><span class="n">Interop</span><span class="p">.</span><span class="n">UwPriorityEnum</span><span class="p">.</span><span class="n">Normal</span><span class="p">);</span><span class="w"> </span><span class="c1">// yaw, recipe, and priority are optional</span>
+
+<span class="c1">// recipe and priority can be changed later:</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">SetRecipe</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">ANOTHER_RECIPE_ID</span><span class="p">)</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">SetPriority</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">Interop</span><span class="p">.</span><span class="n">UwPriorityEnum</span><span class="p">.</span><span class="n">High</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-2">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// todo</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="logistics">
+<h2>Logistics<a class="headerlink" href="#logistics" title="Link to this heading">¶</a></h2>
+<p>Resources are automatically transported by trucks.
+They will fulfill tasks by their priority, and on first-come-first-serve basis.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-3">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># percentage of trucks that are idle:</span>
+<span class="mf">100.0</span> <span class="o">*</span> <span class="n">uw_world</span><span class="o">.</span><span class="n">my_force_statistics</span><span class="p">()</span><span class="o">.</span><span class="n">logisticsUnitsIdle</span> <span class="o">/</span> <span class="n">uw_world</span><span class="o">.</span><span class="n">my_force_statistics</span><span class="p">()</span><span class="o">.</span><span class="n">logisticsUnitsTotal</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-4">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// percentage of trucks that are idle:</span>
+<span class="m">100.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">World</span><span class="p">.</span><span class="n">MyForceStatistics</span><span class="p">().</span><span class="n">logisticsUnitsIdle</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">World</span><span class="p">.</span><span class="n">MyForceStatistics</span><span class="p">().</span><span class="n">logisticsUnitsTotal</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-5">
+C++</label><div class="sd-tab-content docutils">
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// nothing</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
         </article>
@@ -278,12 +352,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="combat.html">
+          <a class="next-page" href="military.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Combat &amp; Upgrades</div>
+                <div class="title">Military</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -294,7 +368,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Entities &amp; Components</div>
+                <div class="title">Entities</div>
                 
               </div>
             </a>
@@ -316,8 +390,27 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Economy</a><ul>
+<li><a class="reference internal" href="#logistics">Logistics</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
