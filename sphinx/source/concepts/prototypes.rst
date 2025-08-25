@@ -59,6 +59,8 @@ Tags may be used by both Bots and Scripts.
 - ``ambush`` - walks over additional terrain types.
 - ``artillery`` - longer range than most.
 - ``assault`` - good for front-line combat.
+- ``decoration`` - just a decoration.
+- ``deposit`` - contains ore; build a miner over this unit to gather resources.
 - ``harassment`` - good for hit-and-run attacks, especially targeting workers.
 - ``home`` - the center of your base. dont let it die.
 - ``miner`` - generates resources, usually from ore deposits.

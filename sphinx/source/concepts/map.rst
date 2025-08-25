@@ -80,6 +80,32 @@ There are multiple functions for finding tiles within some distance.
 
          **Area Extended**
 
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          # find all connected tiles around home position:
+          uw_map.area_connected(home_position, 300)
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          // find all connected tiles around home position:
+          Map.AreaConnected(homePosition, 300)
+
+   .. tab-item:: C++
+      :sync: cpp
+
+      .. code-block:: cpp
+
+          // todo
+
 Pathfinding
 -----------
 Finds fastest path for a specified type of unit from tile A to tile B.

@@ -1,4 +1,0 @@
-Resources & Logistics
-=====================
-
-todo

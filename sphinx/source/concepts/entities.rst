@@ -1,5 +1,5 @@
-Entities & Components
-=====================
+Entities
+========
 
 .. epigraph::
 
@@ -103,7 +103,7 @@ It is forbidden to change eg. from unit to resource.
           x.Proto.Value.proto // assumes that the entity actually has Proto component
 
           // access a value from the prototype:
-          x.ProtoUnit.dps // assumes that the entity is a unit
+          x.ProtoUnit?.dps // assumes that the entity is a unit
 
    .. tab-item:: C++
       :sync: cpp
@@ -220,7 +220,7 @@ Contains additional state for a unit (or building).
       .. code-block:: csharp
 
           // check if unit is Processing:
-          (x.Unit.Value.state & UwUnitStateFlags::Processing) != 0
+          (x.Unit.Value.state & UwUnitStateFlags.Processing) != 0
 
    .. tab-item:: C++
       :sync: cpp
