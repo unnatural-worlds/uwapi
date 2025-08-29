@@ -25,7 +25,7 @@ You can have multiple orders queued for each unit.
           
           # alternatively, enqueue attack order:
           o = uw_commands.fight_to_entity(enemy_id)
-          o.priority = o.priority | UwOrderPriorityFlags.Enqueue
+          o.priority = o.priority | OrderPriority.Enqueue
           uw_commands.order(own_id, o)
 
    .. tab-item:: C#
@@ -41,7 +41,7 @@ You can have multiple orders queued for each unit.
           
           // alternatively, enqueue attack order:
           Order o = Commands.FightToEntity(enemy_id);
-          o.priority |= Interop.UwOrderPriorityFlags.Enqueue;
+          o.priority |= UwOrderPriorityFlags.Enqueue;
           Commands.Order(own_id, o);
 
    .. tab-item:: C++

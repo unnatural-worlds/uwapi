@@ -40,7 +40,7 @@ Make sure to carefully decode them, as shown in the example below.
               index = 0
               while index < len(data):
                   control = uw_events.shooting_control_data(data[index])
-                  if control.type == UwShootingEventEnum.Shooting:
+                  if control.type == ShootingEvent.Shooting:
                       shooter_id = data[index + 1]
                       for i in range(1, control.count):
                           target_id = data[index + i + 1]
@@ -80,22 +80,22 @@ Make sure to carefully decode them, as shown in the example below.
           extern "C"
           void uwShootingsCallback(const UwShootingsArray *data)
           {
-          	const auto shooting = uw::makeVector(data);
-          	uint32 index = 0;
-          	while (index < shooting.size())
-          	{
-          		const auto control = uw::shootingControlData(shooting[index]);
-          		if (control.type == UwShootingEventEnum_Shooting)
-          		{
-          			const uint32 shooterId = shooting[index + 1];
-          			for (uint32 i = 1; i < control.count; i++)
-          			{
-          				const uint32 targetId = shooting[index + i + 1];
-          				// handle shooting event
-          			}
-          		}
-          		index += control.count + 1;
-          	}
+              const auto shooting = uw::makeVector(data);
+              uint32 index = 0;
+              while (index < shooting.size())
+              {
+                  const auto control = uw::shootingControlData(shooting[index]);
+                  if (control.type == UwShootingEventEnum_Shooting)
+                  {
+                      const uint32 shooterId = shooting[index + 1];
+                      for (uint32 i = 1; i < control.count; i++)
+                      {
+                          const uint32 targetId = shooting[index + i + 1];
+                          // handle shooting event
+                      }
+                  }
+                  index += control.count + 1;
+              }
           }
 
 Task Completed Callback

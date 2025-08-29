@@ -88,16 +88,16 @@ There are multiple functions for finding tiles within some distance.
 
       .. code-block:: python
 
-          # find all connected tiles around home position:
-          uw_map.area_connected(home_position, 300)
+          # find all connected tiles around a position, up to 300 meters:
+          uw_map.area_connected(tile_index, 300)
 
    .. tab-item:: C#
       :sync: csharp
 
       .. code-block:: csharp
 
-          // find all connected tiles around home position:
-          Map.AreaConnected(homePosition, 300)
+          // find all connected tiles around a position, up to 300 meters:
+          Map.AreaConnected(tileIndex, 300)
 
    .. tab-item:: C++
       :sync: cpp

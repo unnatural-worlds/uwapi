@@ -15,14 +15,14 @@ Producing units or researching upgrades works the same way as recipes.
           # find closest viable position for miner:
           p = uw_world.find_construction_placement(DRILL_CONSTRUCTION_ID, home_position, METAL_RECIPE_ID) # recipe id is optional
           if p == INVALID:
-            return
+              return
 
           # place construction:
-          uw_commands.place_construction(DRILL_CONSTRUCTION_ID, p, 0, METAL_RECIPE_ID, UwPriorityEnum.Normal) # yaw, recipe, and priority are optional
+          uw_commands.place_construction(DRILL_CONSTRUCTION_ID, p, 0, METAL_RECIPE_ID, Priority.High) # yaw, recipe, and priority are optional
           
           # recipe and priority can be changed later:
           uw_commands.set_recipe(own_id, ANOTHER_RECIPE_ID)
-          uw_commands.set_priority(own_id, UwPriorityEnum.High)
+          uw_commands.set_priority(own_id, Priority.Normal)
 
    .. tab-item:: C#
       :sync: csharp
@@ -32,14 +32,14 @@ Producing units or researching upgrades works the same way as recipes.
           // find closest viable position for miner:
           uint p = World.FindConstructionPlacement(DRILL_CONSTRUCTION_ID, homePosition, METAL_RECIPE_ID); // recipe id is optional
           if (p == Entity.Invalid):
-            return;
+              return;
 
           // place construction:
-          Commands.PlaceConstruction(DRILL_CONSTRUCTION_ID, p, 0, METAL_RECIPE_ID, Interop.UwPriorityEnum.Normal); // yaw, recipe, and priority are optional
+          Commands.PlaceConstruction(DRILL_CONSTRUCTION_ID, p, 0, METAL_RECIPE_ID, UwPriorityEnum.High); // yaw, recipe, and priority are optional
           
           // recipe and priority can be changed later:
           Commands.SetRecipe(own_id, ANOTHER_RECIPE_ID)
-          Commands.SetPriority(own_id, Interop.UwPriorityEnum.High)
+          Commands.SetPriority(own_id, UwPriorityEnum.Normal)
 
    .. tab-item:: C++
       :sync: cpp
