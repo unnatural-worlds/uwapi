@@ -1,4 +1,5 @@
 import random
+import time
 from uwapi import *
 
 
@@ -40,23 +41,39 @@ class Bot:
                 uw_commands.set_recipe(own.id, recipe)
 
     def configure(self):
-        if self.is_configured:
+        # auto start the game if available
+        if (
+            self.is_configured
+            and uw_game.game_state() == GameState.Session
+            and uw_world.is_admin()
+        ):
+            time.sleep(3)  # give the observer enough time to connect
+            uw_admin.start_game()
+            return
+        # is configuring possible?
+        if (
+            self.is_configured
+            or uw_game.game_state() != GameState.Session
+            or uw_world.my_player_id() == 0
+        ):
             return
         self.is_configured = True
-
+        uw_game.log_info("configuration start")
         uw_game.set_player_name("bot-py")
         uw_game.player_join_force(0)  # create new force
         uw_game.set_force_color(1, 0, 0)
-        # todo choose race
+        # uw_game.set_force_race(RACE_ID) # todo
+        if uw_world.is_admin():
+            # uw_admin.set_map_selection("planets/tetrahedron.uwmap")
+            uw_admin.set_map_selection("special/risk.uwmap")
+            uw_admin.add_ai()
+            uw_admin.set_automatic_suggested_camera_focus(True)
+        uw_game.log_info("configuration done")
 
     def on_update(self, stepping: bool):
-        if uw_game.game_state() == GameState.Session:
-            self.configure()
-            return
-
+        self.configure()
         if not stepping:
             return
-
         self.work_step += 1
         match self.work_step % 10:  # save some cpu cycles by splitting work over multiple steps
             case 1:
@@ -67,7 +84,11 @@ class Bot:
     def run(self):
         uw_game.log_info("bot-py start")
         if not uw_game.try_reconnect():
-            uw_game.set_connect_start_gui(True)
+            uw_game.set_connect_start_gui(True, "--observer 2")
             if not uw_game.connect_environment():
-                uw_game.connect_new_server()
+                # automatically select map and start the game from here in the code
+                if False:
+                    uw_game.connect_new_server(0, "", "--allowUwApiAdmin 1")
+                else:
+                    uw_game.connect_new_server()
         uw_game.log_info("bot-py done")

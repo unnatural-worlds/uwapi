@@ -1,8 +1,11 @@
 Economy
 =======
 
+Recipes And Constructions
+-------------------------
+
 Resources are mined from deposits, or processed from other resources.
-Producing units or researching upgrades works the same way as recipes.
+Producing units and researching upgrades works the same as recipes.
 
 .. tab-set::
    :sync-group: language
@@ -38,8 +41,8 @@ Producing units or researching upgrades works the same way as recipes.
           Commands.PlaceConstruction(DRILL_CONSTRUCTION_ID, p, 0, METAL_RECIPE_ID, UwPriorityEnum.High); // yaw, recipe, and priority are optional
           
           // recipe and priority can be changed later:
-          Commands.SetRecipe(own_id, ANOTHER_RECIPE_ID)
-          Commands.SetPriority(own_id, UwPriorityEnum.Normal)
+          Commands.SetRecipe(ownId, ANOTHER_RECIPE_ID)
+          Commands.SetPriority(ownId, UwPriorityEnum.Normal)
 
    .. tab-item:: C++
       :sync: cpp
@@ -73,9 +76,35 @@ They will fulfill tasks by their priority, and on first-come-first-serve basis.
           // percentage of trucks that are idle:
           100.0 * World.MyForceStatistics().logisticsUnitsIdle / World.MyForceStatistics().logisticsUnitsTotal
 
+Expansion Bases
+---------------
+
+Each map contains predefined set of starting positions.
+These can have some additional conditions to be used as starting base, eg. actual number of forces in the game.
+Anyway, these positions can be used to easily find suitable expansion bases.
+
+.. tab-set::
+   :sync-group: language
+
+   .. tab-item:: Python
+      :sync: python
+
+      .. code-block:: python
+
+          # potential expansion bases:
+          list({p.position for p in uw_map.starting_positions()}) # make the positions unique
+
+   .. tab-item:: C#
+      :sync: csharp
+
+      .. code-block:: csharp
+
+          // potential expansion bases:
+          Map.StartingPositions().Select(p => p.position).Distinct().ToList();
+
    .. tab-item:: C++
       :sync: cpp
 
       .. code-block:: cpp
 
-          // nothing
+          // todo
