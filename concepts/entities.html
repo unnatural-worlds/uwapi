@@ -215,6 +215,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/scene.html">Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -332,11 +333,17 @@ It is forbidden to change eg. from unit to resource.</p>
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">uw_world</span><span class="o">.</span><span class="n">entity</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 
+<span class="c1"># check if entity has Proto component:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">Proto</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
 <span class="c1"># find type (unit, resource, construction, ...) of the entity:</span>
 <span class="n">x</span><span class="o">.</span><span class="n">type</span><span class="p">()</span>
 
-<span class="c1"># check if entity has Proto component:</span>
-<span class="n">x</span><span class="o">.</span><span class="n">Proto</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="c1"># check if entity is a unit:</span>
+<span class="n">x</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">PrototypeType</span><span class="o">.</span><span class="n">Unit</span>
+
+<span class="c1"># alternative check if entity is a unit (only units have the Unit component):</span>
+<span class="n">x</span><span class="o">.</span><span class="n">Unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
 <span class="c1"># find id of the prototype of an entity:</span>
 <span class="n">x</span><span class="o">.</span><span class="n">Proto</span><span class="o">.</span><span class="n">proto</span> <span class="c1"># assumes that the entity actually has Proto component</span>
@@ -351,11 +358,17 @@ Python</label><div class="sd-tab-content docutils">
 C#</label><div class="sd-tab-content docutils">
 <div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="n">Entity</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="p">.</span><span class="n">Entity</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
 
-<span class="c1">// find type (unit, resource, construction, ...) of the entity:</span>
-<span class="n">x</span><span class="p">.</span><span class="n">type</span>
-
 <span class="c1">// check if entity has Proto component:</span>
 <span class="n">x</span><span class="p">.</span><span class="n">Proto</span><span class="p">.</span><span class="n">HasValue</span>
+
+<span class="c1">// find type (unit, resource, construction, ...) of the entity:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Type</span>
+
+<span class="c1">// check if entity is a unit:</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">UwPrototypeTypeEnum</span><span class="p">.</span><span class="n">Unit</span>
+
+<span class="c1">// alternative check if entity is a unit (only units have the Unit component):</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Unit</span><span class="p">.</span><span class="n">HasValue</span>
 
 <span class="c1">// find id of the prototype of an entity:</span>
 <span class="n">x</span><span class="p">.</span><span class="n">Proto</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">proto</span><span class="w"> </span><span class="c1">// assumes that the entity actually has Proto component</span>
@@ -398,8 +411,8 @@ C#</label><div class="sd-tab-content docutils">
 <span class="n">x</span><span class="p">.</span><span class="n">Owner</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">force</span>
 
 <span class="c1">// check if entity is own or enemy:</span>
-<span class="n">x</span><span class="p">.</span><span class="n">Own</span><span class="p">()</span>
-<span class="n">x</span><span class="p">.</span><span class="n">Enemy</span><span class="p">()</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Own</span>
+<span class="n">x</span><span class="p">.</span><span class="n">Enemy</span>
 </pre></div>
 </div>
 </div>
@@ -466,8 +479,8 @@ C++</label><div class="sd-tab-content docutils">
 <input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-12">
 Python</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># check if unit is Processing:</span>
-<span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">Unit</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="n">UwUnitStateFlags</span><span class="o">.</span><span class="n">Processing</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># check if unit is processing:</span>
+<span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">Unit</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="n">UnitState</span><span class="o">.</span><span class="n">Processing</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
 </pre></div>
 </div>
 </div>
@@ -498,8 +511,9 @@ C++</label><div class="sd-tab-content docutils">
 </section>
 <section id="move-component">
 <h2>Move Component<a class="headerlink" href="#move-component" title="Link to this heading">¶</a></h2>
-<p>Timestamp of when the unit finishes its current movement.
-Information is available for the next neighboring tile only.</p>
+<p>Movements are synchronized on tile-to-tile basis only, the whole path is stored only on the client of the owner of the unit.
+This component provides timestamp of when the unit finishes its current movement.
+The Position Component already represents the new position.</p>
 </section>
 <section id="aim-component">
 <h2>Aim Component<a class="headerlink" href="#aim-component" title="Link to this heading">¶</a></h2>

@@ -215,6 +215,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/scene.html">Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -348,16 +349,16 @@ This is used for performance optimization.</p>
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
 Python</label><div class="sd-tab-content docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># find all connected tiles around home position:</span>
-<span class="n">uw_map</span><span class="o">.</span><span class="n">area_connected</span><span class="p">(</span><span class="n">home_position</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># find all connected tiles around a position, up to 300 meters:</span>
+<span class="n">uw_map</span><span class="o">.</span><span class="n">area_connected</span><span class="p">(</span><span class="n">tile_index</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
 C#</label><div class="sd-tab-content docutils">
-<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// find all connected tiles around home position:</span>
-<span class="n">Map</span><span class="p">.</span><span class="n">AreaConnected</span><span class="p">(</span><span class="n">homePosition</span><span class="p">,</span><span class="w"> </span><span class="m">300</span><span class="p">)</span>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// find all connected tiles around a position, up to 300 meters:</span>
+<span class="n">Map</span><span class="p">.</span><span class="n">AreaConnected</span><span class="p">(</span><span class="n">tileIndex</span><span class="p">,</span><span class="w"> </span><span class="m">300</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

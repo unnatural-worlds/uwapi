@@ -215,6 +215,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/scene.html">Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -287,9 +288,9 @@ Python</label><div class="sd-tab-content docutils">
 <span class="c1"># order own unit to attack enemy unit (cancels all previous orders):</span>
 <span class="n">uw_commands</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">uw_commands</span><span class="o">.</span><span class="n">fight_to_entity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">))</span>
 
-<span class="c1"># alternatively, enqueue attack order:</span>
-<span class="n">o</span> <span class="o">=</span> <span class="n">uw_commands</span><span class="o">.</span><span class="n">fight_to_entity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">)</span>
-<span class="n">o</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">priority</span> <span class="o">|</span> <span class="n">UwOrderPriorityFlags</span><span class="o">.</span><span class="n">Enqueue</span>
+<span class="c1"># enqueue move order:</span>
+<span class="n">o</span> <span class="o">=</span> <span class="n">uw_commands</span><span class="o">.</span><span class="n">run_to_position</span><span class="p">(</span><span class="n">tile_index</span><span class="p">)</span>
+<span class="n">o</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">priority</span> <span class="o">|</span> <span class="n">OrderPriority</span><span class="o">.</span><span class="n">Enqueue</span>
 <span class="n">uw_commands</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -298,26 +299,58 @@ Python</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-1">
 C#</label><div class="sd-tab-content docutils">
 <div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// get list of orders of own unit:</span>
-<span class="kt">var</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">Orders</span><span class="p">(</span><span class="n">own_id</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">Orders</span><span class="p">(</span><span class="n">ownId</span><span class="p">);</span>
 
 <span class="c1">// order own unit to attack enemy unit (cancels all previous orders):</span>
-<span class="n">Commands</span><span class="p">.</span><span class="n">Order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">FightToEntity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">));</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">Order</span><span class="p">(</span><span class="n">ownId</span><span class="p">,</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">FightToEntity</span><span class="p">(</span><span class="n">enemyId</span><span class="p">));</span>
 
-<span class="c1">// alternatively, enqueue attack order:</span>
-<span class="n">Order</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">FightToEntity</span><span class="p">(</span><span class="n">enemy_id</span><span class="p">);</span>
-<span class="n">o</span><span class="p">.</span><span class="n">priority</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">Interop</span><span class="p">.</span><span class="n">UwOrderPriorityFlags</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">;</span>
-<span class="n">Commands</span><span class="p">.</span><span class="n">Order</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-2">
-C++</label><div class="sd-tab-content docutils">
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// nothing</span>
+<span class="c1">// enqueue move order:</span>
+<span class="n">Order</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Commands</span><span class="p">.</span><span class="n">RunToPosition</span><span class="p">(</span><span class="n">tileIndex</span><span class="p">);</span>
+<span class="n">o</span><span class="p">.</span><span class="n">priority</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">UwOrderPriorityFlags</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">;</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">Order</span><span class="p">(</span><span class="n">ownId</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </div>
+<section id="tips-for-military-maneuvers">
+<h3>Tips For Military Maneuvers<a class="headerlink" href="#tips-for-military-maneuvers" title="Link to this heading">¶</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-2">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># position of enemy military unit that is closest to any of our own units:</span>
+<span class="n">uw_world</span><span class="o">.</span><span class="n">my_force_statistics</span><span class="p">()</span><span class="o">.</span><span class="n">closestDangerPosition</span>
+
+<span class="c1"># position that is specific distance from target, and closest to us</span>
+<span class="n">surrounding_positions</span> <span class="o">=</span> <span class="n">uw_map</span><span class="o">.</span><span class="n">area_neighborhood</span><span class="p">(</span><span class="n">target_position</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">specific_distance_position</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">surrounding_positions</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">uw_map</span><span class="o">.</span><span class="n">distance_estimate</span><span class="p">(</span><span class="n">my_position</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+
+<span class="c1"># flanking position around target</span>
+<span class="n">surrounding_positions</span> <span class="o">=</span> <span class="n">uw_map</span><span class="o">.</span><span class="n">area_neighborhood</span><span class="p">(</span><span class="n">target_position</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">surrounding_positions</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">surrounding_positions</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">uw_map</span><span class="o">.</span><span class="n">distance_estimate</span><span class="p">(</span><span class="n">my_position</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">flanking_position</span> <span class="o">=</span> <span class="n">surrounding_positions</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">surrounding_positions</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span> <span class="c1"># note that this picks left or right flanking position at random</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-3">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// position of enemy military unit that is closest to any of our own units:</span>
+<span class="n">World</span><span class="p">.</span><span class="n">MyForceStatistics</span><span class="p">().</span><span class="n">closestDangerPosition</span>
+
+<span class="c1">// position that is specific distance from target, and closest to us</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">surroundingPositions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Map</span><span class="p">.</span><span class="n">AreaNeighborhood</span><span class="p">(</span><span class="n">targetPosition</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">specificDistancePosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">surroundingPositions</span><span class="p">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Map</span><span class="p">.</span><span class="n">DistanceEstimate</span><span class="p">(</span><span class="n">myPosition</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)).</span><span class="n">First</span><span class="p">();</span>
+
+<span class="c1">// flanking position around target</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">surroundingPositions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Map</span><span class="p">.</span><span class="n">areaNeighborhood</span><span class="p">(</span><span class="n">targetPosition</span><span class="p">,</span><span class="w"> </span><span class="m">200</span><span class="p">);</span>
+<span class="n">surroundingPositions</span><span class="p">.</span><span class="n">Sort</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">Map</span><span class="p">.</span><span class="n">DistanceEstimate</span><span class="p">(</span><span class="n">myPosition</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">).</span><span class="n">CompareTo</span><span class="p">(</span><span class="n">Map</span><span class="p">.</span><span class="n">DistanceEstimate</span><span class="p">(</span><span class="n">myPosition</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)));</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">flankingPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">surroundingPositions</span><span class="p">[</span><span class="n">surroundingPositions</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="p">];</span><span class="w"> </span><span class="c1">// note that this picks left or right flanking position at random</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="shooting">
 <h2>Shooting<a class="headerlink" href="#shooting" title="Link to this heading">¶</a></h2>
@@ -371,7 +404,7 @@ When the delay expires, the unit starts healing at the specified rate.</p>
 <p>Research usually consumes some resources to produce upgrades.
 Upgrades will stack, up to a specified limit.
 This means that the upgrades have a ramp-up phase.
-When research stops, the upgrades will dissipate after some time.</p>
+When research stops, the upgrades will dissipate over time.</p>
 <p>Most upgrades apply percentage increase to one or more of the properties of a unit.</p>
 <p>Each unit has a list of upgrades that apply to it.</p>
 </section>
@@ -433,7 +466,10 @@ When research stops, the upgrades will dissipate after some time.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Military</a><ul>
-<li><a class="reference internal" href="#orders">Orders</a></li>
+<li><a class="reference internal" href="#orders">Orders</a><ul>
+<li><a class="reference internal" href="#tips-for-military-maneuvers">Tips For Military Maneuvers</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#shooting">Shooting</a></li>
 <li><a class="reference internal" href="#explosions">Explosions</a></li>
 <li><a class="reference internal" href="#splash">Splash</a></li>

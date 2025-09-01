@@ -74,11 +74,17 @@ It is forbidden to change eg. from unit to resource.
 
           x = uw_world.entity(id)
 
+          # check if entity has Proto component:
+          x.Proto is not None
+
           # find type (unit, resource, construction, ...) of the entity:
           x.type()
 
-          # check if entity has Proto component:
-          x.Proto is not None
+          # check if entity is a unit:
+          x.type() == PrototypeType.Unit
+
+          # alternative check if entity is a unit (only units have the Unit component):
+          x.Unit is not None
 
           # find id of the prototype of an entity:
           x.Proto.proto # assumes that the entity actually has Proto component
@@ -93,11 +99,17 @@ It is forbidden to change eg. from unit to resource.
 
           Entity x = World.Entity(id);
 
-          // find type (unit, resource, construction, ...) of the entity:
-          x.type
-
           // check if entity has Proto component:
           x.Proto.HasValue
+
+          // find type (unit, resource, construction, ...) of the entity:
+          x.Type
+
+          // check if entity is a unit:
+          x.Type == UwPrototypeTypeEnum.Unit
+
+          // alternative check if entity is a unit (only units have the Unit component):
+          x.Unit.HasValue
 
           // find id of the prototype of an entity:
           x.Proto.Value.proto // assumes that the entity actually has Proto component
@@ -142,8 +154,8 @@ Immutable.
           x.Owner.Value.force
 
           // check if entity is own or enemy:
-          x.Own()
-          x.Enemy()
+          x.Own
+          x.Enemy
 
    .. tab-item:: C++
       :sync: cpp
@@ -211,8 +223,8 @@ Contains additional state for a unit (or building).
 
       .. code-block:: python
 
-          # check if unit is Processing:
-          (x.Unit.state & UwUnitStateFlags.Processing) != 0
+          # check if unit is processing:
+          (x.Unit.state & UnitState.Processing) != 0
 
    .. tab-item:: C#
       :sync: csharp
@@ -239,8 +251,9 @@ Amount of mana of the unit (or building).
 
 Move Component
 --------------
-Timestamp of when the unit finishes its current movement.
-Information is available for the next neighboring tile only.
+Movements are synchronized on tile-to-tile basis only, the whole path is stored only on the client of the owner of the unit.
+This component provides timestamp of when the unit finishes its current movement.
+The Position Component already represents the new position.
 
 Aim Component
 -------------

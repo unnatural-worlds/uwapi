@@ -215,6 +215,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/scene.html">Scene</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -270,8 +271,10 @@
         <article role="main" id="furo-main-content">
           <section id="economy">
 <h1>Economy<a class="headerlink" href="#economy" title="Link to this heading">¶</a></h1>
+<section id="recipes-and-constructions">
+<h2>Recipes And Constructions<a class="headerlink" href="#recipes-and-constructions" title="Link to this heading">¶</a></h2>
 <p>Resources are mined from deposits, or processed from other resources.
-Producing units or researching upgrades works the same way as recipes.</p>
+Producing units and researching upgrades works the same as recipes.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-0">
@@ -279,14 +282,14 @@ Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># find closest viable position for miner:</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">uw_world</span><span class="o">.</span><span class="n">find_construction_placement</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span> <span class="n">home_position</span><span class="p">,</span> <span class="n">METAL_RECIPE_ID</span><span class="p">)</span> <span class="c1"># recipe id is optional</span>
 <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="n">INVALID</span><span class="p">:</span>
-  <span class="k">return</span>
+    <span class="k">return</span>
 
 <span class="c1"># place construction:</span>
-<span class="n">uw_commands</span><span class="o">.</span><span class="n">place_construction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">METAL_RECIPE_ID</span><span class="p">,</span> <span class="n">UwPriorityEnum</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span> <span class="c1"># yaw, recipe, and priority are optional</span>
+<span class="n">uw_commands</span><span class="o">.</span><span class="n">place_construction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">METAL_RECIPE_ID</span><span class="p">,</span> <span class="n">Priority</span><span class="o">.</span><span class="n">High</span><span class="p">)</span> <span class="c1"># yaw, recipe, and priority are optional</span>
 
 <span class="c1"># recipe and priority can be changed later:</span>
 <span class="n">uw_commands</span><span class="o">.</span><span class="n">set_recipe</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">ANOTHER_RECIPE_ID</span><span class="p">)</span>
-<span class="n">uw_commands</span><span class="o">.</span><span class="n">set_priority</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">UwPriorityEnum</span><span class="o">.</span><span class="n">High</span><span class="p">)</span>
+<span class="n">uw_commands</span><span class="o">.</span><span class="n">set_priority</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span> <span class="n">Priority</span><span class="o">.</span><span class="n">Normal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -296,14 +299,14 @@ C#</label><div class="sd-tab-content docutils">
 <div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// find closest viable position for miner:</span>
 <span class="kt">uint</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="p">.</span><span class="n">FindConstructionPlacement</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span><span class="w"> </span><span class="n">homePosition</span><span class="p">,</span><span class="w"> </span><span class="n">METAL_RECIPE_ID</span><span class="p">);</span><span class="w"> </span><span class="c1">// recipe id is optional</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Entity</span><span class="p">.</span><span class="n">Invalid</span><span class="p">):</span>
-<span class="w">  </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
 
 <span class="c1">// place construction:</span>
-<span class="n">Commands</span><span class="p">.</span><span class="n">PlaceConstruction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">METAL_RECIPE_ID</span><span class="p">,</span><span class="w"> </span><span class="n">Interop</span><span class="p">.</span><span class="n">UwPriorityEnum</span><span class="p">.</span><span class="n">Normal</span><span class="p">);</span><span class="w"> </span><span class="c1">// yaw, recipe, and priority are optional</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">PlaceConstruction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">METAL_RECIPE_ID</span><span class="p">,</span><span class="w"> </span><span class="n">UwPriorityEnum</span><span class="p">.</span><span class="n">High</span><span class="p">);</span><span class="w"> </span><span class="c1">// yaw, recipe, and priority are optional</span>
 
 <span class="c1">// recipe and priority can be changed later:</span>
-<span class="n">Commands</span><span class="p">.</span><span class="n">SetRecipe</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">ANOTHER_RECIPE_ID</span><span class="p">)</span>
-<span class="n">Commands</span><span class="p">.</span><span class="n">SetPriority</span><span class="p">(</span><span class="n">own_id</span><span class="p">,</span><span class="w"> </span><span class="n">Interop</span><span class="p">.</span><span class="n">UwPriorityEnum</span><span class="p">.</span><span class="n">High</span><span class="p">)</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">SetRecipe</span><span class="p">(</span><span class="n">ownId</span><span class="p">,</span><span class="w"> </span><span class="n">ANOTHER_RECIPE_ID</span><span class="p">)</span>
+<span class="n">Commands</span><span class="p">.</span><span class="n">SetPriority</span><span class="p">(</span><span class="n">ownId</span><span class="p">,</span><span class="w"> </span><span class="n">UwPriorityEnum</span><span class="p">.</span><span class="n">Normal</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -315,10 +318,18 @@ C++</label><div class="sd-tab-content docutils">
 </div>
 </div>
 </div>
+<section id="destroyed-buildings">
+<h3>Destroyed Buildings<a class="headerlink" href="#destroyed-buildings" title="Link to this heading">¶</a></h3>
+<p>When a building is destroyed, same construction is automatically placed in its place.
+It has <code class="docutils literal notranslate"><span class="pre">disabled</span></code> priority, you just change it when appropriate.
+Its previous recipe is also restored.</p>
+</section>
+</section>
 <section id="logistics">
 <h2>Logistics<a class="headerlink" href="#logistics" title="Link to this heading">¶</a></h2>
 <p>Resources are automatically transported by trucks.
 They will fulfill tasks by their priority, and on first-come-first-serve basis.</p>
+<p>Priorities apply to both constructions and recipes.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-3">
@@ -336,10 +347,34 @@ C#</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-5">
+</div>
+</section>
+<section id="expansion-bases">
+<h2>Expansion Bases<a class="headerlink" href="#expansion-bases" title="Link to this heading">¶</a></h2>
+<p>Each map contains predefined set of starting positions.
+These can have some additional conditions to be used as starting base, eg. actual number of forces in the game.
+Anyway, these positions can be used to easily find suitable expansion bases.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-5">
+Python</label><div class="sd-tab-content docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># potential expansion bases:</span>
+<span class="nb">list</span><span class="p">({</span><span class="n">p</span><span class="o">.</span><span class="n">position</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">uw_map</span><span class="o">.</span><span class="n">starting_positions</span><span class="p">()})</span> <span class="c1"># make the positions unique</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-6">
+C#</label><div class="sd-tab-content docutils">
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// potential expansion bases:</span>
+<span class="n">Map</span><span class="p">.</span><span class="n">StartingPositions</span><span class="p">().</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">position</span><span class="p">).</span><span class="n">Distinct</span><span class="p">().</span><span class="n">ToList</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="language" data-sync-id="cpp" for="sd-tab-item-7">
 C++</label><div class="sd-tab-content docutils">
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// nothing</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// todo</span>
 </pre></div>
 </div>
 </div>
@@ -403,7 +438,12 @@ C++</label><div class="sd-tab-content docutils">
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Economy</a><ul>
+<li><a class="reference internal" href="#recipes-and-constructions">Recipes And Constructions</a><ul>
+<li><a class="reference internal" href="#destroyed-buildings">Destroyed Buildings</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#logistics">Logistics</a></li>
+<li><a class="reference internal" href="#expansion-bases">Expansion Bases</a></li>
 </ul>
 </li>
 </ul>
