@@ -48,7 +48,7 @@ namespace Unnatural
         public static extern void uwAdminSkipCutscene();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminAddAi();
+        public static extern void uwAdminAddAi(uint intendedRace, float difficulty);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminKickPlayer(uint playerId);

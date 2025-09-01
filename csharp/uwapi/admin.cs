@@ -56,9 +56,9 @@ namespace Unnatural
             Interop.uwAdminSkipCutscene();
         }
 
-        public static void AddAi()
+        public static void AddAi(uint intendedRace = 0, float difficulty = 0)
         {
-            Interop.uwAdminAddAi();
+            Interop.uwAdminAddAi(intendedRace, difficulty);
         }
 
         public static void KickPlayer(uint playerId)

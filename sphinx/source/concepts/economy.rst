@@ -51,11 +51,20 @@ Producing units and researching upgrades works the same as recipes.
 
           // todo
 
+Destroyed Buildings
+^^^^^^^^^^^^^^^^^^^
+
+When a building is destroyed, same construction is automatically placed in its place.
+It has ``disabled`` priority, you just change it when appropriate.
+Its previous recipe is also restored.
+
 Logistics
 ---------
 
 Resources are automatically transported by trucks.
 They will fulfill tasks by their priority, and on first-come-first-serve basis.
+
+Priorities apply to both constructions and recipes.
 
 .. tab-set::
    :sync-group: language

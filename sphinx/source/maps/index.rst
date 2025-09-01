@@ -14,3 +14,4 @@ Assets found in a map have precedence over assets in the base game.
    scene
    collider
    navigation
+   editor

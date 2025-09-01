@@ -543,8 +543,8 @@ class Interop:
     def uwAdminSkipCutscene(self) -> None:
         self._api.uwAdminSkipCutscene()
 
-    def uwAdminAddAi(self) -> None:
-        self._api.uwAdminAddAi()
+    def uwAdminAddAi(self, intendedRace: int, difficulty: float) -> None:
+        self._api.uwAdminAddAi(intendedRace, difficulty)
 
     def uwAdminKickPlayer(self, playerId: int) -> None:
         self._api.uwAdminKickPlayer(playerId)

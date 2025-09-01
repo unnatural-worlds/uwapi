@@ -33,8 +33,8 @@ class Admin:
     def set_weather_speed(self, speed: float, offset: float) -> None:
         uw_interop.uwAdminSetWeatherSpeed(speed, offset)
 
-    def add_ai(self) -> None:
-        uw_interop.uwAdminAddAi()
+    def add_ai(self, intendedRace: int = 0, difficulty: float = 0) -> None:
+        uw_interop.uwAdminAddAi(intendedRace, difficulty)
 
     def kick_player(self, player_id: int) -> None:
         uw_interop.uwAdminKickPlayer(player_id)

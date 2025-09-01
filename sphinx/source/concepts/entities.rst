@@ -223,7 +223,7 @@ Contains additional state for a unit (or building).
 
       .. code-block:: python
 
-          # check if unit is Processing:
+          # check if unit is processing:
           (x.Unit.state & UnitState.Processing) != 0
 
    .. tab-item:: C#
@@ -251,8 +251,9 @@ Amount of mana of the unit (or building).
 
 Move Component
 --------------
-Timestamp of when the unit finishes its current movement.
-Information is available for the next neighboring tile only.
+Movements are synchronized on tile-to-tile basis only, the whole path is stored only on the client of the owner of the unit.
+This component provides timestamp of when the unit finishes its current movement.
+The Position Component already represents the new position.
 
 Aim Component
 -------------

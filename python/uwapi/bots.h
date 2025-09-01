@@ -83,7 +83,7 @@ void uwAdminStartGame(void);
 void uwAdminTerminateGame(void);
 void uwAdminPauseGame(bool pause);
 void uwAdminSkipCutscene(void);
-void uwAdminAddAi(void);
+void uwAdminAddAi(uint32 intendedRace, float difficulty);
 void uwAdminKickPlayer(uint32 playerId);
 void uwAdminPlayerSetAdmin(uint32 playerId, bool admin);
 void uwAdminPlayerSetName(uint32 playerId, const char *name);

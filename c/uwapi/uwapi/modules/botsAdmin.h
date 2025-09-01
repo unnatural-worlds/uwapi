@@ -22,7 +22,7 @@ extern "C"
 	UNNATURAL_API void uwAdminTerminateGame(void);
 	UNNATURAL_API void uwAdminPauseGame(bool pause);
 	UNNATURAL_API void uwAdminSkipCutscene(void);
-	UNNATURAL_API void uwAdminAddAi(void);
+	UNNATURAL_API void uwAdminAddAi(uint32 intendedRace, float difficulty);
 	UNNATURAL_API void uwAdminKickPlayer(uint32 playerId);
 	UNNATURAL_API void uwAdminPlayerSetAdmin(uint32 playerId, bool admin);
 	UNNATURAL_API void uwAdminPlayerSetName(uint32 playerId, const char *name);
