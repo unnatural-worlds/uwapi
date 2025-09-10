@@ -73,18 +73,13 @@ class UwForeignPolicyEnum(Enum):
     Neutral = 3
     Enemy = 4
 
-class UwChatTargetFlags(IntFlag):
+class UwChatTargetEnum(Enum):
     Nothing = 0
-    Server = 1 << 0
-    Direct = 1 << 1
-    Self = 1 << 2
-    Allies = 1 << 3
-    Neutral = 1 << 4
-    Enemy = 1 << 5
-    Observer = 1 << 6
-    Admin = 1 << 7
-    Players = Self | Allies | Neutral | Enemy
-    Everyone = Players | Observer | Admin
+    Direct = 1
+    Everyone = 2
+    Allies = 3
+    Enemies = 4
+    Observers = 5
 
 class UwUnitStateFlags(IntFlag):
     Nothing = 0
@@ -425,7 +420,7 @@ Priority = UwPriorityEnum
 Ping = UwPingEnum
 PathState = UwPathStateEnum
 ForeignPolicy = UwForeignPolicyEnum
-ChatTarget = UwChatTargetFlags
+ChatTarget = UwChatTargetEnum
 ProtoComponent = UwProtoComponent
 OwnerComponent = UwOwnerComponent
 ControllerComponent = UwControllerComponent
@@ -479,7 +474,7 @@ UwGameStateCallbackType = Callable[[UwGameStateEnum], None]
 UwUpdateCallbackType = Callable[[bool], None]
 UwShootingsCallbackType = Callable[[UwShootingsArray], None]
 UwForceEliminatedCallbackType = Callable[[int], None]
-UwChatCallbackType = Callable[[str, int, UwChatTargetFlags], None]
+UwChatCallbackType = Callable[[int, str, UwChatTargetEnum], None]
 UwTaskCompletedCallbackType = Callable[[int, UwTaskTypeEnum], None]
 UwMapStateCallbackType = Callable[[UwMapStateEnum], None]
 
@@ -578,10 +573,17 @@ class Interop:
     def uwAdminSetAutomaticSuggestedCameraFocus(self, enabled: bool) -> None:
         self._api.uwAdminSetAutomaticSuggestedCameraFocus(enabled)
 
-    def uwAdminSendChat(self, msg: str, flags: UwChatTargetFlags, targetId: int) -> None:
+    def uwAdminSendChatMessageToPlayer(self, msg: str, playerId: int) -> None:
         msg_ = self._str_pytoc(msg)
-        flags_ = int(flags.value)
-        self._api.uwAdminSendChat(msg_, flags_, targetId)
+        self._api.uwAdminSendChatMessageToPlayer(msg_, playerId)
+
+    def uwAdminSendChatMessageToEveryone(self, msg: str) -> None:
+        msg_ = self._str_pytoc(msg)
+        self._api.uwAdminSendChatMessageToEveryone(msg_)
+
+    def uwAdminSendChatCommand(self, msg: str) -> None:
+        msg_ = self._str_pytoc(msg)
+        self._api.uwAdminSendChatCommand(msg_)
 
     def uwAdminSendPing(self, position: int, ping: UwPingEnum, targetForce: int) -> None:
         ping_ = int(ping.value)
@@ -975,11 +977,11 @@ class Interop:
 
     def uwSetChatCallback(self, callback: UwChatCallbackType) -> None:
         @self._ffi.callback("UwChatCallbackType")
-        def c_callback(msg, sender, flags):
-            msg = self._str_ctopy(msg)
+        def c_callback(sender, message, target):
             sender = int(sender)
-            flags = UwChatTargetFlags(flags)
-            callback(msg, sender, flags)
+            message = self._str_ctopy(message)
+            target = UwChatTargetEnum(target)
+            callback(sender, message, target)
         self._uwSetChatCallback_callback = c_callback
         self._api.uwSetChatCallback(c_callback)
 

@@ -8,13 +8,12 @@ namespace Unnatural
     using GameStateEnum = Interop.UwGameStateEnum;
     using MapStateEnum = Interop.UwMapStateEnum;
     using ShootingsArray = Interop.UwShootingsArray;
-    using ChatTargetFLags = Interop.UwChatTargetFlags;
 
     public class ChatMessage
     {
-        public string Message;
         public uint Sender;
-        public ChatTargetFLags Flags;
+        public string Message;
+        public Interop.UwChatTargetEnum target;
     }
 
     public struct ShootingControlData
@@ -105,14 +104,14 @@ namespace Unnatural
             ForceEliminated(null, force);
         }
 
-        static void ChatCallback(string msg, uint sender, ChatTargetFLags flags)
+        static void ChatCallback(uint sender, string message, Interop.UwChatTargetEnum target)
         {
             if (ChatReceived == null)
                 return;
             ChatMessage c = new ChatMessage();
-            c.Message = msg;
             c.Sender = sender;
-            c.Flags = flags;
+            c.Message = message;
+            c.target = target;
             ChatReceived(null, c);
         }
 

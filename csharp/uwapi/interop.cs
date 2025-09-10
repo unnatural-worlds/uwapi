@@ -81,8 +81,14 @@ namespace Unnatural
         public static extern void uwAdminSetAutomaticSuggestedCameraFocus([MarshalAs(UnmanagedType.I1)] bool enabled);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSendChat([MarshalAs(UnmanagedType.LPStr)] string msg, UwChatTargetFlags flags,
-                                                  uint targetId);
+        public static extern void uwAdminSendChatMessageToPlayer([MarshalAs(UnmanagedType.LPStr)] string msg,
+                                                                 uint playerId);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSendChatMessageToEveryone([MarshalAs(UnmanagedType.LPStr)] string msg);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSendChatCommand([MarshalAs(UnmanagedType.LPStr)] string msg);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminSendPing(uint position, UwPingEnum ping, uint targetForce);
@@ -317,7 +323,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 43;
+        public const uint UW_VERSION = 44;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -364,20 +370,14 @@ namespace Unnatural
             Enemy = 4,
         }
 
-        [Flags]
-        public enum UwChatTargetFlags
+        public enum UwChatTargetEnum
         {
             None = 0,
-            Server = 1 << 0,
-            Direct = 1 << 1,
-            Self = 1 << 2,
-            Allies = 1 << 3,
-            Neutral = 1 << 4,
-            Enemy = 1 << 5,
-            Observer = 1 << 6,
-            Admin = 1 << 7,
-            Players = Self | Allies | Neutral | Enemy,
-            Everyone = Players | Observer | Admin,
+            Direct = 1,
+            Everyone = 2,
+            Allies = 3,
+            Enemies = 4,
+            Observers = 5,
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -748,8 +748,8 @@ namespace Unnatural
         public static extern void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UwChatCallbackType([MarshalAs(UnmanagedType.LPStr)] string msg, uint sender,
-                                                UwChatTargetFlags flags);
+        public delegate void UwChatCallbackType(uint sender, [MarshalAs(UnmanagedType.LPStr)] string message,
+                                                UwChatTargetEnum target);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwSetChatCallback(UwChatCallbackType callback);

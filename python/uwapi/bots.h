@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 43;
+static const uint32 UW_VERSION = 44;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -56,20 +56,15 @@ typedef enum UwForeignPolicyEnum
 	UwForeignPolicyEnum_Enemy = 4,
 } UwForeignPolicyEnum;
 
-typedef enum UwChatTargetFlags
+typedef enum UwChatTargetEnum
 {
-	UwChatTargetFlags_None = 0,
-	UwChatTargetFlags_Server = 1 << 0,
-	UwChatTargetFlags_Direct = 1 << 1,
-	UwChatTargetFlags_Self = 1 << 2,
-	UwChatTargetFlags_Allies = 1 << 3,
-	UwChatTargetFlags_Neutral = 1 << 4,
-	UwChatTargetFlags_Enemy = 1 << 5,
-	UwChatTargetFlags_Observer = 1 << 6,
-	UwChatTargetFlags_Admin = 1 << 7,
-	UwChatTargetFlags_Players = UwChatTargetFlags_Self | UwChatTargetFlags_Allies | UwChatTargetFlags_Neutral | UwChatTargetFlags_Enemy,
-	UwChatTargetFlags_Everyone = UwChatTargetFlags_Players | UwChatTargetFlags_Observer | UwChatTargetFlags_Admin,
-} UwChatTargetFlags;
+	UwChatTargetEnum_None = 0,
+	UwChatTargetEnum_Direct = 1,
+	UwChatTargetEnum_Everyone = 2,
+	UwChatTargetEnum_Allies = 3,
+	UwChatTargetEnum_Enemies = 4,
+	UwChatTargetEnum_Observers = 5,
+} UwChatTargetEnum;
 
 typedef struct UwPlayerAiConfigComponent UwPlayerAiConfigComponent;
 
@@ -94,7 +89,9 @@ void uwAdminForceSetColor(uint32 forceId, float r, float g, float b);
 void uwAdminForceSetRace(uint32 forceId, uint32 raceProto);
 void uwAdminSendSuggestedCameraFocus(uint32 position);
 void uwAdminSetAutomaticSuggestedCameraFocus(bool enabled);
-void uwAdminSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
+void uwAdminSendChatMessageToPlayer(const char *msg, uint32 playerId);
+void uwAdminSendChatMessageToEveryone(const char *msg);
+void uwAdminSendChatCommand(const char *msg);
 void uwAdminSendPing(uint32 position, UwPingEnum ping, uint32 targetForce);
 void uwInitialize(uint32 version);
 void uwDeinitialize(void);
@@ -462,7 +459,7 @@ typedef void (*UwShootingsCallbackType)(const UwShootingsArray *data);
 void uwSetShootingsCallback(UwShootingsCallbackType callback);
 typedef void (*UwForceEliminatedCallbackType)(uint32 id);
 void uwSetForceEliminatedCallback(UwForceEliminatedCallbackType callback);
-typedef void (*UwChatCallbackType)(const char *msg, uint32 sender, UwChatTargetFlags flags);
+typedef void (*UwChatCallbackType)(uint32 sender, const char *message, UwChatTargetEnum target);
 void uwSetChatCallback(UwChatCallbackType callback);
 
 typedef enum UwTaskTypeEnum

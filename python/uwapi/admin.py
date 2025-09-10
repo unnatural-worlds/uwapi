@@ -63,8 +63,14 @@ class Admin:
     def set_automatic_suggested_camera_focus(self, enabled: bool) -> None:
         uw_interop.uwAdminSetAutomaticSuggestedCameraFocus(enabled)
 
-    def send_chat(self, msg: str, flags, id: int = INVALID) -> None:
-        uw_interop.uwAdminSendChat(msg, flags, id)
+    def send_chat_message_to_player(self, msg: str, id: int) -> None:
+        uw_interop.uwAdminSendChatMessageToPlayer(msg, id)
+
+    def send_chat_message_to_everyone(self, msg: str) -> None:
+        uw_interop.uwAdminSendChatMessageToEveryone(msg)
+
+    def send_chat_command(self, msg: str) -> None:
+        uw_interop.uwAdminSendChatCommand(msg)
 
     def send_ping(self, position: int, ping, id: int) -> None:
         uw_interop.uwAdminSendPing(position, ping, id)

@@ -1,6 +1,5 @@
 namespace Unnatural
 {
-    using ChatTargetFLags = Interop.UwChatTargetFlags;
     using PingEnum = Interop.UwPingEnum;
     using PlayerAiConfig = Interop.UwPlayerAiConfigComponent;
 
@@ -111,9 +110,19 @@ namespace Unnatural
             Interop.uwAdminSetAutomaticSuggestedCameraFocus(enabled);
         }
 
-        public static void SendChat(string msg, ChatTargetFLags flags, uint id = uint.MaxValue)
+        public static void SendChatMessageToEveryone(string msg)
         {
-            Interop.uwAdminSendChat(msg, flags, id);
+            Interop.uwAdminSendChatMessageToEveryone(msg);
+        }
+
+        public static void SendChatMessageToPlayer(string msg, uint id)
+        {
+            Interop.uwAdminSendChatMessageToPlayer(msg, id);
+        }
+
+        public static void SendChatCommand(string msg)
+        {
+            Interop.uwAdminSendChatCommand(msg);
         }
 
         public static void SendPing(uint position, PingEnum ping, uint id)

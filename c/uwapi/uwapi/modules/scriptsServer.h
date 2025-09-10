@@ -59,7 +59,9 @@ extern "C"
 	UNNATURAL_ENTRY void uwCutsceneSkipCallback(void);
 
 	UNNATURAL_API void uwStandardVictoryConditions(bool enable);
-	UNNATURAL_API void uwSendChat(const char *msg, UwChatTargetFlags flags, uint32 targetId);
+	UNNATURAL_API void uwSendChatEveryone(const char *msg);
+	UNNATURAL_API void uwSendChatOne(const char *msg, uint32 targetId);
+	UNNATURAL_API void uwSendChatDirect(const char *msg, const uint32 targetsIds[], const uint32 targetsCount);
 	UNNATURAL_API void uwSendPing(uint32 position, UwPingEnum ping, uint32 targetForce);
 
 	UNNATURAL_API void uwPrint(const char *msg);
