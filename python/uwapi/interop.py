@@ -318,6 +318,11 @@ class UwDiplomacyProposalComponent:
     proposal: UwForeignPolicyEnum
 
 @dataclass
+class UwGameConfig:
+    ranked: bool
+    diplomacy: bool
+
+@dataclass
 class UwShootingsArray:
     data: list[int]
     count: int
@@ -447,6 +452,7 @@ ForceComponent = UwForceComponent
 ForceDetailsComponent = UwForceDetailsComponent
 ForeignPolicyComponent = UwForeignPolicyComponent
 DiplomacyProposalComponent = UwDiplomacyProposalComponent
+GameConfig = UwGameConfig
 GameState = UwGameStateEnum
 ShootingEvent = UwShootingEventEnum
 ShootingsArray = UwShootingsArray
@@ -519,6 +525,10 @@ class Interop:
     def uwAdminSetMapSelection(self, path: str) -> None:
         path_ = self._str_pytoc(path)
         self._api.uwAdminSetMapSelection(path_)
+
+    def uwAdminSetGameConfig(self, config: UwGameConfig) -> None:
+        config_ = self._UwGameConfig_pytoc(config)
+        self._api.uwAdminSetGameConfig(config_)
 
     def uwAdminSetGameSpeed(self, speed: float) -> None:
         self._api.uwAdminSetGameSpeed(speed)
@@ -933,6 +943,12 @@ class Interop:
         ret = bool(ret)
         return ret, data_
 
+    def uwGameConfig(self) -> UwGameConfig:
+        config = self._ffi.new("UwGameConfig *")
+        self._api.uwGameConfig(config)
+        config_ = self._UwGameConfig_ctopy(config)
+        return config_
+
     def uwSetGameStateCallback(self, callback: UwGameStateCallbackType) -> None:
         @self._ffi.callback("UwGameStateCallbackType")
         def c_callback(state):
@@ -1160,6 +1176,10 @@ class Interop:
         ret = int(ret)
         return ret
 
+    def uwOfferForeignPolicy(self, forceId: int, policy: UwForeignPolicyEnum) -> None:
+        policy_ = int(policy.value)
+        self._api.uwOfferForeignPolicy(forceId, policy_)
+
     def uwOverviewFlags(self, position: int) -> UwOverviewFlags:
         ret = self._api.uwOverviewFlags(position)
         ret = UwOverviewFlags(ret)
@@ -1296,6 +1316,15 @@ class Interop:
 
     def _UwDiplomacyProposalComponent_ctopy(self, val) -> UwDiplomacyProposalComponent:
         return UwDiplomacyProposalComponent(int(val.offeror), int(val.offeree), UwForeignPolicyEnum(val.proposal))
+
+    def _UwGameConfig_ctopy(self, val) -> UwGameConfig:
+        return UwGameConfig(bool(val.ranked), bool(val.diplomacy))
+
+    def _UwGameConfig_pytoc(self, val: UwGameConfig):
+        r = self._ffi.new("UwGameConfig *")
+        r.ranked = val.ranked
+        r.diplomacy = val.diplomacy
+        return r
 
     def _UwShootingsArray_ctopy(self, val) -> UwShootingsArray:
         return UwShootingsArray(list[int]([int(val.data[i]) for i in range(val.count)]), int(val.count))

@@ -76,6 +76,9 @@ class Game:
     def map_state(self) -> UwMapStateEnum:
         return uw_interop.uwMapState()
 
+    def game_config(self) -> UwGameConfig:
+        return uw_interop.uwGameConfig()
+
     def performance_statistics(self) -> UwPerformanceStatistics:
         return uw_interop.uwPerformanceStatistics()
 

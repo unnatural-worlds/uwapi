@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 44;
+static const uint32 UW_VERSION = 45;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -66,12 +66,14 @@ typedef enum UwChatTargetEnum
 	UwChatTargetEnum_Observers = 5,
 } UwChatTargetEnum;
 
+typedef struct UwGameConfig UwGameConfig;
 typedef struct UwPlayerAiConfigComponent UwPlayerAiConfigComponent;
 
 uint64 uwGetLobbyId(void);
 uint64 uwGetUserId(void);
 uint16 uwGetServerPort(void);
 void uwAdminSetMapSelection(const char *path);
+void uwAdminSetGameConfig(const UwGameConfig *config);
 void uwAdminSetGameSpeed(float speed);
 void uwAdminSetWeatherSpeed(float speed, float offset);
 void uwAdminStartGame(void);
@@ -419,6 +421,14 @@ typedef struct UwDiplomacyProposalComponent
 	UwForeignPolicyEnum proposal;
 } UwDiplomacyProposalComponent;
 bool uwFetchDiplomacyProposalComponent(UwEntityPtr entity, UwDiplomacyProposalComponent *data);
+typedef struct UwGameConfig
+{
+	bool ranked;
+	bool diplomacy;
+} UwGameConfig;
+
+void uwGameConfig(UwGameConfig *config);
+
 typedef enum UwGameStateEnum
 {
 	UwGameStateEnum_None = 0,
@@ -597,6 +607,8 @@ bool uwTestShootingEntities(uint32 shooterId, uint32 targetId);
 
 bool uwTestConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto);
 uint32 uwFindConstructionPlacement(uint32 constructionProto, uint32 position, uint32 recipeProto);
+void uwOfferForeignPolicy(uint32 forceId, UwForeignPolicyEnum policy);
+
 typedef enum UwOverviewFlags
 {
 	UwOverviewFlags_None = 0,

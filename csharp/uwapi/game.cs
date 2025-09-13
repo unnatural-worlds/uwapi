@@ -113,6 +113,13 @@ namespace Unnatural
             return Interop.uwMapState();
         }
 
+        public static Interop.UwGameConfig GameConfig()
+        {
+            Interop.UwGameConfig data = new Interop.UwGameConfig();
+            Interop.uwGameConfig(ref data);
+            return data;
+        }
+
         public static Interop.UwPerformanceStatistics PerformanceStatistics()
         {
             Interop.UwPerformanceStatistics data = new Interop.UwPerformanceStatistics();

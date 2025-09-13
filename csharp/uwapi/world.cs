@@ -113,10 +113,15 @@ namespace Unnatural
             return entities[id];
         }
 
-        public static PolicyEnum Policy(uint force)
+        public static PolicyEnum Policy(uint forceId)
         {
             PolicyEnum val;
-            return policies.TryGetValue(force, out val) ? val : PolicyEnum.None;
+            return policies.TryGetValue(forceId, out val) ? val : PolicyEnum.None;
+        }
+
+        public static void OfferForeignPolicy(uint forceId, PolicyEnum policy)
+        {
+            Interop.uwOfferForeignPolicy(forceId, policy);
         }
 
         static Interop.UwMyPlayer myPlayer;

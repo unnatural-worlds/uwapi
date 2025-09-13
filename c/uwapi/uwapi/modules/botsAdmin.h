@@ -10,12 +10,14 @@ extern "C"
 
 #ifdef UNNATURAL_BOTS
 
+	typedef struct UwGameConfig UwGameConfig;
 	typedef struct UwPlayerAiConfigComponent UwPlayerAiConfigComponent;
 
 	UNNATURAL_API uint64 uwGetLobbyId(void);
 	UNNATURAL_API uint64 uwGetUserId(void);
 	UNNATURAL_API uint16 uwGetServerPort(void);
 	UNNATURAL_API void uwAdminSetMapSelection(const char *path);
+	UNNATURAL_API void uwAdminSetGameConfig(const UwGameConfig *config);
 	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
 	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
 	UNNATURAL_API void uwAdminStartGame(void);

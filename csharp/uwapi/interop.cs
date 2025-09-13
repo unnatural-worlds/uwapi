@@ -30,6 +30,9 @@ namespace Unnatural
         public static extern void uwAdminSetMapSelection([MarshalAs(UnmanagedType.LPStr)] string path);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminSetGameConfig(ref UwGameConfig config);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminSetGameSpeed(float speed);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -323,7 +326,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 44;
+        public const uint UW_VERSION = 45;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -689,6 +692,18 @@ namespace Unnatural
         public static extern bool uwFetchDiplomacyProposalComponent(IntPtr entity,
                                                                     ref UwDiplomacyProposalComponent data);
 
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwGameConfig
+        {
+            [MarshalAs(UnmanagedType.I1)]
+            public bool ranked;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool diplomacy;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwGameConfig(ref UwGameConfig config);
+
         public enum UwGameStateEnum
         {
             None = 0,
@@ -972,6 +987,9 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwFindConstructionPlacement(uint constructionProto, uint position, uint recipeProto);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwOfferForeignPolicy(uint forceId, UwForeignPolicyEnum policy);
 
         [Flags]
         public enum UwOverviewFlags

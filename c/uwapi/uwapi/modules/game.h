@@ -12,6 +12,16 @@ extern "C"
 
 #endif
 
+	// game config
+
+	typedef struct UwGameConfig
+	{
+		bool ranked;
+		bool diplomacy;
+	} UwGameConfig;
+
+	UNNATURAL_API void uwGameConfig(UwGameConfig *config);
+
 	// game state
 
 	typedef enum UwGameStateEnum
