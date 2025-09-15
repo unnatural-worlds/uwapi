@@ -17,7 +17,7 @@ Troubleshooting
 
    Your version of uwapi is different from your game.
    
-   Restart steam to force an update of the game. And pull from git new version of uwapi.
+   Restart steam to force an update of the game. And pull new version of uwapi from git.
 
 .. dropdown:: Failed to initialize Steam API
 

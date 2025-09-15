@@ -325,6 +325,3 @@ This entity declares a policy between two forces.
 Diplomacy Proposal Component
 ----------------------------
 This entity contains a proposal of a policy to another force.
-
-.. note::
-   Diplomacy is not yet implemented.

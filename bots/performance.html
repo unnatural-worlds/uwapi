@@ -272,8 +272,8 @@
           <section id="performance">
 <h1>Performance<a class="headerlink" href="#performance" title="Link to this heading">¶</a></h1>
 <p>Some hints on improving performance.</p>
-<section id="distribute-work-over-multiple-ticks">
-<h2>Distribute Work Over Multiple Ticks<a class="headerlink" href="#distribute-work-over-multiple-ticks" title="Link to this heading">¶</a></h2>
+<section id="distribute-work-between-multiple-ticks">
+<h2>Distribute Work Between Multiple Ticks<a class="headerlink" href="#distribute-work-between-multiple-ticks" title="Link to this heading">¶</a></h2>
 <p>Most events in the game take some time: shooting, moving, building, processing, etc.
 Therefore, it is generally unnecessary to keep updating everything all the time.</p>
 <p>It is recommended to split work between multiple ticks to save some cpu time.
@@ -356,7 +356,7 @@ When enabled, it will open a browser with real-time flame-graphs of tasks runnin
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Performance</a><ul>
-<li><a class="reference internal" href="#distribute-work-over-multiple-ticks">Distribute Work Over Multiple Ticks</a></li>
+<li><a class="reference internal" href="#distribute-work-between-multiple-ticks">Distribute Work Between Multiple Ticks</a></li>
 <li><a class="reference internal" href="#performance-statistics">Performance Statistics</a></li>
 <li><a class="reference internal" href="#profiling">Profiling</a></li>
 </ul>

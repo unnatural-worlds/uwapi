@@ -59,8 +59,9 @@ The game has additional enumeration values for some edge cases.
 Diplomacy
 ^^^^^^^^^
 
-.. note::
-   Diplomacy is not yet implemented.
+When diplomacy is enabled in the game, players may offer policy changes to other forces.
+Declaring a war is immediately applied.
+Offering a peace or alliance needs to be accepted by counter-party by also offering the same policy.
 
 Teams
 ^^^^^
