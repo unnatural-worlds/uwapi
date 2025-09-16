@@ -18,8 +18,6 @@ extern "C"
 	UNNATURAL_API uint16 uwGetServerPort(void);
 	UNNATURAL_API void uwAdminSetMapSelection(const char *path);
 	UNNATURAL_API void uwAdminSetGameConfig(const UwGameConfig *config);
-	UNNATURAL_API void uwAdminSetGameSpeed(float speed);
-	UNNATURAL_API void uwAdminSetWeatherSpeed(float speed, float offset);
 	UNNATURAL_API void uwAdminStartGame(void);
 	UNNATURAL_API void uwAdminTerminateGame(void);
 	UNNATURAL_API void uwAdminPauseGame(bool pause);

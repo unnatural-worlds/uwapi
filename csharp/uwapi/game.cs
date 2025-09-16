@@ -108,6 +108,16 @@ namespace Unnatural
             return Interop.uwGameTick();
         }
 
+        public static void SetGameSpeed(float speed)
+        {
+            Interop.uwSetGameSpeed(speed);
+        }
+
+        public static void SetWeatherSpeed(float speed, float offset)
+        {
+            Interop.uwSetWeatherSpeed(speed, offset);
+        }
+
         public static MapStateEnum MapState()
         {
             return Interop.uwMapState();

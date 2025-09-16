@@ -18,9 +18,14 @@ extern "C"
 	{
 		bool ranked;
 		bool diplomacy;
+		bool lockedSpeed;
+		bool cheats;
 	} UwGameConfig;
 
 	UNNATURAL_API void uwGameConfig(UwGameConfig *config);
+
+	UNNATURAL_API void uwSetGameSpeed(float speed);
+	UNNATURAL_API void uwSetWeatherSpeed(float speed, float offset);
 
 	// game state
 

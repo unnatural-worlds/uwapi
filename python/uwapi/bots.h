@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 45;
+static const uint32 UW_VERSION = 46;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -74,8 +74,6 @@ uint64 uwGetUserId(void);
 uint16 uwGetServerPort(void);
 void uwAdminSetMapSelection(const char *path);
 void uwAdminSetGameConfig(const UwGameConfig *config);
-void uwAdminSetGameSpeed(float speed);
-void uwAdminSetWeatherSpeed(float speed, float offset);
 void uwAdminStartGame(void);
 void uwAdminTerminateGame(void);
 void uwAdminPauseGame(bool pause);
@@ -425,9 +423,14 @@ typedef struct UwGameConfig
 {
 	bool ranked;
 	bool diplomacy;
+	bool lockedSpeed;
+	bool cheats;
 } UwGameConfig;
 
 void uwGameConfig(UwGameConfig *config);
+
+void uwSetGameSpeed(float speed);
+void uwSetWeatherSpeed(float speed, float offset);
 
 typedef enum UwGameStateEnum
 {

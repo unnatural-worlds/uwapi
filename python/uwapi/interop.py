@@ -321,6 +321,8 @@ class UwDiplomacyProposalComponent:
 class UwGameConfig:
     ranked: bool
     diplomacy: bool
+    lockedSpeed: bool
+    cheats: bool
 
 @dataclass
 class UwShootingsArray:
@@ -529,12 +531,6 @@ class Interop:
     def uwAdminSetGameConfig(self, config: UwGameConfig) -> None:
         config_ = self._UwGameConfig_pytoc(config)
         self._api.uwAdminSetGameConfig(config_)
-
-    def uwAdminSetGameSpeed(self, speed: float) -> None:
-        self._api.uwAdminSetGameSpeed(speed)
-
-    def uwAdminSetWeatherSpeed(self, speed: float, offset: float) -> None:
-        self._api.uwAdminSetWeatherSpeed(speed, offset)
 
     def uwAdminStartGame(self) -> None:
         self._api.uwAdminStartGame()
@@ -949,6 +945,12 @@ class Interop:
         config_ = self._UwGameConfig_ctopy(config)
         return config_
 
+    def uwSetGameSpeed(self, speed: float) -> None:
+        self._api.uwSetGameSpeed(speed)
+
+    def uwSetWeatherSpeed(self, speed: float, offset: float) -> None:
+        self._api.uwSetWeatherSpeed(speed, offset)
+
     def uwSetGameStateCallback(self, callback: UwGameStateCallbackType) -> None:
         @self._ffi.callback("UwGameStateCallbackType")
         def c_callback(state):
@@ -1318,12 +1320,14 @@ class Interop:
         return UwDiplomacyProposalComponent(int(val.offeror), int(val.offeree), UwForeignPolicyEnum(val.proposal))
 
     def _UwGameConfig_ctopy(self, val) -> UwGameConfig:
-        return UwGameConfig(bool(val.ranked), bool(val.diplomacy))
+        return UwGameConfig(bool(val.ranked), bool(val.diplomacy), bool(val.lockedSpeed), bool(val.cheats))
 
     def _UwGameConfig_pytoc(self, val: UwGameConfig):
         r = self._ffi.new("UwGameConfig *")
         r.ranked = val.ranked
         r.diplomacy = val.diplomacy
+        r.lockedSpeed = val.lockedSpeed
+        r.cheats = val.cheats
         return r
 
     def _UwShootingsArray_ctopy(self, val) -> UwShootingsArray:

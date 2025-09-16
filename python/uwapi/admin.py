@@ -27,12 +27,6 @@ class Admin:
     def terminate_game(self) -> None:
         uw_interop.uwAdminTerminateGame()
 
-    def set_game_speed(self, speed: float) -> None:
-        uw_interop.uwAdminSetGameSpeed(speed)
-
-    def set_weather_speed(self, speed: float, offset: float) -> None:
-        uw_interop.uwAdminSetWeatherSpeed(speed, offset)
-
     def add_ai(self, intendedRace: int = 0, difficulty: float = 0) -> None:
         uw_interop.uwAdminAddAi(intendedRace, difficulty)
 

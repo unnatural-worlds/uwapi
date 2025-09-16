@@ -33,12 +33,6 @@ namespace Unnatural
         public static extern void uwAdminSetGameConfig(ref UwGameConfig config);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSetGameSpeed(float speed);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwAdminSetWeatherSpeed(float speed, float offset);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminStartGame();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -326,7 +320,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 45;
+        public const uint UW_VERSION = 46;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -699,10 +693,20 @@ namespace Unnatural
             public bool ranked;
             [MarshalAs(UnmanagedType.I1)]
             public bool diplomacy;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool lockedSpeed;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool cheats;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwGameConfig(ref UwGameConfig config);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetGameSpeed(float speed);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwSetWeatherSpeed(float speed, float offset);
 
         public enum UwGameStateEnum
         {

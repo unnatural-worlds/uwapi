@@ -25,16 +25,6 @@ namespace Unnatural
             Interop.uwAdminSetMapSelection(path);
         }
 
-        public static void SetGameSpeed(float speed)
-        {
-            Interop.uwAdminSetGameSpeed(speed);
-        }
-
-        public static void SetWeatherSpeed(float speed, float offset)
-        {
-            Interop.uwAdminSetWeatherSpeed(speed, offset);
-        }
-
         public static void StartGame()
         {
             Interop.uwAdminStartGame();
