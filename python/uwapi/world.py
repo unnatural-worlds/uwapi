@@ -18,7 +18,6 @@ class World:
     _my_force_statistics = _make_empty_UwMyForceStatistics()
     _entities: dict[int, Entity] = {}
     _policies: dict[int, UwForeignPolicyEnum] = {}
-    _overview: list[UwOverviewFlags] = []
 
     def __new__(cls):
         if cls._instance is None:
@@ -65,10 +64,10 @@ class World:
         )
 
     def overview_flags_all(self) -> list[UwOverviewFlags]:
-        return self._overview
+        return uw_interop.uwOverviewExtract().flags
 
     def overview_flags(self, position: int) -> UwOverviewFlags:
-        return self._overview[position]
+        return uw_interop.uwOverviewFlags(position)
 
     def overview_entities(self, position: int) -> list[int]:
         return uw_interop.uwOverviewIds(position).ids
@@ -144,12 +143,6 @@ class World:
             if fp.forces[1] == self._my_player.forceEntityId:
                 self._policies[fp.forces[0]] = fp.policy
 
-    def _update_overview(self, stepping: bool) -> None:
-        if stepping:
-            self._overview = uw_interop.uwOverviewExtract().flags
-        else:
-            self._overview = []
-
     def _update(self, stepping: bool) -> None:
         tmp = uw_interop.uwMyPlayer()
         self._my_player = tmp[1] if tmp[0] else _make_empty_UwMyPlayer()
@@ -158,7 +151,6 @@ class World:
         self._update_fresh()
         self._update_modified()
         self._update_policies()
-        self._update_overview(stepping)
 
 
 uw_world = World()

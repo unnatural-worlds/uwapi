@@ -21,6 +21,9 @@ class Admin:
     def set_map_selection(self, path: str) -> None:
         uw_interop.uwAdminSetMapSelection(path)
 
+    def set_game_config(self, cfg: UwGameConfig) -> None:
+        uw_interop.uwAdminSetGameConfig(cfg)
+
     def start_game(self) -> None:
         uw_interop.uwAdminStartGame()
 

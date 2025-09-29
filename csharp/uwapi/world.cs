@@ -67,12 +67,17 @@ namespace Unnatural
 
         public static IReadOnlyList<OverviewFlags> OverviewFlags()
         {
+            Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
+            Interop.uwOverviewExtract(ref ex);
+            OverviewFlags[] overview = new OverviewFlags[ex.count];
+            if (ex.count > 0)
+                Marshal.Copy(ex.flags, (int[])(object)overview, 0, (int)ex.count);
             return overview;
         }
 
         public static OverviewFlags OverviewFlags(uint position)
         {
-            return overview[(int)position];
+            return Interop.uwOverviewFlags(position);
         }
 
         public static uint[] OverviewEntities(uint position)
@@ -128,7 +133,6 @@ namespace Unnatural
         static MyForceStatistics myForceStatistics = new MyForceStatistics();
         static readonly Dictionary<uint, Entity> entities = new Dictionary<uint, Entity>();
         static readonly Dictionary<uint, PolicyEnum> policies = new Dictionary<uint, PolicyEnum>();
-        static OverviewFlags[] overview = new OverviewFlags[0];
 
         static uint[] AllIds()
         {
@@ -196,21 +200,6 @@ namespace Unnatural
             }
         }
 
-        static void UpdateOverview(bool stepping)
-        {
-            if (stepping)
-            {
-                Interop.UwOverviewExtract ex = new Interop.UwOverviewExtract();
-                Interop.uwOverviewExtract(ref ex);
-                if (overview.Length != ex.count)
-                    overview = new OverviewFlags[ex.count];
-                if (ex.count > 0)
-                    Marshal.Copy(ex.flags, (int[])(object)overview, 0, (int)ex.count);
-            }
-            else
-                overview = new OverviewFlags[0];
-        }
-
         static void Updating(object sender, bool stepping)
         {
             Interop.uwMyPlayer(ref myPlayer);
@@ -219,7 +208,6 @@ namespace Unnatural
             UpdateFresh();
             UpdateModified();
             UpdatePolicies();
-            UpdateOverview(stepping);
         }
 
         static World()

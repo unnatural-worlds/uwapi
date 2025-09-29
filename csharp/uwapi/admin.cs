@@ -25,6 +25,11 @@ namespace Unnatural
             Interop.uwAdminSetMapSelection(path);
         }
 
+        public static void SetGameConfig(Interop.UwGameConfig cfg)
+        {
+            Interop.uwAdminSetGameConfig(ref cfg);
+        }
+
         public static void StartGame()
         {
             Interop.uwAdminStartGame();

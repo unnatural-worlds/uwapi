@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 46;
+static const uint32 UW_VERSION = 47;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -131,6 +131,7 @@ void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
 UwConnectionStateEnum uwConnectionState(void);
 
 void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
+void uwSetConnectAsync(bool async);
 bool uwConnectFindLan(uint64 timeoutMicroseconds);
 void uwConnectDirect(const char *address, uint16 port);
 void uwConnectLobbyId(uint64 lobbyId);
@@ -138,6 +139,7 @@ bool uwConnectEnvironment();
 void uwConnectNewServer(uint32 visibility, const char *name, const char *extraCmdParams);
 bool uwTryReconnect(void);
 void uwDisconnect(void);
+bool uwAsyncUpdate(void);
 
 void uwSetPlayerName(const char *name);
 void uwPlayerJoinForce(uint32 force);

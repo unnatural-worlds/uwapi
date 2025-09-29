@@ -56,6 +56,7 @@ extern "C"
 	// connect
 
 	UNNATURAL_API void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
+	UNNATURAL_API void uwSetConnectAsync(bool async);
 	UNNATURAL_API bool uwConnectFindLan(uint64 timeoutMicroseconds);
 	UNNATURAL_API void uwConnectDirect(const char *address, uint16 port);
 	UNNATURAL_API void uwConnectLobbyId(uint64 lobbyId);
@@ -63,6 +64,7 @@ extern "C"
 	UNNATURAL_API void uwConnectNewServer(uint32 visibility, const char *name, const char *extraCmdParams);
 	UNNATURAL_API bool uwTryReconnect(void);
 	UNNATURAL_API void uwDisconnect(void);
+	UNNATURAL_API bool uwAsyncUpdate(void);
 
 	// my player
 

@@ -642,6 +642,9 @@ class Interop:
         extraCmdParams_ = self._str_pytoc(extraCmdParams)
         self._api.uwSetConnectStartGui(enabled, extraCmdParams_)
 
+    def uwSetConnectAsync(self, async: bool) -> None:
+        self._api.uwSetConnectAsync(async)
+
     def uwConnectFindLan(self, timeoutMicroseconds: int) -> bool:
         ret = self._api.uwConnectFindLan(timeoutMicroseconds)
         ret = bool(ret)
@@ -671,6 +674,11 @@ class Interop:
 
     def uwDisconnect(self) -> None:
         self._api.uwDisconnect()
+
+    def uwAsyncUpdate(self) -> bool:
+        ret = self._api.uwAsyncUpdate()
+        ret = bool(ret)
+        return ret
 
     def uwSetPlayerName(self, name: str) -> None:
         name_ = self._str_pytoc(name)
