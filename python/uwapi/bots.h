@@ -131,7 +131,7 @@ void uwSetConnectionStateCallback(UwConnectionStateCallbackType callback);
 UwConnectionStateEnum uwConnectionState(void);
 
 void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
-void uwSetConnectAsync(bool async);
+void uwSetConnectAsync(bool enabled);
 bool uwConnectFindLan(uint64 timeoutMicroseconds);
 void uwConnectDirect(const char *address, uint16 port);
 void uwConnectLobbyId(uint64 lobbyId);

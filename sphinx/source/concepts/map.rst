@@ -56,6 +56,8 @@ There are multiple functions for finding tiles within some distance.
 
          **Area Range**
 
+         Given *3D coordinates* and a radius, returns all tiles within the defined sphere, including tiles that may appear opposite of the rest.
+
    .. grid-item::
 
       .. card::
@@ -63,6 +65,8 @@ There are multiple functions for finding tiles within some distance.
          :text-align: center
 
          **Area Connected**
+
+         Given *tile-index* as center, and a radius, returns tiles that are connected to the center within the radius.
 
    .. grid-item::
 
@@ -72,6 +76,8 @@ There are multiple functions for finding tiles within some distance.
 
          **Area Neighborhood**
 
+         Returns tiles that are direct neighbors of area connected query. Usually looks like a ring.
+
    .. grid-item::
 
       .. card::
@@ -79,6 +85,8 @@ There are multiple functions for finding tiles within some distance.
          :text-align: center
 
          **Area Extended**
+
+         Returns a union of the connected and the neighboring tiles.
 
 .. tab-set::
    :sync-group: language

@@ -106,6 +106,9 @@ The game is designed for multiplayer, and always plays over network, even in sin
 
 Any actions that you do in your program are first send to the game server, then processed, and then the results are send back to your client.
 
+.. important::
+   Some actions will *not* appear until after round-trip to server. Eg. placing a construction.
+
 Example: you call a function to place a construction.
 After that you look through all the entities and the construction is not there, as expected.
 You will not know the id of the entity either.

@@ -642,8 +642,8 @@ class Interop:
         extraCmdParams_ = self._str_pytoc(extraCmdParams)
         self._api.uwSetConnectStartGui(enabled, extraCmdParams_)
 
-    def uwSetConnectAsync(self, async: bool) -> None:
-        self._api.uwSetConnectAsync(async)
+    def uwSetConnectAsync(self, enabled: bool) -> None:
+        self._api.uwSetConnectAsync(enabled)
 
     def uwConnectFindLan(self, timeoutMicroseconds: int) -> bool:
         ret = self._api.uwConnectFindLan(timeoutMicroseconds)

@@ -154,7 +154,7 @@ namespace Unnatural
                                                        [MarshalAs(UnmanagedType.LPStr)] string extraCmdParams);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwSetConnectAsync([MarshalAs(UnmanagedType.I1)] bool async);
+        public static extern void uwSetConnectAsync([MarshalAs(UnmanagedType.I1)] bool enabled);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
