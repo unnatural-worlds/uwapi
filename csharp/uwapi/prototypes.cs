@@ -53,19 +53,24 @@ namespace Unnatural
         public bool logistics; // vehicle that is automatically controlled by the logistics system
         public bool assembler; // the unit must have at least one valid recipe
         public bool emptyNeighbors; // the building requires empty space around
+        public bool detector; // this units can detect units in its sight range irrespective of their detection range
         public bool maximumDistance; // the unit moves to maximum distance when shooting
-        public bool excludeFromMilitary; // the unit is excluded from all-army hotkey
         public bool neutralCategory; // the unit is put in neutral category in lexicon
+        public bool excludeFromMilitary; // the unit is excluded from all-army hotkey
         public bool explodesWhenAttacks; // suicidal unit
         public bool explodesWhenKilled;
         public bool explodesWhenSelfDestructed;
         public float processingSpeed;
+        public float sightRange;
+        public float detectionRange;// range at which this unit is always detected
+        public float aggroRange;
         public float lifeRegen; // life per second
         public float manaRegen; // mana per second
         public uint maxLife;
         public uint maxMana;
         public uint startingMana;
-        public uint regenDelay; // ticks
+        public uint regenDelay; // ticks out of combat before regen applies (affects both life and mana)
+        public uint score;
         public uint armorType;
         public string armorTypeName;
 
