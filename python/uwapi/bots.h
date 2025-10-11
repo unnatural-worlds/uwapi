@@ -347,6 +347,7 @@ typedef enum UwPlayerStateFlags
 	UwPlayerStateFlags_Loaded = 1 << 2,
 	UwPlayerStateFlags_Pause = 1 << 3,
 	UwPlayerStateFlags_SkipCutscene = 1 << 4,
+	UwPlayerStateFlags_Cheater = 1 << 5,
 } UwPlayerStateFlags;
 typedef enum UwPlayerConnectionClassEnum
 {
@@ -425,6 +426,8 @@ typedef struct UwGameConfig
 {
 	bool ranked;
 	bool diplomacy;
+	bool fogOfWar;
+	bool automaticColors;
 	bool lockedSpeed;
 	bool cheats;
 } UwGameConfig;

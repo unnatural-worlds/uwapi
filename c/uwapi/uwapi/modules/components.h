@@ -140,6 +140,7 @@ extern "C"
 		UwPlayerStateFlags_Loaded = 1 << 2,
 		UwPlayerStateFlags_Pause = 1 << 3,
 		UwPlayerStateFlags_SkipCutscene = 1 << 4,
+		UwPlayerStateFlags_Cheater = 1 << 5,
 	} UwPlayerStateFlags;
 	typedef enum UwPlayerConnectionClassEnum
 	{

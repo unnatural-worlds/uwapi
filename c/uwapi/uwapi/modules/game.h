@@ -18,6 +18,8 @@ extern "C"
 	{
 		bool ranked;
 		bool diplomacy;
+		bool fogOfWar;
+		bool automaticColors;
 		bool lockedSpeed;
 		bool cheats;
 	} UwGameConfig;

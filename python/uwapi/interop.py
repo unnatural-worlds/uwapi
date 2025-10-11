@@ -96,6 +96,7 @@ class UwPlayerStateFlags(IntFlag):
     Loaded = 1 << 2
     Pause = 1 << 3
     SkipCutscene = 1 << 4
+    Cheater = 1 << 5
 
 class UwPlayerConnectionClassEnum(Enum):
     Nothing = 0
@@ -321,6 +322,8 @@ class UwDiplomacyProposalComponent:
 class UwGameConfig:
     ranked: bool
     diplomacy: bool
+    fogOfWar: bool
+    automaticColors: bool
     lockedSpeed: bool
     cheats: bool
 
@@ -1328,12 +1331,14 @@ class Interop:
         return UwDiplomacyProposalComponent(int(val.offeror), int(val.offeree), UwForeignPolicyEnum(val.proposal))
 
     def _UwGameConfig_ctopy(self, val) -> UwGameConfig:
-        return UwGameConfig(bool(val.ranked), bool(val.diplomacy), bool(val.lockedSpeed), bool(val.cheats))
+        return UwGameConfig(bool(val.ranked), bool(val.diplomacy), bool(val.fogOfWar), bool(val.automaticColors), bool(val.lockedSpeed), bool(val.cheats))
 
     def _UwGameConfig_pytoc(self, val: UwGameConfig):
         r = self._ffi.new("UwGameConfig *")
         r.ranked = val.ranked
         r.diplomacy = val.diplomacy
+        r.fogOfWar = val.fogOfWar
+        r.automaticColors = val.automaticColors
         r.lockedSpeed = val.lockedSpeed
         r.cheats = val.cheats
         return r

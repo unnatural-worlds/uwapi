@@ -586,6 +586,7 @@ namespace Unnatural
             Loaded = 1 << 2,
             Pause = 1 << 3,
             SkipCutscene = 1 << 4,
+            Cheater = 1 << 5,
         }
 
         public enum UwPlayerConnectionClassEnum
@@ -700,6 +701,10 @@ namespace Unnatural
             public bool ranked;
             [MarshalAs(UnmanagedType.I1)]
             public bool diplomacy;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool fogOfWar;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool automaticColors;
             [MarshalAs(UnmanagedType.I1)]
             public bool lockedSpeed;
             [MarshalAs(UnmanagedType.I1)]
