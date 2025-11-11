@@ -25,6 +25,8 @@ namespace Unnatural
                 string cwd = Directory.GetCurrentDirectory();
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && Directory.GetFiles(cwd, Interop.LibName + ".dll").Length > 0)
                     root = cwd;
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && Directory.GetFiles(cwd, "lib" + Interop.LibName + ".dylib").Length > 0)
+                    root = cwd;
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && Directory.GetFiles(cwd, "lib" + Interop.LibName + ".so").Length > 0)
                     root = cwd;
             }
@@ -32,6 +34,8 @@ namespace Unnatural
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     root = "C:/Program Files (x86)/Steam/steamapps/common/Unnatural Worlds/bin";
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    root = Environment.GetEnvironmentVariable("HOME") + "/Library/Application Support/Steam/steamapps/common/Unnatural Worlds/bin";
                 else
                     root = Environment.GetEnvironmentVariable("HOME") + "/.steam/steam/steamapps/common/Unnatural Worlds/bin";
             }

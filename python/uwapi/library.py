@@ -61,11 +61,17 @@ class UwapiLibrary:
             return steam_path
         if sys.platform == "win32":
             return "C:/Program Files (x86)/Steam/steamapps/common/Unnatural Worlds/bin"
+        if sys.platform == "darwin":
+            return "~/Library/Application Support/Steam/steamapps/common/Unnatural Worlds/bin"
         return "~/.steam/steam/steamapps/common/Unnatural Worlds/bin"
 
     def library_name(self) -> str:
         return "{}unnatural-uwapi{}.{}".format(
             "" if sys.platform == "win32" else "lib",
             "-hard" if __debug__ else "",
-            "dll" if sys.platform == "win32" else "so",
+            (
+                "dll"
+                if sys.platform == "win32"
+                else "dylib" if sys.platform == "darwin" else "so"
+            ),
         )
