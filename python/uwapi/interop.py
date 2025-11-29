@@ -83,11 +83,12 @@ class UwChatTargetEnum(Enum):
 
 class UwUnitStateFlags(IntFlag):
     Nothing = 0
-    Shooting = 1 << 0
-    Processing = 1 << 1
-    Rebuilding = 1 << 2
-    Stalling = 1 << 3
-    Damaged = 1 << 4
+    Constructing = 1 << 0
+    ChangingRecipe = 1 << 1
+    ProcessingRecipe = 1 << 2
+    StallingRecipe = 1 << 3
+    Shooting = 1 << 4
+    Damaged = 1 << 5
 
 class UwPlayerStateFlags(IntFlag):
     Nothing = 0
@@ -392,9 +393,12 @@ class UwUnitUpgrades:
     shootingRange: float
     splashRadius: float
     defense: float
+    regenDelay: float
     regenSpeed: float
     movementSpeed: float
     processingSpeed: float
+    visionRange: float
+    stealthRange: float
 
 @dataclass
 class UwOverviewExtract:
@@ -1379,7 +1383,7 @@ class Interop:
         return UwMyForceStatistics(int(val.logisticsUnitsIdle), int(val.logisticsUnitsTotal), int(val.militaryUnitsIdle), int(val.militaryUnitsTotal), int(val.closestDangerPosition), float(val.closestDangerDistance))
 
     def _UwUnitUpgrades_ctopy(self, val) -> UwUnitUpgrades:
-        return UwUnitUpgrades(float(val.damage), float(val.shootingRange), float(val.splashRadius), float(val.defense), float(val.regenSpeed), float(val.movementSpeed), float(val.processingSpeed))
+        return UwUnitUpgrades(float(val.damage), float(val.shootingRange), float(val.splashRadius), float(val.defense), float(val.regenDelay), float(val.regenSpeed), float(val.movementSpeed), float(val.processingSpeed), float(val.visionRange), float(val.stealthRange))
 
     def _UwOverviewExtract_ctopy(self, val) -> UwOverviewExtract:
         return UwOverviewExtract(list[UwOverviewFlags]([UwOverviewFlags(val.flags[i]) for i in range(val.count)]), int(val.count))

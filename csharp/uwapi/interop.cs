@@ -446,11 +446,12 @@ namespace Unnatural
         public enum UwUnitStateFlags
         {
             None = 0,
-            Shooting = 1 << 0,
-            Processing = 1 << 1,
-            Rebuilding = 1 << 2,
-            Stalling = 1 << 3,
-            Damaged = 1 << 4,
+            Constructing = 1 << 0,
+            ChangingRecipe = 1 << 1,
+            ProcessingRecipe = 1 << 2,
+            StallingRecipe = 1 << 3,
+            Shooting = 1 << 4,
+            Damaged = 1 << 5,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -985,9 +986,12 @@ namespace Unnatural
             public float shootingRange;
             public float splashRadius;
             public float defense;
+            public float regenDelay;
             public float regenSpeed;
             public float movementSpeed;
             public float processingSpeed;
+            public float visionRange;
+            public float stealthRange;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

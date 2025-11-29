@@ -42,6 +42,7 @@ namespace Unnatural
     {
         public Dictionary<uint, uint> inputs; // id -> count
         public uint output; // id of unit
+        public uint duration; // ticks
     }
 
     public class ProtoUnit : ProtoCommon
@@ -110,9 +111,12 @@ namespace Unnatural
         public float shootingRange;
         public float splashRadius;
         public float defense;
+        public float regenDelay;
         public float regenSpeed;
         public float movementSpeed;
         public float processingSpeed;
+        public float sightRange;
+        public float detectionRange;
     }
 
     public class ProtoRace : ProtoCommon

@@ -259,11 +259,12 @@ bool uwFetchPositionComponent(UwEntityPtr entity, UwPositionComponent *data);
 typedef enum UwUnitStateFlags
 {
 	UwUnitStateFlags_None = 0,
-	UwUnitStateFlags_Shooting = 1 << 0,
-	UwUnitStateFlags_Processing = 1 << 1,
-	UwUnitStateFlags_Rebuilding = 1 << 2,
-	UwUnitStateFlags_Stalling = 1 << 3,
-	UwUnitStateFlags_Damaged = 1 << 4,
+	UwUnitStateFlags_Constructing = 1 << 0,
+	UwUnitStateFlags_ChangingRecipe = 1 << 1,
+	UwUnitStateFlags_ProcessingRecipe = 1 << 2,
+	UwUnitStateFlags_StallingRecipe = 1 << 3,
+	UwUnitStateFlags_Shooting = 1 << 4,
+	UwUnitStateFlags_Damaged = 1 << 5,
 } UwUnitStateFlags;
 typedef struct UwUnitComponent
 {
@@ -605,9 +606,12 @@ typedef struct UwUnitUpgrades
 	float shootingRange;
 	float splashRadius;
 	float defense;
+	float regenDelay;
 	float regenSpeed;
 	float movementSpeed;
 	float processingSpeed;
+	float visionRange;
+	float stealthRange;
 } UwUnitUpgrades;
 void uwUnitUpgrades(uint32 unit, UwUnitUpgrades *data);
 

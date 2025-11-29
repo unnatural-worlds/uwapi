@@ -52,11 +52,12 @@ extern "C"
 	typedef enum UwUnitStateFlags
 	{
 		UwUnitStateFlags_None = 0,
-		UwUnitStateFlags_Shooting = 1 << 0, // reloading
-		UwUnitStateFlags_Processing = 1 << 1, // processing recipe
-		UwUnitStateFlags_Rebuilding = 1 << 2, // changing recipe
-		UwUnitStateFlags_Stalling = 1 << 3, // usually due to maximumProcessingOutput
-		UwUnitStateFlags_Damaged = 1 << 4, // less than half life
+		UwUnitStateFlags_Constructing = 1 << 0,
+		UwUnitStateFlags_ChangingRecipe = 1 << 1,
+		UwUnitStateFlags_ProcessingRecipe = 1 << 2,
+		UwUnitStateFlags_StallingRecipe = 1 << 3, // usually due to maximumProcessingOutput
+		UwUnitStateFlags_Shooting = 1 << 4, // reloading
+		UwUnitStateFlags_Damaged = 1 << 5, // less than half life
 	} UwUnitStateFlags;
 	typedef struct UwUnitComponent
 	{

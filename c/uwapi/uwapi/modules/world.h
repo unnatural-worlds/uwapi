@@ -29,9 +29,12 @@ extern "C"
 		float shootingRange;
 		float splashRadius;
 		float defense;
+		float regenDelay;
 		float regenSpeed;
 		float movementSpeed;
 		float processingSpeed;
+		float visionRange;
+		float stealthRange;
 	} UwUnitUpgrades;
 	UNNATURAL_API void uwUnitUpgrades(uint32 unit, UwUnitUpgrades *data);
 
