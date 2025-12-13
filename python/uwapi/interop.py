@@ -125,9 +125,10 @@ class UwGameStateEnum(Enum):
 
 class UwShootingEventEnum(Enum):
     Nothing = 0
-    Shooting = 1
-    Death = 2
+    EntityData = 1
+    Shooting = 2
     Explosion = 3
+    Death = 4
 
 class UwTaskTypeEnum(Enum):
     Nothing = 0

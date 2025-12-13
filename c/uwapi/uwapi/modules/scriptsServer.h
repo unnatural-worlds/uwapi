@@ -31,6 +31,7 @@ extern "C"
 	UNNATURAL_API void uwSetRegenCooldown(uint32 entity, uint32 ticks); // ticks = 0 to remove cooldown
 	UNNATURAL_API void uwSetProcessingCooldown(uint32 entity, uint32 ticks); // ticks = 0 to remove cooldown
 	UNNATURAL_API void uwSetDecay(uint32 entity, uint32 ticks); // ticks = -1 to remove decay
+	UNNATURAL_API void uwSetRevealed(uint32 entity, bool revealed);
 
 	UNNATURAL_API void uwSetAmount(uint32 entity, uint32 amount);
 	UNNATURAL_API void uwSetAttached(uint32 entity, uint32 target); // target = 0 to detach

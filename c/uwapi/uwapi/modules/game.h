@@ -69,9 +69,10 @@ extern "C"
 	typedef enum UwShootingEventEnum
 	{
 		UwShootingEventEnum_None = 0,
-		UwShootingEventEnum_Shooting = 1,
-		UwShootingEventEnum_Death = 2,
+		UwShootingEventEnum_EntityData = 1,
+		UwShootingEventEnum_Shooting = 2,
 		UwShootingEventEnum_Explosion = 3,
+		UwShootingEventEnum_Death = 4,
 	} UwShootingEventEnum;
 	typedef struct UwShootingsArray
 	{

@@ -327,7 +327,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 50;
+        public const uint UW_VERSION = 51;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -755,9 +755,10 @@ namespace Unnatural
         public enum UwShootingEventEnum
         {
             None = 0,
-            Shooting = 1,
-            Death = 2,
+            EntityData = 1,
+            Shooting = 2,
             Explosion = 3,
+            Death = 4,
         }
 
         [StructLayout(LayoutKind.Sequential)]

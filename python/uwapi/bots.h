@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 50;
+static const uint32 UW_VERSION = 51;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -464,9 +464,10 @@ void uwSetUpdateCallback(UwUpdateCallbackType callback);
 typedef enum UwShootingEventEnum
 {
 	UwShootingEventEnum_None = 0,
-	UwShootingEventEnum_Shooting = 1,
-	UwShootingEventEnum_Death = 2,
+	UwShootingEventEnum_EntityData = 1,
+	UwShootingEventEnum_Shooting = 2,
 	UwShootingEventEnum_Explosion = 3,
+	UwShootingEventEnum_Death = 4,
 } UwShootingEventEnum;
 typedef struct UwShootingsArray
 {
