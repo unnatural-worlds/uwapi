@@ -16,7 +16,9 @@ extern "C"
 		uint32 militaryUnitsIdle;
 		uint32 militaryUnitsTotal;
 		uint32 closestDangerPosition;
+		uint32 latestClosestDangerPosition;
 		float closestDangerDistance;
+		float latestClosestDangerDistance;
 	} UwMyForceStatistics;
 	UNNATURAL_API void uwMyForceStatistics(UwMyForceStatistics *data);
 

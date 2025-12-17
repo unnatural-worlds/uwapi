@@ -386,7 +386,9 @@ class UwMyForceStatistics:
     militaryUnitsIdle: int
     militaryUnitsTotal: int
     closestDangerPosition: int
+    latestClosestDangerPosition: int
     closestDangerDistance: float
+    latestClosestDangerDistance: float
 
 @dataclass
 class UwUnitUpgrades:
@@ -1381,7 +1383,7 @@ class Interop:
         return UwClustersDistancesResult(self._UwIds_ctopy(val.distances))
 
     def _UwMyForceStatistics_ctopy(self, val) -> UwMyForceStatistics:
-        return UwMyForceStatistics(int(val.logisticsUnitsIdle), int(val.logisticsUnitsTotal), int(val.militaryUnitsIdle), int(val.militaryUnitsTotal), int(val.closestDangerPosition), float(val.closestDangerDistance))
+        return UwMyForceStatistics(int(val.logisticsUnitsIdle), int(val.logisticsUnitsTotal), int(val.militaryUnitsIdle), int(val.militaryUnitsTotal), int(val.closestDangerPosition), int(val.latestClosestDangerPosition), float(val.closestDangerDistance), float(val.latestClosestDangerDistance))
 
     def _UwUnitUpgrades_ctopy(self, val) -> UwUnitUpgrades:
         return UwUnitUpgrades(float(val.damage), float(val.shootingRange), float(val.splashRadius), float(val.defense), float(val.regenDelay), float(val.regenSpeed), float(val.movementSpeed), float(val.processingSpeed), float(val.visionRange), float(val.stealthRange))

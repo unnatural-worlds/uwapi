@@ -971,7 +971,9 @@ namespace Unnatural
             public uint militaryUnitsIdle;
             public uint militaryUnitsTotal;
             public uint closestDangerPosition;
+            public uint latestClosestDangerPosition;
             public float closestDangerDistance;
+            public float latestClosestDangerDistance;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

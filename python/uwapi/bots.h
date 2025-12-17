@@ -595,7 +595,9 @@ typedef struct UwMyForceStatistics
 	uint32 militaryUnitsIdle;
 	uint32 militaryUnitsTotal;
 	uint32 closestDangerPosition;
+	uint32 latestClosestDangerPosition;
 	float closestDangerDistance;
+	float latestClosestDangerDistance;
 } UwMyForceStatistics;
 void uwMyForceStatistics(UwMyForceStatistics *data);
 
