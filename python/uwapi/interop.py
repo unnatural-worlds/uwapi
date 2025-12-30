@@ -270,6 +270,11 @@ class UwAttachmentComponent:
     target: int
 
 @dataclass
+class UwConstructingAnimationComponent:
+    start: int
+    finish: int
+
+@dataclass
 class UwPingComponent:
     ping: UwPingEnum
 
@@ -454,6 +459,7 @@ LogisticsTimestampComponent = UwLogisticsTimestampComponent
 PriorityComponent = UwPriorityComponent
 AmountComponent = UwAmountComponent
 AttachmentComponent = UwAttachmentComponent
+ConstructingAnimationComponent = UwConstructingAnimationComponent
 PingComponent = UwPingComponent
 PlayerState = UwPlayerStateFlags
 PlayerConnectionClass = UwPlayerConnectionClassEnum
@@ -908,6 +914,13 @@ class Interop:
         ret = bool(ret)
         return ret, data_
 
+    def uwFetchConstructingAnimationComponent(self, entity) -> Tuple[bool, UwConstructingAnimationComponent]:
+        data = self._ffi.new("UwConstructingAnimationComponent *")
+        ret = self._api.uwFetchConstructingAnimationComponent(entity, data)
+        data_ = self._UwConstructingAnimationComponent_ctopy(data)
+        ret = bool(ret)
+        return ret, data_
+
     def uwFetchPingComponent(self, entity) -> Tuple[bool, UwPingComponent]:
         data = self._ffi.new("UwPingComponent *")
         ret = self._api.uwFetchPingComponent(entity, data)
@@ -1307,6 +1320,9 @@ class Interop:
 
     def _UwAttachmentComponent_ctopy(self, val) -> UwAttachmentComponent:
         return UwAttachmentComponent(int(val.target))
+
+    def _UwConstructingAnimationComponent_ctopy(self, val) -> UwConstructingAnimationComponent:
+        return UwConstructingAnimationComponent(int(val.start), int(val.finish))
 
     def _UwPingComponent_ctopy(self, val) -> UwPingComponent:
         return UwPingComponent(UwPingEnum(val.ping))

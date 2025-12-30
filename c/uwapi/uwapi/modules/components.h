@@ -127,6 +127,13 @@ extern "C"
 	} UwAttachmentComponent;
 	UNNATURAL_API bool uwFetchAttachmentComponent(UwEntityPtr entity, UwAttachmentComponent *data);
 
+	typedef struct UwConstructingAnimationComponent
+	{
+		uint32 start;
+		uint32 finish;
+	} UwConstructingAnimationComponent;
+	UNNATURAL_API bool uwFetchConstructingAnimationComponent(UwEntityPtr entity, UwConstructingAnimationComponent *data);
+
 	typedef struct UwPingComponent
 	{
 		UwPingEnum ping;

@@ -5,7 +5,7 @@ from .entity_update_components import entity_update_components
 
 
 def _make_empty_UwMyForceStatistics() -> UwMyForceStatistics:
-    return UwMyForceStatistics(0, 0, 0, 0, 0, 0)
+    return UwMyForceStatistics(0, 0, 0, 0, 0, 0, 0, 0)
 
 
 def _make_empty_UwMyPlayer() -> UwMyPlayer:

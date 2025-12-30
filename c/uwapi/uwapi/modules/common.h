@@ -34,7 +34,7 @@ extern "C"
 	typedef uint64_t uint64;
 	typedef int64_t sint64;
 
-	static const uint32 UW_VERSION = 51;
+	static const uint32 UW_VERSION = 52;
 	static const uint32 UW_GameTicksPerSecond = 20;
 
 	typedef struct UwIds

@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 51;
+static const uint32 UW_VERSION = 52;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -333,6 +333,13 @@ typedef struct UwAttachmentComponent
 	uint32 target;
 } UwAttachmentComponent;
 bool uwFetchAttachmentComponent(UwEntityPtr entity, UwAttachmentComponent *data);
+
+typedef struct UwConstructingAnimationComponent
+{
+	uint32 start;
+	uint32 finish;
+} UwConstructingAnimationComponent;
+bool uwFetchConstructingAnimationComponent(UwEntityPtr entity, UwConstructingAnimationComponent *data);
 
 typedef struct UwPingComponent
 {

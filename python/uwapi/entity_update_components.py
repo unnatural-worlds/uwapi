@@ -98,6 +98,12 @@ def entity_update_components(e: Entity):
     else:
         e.Attachment = None
 
+    c_ConstructingAnimation = uw_interop.uwFetchConstructingAnimationComponent(ptr)
+    if c_ConstructingAnimation[0]:
+        e.ConstructingAnimation = c_ConstructingAnimation[1]
+    else:
+        e.ConstructingAnimation = None
+
     c_Ping = uw_interop.uwFetchPingComponent(ptr)
     if c_Ping[0]:
         e.Ping = c_Ping[1]

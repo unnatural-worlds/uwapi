@@ -5,7 +5,7 @@ from .prototypes import uw_prototypes, Prototype
 
 
 def _make_empty_UwUnitUpgrades() -> UwUnitUpgrades:
-    return UwUnitUpgrades(0, 0, 0, 0, 0, 0, 0)
+    return UwUnitUpgrades(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 
 @dataclass
@@ -29,6 +29,7 @@ class Entity:
     Priority: Optional[UwPriorityComponent] = None
     Amount: Optional[UwAmountComponent] = None
     Attachment: Optional[UwAttachmentComponent] = None
+    ConstructingAnimation: Optional[UwConstructingAnimationComponent] = None
     Ping: Optional[UwPingComponent] = None
     Player: Optional[UwPlayerComponent] = None
     PlayerAiConfig: Optional[UwPlayerAiConfigComponent] = None
