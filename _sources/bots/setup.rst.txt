@@ -45,6 +45,11 @@ Game Install Path
 
       Default path: ``~/.steam/steam/steamapps/common/Unnatural Worlds/bin``
 
+   .. tab-item:: Macos
+      :sync: macos
+
+      Default path: ``~/Library/Application Support/Steam/steamapps/common/Unnatural Worlds/bin``
+
 Show Extra Information
 ----------------------
 
