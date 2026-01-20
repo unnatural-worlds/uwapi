@@ -58,12 +58,13 @@ namespace Unnatural
         public bool maximumDistance; // the unit moves to maximum distance when shooting
         public bool neutralCategory; // the unit is put in neutral category in lexicon
         public bool excludeFromMilitary; // the unit is excluded from all-army hotkey
+        public bool manualAim; // prevent automatic aiming by the assistant (useful for some suicidal units)
         public bool explodesWhenAttacks; // suicidal unit
         public bool explodesWhenKilled;
         public bool explodesWhenSelfDestructed;
         public float processingSpeed;
-        public float sightRange;
-        public float detectionRange;// range at which this unit is always detected
+        public float visionRange;
+        public float stealthRange;// range at which this unit is always detected
         public float aggroRange;
         public float lifeRegen; // life per second
         public float manaRegen; // mana per second
