@@ -54,11 +54,12 @@ namespace Unnatural
         public bool logistics; // vehicle that is automatically controlled by the logistics system
         public bool assembler; // the unit must have at least one valid recipe
         public bool emptyNeighbors; // the building requires empty space around
-        public bool detector; // this units can detect units in its sight range irrespective of their detection range
-        public bool maximumDistance; // the unit moves to maximum distance when shooting
         public bool neutralCategory; // the unit is put in neutral category in lexicon
         public bool excludeFromMilitary; // the unit is excluded from all-army hotkey
+        public bool cannotShootWhileMoving;
+        public bool detector; // this units can detect units in its sight range irrespective of their detection range
         public bool manualAim; // prevent automatic aiming by the assistant (useful for some suicidal units)
+        public bool maximumDistance; // the unit moves to maximum distance when shooting
         public bool explodesWhenAttacks; // suicidal unit
         public bool explodesWhenKilled;
         public bool explodesWhenSelfDestructed;
