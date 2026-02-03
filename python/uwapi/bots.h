@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 54;
+static const uint32 UW_VERSION = 55;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -432,9 +432,11 @@ typedef struct UwDiplomacyProposalComponent
 bool uwFetchDiplomacyProposalComponent(UwEntityPtr entity, UwDiplomacyProposalComponent *data);
 typedef struct UwGameConfig
 {
-	bool ranked;
+	bool standard;
+	bool assassination;
 	bool diplomacy;
 	bool fogOfWar;
+	bool secrets;
 	bool automaticColors;
 	bool lockedSpeed;
 	bool cheats;

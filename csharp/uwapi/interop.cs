@@ -327,7 +327,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 54;
+        public const uint UW_VERSION = 55;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -711,11 +711,15 @@ namespace Unnatural
         public struct UwGameConfig
         {
             [MarshalAs(UnmanagedType.I1)]
-            public bool ranked;
+            public bool standard;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool assassination;
             [MarshalAs(UnmanagedType.I1)]
             public bool diplomacy;
             [MarshalAs(UnmanagedType.I1)]
             public bool fogOfWar;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool secrets;
             [MarshalAs(UnmanagedType.I1)]
             public bool automaticColors;
             [MarshalAs(UnmanagedType.I1)]
