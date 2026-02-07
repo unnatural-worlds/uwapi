@@ -327,7 +327,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 55;
+        public const uint UW_VERSION = 56;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -620,6 +620,7 @@ namespace Unnatural
             public ulong steamUserId;
             public uint force;
             public float progress;
+            public float rating;
             public uint ping;
             public UwPlayerStateFlags state;
             public UwPlayerConnectionClassEnum playerConnectionClass;
@@ -662,6 +663,7 @@ namespace Unnatural
             public uint finishTimestamp;
             public uint intendedTeam;
             public uint intendedRace;
+            public float strengthMultiplier;
             public UwForceStateFlags state;
         }
 

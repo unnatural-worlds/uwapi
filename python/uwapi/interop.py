@@ -285,6 +285,7 @@ class UwPlayerComponent:
     steamUserId: int
     force: int
     progress: float
+    rating: float
     ping: int
     state: UwPlayerStateFlags
     playerConnectionClass: UwPlayerConnectionClassEnum
@@ -305,6 +306,7 @@ class UwForceComponent:
     finishTimestamp: int
     intendedTeam: int
     intendedRace: int
+    strengthMultiplier: float
     state: UwForceStateFlags
 
 @dataclass
@@ -1330,7 +1332,7 @@ class Interop:
         return UwPingComponent(UwPingEnum(val.ping))
 
     def _UwPlayerComponent_ctopy(self, val) -> UwPlayerComponent:
-        return UwPlayerComponent(self._str_ctopy(val.name), int(val.nameLength), int(val.steamUserId), int(val.force), float(val.progress), int(val.ping), UwPlayerStateFlags(val.state), UwPlayerConnectionClassEnum(val.playerConnectionClass))
+        return UwPlayerComponent(self._str_ctopy(val.name), int(val.nameLength), int(val.steamUserId), int(val.force), float(val.progress), float(val.rating), int(val.ping), UwPlayerStateFlags(val.state), UwPlayerConnectionClassEnum(val.playerConnectionClass))
 
     def _UwPlayerAiConfigComponent_ctopy(self, val) -> UwPlayerAiConfigComponent:
         return UwPlayerAiConfigComponent(float(val.difficulty), float(val.aggressive), float(val.stretching), float(val.expansive))
@@ -1344,7 +1346,7 @@ class Interop:
         return r
 
     def _UwForceComponent_ctopy(self, val) -> UwForceComponent:
-        return UwForceComponent(list[float]([float(val.color[i]) for i in range(3)]), int(val.score), int(val.killCount), int(val.lossCount), int(val.finishTimestamp), int(val.intendedTeam), int(val.intendedRace), UwForceStateFlags(val.state))
+        return UwForceComponent(list[float]([float(val.color[i]) for i in range(3)]), int(val.score), int(val.killCount), int(val.lossCount), int(val.finishTimestamp), int(val.intendedTeam), int(val.intendedRace), float(val.strengthMultiplier), UwForceStateFlags(val.state))
 
     def _UwForceDetailsComponent_ctopy(self, val) -> UwForceDetailsComponent:
         return UwForceDetailsComponent(int(val.killValue), int(val.lossValue), int(val.startingPosition), int(val.race))

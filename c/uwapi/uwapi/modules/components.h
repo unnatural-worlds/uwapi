@@ -165,6 +165,7 @@ extern "C"
 		uint64 steamUserId;
 		uint32 force;
 		float progress;
+		float rating;
 		uint32 ping;
 		UwPlayerStateFlags state;
 		UwPlayerConnectionClassEnum playerConnectionClass;
@@ -196,6 +197,7 @@ extern "C"
 		uint32 finishTimestamp;
 		uint32 intendedTeam;
 		uint32 intendedRace;
+		float strengthMultiplier;
 		UwForceStateFlags state;
 	} UwForceComponent;
 	UNNATURAL_API bool uwFetchForceComponent(UwEntityPtr entity, UwForceComponent *data);

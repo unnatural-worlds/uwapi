@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 55;
+static const uint32 UW_VERSION = 56;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -372,6 +372,7 @@ typedef struct UwPlayerComponent
 	uint64 steamUserId;
 	uint32 force;
 	float progress;
+	float rating;
 	uint32 ping;
 	UwPlayerStateFlags state;
 	UwPlayerConnectionClassEnum playerConnectionClass;
@@ -403,6 +404,7 @@ typedef struct UwForceComponent
 	uint32 finishTimestamp;
 	uint32 intendedTeam;
 	uint32 intendedRace;
+	float strengthMultiplier;
 	UwForceStateFlags state;
 } UwForceComponent;
 bool uwFetchForceComponent(UwEntityPtr entity, UwForceComponent *data);
