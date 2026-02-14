@@ -98,7 +98,7 @@ namespace Unnatural
                 {
                     // automatically select map and start the game from here in the code
                     if (false)
-                        Game.ConnectNewServer(0, "", "--allowUwApiAdmin 1");
+                        Game.ConnectNewServer(0, "", "--uwapi 2");
                     else
                         Game.ConnectNewServer();
                 }

@@ -88,7 +88,7 @@ class Bot:
             if not uw_game.connect_environment():
                 # automatically select map and start the game from here in the code
                 if False:
-                    uw_game.connect_new_server(0, "", "--allowUwApiAdmin 1")
+                    uw_game.connect_new_server(0, "", "--uwapi 2")
                 else:
                     uw_game.connect_new_server()
         uw_game.log_info("bot-py done")
