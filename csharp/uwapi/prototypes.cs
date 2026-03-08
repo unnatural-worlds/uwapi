@@ -13,8 +13,8 @@ namespace Unnatural
         public string name;
         public string json;
         public PrototypeTypeEnum type;
-        public uint[] tags;
-        public string[] tagsNames;
+        public List<uint> tags;
+        public List<string> tagsNames;
 
         public bool Tagged(uint tag)
         {
@@ -47,6 +47,8 @@ namespace Unnatural
 
     public class ProtoUnit : ProtoCommon
     {
+        public List<uint> classes;
+        public List<string> classesNames;
         public List<uint> recipes; // ids of recipes available for processing by this unit
         public List<uint> upgrades; // ids of upgrades applicable to this unit
         public bool vital; // a force loses when it loses last vital unit
@@ -57,6 +59,7 @@ namespace Unnatural
         public bool neutralCategory; // the unit is put in neutral category in lexicon
         public bool excludeFromMilitary; // the unit is excluded from all-army hotkey
         public bool cannotShootWhileMoving;
+        public bool invulnerable;
         public bool detector; // this units can detect units in its sight range irrespective of their detection range
         public bool manualAim; // prevent automatic aiming by the assistant (useful for some suicidal units)
         public bool maximumDistance; // the unit moves to maximum distance when shooting
@@ -74,12 +77,8 @@ namespace Unnatural
         public uint startingMana;
         public uint regenDelay; // ticks out of combat before regen applies (affects both life and mana)
         public uint score;
-        public uint armorType;
-        public string armorTypeName;
 
         // weapon
-        public uint damageType;
-        public string damageTypeName;
         public float dps;
         public float dpsAtLowLife;
         public float fireRange; // meters
@@ -91,8 +90,6 @@ namespace Unnatural
         public float splashFractionToFriendly;
 
         // explosion
-        public uint explosionDamageType;
-        public string explosionDamageTypeName;
         public float explosionDamage;
         public float explosionRadius; // meters
         public float explosionFractionAtEdge;
@@ -130,10 +127,8 @@ namespace Unnatural
     public class Definitions
     {
         public List<string> tagsNames;
+        public List<string> classesNames;
         public List<string> terrainNames;
-        public List<string> armorNames;
-        public List<string> damageNames;
-        public List<List<float>> hitChancesTable; // damage type -> armor type -> damage chance
     }
 
     public static class Prototypes
