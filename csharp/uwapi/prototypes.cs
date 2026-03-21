@@ -51,21 +51,24 @@ namespace Unnatural
         public List<string> classesNames;
         public List<uint> recipes; // ids of recipes available for processing by this unit
         public List<uint> upgrades; // ids of upgrades applicable to this unit
-        public bool vital; // a force loses when it loses last vital unit
-        public bool cargo; // the unit may carry resources
-        public bool logistics; // vehicle that is automatically controlled by the logistics system
-        public bool assembler; // the unit must have at least one valid recipe
-        public bool emptyNeighbors; // the building requires empty space around
-        public bool neutralCategory; // the unit is put in neutral category in lexicon
-        public bool excludeFromMilitary; // the unit is excluded from all-army hotkey
-        public bool cannotShootWhileMoving;
+
+        public bool vital;
+        public bool cargoResources;
+        public bool cargoUnits;
+        public bool automaticLogistics;
+        public bool requiresValidRecipe;
+        public bool requiresEmptyNeighbors;
+        public bool neutralCategory;
+        public bool excludeFromMilitary;
         public bool invulnerable;
-        public bool detector; // this units can detect units in its sight range irrespective of their detection range
-        public bool manualAim; // prevent automatic aiming by the assistant (useful for some suicidal units)
-        public bool maximumDistance; // the unit moves to maximum distance when shooting
-        public bool explodesWhenAttacks; // suicidal unit
+        public bool detector;
+        public bool manualAim;
+        public bool maximumDistance;
+        public bool cannotShootWhileMoving;
+        public bool explodesWhenAttacks;
         public bool explodesWhenKilled;
         public bool explodesWhenSelfDestructed;
+
         public float processingSpeed;
         public float visionRange;
         public float stealthRange;// range at which this unit is always detected
