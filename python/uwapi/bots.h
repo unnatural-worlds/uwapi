@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 61;
+static const uint32 UW_VERSION = 62;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -334,6 +334,12 @@ typedef struct UwAttachmentComponent
 } UwAttachmentComponent;
 bool uwFetchAttachmentComponent(UwEntityPtr entity, UwAttachmentComponent *data);
 
+typedef struct UwGhostComponent
+{
+	uint32 lastSeen;
+} UwGhostComponent;
+bool uwFetchGhostComponent(UwEntityPtr entity, UwGhostComponent *data);
+
 typedef struct UwConstructingAnimationComponent
 {
 	uint32 start;
@@ -394,6 +400,8 @@ typedef enum UwForceStateFlags
 	UwForceStateFlags_Disconnected = 1 << 0,
 	UwForceStateFlags_Winner = 1 << 1,
 	UwForceStateFlags_Defeated = 1 << 2,
+	UwForceStateFlags_OwnViteal = 1 << 3,
+	UwForceStateFlags_AlliedViteal = 1 << 4,
 } UwForceStateFlags;
 typedef struct UwForceComponent
 {

@@ -111,6 +111,8 @@ class UwForceStateFlags(IntFlag):
     Disconnected = 1 << 0
     Winner = 1 << 1
     Defeated = 1 << 2
+    OwnViteal = 1 << 3
+    AlliedViteal = 1 << 4
 
 class UwGameStateEnum(Enum):
     Nothing = 0
@@ -268,6 +270,10 @@ class UwAmountComponent:
 @dataclass
 class UwAttachmentComponent:
     target: int
+
+@dataclass
+class UwGhostComponent:
+    lastSeen: int
 
 @dataclass
 class UwConstructingAnimationComponent:
@@ -463,6 +469,7 @@ LogisticsTimestampComponent = UwLogisticsTimestampComponent
 PriorityComponent = UwPriorityComponent
 AmountComponent = UwAmountComponent
 AttachmentComponent = UwAttachmentComponent
+GhostComponent = UwGhostComponent
 ConstructingAnimationComponent = UwConstructingAnimationComponent
 PingComponent = UwPingComponent
 PlayerState = UwPlayerStateFlags
@@ -918,6 +925,13 @@ class Interop:
         ret = bool(ret)
         return ret, data_
 
+    def uwFetchGhostComponent(self, entity) -> Tuple[bool, UwGhostComponent]:
+        data = self._ffi.new("UwGhostComponent *")
+        ret = self._api.uwFetchGhostComponent(entity, data)
+        data_ = self._UwGhostComponent_ctopy(data)
+        ret = bool(ret)
+        return ret, data_
+
     def uwFetchConstructingAnimationComponent(self, entity) -> Tuple[bool, UwConstructingAnimationComponent]:
         data = self._ffi.new("UwConstructingAnimationComponent *")
         ret = self._api.uwFetchConstructingAnimationComponent(entity, data)
@@ -1324,6 +1338,9 @@ class Interop:
 
     def _UwAttachmentComponent_ctopy(self, val) -> UwAttachmentComponent:
         return UwAttachmentComponent(int(val.target))
+
+    def _UwGhostComponent_ctopy(self, val) -> UwGhostComponent:
+        return UwGhostComponent(int(val.lastSeen))
 
     def _UwConstructingAnimationComponent_ctopy(self, val) -> UwConstructingAnimationComponent:
         return UwConstructingAnimationComponent(int(val.start), int(val.finish))

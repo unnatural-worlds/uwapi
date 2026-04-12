@@ -65,7 +65,7 @@ class Bot:
         # uw_game.set_force_race(RACE_ID) # todo
         if uw_world.is_admin():
             # uw_admin.set_map_selection("planets/tetrahedron.uwmap")
-            uw_admin.set_map_selection("special/risk.uwmap")
+            uw_admin.set_map_selection("extra/risk.uwmap")
             uw_admin.add_ai()
             uw_admin.set_automatic_suggested_camera_focus(True)
         uw_game.log_info("configuration done")

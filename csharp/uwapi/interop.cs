@@ -327,7 +327,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 61;
+        public const uint UW_VERSION = 62;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -569,6 +569,16 @@ namespace Unnatural
         public static extern bool uwFetchAttachmentComponent(IntPtr entity, ref UwAttachmentComponent data);
 
         [StructLayout(LayoutKind.Sequential)]
+        public struct UwGhostComponent
+        {
+            public uint lastSeen;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwFetchGhostComponent(IntPtr entity, ref UwGhostComponent data);
+
+        [StructLayout(LayoutKind.Sequential)]
         public struct UwConstructingAnimationComponent
         {
             public uint start;
@@ -650,6 +660,8 @@ namespace Unnatural
             Disconnected = 1 << 0,
             Winner = 1 << 1,
             Defeated = 1 << 2,
+            OwnViteal = 1 << 3,
+            AlliedViteal = 1 << 4,
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -1102,6 +1114,7 @@ namespace Unnatural
         public Interop.UwPriorityComponent? Priority;
         public Interop.UwAmountComponent? Amount;
         public Interop.UwAttachmentComponent? Attachment;
+        public Interop.UwGhostComponent? Ghost;
         public Interop.UwConstructingAnimationComponent? ConstructingAnimation;
         public Interop.UwPingComponent? Ping;
         public Interop.UwPlayerComponent? Player;
@@ -1218,6 +1231,13 @@ namespace Unnatural
                     Attachment = tmp;
                 else
                     Attachment = null;
+            }
+            {
+                Interop.UwGhostComponent tmp = new Interop.UwGhostComponent();
+                if (Interop.uwFetchGhostComponent(e, ref tmp))
+                    Ghost = tmp;
+                else
+                    Ghost = null;
             }
             {
                 Interop.UwConstructingAnimationComponent tmp = new Interop.UwConstructingAnimationComponent();

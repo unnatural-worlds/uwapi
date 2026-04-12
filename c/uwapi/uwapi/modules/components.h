@@ -127,6 +127,12 @@ extern "C"
 	} UwAttachmentComponent;
 	UNNATURAL_API bool uwFetchAttachmentComponent(UwEntityPtr entity, UwAttachmentComponent *data);
 
+	typedef struct UwGhostComponent
+	{
+		uint32 lastSeen;
+	} UwGhostComponent;
+	UNNATURAL_API bool uwFetchGhostComponent(UwEntityPtr entity, UwGhostComponent *data);
+
 	typedef struct UwConstructingAnimationComponent
 	{
 		uint32 start;
@@ -187,6 +193,8 @@ extern "C"
 		UwForceStateFlags_Disconnected = 1 << 0,
 		UwForceStateFlags_Winner = 1 << 1,
 		UwForceStateFlags_Defeated = 1 << 2,
+		UwForceStateFlags_OwnViteal = 1 << 3,
+		UwForceStateFlags_AlliedViteal = 1 << 4,
 	} UwForceStateFlags;
 	typedef struct UwForceComponent
 	{

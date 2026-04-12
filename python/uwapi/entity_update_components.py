@@ -98,6 +98,12 @@ def entity_update_components(e: Entity):
     else:
         e.Attachment = None
 
+    c_Ghost = uw_interop.uwFetchGhostComponent(ptr)
+    if c_Ghost[0]:
+        e.Ghost = c_Ghost[1]
+    else:
+        e.Ghost = None
+
     c_ConstructingAnimation = uw_interop.uwFetchConstructingAnimationComponent(ptr)
     if c_ConstructingAnimation[0]:
         e.ConstructingAnimation = c_ConstructingAnimation[1]

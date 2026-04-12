@@ -65,7 +65,7 @@ namespace Unnatural
             if (World.IsAdmin())
             {
                 // Admin.SetMapSelection("planets/tetrahedron.uwmap");
-                Admin.SetMapSelection("special/risk.uwmap");
+                Admin.SetMapSelection("extra/risk.uwmap");
                 Admin.AddAi();
                 Admin.SetAutomaticSuggestedCameraFocus(true);
             }
