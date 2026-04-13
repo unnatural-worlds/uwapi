@@ -209,10 +209,11 @@ Unit Component
 --------------
 Contains additional state for a unit (or building).
 
+- ``Constructing`` - the unit/building has been recently constructed and is waiting for it to complete.
+- ``ChangingRecipe`` - recipe for the unit has changed, and the unit is waiting for the changes to complete.
+- ``ProcessingRecipe`` - the unit has processed a recipe and is waiting for it to complete.
+- ``StallingRecipe`` - the unit's recipe cannot be executed, usually because a limit for the outputs has been reached.
 - ``Shooting`` - waiting for the cannon to cool down.
-- ``Processing`` - the unit has processed a recipe and is waiting for it to complete.
-- ``Rebuilding`` - recipe for the unit has changed, and the unit is waiting for the changes to complete.
-- ``Stalling`` - the unit's recipe cannot be executed, usually because a limit for the outputs has been reached.
 - ``Damaged`` - the unit has less than half life.
 
 .. tab-set::
@@ -224,15 +225,15 @@ Contains additional state for a unit (or building).
       .. code-block:: python
 
           # check if unit is processing:
-          (x.Unit.state & UnitState.Processing) != 0
+          (x.Unit.state & UnitState.ProcessingRecipe) != 0
 
    .. tab-item:: C#
       :sync: csharp
 
       .. code-block:: csharp
 
-          // check if unit is Processing:
-          (x.Unit.Value.state & UwUnitStateFlags.Processing) != 0
+          // check if unit is processing:
+          (x.Unit.Value.state & UwUnitStateFlags.ProcessingRecipe) != 0
 
    .. tab-item:: C++
       :sync: cpp
@@ -289,6 +290,14 @@ Attachment Component
 Defines that this entity is attached to another entity.
 This entity is automatically moved to the position (and orientation) of the target.
 This is commonly used by a resource carried by a truck.
+
+Ghost Component
+---------------
+You have seen this unit/building previously, but it is out of sight right now (covered in fog of war).
+
+Constructing Animation Component
+-------------------------------
+Provides timing information on when the building will finish building.
 
 Ping Component
 --------------

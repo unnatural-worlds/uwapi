@@ -29,6 +29,7 @@ class Entity:
     Priority: Optional[UwPriorityComponent] = None
     Amount: Optional[UwAmountComponent] = None
     Attachment: Optional[UwAttachmentComponent] = None
+    Ghost: Optional[UwGhostComponent] = None
     ConstructingAnimation: Optional[UwConstructingAnimationComponent] = None
     Ping: Optional[UwPingComponent] = None
     Player: Optional[UwPlayerComponent] = None
