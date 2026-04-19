@@ -335,7 +335,6 @@ class UwDiplomacyProposalComponent:
 
 @dataclass
 class UwGameConfig:
-    standard: bool
     assassination: bool
     diplomacy: bool
     fogOfWar: bool
@@ -1375,11 +1374,10 @@ class Interop:
         return UwDiplomacyProposalComponent(int(val.offeror), int(val.offeree), UwForeignPolicyEnum(val.proposal))
 
     def _UwGameConfig_ctopy(self, val) -> UwGameConfig:
-        return UwGameConfig(bool(val.standard), bool(val.assassination), bool(val.diplomacy), bool(val.fogOfWar), bool(val.secrets), bool(val.automaticColors), bool(val.lockedSpeed), bool(val.cheats))
+        return UwGameConfig(bool(val.assassination), bool(val.diplomacy), bool(val.fogOfWar), bool(val.secrets), bool(val.automaticColors), bool(val.lockedSpeed), bool(val.cheats))
 
     def _UwGameConfig_pytoc(self, val: UwGameConfig):
         r = self._ffi.new("UwGameConfig *")
-        r.standard = val.standard
         r.assassination = val.assassination
         r.diplomacy = val.diplomacy
         r.fogOfWar = val.fogOfWar

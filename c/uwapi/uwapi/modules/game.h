@@ -16,7 +16,6 @@ extern "C"
 
 	typedef struct UwGameConfig
 	{
-		bool standard;
 		bool assassination;
 		bool diplomacy;
 		bool fogOfWar;
