@@ -48,6 +48,11 @@ namespace uw
 		uint16_t high = static_cast<uint16_t>(id >> 16);
 		return ShootingControlData{ (UwShootingEventEnum)low, high };
 	}
+
+	inline float degToRad(float degs)
+	{
+		return degs * 3.14159 / 180;
+	}
 }
 
 #endif // unnatural_uwapi_scripts_hpp_zhgfa8g4
