@@ -8,6 +8,11 @@
 
 namespace uw
 {
+	inline float degToRad(float degs)
+	{
+		return degs * 3.14159 / 180;
+	}
+
 	template<class T>
 	auto makeVector(T *data, uint32 cnt)
 	{
@@ -36,6 +41,33 @@ namespace uw
 		return makeVector(ids);
 	}
 
+	inline uint32 entityPosition(uint32 id)
+	{
+		UwPositionComponent pc;
+		if (uwFetchPositionComponent(id, &pc))
+			return pc.position;
+		return -1;
+	}
+
+	inline auto mapMarkers(const char *marker)
+	{
+		UwMapMarkersArray arr;
+		uwMapMarkers(marker, &arr);
+		return makeVector(&arr);
+	}
+
+	inline UwMapMarker mapMarker(const char *marker)
+	{
+		UwMapMarkersArray arr;
+		uwMapMarkers(marker, &arr);
+		if (arr.count != 1)
+		{
+			uwPrint(marker);
+			uwError("mapMarker expects exactly one marker");
+		}
+		return arr.data[0];
+	}
+
 	inline auto shootingControlData(uint32 id)
 	{
 		struct ShootingControlData
@@ -47,11 +79,6 @@ namespace uw
 		uint16_t low = static_cast<uint16_t>(id & 0xFFFF);
 		uint16_t high = static_cast<uint16_t>(id >> 16);
 		return ShootingControlData{ (UwShootingEventEnum)low, high };
-	}
-
-	inline float degToRad(float degs)
-	{
-		return degs * 3.14159 / 180;
 	}
 }
 

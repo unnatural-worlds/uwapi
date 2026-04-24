@@ -327,7 +327,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 63;
+        public const uint UW_VERSION = 64;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -853,30 +853,14 @@ namespace Unnatural
             public IntPtr name;
             public IntPtr guid;
             public IntPtr path;
-            public uint maxPlayers;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwMapInfo(ref UwMapInfo data);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMapStartingPosition
-        {
-            public uint position;
-            public uint minForces;
-            public uint maxForces;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct UwMapStartingPositionsArray
-        {
-            public IntPtr data;
-            public uint count;
-        }
-
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwMapStartingPositions(ref UwMapStartingPositionsArray data);
+        public static extern void uwMapBasesPositions(ref UwIds data);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwTilesCount();
@@ -964,6 +948,24 @@ namespace Unnatural
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwRetrieveClustersDistances(ref UwClustersDistancesResult data);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMapMarker
+        {
+            public uint tileIndex;
+            public float yaw;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct UwMapMarkersArray
+        {
+            public IntPtr data;
+            public uint count;
+        }
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwMapMarkers([MarshalAs(UnmanagedType.LPStr)] string marker,
+                                               ref UwMapMarkersArray data);
 
         public enum UwPrototypeTypeEnum
         {

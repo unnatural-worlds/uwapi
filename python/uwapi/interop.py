@@ -353,18 +353,6 @@ class UwMapInfo:
     name: str
     guid: str
     path: str
-    maxPlayers: int
-
-@dataclass
-class UwMapStartingPosition:
-    position: int
-    minForces: int
-    maxForces: int
-
-@dataclass
-class UwMapStartingPositionsArray:
-    data: list[UwMapStartingPosition]
-    count: int
 
 @dataclass
 class UwTile:
@@ -392,6 +380,16 @@ class UwClustersDistancesQuery:
 @dataclass
 class UwClustersDistancesResult:
     distances: UwIds
+
+@dataclass
+class UwMapMarker:
+    tileIndex: int
+    yaw: float
+
+@dataclass
+class UwMapMarkersArray:
+    data: list[UwMapMarker]
+    count: int
 
 @dataclass
 class UwMyForceStatistics:
@@ -487,12 +485,12 @@ ShootingsArray = UwShootingsArray
 TaskType = UwTaskTypeEnum
 MapState = UwMapStateEnum
 MapInfo = UwMapInfo
-MapStartingPosition = UwMapStartingPosition
-MapStartingPositionsArray = UwMapStartingPositionsArray
 Tile = UwTile
 Cluster = UwCluster
 ClustersDistancesQuery = UwClustersDistancesQuery
 ClustersDistancesResult = UwClustersDistancesResult
+MapMarker = UwMapMarker
+MapMarkersArray = UwMapMarkersArray
 PrototypeType = UwPrototypeTypeEnum
 MyForceStatistics = UwMyForceStatistics
 UnitUpgrades = UwUnitUpgrades
@@ -1080,10 +1078,10 @@ class Interop:
         ret = bool(ret)
         return ret, data_
 
-    def uwMapStartingPositions(self) -> UwMapStartingPositionsArray:
-        data = self._ffi.new("UwMapStartingPositionsArray *")
-        self._api.uwMapStartingPositions(data)
-        data_ = self._UwMapStartingPositionsArray_ctopy(data)
+    def uwMapBasesPositions(self) -> UwIds:
+        data = self._ffi.new("UwIds *")
+        self._api.uwMapBasesPositions(data)
+        data_ = self._UwIds_ctopy(data)
         return data_
 
     def uwTilesCount(self) -> int:
@@ -1165,6 +1163,13 @@ class Interop:
         data = self._ffi.new("UwClustersDistancesResult *")
         self._api.uwRetrieveClustersDistances(data)
         data_ = self._UwClustersDistancesResult_ctopy(data)
+        return data_
+
+    def uwMapMarkers(self, marker: str) -> UwMapMarkersArray:
+        marker_ = self._str_pytoc(marker)
+        data = self._ffi.new("UwMapMarkersArray *")
+        self._api.uwMapMarkers(marker_, data)
+        data_ = self._UwMapMarkersArray_ctopy(data)
         return data_
 
     def uwAllPrototypes(self) -> UwIds:
@@ -1391,13 +1396,7 @@ class Interop:
         return UwShootingsArray(list[int]([int(val.data[i]) for i in range(val.count)]), int(val.count))
 
     def _UwMapInfo_ctopy(self, val) -> UwMapInfo:
-        return UwMapInfo(self._str_ctopy(val.name), self._str_ctopy(val.guid), self._str_ctopy(val.path), int(val.maxPlayers))
-
-    def _UwMapStartingPosition_ctopy(self, val) -> UwMapStartingPosition:
-        return UwMapStartingPosition(int(val.position), int(val.minForces), int(val.maxForces))
-
-    def _UwMapStartingPositionsArray_ctopy(self, val) -> UwMapStartingPositionsArray:
-        return UwMapStartingPositionsArray(list[UwMapStartingPosition]([self._UwMapStartingPosition_ctopy(val.data[i]) for i in range(val.count)]), int(val.count))
+        return UwMapInfo(self._str_ctopy(val.name), self._str_ctopy(val.guid), self._str_ctopy(val.path))
 
     def _UwTile_ctopy(self, val) -> UwTile:
         return UwTile(list[float]([float(val.position[i]) for i in range(3)]), list[float]([float(val.up[i]) for i in range(3)]), list[int]([int(val.neighborsIndices[i]) for i in range(val.neighborsCount)]), int(val.neighborsCount), int(val.clusterIndex), int(val.terrain), bool(val.border))
@@ -1418,6 +1417,12 @@ class Interop:
 
     def _UwClustersDistancesResult_ctopy(self, val) -> UwClustersDistancesResult:
         return UwClustersDistancesResult(self._UwIds_ctopy(val.distances))
+
+    def _UwMapMarker_ctopy(self, val) -> UwMapMarker:
+        return UwMapMarker(int(val.tileIndex), float(val.yaw))
+
+    def _UwMapMarkersArray_ctopy(self, val) -> UwMapMarkersArray:
+        return UwMapMarkersArray(list[UwMapMarker]([self._UwMapMarker_ctopy(val.data[i]) for i in range(val.count)]), int(val.count))
 
     def _UwMyForceStatistics_ctopy(self, val) -> UwMyForceStatistics:
         return UwMyForceStatistics(int(val.logisticsUnitsIdle), int(val.logisticsUnitsTotal), int(val.militaryUnitsIdle), int(val.militaryUnitsTotal), int(val.closestDangerPosition), int(val.latestClosestDangerPosition), float(val.closestDangerDistance), float(val.latestClosestDangerDistance))

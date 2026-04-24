@@ -16,8 +16,7 @@ class Map:
     _name: str = ""
     _guid: str = ""
     _path: str = ""
-    _max_players: int = 0
-    _starting_positions: List[UwMapStartingPosition] = []
+    _bases_positions: List[int] = []
     _positions: List[Vector3] = []
     _ups: List[Vector3] = []
     _neighbors: List[List[int]] = []
@@ -41,11 +40,8 @@ class Map:
     def path(self) -> str:
         return self._path
 
-    def max_players(self) -> int:
-        return self._max_players
-
-    def starting_positions(self) -> List[UwMapStartingPosition]:
-        return self._starting_positions
+    def bases_positions(self) -> List[int]:
+        return self._bases_positions
 
     def positions(self) -> List[Vector3]:
         return self._positions
@@ -156,8 +152,7 @@ class Map:
         self._name: str = ""
         self._guid: str = ""
         self._path: str = ""
-        self._max_players: int = 0
-        self._starting_positions: List[UwMapStartingPosition] = []
+        self._bases_positions: List[int] = []
         self._positions: List[Vector3] = []
         self._ups: List[Vector3] = []
         self._neighbors: List[List[int]] = []
@@ -172,7 +167,6 @@ class Map:
             self._name = info[1].name
             self._guid = info[1].guid
             self._path = info[1].path
-            self._max_players = info[1].maxPlayers
 
     def _load_tiles(self) -> None:
         count = uw_interop.uwTilesCount()
@@ -197,7 +191,7 @@ class Map:
         uw_interop.uwLog(UwSeverityEnum.Info, "loading map")
         self._reset()
         self._load_info()
-        self._starting_positions = uw_interop.uwMapStartingPositions().data
+        self._bases_positions = uw_interop.uwMapBasesPositions().ids
         self._load_tiles()
         self._load_clusters()
         uw_interop.uwLog(UwSeverityEnum.Info, "map loaded")

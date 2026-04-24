@@ -32,22 +32,10 @@ extern "C"
 		UNNATURAL_POINTER(const char *) name;
 		UNNATURAL_POINTER(const char *) guid;
 		UNNATURAL_POINTER(const char *) path;
-		uint32 maxPlayers;
 	} UwMapInfo;
 	UNNATURAL_API bool uwMapInfo(UwMapInfo *data);
 
-	typedef struct UwMapStartingPosition
-	{
-		uint32 position;
-		uint32 minForces;
-		uint32 maxForces;
-	} UwMapStartingPosition;
-	typedef struct UwMapStartingPositionsArray
-	{
-		UNNATURAL_POINTER(const UwMapStartingPosition *) data;
-		uint32 count;
-	} UwMapStartingPositionsArray;
-	UNNATURAL_API void uwMapStartingPositions(UwMapStartingPositionsArray *data);
+	UNNATURAL_API void uwMapBasesPositions(UwIds *data);
 
 	// tiles
 
@@ -103,6 +91,20 @@ extern "C"
 	} UwClustersDistancesResult;
 	UNNATURAL_API void uwStartClustersDistances(const UwClustersDistancesQuery *query);
 	UNNATURAL_API void uwRetrieveClustersDistances(UwClustersDistancesResult *data);
+
+	// position markers
+
+	typedef struct UwMapMarker
+	{
+		uint32 tileIndex;
+		float yaw;
+	} UwMapMarker;
+	typedef struct UwMapMarkersArray
+	{
+		UNNATURAL_POINTER(const UwMapMarker *) data;
+		uint32 count;
+	} UwMapMarkersArray;
+	UNNATURAL_API void uwMapMarkers(const char *marker, UwMapMarkersArray *data);
 
 #ifdef __cplusplus
 } // extern C

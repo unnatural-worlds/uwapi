@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Unnatural
 {
     using MapStateEnum = Interop.UwMapStateEnum;
-    using StartingPosition = Interop.UwMapStartingPosition;
 
     public struct Vector3
     {
@@ -29,14 +29,9 @@ namespace Unnatural
             return path;
         }
 
-        public static uint MaxPlayers()
+        public static IReadOnlyList<uint> BasesPositions()
         {
-            return maxPlayers;
-        }
-
-        public static IReadOnlyList<StartingPosition> StartingPositions()
-        {
-            return startingPositions;
+            return basesPositions;
         }
 
         public static IReadOnlyList<Vector3> Positions()
@@ -191,8 +186,7 @@ namespace Unnatural
         static string name;
         static string guid;
         static string path;
-        static uint maxPlayers;
-        static readonly List<StartingPosition> startingPositions = new List<StartingPosition>();
+        static readonly List<uint> basesPositions = new List<uint>();
         static readonly List<Vector3> positions = new List<Vector3>();
         static readonly List<Vector3> ups = new List<Vector3>();
         static readonly List<uint[]> neighbors = new List<uint[]>();
@@ -205,7 +199,7 @@ namespace Unnatural
         {
             Game.LogInfo("loading map");
 
-            startingPositions.Clear();
+            basesPositions.Clear();
             positions.Clear();
             ups.Clear();
             neighbors.Clear();
@@ -220,19 +214,12 @@ namespace Unnatural
                 name = Marshal.PtrToStringAnsi(info.name);
                 guid = Marshal.PtrToStringAnsi(info.guid);
                 path = Marshal.PtrToStringAnsi(info.path);
-                maxPlayers = info.maxPlayers;
             }
 
             {
-                Interop.UwMapStartingPositionsArray data = new Interop.UwMapStartingPositionsArray();
-                Interop.uwMapStartingPositions(ref data);
-                int size = Marshal.SizeOf(typeof(StartingPosition));
-                for (int i = 0; i < data.count; i++)
-                {
-                    IntPtr currentPtr = IntPtr.Add(data.data, i * size);
-                    var tmp = Marshal.PtrToStructure<StartingPosition>(currentPtr);
-                    startingPositions.Add(tmp);
-                }
+                Interop.UwIds bs = new Interop.UwIds();
+                Interop.uwMapBasesPositions(ref bs);
+                basesPositions.AddRange(InteropHelpers.Ids(bs));
             }
 
             {
