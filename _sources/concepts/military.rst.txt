@@ -95,9 +95,6 @@ Requirements for shooting:
 - the target is visible in line (or arc).
 - the target is not covered by fog-of-war.
 
-.. note::
-   Fog-of-war is not yet implemented.
-
 Most units can shoot in straight line only.
 Some units can shoot in an arc, which is defined by ``shooterElevation`` and ``targetElevation``.
 This allows to shoot "over a horizon", or "behind a corner".
@@ -123,20 +120,19 @@ It is centered at the target of shooting, or at the unit that explodes, and is c
 Damage of splash decreases with distance from center, which is determined by ``splashFractionAtEdge``.
 It may also affect own/ally units, depending on ``splashFractionToFriendly``.
 
-Damage And Armor Types
-----------------------
+Damage Bonuses
+--------------
 
-Each unit has associated armor type, and each shooting (or explosion) has associated damage type.
-The game has a table that defines a fraction for each combination of damage type with each armor type.
-Some values are over 100 % and some are below.
+Each unit has a set of classes associated with it, similar to tags. Classes have defined bonuses vs other classes.
 
-For example, energy shield is designed to be highly resistant to lasers and plasma, which are most often used in long-range guns; and antimatter guns are designed for destroying buildings.
+Eg. siege class has bonus vs building class.
 
 Life Regeneration
 -----------------
 
 Life regeneration has a delay, which is extended whenever the unit is attacked, or whenever the unit itself shoots.
 When the delay expires, the unit starts healing at the specified rate.
+The healing is slightly randomized.
 
 Upgrades
 --------

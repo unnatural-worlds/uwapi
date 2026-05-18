@@ -15,3 +15,4 @@ Assets found in a map have precedence over assets in the base game.
    collider
    navigation
    editor
+   generator

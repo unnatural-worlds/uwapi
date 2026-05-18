@@ -88,9 +88,7 @@ Priorities apply to both constructions and recipes.
 Expansion Bases
 ---------------
 
-Each map contains predefined set of starting positions.
-These can have some additional conditions to be used as starting base, eg. actual number of forces in the game.
-Anyway, these positions can be used to easily find suitable expansion bases.
+Each map contains predefined set of bases positions.
 
 .. tab-set::
    :sync-group: language
@@ -101,7 +99,7 @@ Anyway, these positions can be used to easily find suitable expansion bases.
       .. code-block:: python
 
           # potential expansion bases:
-          list({p.position for p in uw_map.starting_positions()}) # make the positions unique
+          uw_map.bases_positions()
 
    .. tab-item:: C#
       :sync: csharp
@@ -109,7 +107,7 @@ Anyway, these positions can be used to easily find suitable expansion bases.
       .. code-block:: csharp
 
           // potential expansion bases:
-          Map.StartingPositions().Select(p => p.position).Distinct().ToList();
+          Map.BasesPositions();
 
    .. tab-item:: C++
       :sync: cpp

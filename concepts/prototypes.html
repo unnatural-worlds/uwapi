@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/generator.html">Generator</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -313,26 +314,35 @@ Tags are short strings (mapped to unique ids), that are provided by the game/map
 Tags are <em>not</em> used by the game, except by the built-in AI/bot, which uses tags to alter behavior of some units.
 Tags may be used by both Bots and Scripts.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ambush</span></code> - walks over additional terrain types.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">artillery</span></code> - longer range than most.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">assault</span></code> - good for front-line combat.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">amphibious</span></code> - moves on water and land, but not cliffs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ballistic</span></code> - attacks in an arc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">building</span></code> - a building, duh.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cliff_walking</span></code> - moves on land and cliffs.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">decoration</span></code> - just a decoration.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">deposit</span></code> - contains ore; build a miner over this unit to gather resources.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">harassment</span></code> - good for hit-and-run attacks, especially targeting workers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">detector</span></code> - detects stealthy units in its vision.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fire_support</span></code> - unit class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flanking</span></code> - unit class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">flying</span></code> - can move on all of water, land, and cliffs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">front_line</span></code> - unit class.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">home</span></code> - the center of your base. dont let it die.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">miner</span></code> - generates resources, usually from ore deposits.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">navy</span></code> - moves on water only.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">noncombat</span></code> - not intended for combat, even if it has an attack/explosion.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">nonprogression</span></code> - an alternative for another prototype (this tag is used to break cyclic dependencies).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">non_combat</span></code> - not intended for combat, even if it has an attack/explosion.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">non_progression</span></code> - an alternative for another prototype (this tag is used to break cyclic dependencies).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">production</span></code> - produces more units.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">regen</span></code> - has life regeneration.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">research</span></code> - produces upgrades.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">scout</span></code> - fast and cheap, good as a scout.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">siege</span></code> - designed for destroying buildings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scout</span></code> - unit class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">siege</span></code> - unit class.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">splash</span></code> - area-of-effect attack/explosion.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stealth</span></code> - cannot be seen by enemy, unless in close proximity or in range of a detector.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">suicidal</span></code> - sacrifices itself when attacking.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tank</span></code> - defensive unit with life above typical.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t1</span></code> - first level of technology.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t2</span></code> - second level of technology.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t3</span></code> - third level of technology.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tower</span></code> - stationary defensive structure.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">volatile</span></code> - may damage own/allied units.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unarmed</span></code> - unit class.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">wall</span></code> - stationary path blocking structure.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">worker</span></code> - carries resources, automatic control by logistics planning.</p></li>
 </ul>

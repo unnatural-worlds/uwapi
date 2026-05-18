@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/generator.html">Generator</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -342,15 +343,13 @@ C#</label><div class="sd-tab-content docutils">
 </section>
 <section id="expansion-bases">
 <h2>Expansion Bases<a class="headerlink" href="#expansion-bases" title="Link to this heading">¶</a></h2>
-<p>Each map contains predefined set of starting positions.
-These can have some additional conditions to be used as starting base, eg. actual number of forces in the game.
-Anyway, these positions can be used to easily find suitable expansion bases.</p>
+<p>Each map contains predefined set of bases positions.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-5">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># potential expansion bases:</span>
-<span class="nb">list</span><span class="p">({</span><span class="n">p</span><span class="o">.</span><span class="n">position</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">uw_map</span><span class="o">.</span><span class="n">starting_positions</span><span class="p">()})</span> <span class="c1"># make the positions unique</span>
+<span class="n">uw_map</span><span class="o">.</span><span class="n">bases_positions</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -358,7 +357,7 @@ Python</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-6">
 C#</label><div class="sd-tab-content docutils">
 <div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// potential expansion bases:</span>
-<span class="n">Map</span><span class="p">.</span><span class="n">StartingPositions</span><span class="p">().</span><span class="n">Select</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">position</span><span class="p">).</span><span class="n">Distinct</span><span class="p">().</span><span class="n">ToList</span><span class="p">();</span>
+<span class="n">Map</span><span class="p">.</span><span class="n">BasesPositions</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>

@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/generator.html">Generator</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -352,10 +353,6 @@ C#</label><div class="sd-tab-content docutils">
 <li><p>the target is visible in line (or arc).</p></li>
 <li><p>the target is not covered by fog-of-war.</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Fog-of-war is not yet implemented.</p>
-</div>
 <p>Most units can shoot in straight line only.
 Some units can shoot in an arc, which is defined by <code class="docutils literal notranslate"><span class="pre">shooterElevation</span></code> and <code class="docutils literal notranslate"><span class="pre">targetElevation</span></code>.
 This allows to shoot “over a horizon”, or “behind a corner”.</p>
@@ -378,17 +375,16 @@ It is centered at the target of shooting, or at the unit that explodes, and is c
 <p>Damage of splash decreases with distance from center, which is determined by <code class="docutils literal notranslate"><span class="pre">splashFractionAtEdge</span></code>.
 It may also affect own/ally units, depending on <code class="docutils literal notranslate"><span class="pre">splashFractionToFriendly</span></code>.</p>
 </section>
-<section id="damage-and-armor-types">
-<h2>Damage And Armor Types<a class="headerlink" href="#damage-and-armor-types" title="Link to this heading">¶</a></h2>
-<p>Each unit has associated armor type, and each shooting (or explosion) has associated damage type.
-The game has a table that defines a fraction for each combination of damage type with each armor type.
-Some values are over 100 % and some are below.</p>
-<p>For example, energy shield is designed to be highly resistant to lasers and plasma, which are most often used in long-range guns; and antimatter guns are designed for destroying buildings.</p>
+<section id="damage-bonuses">
+<h2>Damage Bonuses<a class="headerlink" href="#damage-bonuses" title="Link to this heading">¶</a></h2>
+<p>Each unit has a set of classes associated with it, similar to tags. Classes have defined bonuses vs other classes.</p>
+<p>Eg. siege class has bonus vs building class.</p>
 </section>
 <section id="life-regeneration">
 <h2>Life Regeneration<a class="headerlink" href="#life-regeneration" title="Link to this heading">¶</a></h2>
 <p>Life regeneration has a delay, which is extended whenever the unit is attacked, or whenever the unit itself shoots.
-When the delay expires, the unit starts healing at the specified rate.</p>
+When the delay expires, the unit starts healing at the specified rate.
+The healing is slightly randomized.</p>
 </section>
 <section id="upgrades">
 <h2>Upgrades<a class="headerlink" href="#upgrades" title="Link to this heading">¶</a></h2>
@@ -464,7 +460,7 @@ When research stops, the upgrades will dissipate over time.</p>
 <li><a class="reference internal" href="#shooting">Shooting</a></li>
 <li><a class="reference internal" href="#explosions">Explosions</a></li>
 <li><a class="reference internal" href="#splash">Splash</a></li>
-<li><a class="reference internal" href="#damage-and-armor-types">Damage And Armor Types</a></li>
+<li><a class="reference internal" href="#damage-bonuses">Damage Bonuses</a></li>
 <li><a class="reference internal" href="#life-regeneration">Life Regeneration</a></li>
 <li><a class="reference internal" href="#upgrades">Upgrades</a></li>
 </ul>

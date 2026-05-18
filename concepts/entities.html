@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../maps/collider.html">Collider</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/navigation.html">Navigation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../maps/editor.html">Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maps/generator.html">Generator</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mods/index.html">Mods</a></li>
@@ -460,10 +461,11 @@ C++</label><div class="sd-tab-content docutils">
 <h2>Unit Component<a class="headerlink" href="#unit-component" title="Link to this heading">¶</a></h2>
 <p>Contains additional state for a unit (or building).</p>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Constructing</span></code> - the unit/building has been recently constructed and is waiting for it to complete.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ChangingRecipe</span></code> - recipe for the unit has changed, and the unit is waiting for the changes to complete.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ProcessingRecipe</span></code> - the unit has processed a recipe and is waiting for it to complete.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StallingRecipe</span></code> - the unit’s recipe cannot be executed, usually because a limit for the outputs has been reached.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Shooting</span></code> - waiting for the cannon to cool down.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Processing</span></code> - the unit has processed a recipe and is waiting for it to complete.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Rebuilding</span></code> - recipe for the unit has changed, and the unit is waiting for the changes to complete.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Stalling</span></code> - the unit’s recipe cannot be executed, usually because a limit for the outputs has been reached.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Damaged</span></code> - the unit has less than half life.</p></li>
 </ul>
 <div class="sd-tab-set docutils">
@@ -471,15 +473,15 @@ C++</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="python" for="sd-tab-item-12">
 Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># check if unit is processing:</span>
-<span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">Unit</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="n">UnitState</span><span class="o">.</span><span class="n">Processing</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+<span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">Unit</span><span class="o">.</span><span class="n">state</span> <span class="o">&amp;</span> <span class="n">UnitState</span><span class="o">.</span><span class="n">ProcessingRecipe</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
 <label class="sd-tab-label" data-sync-group="language" data-sync-id="csharp" for="sd-tab-item-13">
 C#</label><div class="sd-tab-content docutils">
-<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// check if unit is Processing:</span>
-<span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">Unit</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">state</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">UwUnitStateFlags</span><span class="p">.</span><span class="n">Processing</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">0</span>
+<div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// check if unit is processing:</span>
+<span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">Unit</span><span class="p">.</span><span class="n">Value</span><span class="p">.</span><span class="n">state</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">UwUnitStateFlags</span><span class="p">.</span><span class="n">ProcessingRecipe</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">0</span>
 </pre></div>
 </div>
 </div>
@@ -539,6 +541,14 @@ It is used by the logistics planning.</p>
 <p>Defines that this entity is attached to another entity.
 This entity is automatically moved to the position (and orientation) of the target.
 This is commonly used by a resource carried by a truck.</p>
+</section>
+<section id="ghost-component">
+<h2>Ghost Component<a class="headerlink" href="#ghost-component" title="Link to this heading">¶</a></h2>
+<p>You have seen this unit/building previously, but it is out of sight right now (covered in fog of war).</p>
+</section>
+<section id="constructing-animation-component">
+<h2>Constructing Animation Component<a class="headerlink" href="#constructing-animation-component" title="Link to this heading">¶</a></h2>
+<p>Provides timing information on when the building will finish building.</p>
 </section>
 <section id="ping-component">
 <h2>Ping Component<a class="headerlink" href="#ping-component" title="Link to this heading">¶</a></h2>
@@ -651,6 +661,8 @@ The component contains public information about the force.</p>
 <li><a class="reference internal" href="#priority-component">Priority Component</a></li>
 <li><a class="reference internal" href="#amount-component">Amount Component</a></li>
 <li><a class="reference internal" href="#attachment-component">Attachment Component</a></li>
+<li><a class="reference internal" href="#ghost-component">Ghost Component</a></li>
+<li><a class="reference internal" href="#constructing-animation-component">Constructing Animation Component</a></li>
 <li><a class="reference internal" href="#ping-component">Ping Component</a></li>
 <li><a class="reference internal" href="#player-component">Player Component</a></li>
 <li><a class="reference internal" href="#player-ai-config-component">Player Ai Config Component</a></li>
