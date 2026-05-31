@@ -181,6 +181,7 @@ class UwAssistConfig:
     logistics: bool
     aiming: bool
     fighting: bool
+    maximumDistance: bool
 
 @dataclass
 class UwPerformanceStatistics:
@@ -1269,13 +1270,14 @@ class Interop:
         return UwMyPlayer(int(val.playerEntityId), int(val.forceEntityId), bool(val.primaryController), bool(val.admin))
 
     def _UwAssistConfig_ctopy(self, val) -> UwAssistConfig:
-        return UwAssistConfig(bool(val.logistics), bool(val.aiming), bool(val.fighting))
+        return UwAssistConfig(bool(val.logistics), bool(val.aiming), bool(val.fighting), bool(val.maximumDistance))
 
     def _UwAssistConfig_pytoc(self, val: UwAssistConfig):
         r = self._ffi.new("UwAssistConfig *")
         r.logistics = val.logistics
         r.aiming = val.aiming
         r.fighting = val.fighting
+        r.maximumDistance = val.maximumDistance
         return r
 
     def _UwPerformanceStatistics_ctopy(self, val) -> UwPerformanceStatistics:

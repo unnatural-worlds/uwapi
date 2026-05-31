@@ -8,10 +8,6 @@ extern "C"
 {
 #endif
 
-#ifdef UNNATURAL_BOTS
-
-#endif
-
 	// game config
 
 	typedef struct UwGameConfig

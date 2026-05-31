@@ -89,6 +89,7 @@ extern "C"
 		bool logistics;
 		bool aiming;
 		bool fighting;
+		bool maximumDistance;
 	} UwAssistConfig;
 	UNNATURAL_API void uwSetAssistConfig(const UwAssistConfig *config);
 
