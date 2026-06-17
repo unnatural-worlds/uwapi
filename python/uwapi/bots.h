@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 70;
+static const uint32 UW_VERSION = 71;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -562,7 +562,8 @@ void uwAreaExtended(uint32 position, float radius, UwIds *data);
 
 bool uwTestVisible(float x1, float y1, float z1, float x2, float y2, float z2);
 bool uwTestShooting(uint32 shooterPosition, uint32 shooterProto, float shootingRangeUpgrade, uint32 targetPosition, uint32 targetProto);
-float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
+float uwDistanceCoordinates(float x1, float y1, float z1, float x2, float y2, float z2);
+float uwDistanceEuclidean(uint32 positionA, uint32 positionB);
 float uwDistanceEstimate(uint32 positionA, uint32 positionB);
 float uwYaw(uint32 startPosition, uint32 goalPosition);
 

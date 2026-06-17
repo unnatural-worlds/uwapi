@@ -1141,8 +1141,13 @@ class Interop:
         ret = bool(ret)
         return ret
 
-    def uwDistanceLine(self, x1: float, y1: float, z1: float, x2: float, y2: float, z2: float) -> float:
-        ret = self._api.uwDistanceLine(x1, y1, z1, x2, y2, z2)
+    def uwDistanceCoordinates(self, x1: float, y1: float, z1: float, x2: float, y2: float, z2: float) -> float:
+        ret = self._api.uwDistanceCoordinates(x1, y1, z1, x2, y2, z2)
+        ret = float(ret)
+        return ret
+
+    def uwDistanceEuclidean(self, positionA: int, positionB: int) -> float:
+        ret = self._api.uwDistanceEuclidean(positionA, positionB)
         ret = float(ret)
         return ret
 

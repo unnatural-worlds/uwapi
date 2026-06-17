@@ -329,7 +329,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 70;
+        public const uint UW_VERSION = 71;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -921,7 +921,10 @@ namespace Unnatural
                                                  uint targetPosition, uint targetProto);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern float uwDistanceLine(float x1, float y1, float z1, float x2, float y2, float z2);
+        public static extern float uwDistanceCoordinates(float x1, float y1, float z1, float x2, float y2, float z2);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern float uwDistanceEuclidean(uint positionA, uint positionB);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern float uwDistanceEstimate(uint positionA, uint positionB);
