@@ -406,7 +406,7 @@ class UwMyForceStatistics:
 @dataclass
 class UwUnitUpgrades:
     damage: float
-    shootingRange: float
+    attackRange: float
     splashRadius: float
     defense: float
     regenDelay: float
@@ -1435,7 +1435,7 @@ class Interop:
         return UwMyForceStatistics(int(val.logisticsUnitsIdle), int(val.logisticsUnitsTotal), int(val.militaryUnitsIdle), int(val.militaryUnitsTotal), int(val.closestDangerPosition), int(val.latestClosestDangerPosition), float(val.closestDangerDistance), float(val.latestClosestDangerDistance))
 
     def _UwUnitUpgrades_ctopy(self, val) -> UwUnitUpgrades:
-        return UwUnitUpgrades(float(val.damage), float(val.shootingRange), float(val.splashRadius), float(val.defense), float(val.regenDelay), float(val.regenSpeed), float(val.movementSpeed), float(val.processingSpeed), float(val.visionRange), float(val.stealthRange))
+        return UwUnitUpgrades(float(val.damage), float(val.attackRange), float(val.splashRadius), float(val.defense), float(val.regenDelay), float(val.regenSpeed), float(val.movementSpeed), float(val.processingSpeed), float(val.visionRange), float(val.stealthRange))
 
     def _UwOverviewExtract_ctopy(self, val) -> UwOverviewExtract:
         return UwOverviewExtract(list[UwOverviewFlags]([UwOverviewFlags(val.flags[i]) for i in range(val.count)]), int(val.count))

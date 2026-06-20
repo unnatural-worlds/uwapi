@@ -329,7 +329,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 71;
+        public const uint UW_VERSION = 72;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -1021,7 +1021,7 @@ namespace Unnatural
         public struct UwUnitUpgrades
         {
             public float damage;
-            public float shootingRange;
+            public float attackRange;
             public float splashRadius;
             public float defense;
             public float regenDelay;

@@ -28,7 +28,7 @@ extern "C"
 	typedef struct UwUnitUpgrades
 	{
 		float damage;
-		float shootingRange;
+		float attackRange;
 		float splashRadius;
 		float defense;
 		float regenDelay;

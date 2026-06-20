@@ -84,7 +84,8 @@ namespace Unnatural
         // weapon
         public float dps;
         public float dpsAtLowLife;
-        public float fireRange; // meters
+        public float fireMinRange; // meters
+        public float fireMaxRange; // meters
         public float rateOfFire; // shots per second
         public float shooterElevation; // radians
         public float targetElevation; // radians
@@ -110,7 +111,7 @@ namespace Unnatural
         public uint duration; // ticks
         public uint limit; // maximum stack size of the upgrade applied
         public float damage;
-        public float shootingRange;
+        public float attackRange;
         public float splashRadius;
         public float defense;
         public float regenDelay;

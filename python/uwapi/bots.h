@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 71;
+static const uint32 UW_VERSION = 72;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -626,7 +626,7 @@ UwPathStateEnum uwUnitPathState(uint32 unitId);
 typedef struct UwUnitUpgrades
 {
 	float damage;
-	float shootingRange;
+	float attackRange;
 	float splashRadius;
 	float defense;
 	float regenDelay;
