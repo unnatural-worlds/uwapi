@@ -11,6 +11,7 @@ namespace Unnatural
     {
         public uint id;
         public string name;
+        public string fullName;
         public string json;
         public PrototypeTypeEnum type;
         public List<uint> tags;
@@ -47,8 +48,8 @@ namespace Unnatural
 
     public class ProtoUnit : ProtoCommon
     {
-        public List<uint> classes;
-        public List<string> classesNames;
+        public List<uint> traits;
+        public List<string> traitsNames;
         public List<uint> recipes; // ids of recipes available for processing by this unit
         public List<uint> upgrades; // ids of upgrades applicable to this unit
 
@@ -131,7 +132,7 @@ namespace Unnatural
     public class Definitions
     {
         public List<string> tagsNames;
-        public List<string> classesNames;
+        public List<string> traitsNames;
         public List<string> terrainNames;
     }
 
@@ -262,6 +263,7 @@ namespace Unnatural
             var options = new JsonSerializerOptions
             {
                 IncludeFields = true,
+                NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
             };
 
             foreach (uint id in AllIds())

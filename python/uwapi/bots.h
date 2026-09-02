@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 75;
+static const uint32 UW_VERSION = 78;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -87,6 +87,7 @@ void uwAdminPlayerJoinForce(uint32 playerId, uint32 forceId);
 void uwAdminForceJoinTeam(uint32 forceId, uint32 team);
 void uwAdminForceSetColor(uint32 forceId, float r, float g, float b);
 void uwAdminForceSetRace(uint32 forceId, uint32 raceProto);
+void uwAdminForceSetMultiplier(uint32 forceId, float multiplier);
 void uwAdminSendSuggestedCameraFocus(uint32 position);
 void uwAdminSetAutomaticSuggestedCameraFocus(bool enabled);
 void uwAdminSendChatMessageToPlayer(const char *msg, uint32 playerId);
@@ -132,10 +133,11 @@ UwConnectionStateEnum uwConnectionState(void);
 
 void uwSetConnectStartGui(bool enabled, const char *extraCmdParams);
 void uwSetConnectAsync(bool enabled);
-bool uwConnectFindLan(uint64 timeoutMicroseconds);
 void uwConnectDirect(const char *address, uint16 port);
-void uwConnectLobbyId(uint64 lobbyId);
 bool uwConnectEnvironment();
+bool uwConnectFindLan(uint64 timeoutMicroseconds);
+void uwConnectLadder(const char *rulesName);
+void uwConnectLobbyId(uint64 lobbyId);
 void uwConnectNewServer(uint32 visibility, const char *name, const char *extraCmdParams);
 bool uwTryReconnect(void);
 void uwDisconnect(void);

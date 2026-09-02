@@ -10,6 +10,7 @@ class Prototype:
     id: int = 0
     type: UwPrototypeTypeEnum = UwPrototypeTypeEnum.Nothing
     name: str = ""
+    full_name: str = ""
     data: Dict[str, Any] = field(default_factory=dict)
     tags: List[int] = field(default_factory=list)
     tagsNames: List[str] = field(default_factory=list)
@@ -21,8 +22,13 @@ class Prototype:
     def _load(self) -> None:
         self.type = uw_interop.uwPrototypeType(self.id)
         self.json = uw_interop.uwPrototypeJson(self.id)
-        self.data = json.loads(self.json)
+        try:
+            self.data = json.loads(self.json)
+        except json.JSONDecodeError as e:
+            print(f"json error at {e.pos}: {repr(self.json[e.pos-30:e.pos+30])}")
+            raise
         self.name = self.data.get("name", "")
+        self.full_name = self.data.get("fullName", "")
         self.tags = self.data.get("tags", [])
         self.tagsNames = self.data.get("tagsNames", [])
 

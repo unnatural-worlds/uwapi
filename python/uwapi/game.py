@@ -41,17 +41,20 @@ class Game:
     ) -> None:
         uw_interop.uwSetConnectStartGui(start_gui, extra_params)
 
-    def connect_find_lan(self, timeout_microseconds: int = 1000000) -> bool:
-        return uw_interop.uwConnectFindLan(timeout_microseconds)
-
     def connect_direct(self, address: str, port: int) -> None:
         uw_interop.uwConnectDirect(address, port)
+
+    def connect_environment(self) -> bool:
+        return uw_interop.uwConnectEnvironment()
+
+    def connect_find_lan(self, timeout_microseconds: int = 5000000) -> bool:
+        return uw_interop.uwConnectFindLan(timeout_microseconds)
 
     def connect_lobby_id(self, lobby_id: int) -> None:
         uw_interop.uwConnectLobbyId(lobby_id)
 
-    def connect_environment(self) -> bool:
-        return uw_interop.uwConnectEnvironment()
+    def connect_ladder(self, rulesName: str) -> None:
+        uw_interop.uwConnectLadder(rulesName)
 
     def connect_new_server(
         self, visibility: int = 0, name: str = "", extra_params: str = ""

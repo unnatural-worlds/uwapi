@@ -56,24 +56,32 @@ namespace Unnatural
             Interop.uwSetConnectStartGui(startGui, extraParams);
         }
 
-        public static bool ConnectFindLan(ulong timeoutMicroseconds = 1000000)
-        {
-            return Interop.uwConnectFindLan(timeoutMicroseconds);
-        }
-
         public static void ConnectDirect(string address, ushort port)
         {
             Interop.uwConnectDirect(address, port);
         }
 
-        public static void ConnectLobbyId(ulong lobbyId)
-        {
-            Interop.uwConnectLobbyId(lobbyId);
-        }
-
         public static bool ConnectEnvironment()
         {
             return Interop.uwConnectEnvironment();
+        }
+
+        // wait at most 5 seconds
+        // returns false if timed out
+        public static bool ConnectFindLan(ulong timeoutMicroseconds = 5 * 1000 * 1000)
+        {
+            return Interop.uwConnectFindLan(timeoutMicroseconds);
+        }
+
+        // rulesName: uwapi_1v1, uwapi_2vAI, or uwapi_1vAI
+        public static void ConnectLadder(string rulesName)
+        {
+            Interop.uwConnectLadder(rulesName);
+        }
+
+        public static void ConnectLobbyId(ulong lobbyId)
+        {
+            Interop.uwConnectLobbyId(lobbyId);
         }
 
         public static void ConnectNewServer(uint visibility = 0, string name = "", string extraParams = "")

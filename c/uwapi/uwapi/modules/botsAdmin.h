@@ -31,6 +31,7 @@ extern "C"
 	UNNATURAL_API void uwAdminForceJoinTeam(uint32 forceId, uint32 team);
 	UNNATURAL_API void uwAdminForceSetColor(uint32 forceId, float r, float g, float b);
 	UNNATURAL_API void uwAdminForceSetRace(uint32 forceId, uint32 raceProto);
+	UNNATURAL_API void uwAdminForceSetMultiplier(uint32 forceId, float multiplier);
 	UNNATURAL_API void uwAdminSendSuggestedCameraFocus(uint32 position);
 	UNNATURAL_API void uwAdminSetAutomaticSuggestedCameraFocus(bool enabled);
 	UNNATURAL_API void uwAdminSendChatMessageToPlayer(const char *msg, uint32 playerId);

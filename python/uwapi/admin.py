@@ -54,6 +54,9 @@ class Admin:
     def force_set_race(self, force_id: int, race_proto: int) -> None:
         uw_interop.uwAdminForceSetRace(force_id, race_proto)
 
+    def force_set_multiplier(self, force_id: int, multiplier: float) -> None:
+        uw_interop.uwAdminForceSetMultiplier(force_id, multiplier)
+
     def send_suggested_camera_focus(self, position: int) -> None:
         uw_interop.uwAdminSendSuggestedCameraFocus(position)
 

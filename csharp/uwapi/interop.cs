@@ -72,6 +72,9 @@ namespace Unnatural
         public static extern void uwAdminForceSetRace(uint forceId, uint raceProto);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwAdminForceSetMultiplier(uint forceId, float multiplier);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwAdminSendSuggestedCameraFocus(uint position);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
@@ -157,18 +160,21 @@ namespace Unnatural
         public static extern void uwSetConnectAsync([MarshalAs(UnmanagedType.I1)] bool enabled);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        [return:MarshalAs(UnmanagedType.I1)]
-        public static extern bool uwConnectFindLan(ulong timeoutMicroseconds);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectDirect([MarshalAs(UnmanagedType.LPStr)] string address, ushort port);
-
-        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
-        public static extern void uwConnectLobbyId(ulong lobbyId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         [return:MarshalAs(UnmanagedType.I1)]
         public static extern bool uwConnectEnvironment();
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        [return:MarshalAs(UnmanagedType.I1)]
+        public static extern bool uwConnectFindLan(ulong timeoutMicroseconds);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwConnectLadder([MarshalAs(UnmanagedType.LPStr)] string rulesName);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern void uwConnectLobbyId(ulong lobbyId);
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwConnectNewServer(uint visibility, [MarshalAs(UnmanagedType.LPStr)] string name,
@@ -329,7 +335,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 75;
+        public const uint UW_VERSION = 78;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds

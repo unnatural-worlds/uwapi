@@ -598,6 +598,9 @@ class Interop:
     def uwAdminForceSetRace(self, forceId: int, raceProto: int) -> None:
         self._api.uwAdminForceSetRace(forceId, raceProto)
 
+    def uwAdminForceSetMultiplier(self, forceId: int, multiplier: float) -> None:
+        self._api.uwAdminForceSetMultiplier(forceId, multiplier)
+
     def uwAdminSendSuggestedCameraFocus(self, position: int) -> None:
         self._api.uwAdminSendSuggestedCameraFocus(position)
 
@@ -670,22 +673,26 @@ class Interop:
     def uwSetConnectAsync(self, enabled: bool) -> None:
         self._api.uwSetConnectAsync(enabled)
 
-    def uwConnectFindLan(self, timeoutMicroseconds: int) -> bool:
-        ret = self._api.uwConnectFindLan(timeoutMicroseconds)
-        ret = bool(ret)
-        return ret
-
     def uwConnectDirect(self, address: str, port: int) -> None:
         address_ = self._str_pytoc(address)
         self._api.uwConnectDirect(address_, port)
-
-    def uwConnectLobbyId(self, lobbyId: int) -> None:
-        self._api.uwConnectLobbyId(lobbyId)
 
     def uwConnectEnvironment(self) -> bool:
         ret = self._api.uwConnectEnvironment()
         ret = bool(ret)
         return ret
+
+    def uwConnectFindLan(self, timeoutMicroseconds: int) -> bool:
+        ret = self._api.uwConnectFindLan(timeoutMicroseconds)
+        ret = bool(ret)
+        return ret
+
+    def uwConnectLadder(self, rulesName: str) -> None:
+        rulesName_ = self._str_pytoc(rulesName)
+        self._api.uwConnectLadder(rulesName_)
+
+    def uwConnectLobbyId(self, lobbyId: int) -> None:
+        self._api.uwConnectLobbyId(lobbyId)
 
     def uwConnectNewServer(self, visibility: int, name: str, extraCmdParams: str) -> None:
         name_ = self._str_pytoc(name)
