@@ -7,13 +7,13 @@ The uwapi repository contains c/c++ headers for all functions and structures pro
 Furthermore, it contains convenient wrappers for Python and C# for easy start.
 
 .. important::
-   Do *not* use Flatpak, or Snap, or any other containerization for Steam on Linux.
+	Do *not* use Flatpak, or Snap, or any other containerization for Steam on Linux.
 
 Steam Appid Txt
 ---------------
 
 .. important::
-   Copy ``steam_appid.txt`` into ``Unnatural Worlds/bin`` folder.
+	Copy ``steam_appid.txt`` into ``Unnatural Worlds/bin`` folder.
 
 You will find the ``steam_appid.txt`` in the uwapi repository.
 Copy it into ``bin`` folder, next to the game executable.
@@ -30,25 +30,25 @@ Game Install Path
 -----------------
 
 .. important::
-   If you have installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` pointing to the ``bin`` directory containing the library.
+	If you have installed Unnatural World in non-default location, define environment variable ``UNNATURAL_ROOT`` pointing to the ``bin`` directory containing the library.
 
 .. tab-set::
-   :sync-group: platform
+	:sync-group: platform
 
-   .. tab-item:: Windows
-      :sync: windows
+	.. tab-item:: Windows
+		:sync: windows
 
-      Default path: ``C:\Program Files (x86)\Steam\steamapps\common\Unnatural Worlds\bin``
+		Default path: ``C:\Program Files (x86)\Steam\steamapps\common\Unnatural Worlds\bin``
 
-   .. tab-item:: Linux
-      :sync: linux
+	.. tab-item:: Linux
+		:sync: linux
 
-      Default path: ``~/.steam/steam/steamapps/common/Unnatural Worlds/bin``
+		Default path: ``~/.steam/steam/steamapps/common/Unnatural Worlds/bin``
 
-   .. tab-item:: Macos
-      :sync: macos
+	.. tab-item:: Macos
+		:sync: macos
 
-      Default path: ``~/Library/Application Support/Steam/steamapps/common/Unnatural Worlds/bin``
+		Default path: ``~/Library/Application Support/Steam/steamapps/common/Unnatural Worlds/bin``
 
 Show Extra Information
 ----------------------

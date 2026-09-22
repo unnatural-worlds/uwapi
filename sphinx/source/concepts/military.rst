@@ -5,84 +5,84 @@ Orders
 ------
 
 .. note::
-   Orders are usable by clients only. Server-side scripts do not have the concept of orders.
+	Orders are usable by clients only. Server-side scripts do not have the concept of orders.
 
 You can have multiple orders queued for each unit.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          # get list of orders of own unit:
-          os = uw_commands.orders(own_id)
-          
-          # order own unit to attack enemy unit (cancels all previous orders):
-          uw_commands.order(own_id, uw_commands.fight_to_entity(enemy_id))
-          
-          # enqueue move order:
-          o = uw_commands.run_to_position(tile_index)
-          o.priority = o.priority | OrderPriority.Enqueue
-          uw_commands.order(own_id, o)
+			 # get list of orders of own unit:
+			 os = uw_commands.orders(own_id)
+			 
+			 # order own unit to attack enemy unit (cancels all previous orders):
+			 uw_commands.order(own_id, uw_commands.fight_to_entity(enemy_id))
+			 
+			 # enqueue move order:
+			 o = uw_commands.run_to_position(tile_index)
+			 o.priority = o.priority | OrderPriority.Enqueue
+			 uw_commands.order(own_id, o)
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          // get list of orders of own unit:
-          var os = Commands.Orders(ownId);
-          
-          // order own unit to attack enemy unit (cancels all previous orders):
-          Commands.Order(ownId, Commands.FightToEntity(enemyId));
-          
-          // enqueue move order:
-          Order o = Commands.RunToPosition(tileIndex);
-          o.priority |= UwOrderPriorityFlags.Enqueue;
-          Commands.Order(ownId, o);
+			 // get list of orders of own unit:
+			 var os = Commands.Orders(ownId);
+			 
+			 // order own unit to attack enemy unit (cancels all previous orders):
+			 Commands.Order(ownId, Commands.FightToEntity(enemyId));
+			 
+			 // enqueue move order:
+			 Order o = Commands.RunToPosition(tileIndex);
+			 o.priority |= UwOrderPriorityFlags.Enqueue;
+			 Commands.Order(ownId, o);
 
 Tips For Military Maneuvers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          # position of enemy military unit that is closest to any of our own units:
-          uw_world.my_force_statistics().closestDangerPosition
+			 # position of enemy military unit that is closest to any of our own units:
+			 uw_world.my_force_statistics().closestDangerPosition
 
-          # position that is specific distance from target, and closest to us
-          surrounding_positions = uw_map.area_neighborhood(target_position, 200)
-          specific_distance_position = min(surrounding_positions, key=lambda x: uw_map.distance_estimate(my_position, x))
+			 # position that is specific distance from target, and closest to us
+			 surrounding_positions = uw_map.area_neighborhood(target_position, 200)
+			 specific_distance_position = min(surrounding_positions, key=lambda x: uw_map.distance_estimate(my_position, x))
 
-          # flanking position around target
-          surrounding_positions = uw_map.area_neighborhood(target_position, 200)
-          surrounding_positions = sorted(surrounding_positions, key=lambda x: uw_map.distance_estimate(my_position, x))
-          flanking_position = surrounding_positions[len(surrounding_positions) // 2] # note that this picks left or right flanking position at random
+			 # flanking position around target
+			 surrounding_positions = uw_map.area_neighborhood(target_position, 200)
+			 surrounding_positions = sorted(surrounding_positions, key=lambda x: uw_map.distance_estimate(my_position, x))
+			 flanking_position = surrounding_positions[len(surrounding_positions) // 2] # note that this picks left or right flanking position at random
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          // position of enemy military unit that is closest to any of our own units:
-          World.MyForceStatistics().closestDangerPosition
+			 // position of enemy military unit that is closest to any of our own units:
+			 World.MyForceStatistics().closestDangerPosition
 
-          // position that is specific distance from target, and closest to us
-          var surroundingPositions = Map.AreaNeighborhood(targetPosition, 200);
-          var specificDistancePosition = surroundingPositions.OrderBy(x => Map.DistanceEstimate(myPosition, x)).First();
+			 // position that is specific distance from target, and closest to us
+			 var surroundingPositions = Map.AreaNeighborhood(targetPosition, 200);
+			 var specificDistancePosition = surroundingPositions.OrderBy(x => Map.DistanceEstimate(myPosition, x)).First();
 
-          // flanking position around target
-          var surroundingPositions = Map.areaNeighborhood(targetPosition, 200);
-          surroundingPositions.Sort((a, b) => Map.DistanceEstimate(myPosition, a).CompareTo(Map.DistanceEstimate(myPosition, b)));
-          var flankingPosition = surroundingPositions[surroundingPositions.Count / 2]; // note that this picks left or right flanking position at random
+			 // flanking position around target
+			 var surroundingPositions = Map.areaNeighborhood(targetPosition, 200);
+			 surroundingPositions.Sort((a, b) => Map.DistanceEstimate(myPosition, a).CompareTo(Map.DistanceEstimate(myPosition, b)));
+			 var flankingPosition = surroundingPositions[surroundingPositions.Count / 2]; // note that this picks left or right flanking position at random
 
 Shooting
 --------
@@ -123,9 +123,9 @@ It may also affect own/ally units, depending on ``splashFractionToFriendly``.
 Damage Bonuses
 --------------
 
-Each unit has a set of classes associated with it, similar to tags. Classes have defined bonuses vs other classes.
+Each unit has a set of traits associated with it, similar to tags. Traits have defined bonuses vs other Traits.
 
-Eg. siege class has bonus vs building class.
+Eg. siege trait has bonus vs building trait.
 
 Life Regeneration
 -----------------

@@ -3,16 +3,16 @@ Entities
 
 .. epigraph::
 
-   .. image:: /_static/ecs.svg
-      :alt: ECS Diagram from Wikipedia
-      :height: 100pt
-      :align: right
+	.. image:: /_static/ecs.svg
+		:alt: ECS Diagram from Wikipedia
+		:height: 100pt
+		:align: right
 
-   "Entity–component–system (ECS) is a software architectural pattern mostly used in video game development for the representation of game world objects. An ECS comprises entities composed from components of data, with systems which operate on the components.
+	"Entity–component–system (ECS) is a software architectural pattern mostly used in video game development for the representation of game world objects. An ECS comprises entities composed from components of data, with systems which operate on the components.
 
-   ECS follows the principle of composition over inheritance, meaning that every entity is defined not by a type hierarchy, but by the components that are associated with it. Systems act globally over all entities which have the required components."
+	ECS follows the principle of composition over inheritance, meaning that every entity is defined not by a type hierarchy, but by the components that are associated with it. Systems act globally over all entities which have the required components."
 
-   — `Wikipedia - Entity Component System <https://en.wikipedia.org/wiki/Entity_component_system>`_
+	— `Wikipedia - Entity Component System <https://en.wikipedia.org/wiki/Entity_component_system>`_
 
 Entity
 ------
@@ -20,42 +20,42 @@ In Unnatural Worlds specifically, each entity is identified by its unique 32-bit
 These ids are assigned by the server, and client cannot predict the values.
 
 .. note::
-   An id may be reused, especially in longer game.
+	An id may be reused, especially in longer game.
 
 .. note::
-   Some entities and/or components are synchronized only with the owner of the entity.
+	Some entities and/or components are synchronized only with the owner of the entity.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          # get list of all entities:
-          uw_world.entities().values()
+			 # get list of all entities:
+			 uw_world.entities().values()
 
-          # find entity by id:
-          uw_world.entity(id) # raises KeyError if not found
+			 # find entity by id:
+			 uw_world.entity(id) # raises KeyError if not found
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          // get list of all entities:
-          World.Entities().Values
+			 // get list of all entities:
+			 World.Entities().Values
 
-          // find entity by id:
-          World.Entity(id) // throws KeyNotFoundException if not found
+			 // find entity by id:
+			 World.Entity(id) // throws KeyNotFoundException if not found
 
-   .. tab-item:: C++
-      :sync: cpp
+	.. tab-item:: C++
+		:sync: cpp
 
-      .. code-block:: cpp
+		.. code-block:: cpp
 
-          // todo
+			 // todo
 
 Proto Component
 ---------------
@@ -65,64 +65,64 @@ It is allowed to change from construction to unit, or from unit to another unit.
 It is forbidden to change eg. from unit to resource.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          x = uw_world.entity(id)
+			 x = uw_world.entity(id)
 
-          # check if entity has Proto component:
-          x.Proto is not None
+			 # check if entity has Proto component:
+			 x.Proto is not None
 
-          # find type (unit, resource, construction, ...) of the entity:
-          x.type()
+			 # find type (unit, resource, construction, ...) of the entity:
+			 x.type()
 
-          # check if entity is a unit:
-          x.type() == PrototypeType.Unit
+			 # check if entity is a unit:
+			 x.type() == PrototypeType.Unit
 
-          # alternative check if entity is a unit (only units have the Unit component):
-          x.Unit is not None
+			 # alternative check if entity is a unit (only units have the Unit component):
+			 x.Unit is not None
 
-          # find id of the prototype of an entity:
-          x.Proto.proto # assumes that the entity actually has Proto component
+			 # find id of the prototype of an entity:
+			 x.Proto.proto # assumes that the entity actually has Proto component
 
-          # access a value from the prototype:
-          x.proto().data.get("dps", 0)
+			 # access a value from the prototype:
+			 x.proto().data.get("dps", 0)
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          Entity x = World.Entity(id);
+			 Entity x = World.Entity(id);
 
-          // check if entity has Proto component:
-          x.Proto.HasValue
+			 // check if entity has Proto component:
+			 x.Proto.HasValue
 
-          // find type (unit, resource, construction, ...) of the entity:
-          x.Type
+			 // find type (unit, resource, construction, ...) of the entity:
+			 x.Type
 
-          // check if entity is a unit:
-          x.Type == UwPrototypeTypeEnum.Unit
+			 // check if entity is a unit:
+			 x.Type == UwPrototypeTypeEnum.Unit
 
-          // alternative check if entity is a unit (only units have the Unit component):
-          x.Unit.HasValue
+			 // alternative check if entity is a unit (only units have the Unit component):
+			 x.Unit.HasValue
 
-          // find id of the prototype of an entity:
-          x.Proto.Value.proto // assumes that the entity actually has Proto component
+			 // find id of the prototype of an entity:
+			 x.Proto.Value.proto // assumes that the entity actually has Proto component
 
-          // access a value from the prototype:
-          x.ProtoUnit?.dps // assumes that the entity is a unit
+			 // access a value from the prototype:
+			 x.ProtoUnit?.dps // assumes that the entity is a unit
 
-   .. tab-item:: C++
-      :sync: cpp
+	.. tab-item:: C++
+		:sync: cpp
 
-      .. code-block:: cpp
+		.. code-block:: cpp
 
-          // todo
+			 // todo
 
 Owner Component
 ---------------
@@ -131,45 +131,45 @@ Defines which force owns this entity.
 Immutable.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          # id of the force that owns this entity:
-          x.Owner.force
+			 # id of the force that owns this entity:
+			 x.Owner.force
 
-          # check if entity is own or enemy:
-          x.own()
-          x.enemy()
+			 # check if entity is own or enemy:
+			 x.own()
+			 x.enemy()
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          // id of the force that owns this entity:
-          x.Owner.Value.force
+			 // id of the force that owns this entity:
+			 x.Owner.Value.force
 
-          // check if entity is own or enemy:
-          x.Own
-          x.Enemy
+			 // check if entity is own or enemy:
+			 x.Own
+			 x.Enemy
 
-   .. tab-item:: C++
-      :sync: cpp
+	.. tab-item:: C++
+		:sync: cpp
 
-      .. code-block:: cpp
+		.. code-block:: cpp
 
-          // todo
+			 // todo
 
 Controller Component
 --------------------
 In case that multiple players belong to the same force, the last player to give any orders to this entity will become the controller of the entity.
 
 .. note::
-   Controllers are not yet implemented.
+	Controllers are not yet implemented.
 
 Position Component
 ------------------
@@ -180,30 +180,30 @@ The yaw defines the orientation (a rotation along the local vertical axis) of th
 The actual facing of 0 degrees yaw is different for each tile.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          # shortcut to get tile index:
-          x.pos()
+			 # shortcut to get tile index:
+			 x.pos()
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          // shortcut to get tile index:
-          x.Pos
+			 // shortcut to get tile index:
+			 x.Pos
 
-   .. tab-item:: C++
-      :sync: cpp
+	.. tab-item:: C++
+		:sync: cpp
 
-      .. code-block:: cpp
+		.. code-block:: cpp
 
-          // todo
+			 // todo
 
 Unit Component
 --------------
@@ -217,30 +217,30 @@ Contains additional state for a unit (or building).
 - ``Damaged`` - the unit has less than half life.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          # check if unit is processing:
-          (x.Unit.state & UnitState.ProcessingRecipe) != 0
+			 # check if unit is processing:
+			 (x.Unit.state & UnitState.ProcessingRecipe) != 0
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          // check if unit is processing:
-          (x.Unit.Value.state & UwUnitStateFlags.ProcessingRecipe) != 0
+			 // check if unit is processing:
+			 (x.Unit.Value.state & UwUnitStateFlags.ProcessingRecipe) != 0
 
-   .. tab-item:: C++
-      :sync: cpp
+	.. tab-item:: C++
+		:sync: cpp
 
-      .. code-block:: cpp
+		.. code-block:: cpp
 
-          // todo
+			 // todo
 
 Life Component
 --------------
@@ -296,7 +296,7 @@ Ghost Component
 You have seen this unit/building previously, but it is out of sight right now (covered in fog of war).
 
 Constructing Animation Component
--------------------------------
+--------------------------------
 Provides timing information on when the building will finish building.
 
 Ping Component
