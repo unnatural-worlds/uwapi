@@ -46,73 +46,73 @@ Area Queries
 There are multiple functions for finding tiles within some distance.
 
 .. grid:: 1 1 2 2
-   :gutter: 2
+	:gutter: 2
 
-   .. grid-item::
+	.. grid-item::
 
-      .. card::
-         :img-bottom: /_static/area-query-range.svg
-         :text-align: center
+		.. card::
+			:img-bottom: /_static/area-query-range.svg
+			:text-align: center
 
-         **Area Range**
+			**Area Range**
 
-         Given *3D coordinates* and a radius, returns all tiles within the defined sphere, including tiles that may appear opposite of the rest.
+			Given *3D coordinates* and a radius, returns all tiles within the defined sphere, including tiles that may appear opposite of the rest.
 
-   .. grid-item::
+	.. grid-item::
 
-      .. card::
-         :img-bottom: /_static/area-query-connected.svg
-         :text-align: center
+		.. card::
+			:img-bottom: /_static/area-query-connected.svg
+			:text-align: center
 
-         **Area Connected**
+			**Area Connected**
 
-         Given *tile-index* as center, and a radius, returns tiles that are connected to the center within the radius.
+			Given *tile-index* as center, and a radius, returns tiles that are connected to the center within the radius.
 
-   .. grid-item::
+	.. grid-item::
 
-      .. card::
-         :img-bottom: /_static/area-query-neighborhood.svg
-         :text-align: center
+		.. card::
+			:img-bottom: /_static/area-query-neighborhood.svg
+			:text-align: center
 
-         **Area Neighborhood**
+			**Area Neighborhood**
 
-         Returns tiles that are direct neighbors of area connected query. Usually looks like a ring.
+			Returns tiles that are direct neighbors of area connected query. Usually looks like a ring.
 
-   .. grid-item::
+	.. grid-item::
 
-      .. card::
-         :img-bottom: /_static/area-query-extended.svg
-         :text-align: center
+		.. card::
+			:img-bottom: /_static/area-query-extended.svg
+			:text-align: center
 
-         **Area Extended**
+			**Area Extended**
 
-         Returns a union of the connected and the neighboring tiles.
+			Returns a union of the connected and the neighboring tiles.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      .. code-block:: python
+		.. code-block:: python
 
-          # find all connected tiles around a position, up to 300 meters:
-          uw_map.area_connected(tile_index, 300)
+			 # find all connected tiles around a position, up to 300 meters:
+			 uw_map.area_connected(tile_index, 300)
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      .. code-block:: csharp
+		.. code-block:: csharp
 
-          // find all connected tiles around a position, up to 300 meters:
-          Map.AreaConnected(tileIndex, 300)
+			 // find all connected tiles around a position, up to 300 meters:
+			 Map.AreaConnected(tileIndex, 300)
 
-   .. tab-item:: C++
-      :sync: cpp
+	.. tab-item:: C++
+		:sync: cpp
 
-      .. code-block:: cpp
+		.. code-block:: cpp
 
-          // todo
+			 // todo
 
 Pathfinding
 -----------

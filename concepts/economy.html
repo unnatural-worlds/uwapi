@@ -274,7 +274,7 @@ Python</label><div class="sd-tab-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># find closest viable position for miner:</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">uw_world</span><span class="o">.</span><span class="n">find_construction_placement</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span> <span class="n">home_position</span><span class="p">,</span> <span class="n">METAL_RECIPE_ID</span><span class="p">)</span> <span class="c1"># recipe id is optional</span>
 <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="n">INVALID</span><span class="p">:</span>
-    <span class="k">return</span>
+         <span class="k">return</span>
 
 <span class="c1"># place construction:</span>
 <span class="n">uw_commands</span><span class="o">.</span><span class="n">place_construction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">METAL_RECIPE_ID</span><span class="p">,</span> <span class="n">Priority</span><span class="o">.</span><span class="n">High</span><span class="p">)</span> <span class="c1"># yaw, recipe, and priority are optional</span>
@@ -291,7 +291,7 @@ C#</label><div class="sd-tab-content docutils">
 <div class="highlight-csharp notranslate"><div class="highlight"><pre><span></span><span class="c1">// find closest viable position for miner:</span>
 <span class="kt">uint</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">World</span><span class="p">.</span><span class="n">FindConstructionPlacement</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span><span class="w"> </span><span class="n">homePosition</span><span class="p">,</span><span class="w"> </span><span class="n">METAL_RECIPE_ID</span><span class="p">);</span><span class="w"> </span><span class="c1">// recipe id is optional</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Entity</span><span class="p">.</span><span class="n">Invalid</span><span class="p">):</span>
-<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">         </span><span class="k">return</span><span class="p">;</span>
 
 <span class="c1">// place construction:</span>
 <span class="n">Commands</span><span class="p">.</span><span class="n">PlaceConstruction</span><span class="p">(</span><span class="n">DRILL_CONSTRUCTION_ID</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">METAL_RECIPE_ID</span><span class="p">,</span><span class="w"> </span><span class="n">UwPriorityEnum</span><span class="p">.</span><span class="n">High</span><span class="p">);</span><span class="w"> </span><span class="c1">// yaw, recipe, and priority are optional</span>

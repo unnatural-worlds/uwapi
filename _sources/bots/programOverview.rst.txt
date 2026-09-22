@@ -8,29 +8,29 @@ Accessor Objects
 These are globally accessible objects that you use to interact with the game.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      - ``uw_admin`` - managing the game server and other players; requires administrator privilege on the game server.
-      - ``uw_commands`` - sending commands and orders to your units, and queries for current orders.
-      - ``uw_events`` - register your callbacks here.
-      - ``uw_game`` - managing game connection, and other settings.
-      - ``uw_map`` - queries about tiles, clusters, etc; data that do *not* change during game.
-      - ``uw_prototypes`` - access to all prototypes; they do *not* change during game.
-      - ``uw_world`` - list all entities, and some additional queries for data that do change during game.
+		- ``uw_admin`` - managing the game server and other players; requires administrator privilege on the game server.
+		- ``uw_commands`` - sending commands and orders to your units, and queries for current orders.
+		- ``uw_events`` - register your callbacks here.
+		- ``uw_game`` - managing game connection, and other settings.
+		- ``uw_map`` - queries about tiles, clusters, etc; data that do *not* change during game.
+		- ``uw_prototypes`` - access to all prototypes; they do *not* change during game.
+		- ``uw_world`` - list all entities, and some additional queries for data that do change during game.
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      - ``Admin`` - managing the game server and other players; requires administrator privilege on the game server.
-      - ``Commands`` - sending commands and orders to your units, and queries for current orders.
-      - ``Events`` - register your callbacks here.
-      - ``Game`` - managing game connection, and other settings.
-      - ``Map`` - queries about tiles, clusters, etc; data that do *not* change during game.
-      - ``Prototypes`` - access to all prototypes; they do *not* change during game.
-      - ``World`` - list all entities, and some additional queries for data that do change during game.
+		- ``Admin`` - managing the game server and other players; requires administrator privilege on the game server.
+		- ``Commands`` - sending commands and orders to your units, and queries for current orders.
+		- ``Events`` - register your callbacks here.
+		- ``Game`` - managing game connection, and other settings.
+		- ``Map`` - queries about tiles, clusters, etc; data that do *not* change during game.
+		- ``Prototypes`` - access to all prototypes; they do *not* change during game.
+		- ``World`` - list all entities, and some additional queries for data that do change during game.
 
 Program Lifetime
 ----------------
@@ -40,30 +40,30 @@ Initialization
 ^^^^^^^^^^^^^^
 
 1) Change current working directory to the ``bin`` directory in the game installation.
-   Without it, the game will be unable to load maps and assets (even if it might happen to load the shared library).
+	Without it, the game will be unable to load maps and assets (even if it might happen to load the shared library).
 
 .. warning::
-   Do *not* change current working directory afterwards.
+	Do *not* change current working directory afterwards.
 
 2) Load the shared library.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      Class UwapiLibrary is responsible for loading the library.
-      This is done in the ``main.py``.
+		Class UwapiLibrary is responsible for loading the library.
+		This is done in the ``main.py``.
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      The library is automatically loaded when you first access the global ``Events`` object.
-      This happens inside the ``Bot`` constructor.
+		The library is automatically loaded when you first access the global ``Events`` object.
+		This happens inside the ``Bot`` constructor.
 
 3) Setup all callbacks now.
-   You may also set some parameters for the connection.
+	You may also set some parameters for the connection.
 
 Connect
 ^^^^^^^
@@ -85,8 +85,8 @@ Notably, the ``Update`` callback is periodically called, no matter the game stat
 This is where you keep track of the state of the game, and perform any of your actions.
 
 .. warning::
-   The ``Update`` callback, and some others, may be called before the game has actually started (eg. in ``Session``), or when the map is not yet ``Loaded``.
-   Be mindful of what operations are valid in these circumstances.
+	The ``Update`` callback, and some others, may be called before the game has actually started (eg. in ``Session``), or when the map is not yet ``Loaded``.
+	Be mindful of what operations are valid in these circumstances.
 
 You may prematurely close the connection with the ``disconnect`` function.
 This will do a graceful closing of the connection, that is, you will get some additional callbacks called.
@@ -107,7 +107,7 @@ The game is designed for multiplayer, and always plays over network, even in sin
 Any actions that you do in your program are first send to the game server, then processed, and then the results are send back to your client.
 
 .. important::
-   Some actions will *not* appear until after round-trip to server. Eg. placing a construction.
+	Some actions will *not* appear until after round-trip to server. Eg. placing a construction.
 
 Example: you call a function to place a construction.
 After that you look through all the entities and the construction is not there, as expected.
@@ -116,7 +116,7 @@ The construction will appear only after the game server has processed the reques
 It is recommended to wait several ticks between these kinds of actions, to avoid placing same construction multiple times in different places.
 
 .. note::
-   Test your program over a real network, not just localhost.
+	Test your program over a real network, not just localhost.
 
 Client-only State
 ^^^^^^^^^^^^^^^^^

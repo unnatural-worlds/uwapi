@@ -16,7 +16,7 @@ Threads
 -------
 
 .. important::
-   Entire uwapi is strictly single-threaded!
+	Entire uwapi is strictly single-threaded!
 
 Hardened Library
 ----------------
@@ -28,16 +28,16 @@ This library is the default.
 It is recommended to use the optimized (non-hardened) library when not actively developing your bots, or when in a tournament game.
 
 .. tab-set::
-   :sync-group: language
+	:sync-group: language
 
-   .. tab-item:: Python
-      :sync: python
+	.. tab-item:: Python
+		:sync: python
 
-      Use ``-O``, eg. ``python -O your_bot.py``, to use the optimized (non-hard) library.
+		Use ``-O``, eg. ``python -O your_bot.py``, to use the optimized (non-hard) library.
 
-   .. tab-item:: C#
-      :sync: csharp
+	.. tab-item:: C#
+		:sync: csharp
 
-      Define ``UW_USE_OPTIMIZED_LIBRARY`` macro to use the optimized (non-hard) library.
+		Define ``UW_USE_OPTIMIZED_LIBRARY`` macro to use the optimized (non-hard) library.
 
 

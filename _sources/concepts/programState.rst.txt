@@ -27,7 +27,7 @@ Map State
 - ``Error`` - loading a map has encountered an error. Loading is cancelled.
 
 .. warning::
-   Do *not* access any of the map-related functions unless the map is ``Loaded``.
+	Do *not* access any of the map-related functions unless the map is ``Loaded``.
 
 Accessing any of the map-related functions when the map is *not* ``Loaded`` will crash the game, since all data are loaded concurrently.
 
