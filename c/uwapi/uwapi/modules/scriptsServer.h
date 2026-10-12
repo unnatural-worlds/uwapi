@@ -10,10 +10,10 @@ extern "C"
 
 #ifdef UNNATURAL_SCRIPTS
 
-	UNNATURAL_API uint32 uwCreateEntity(uint32 proto, uint32 position, uint32 owner);
+	UNNATURAL_API uint32 uwCreateEntity(uint32 proto, uint32 position, uint32 force);
 	UNNATURAL_API void uwDestroyEntity(uint32 entity);
 
-	UNNATURAL_API uint32 uwChangeOwner(uint32 entity, uint32 owner);
+	UNNATURAL_API uint32 uwChangeOwner(uint32 entity, uint32 force);
 
 	UNNATURAL_API void uwSetPositionYaw(uint32 entity, uint32 position, float yaw);
 	UNNATURAL_API void uwSetPosition(uint32 entity, uint32 position);
@@ -54,6 +54,8 @@ extern "C"
 	UNNATURAL_API void uwPlayerDialogue(uint32 player, uint32 avatarId, uint32 voicelineId, uint32 translatedNameId, uint32 translatedTextId); // use -1 to send to all players, use 0 for no avatar/voice/name/text
 	UNNATURAL_API void uwPlayerDialogueParam(uint32 player, uint32 avatarId, uint32 voicelineId, uint32 translatedNameId, uint32 translatedTextId, const char *param);
 	UNNATURAL_API void uwPlayerDialogueKeybind(uint32 player, uint32 avatarId, uint32 voicelineId, uint32 translatedNameId, uint32 translatedTextId, const char *keybind);
+	UNNATURAL_API void uwPlayerObjectivesReset(uint32 player); // use -1 to send to all players
+	UNNATURAL_API void uwPlayerObjectivesAdd(uint32 player, uint32 translatedTextId, const char *param); // use -1 to send to all players, use 0 to show param verbatim
 
 	UNNATURAL_API void uwCutsceneBegin(void);
 	UNNATURAL_API void uwCutsceneEnd(void);
@@ -61,12 +63,15 @@ extern "C"
 	UNNATURAL_API float uwCutsceneTime(void); // seconds since start of the cutscene
 	UNNATURAL_ENTRY void uwCutsceneSkipCallback(void);
 
-	UNNATURAL_API void uwSetGameConfig(const UwGameConfig *config);
-	UNNATURAL_API void uwStandardVictoryConditions(bool standardConditions);
 	UNNATURAL_API void uwSendChatEveryone(const char *msg);
 	UNNATURAL_API void uwSendChatOne(const char *msg, uint32 targetId);
 	UNNATURAL_API void uwSendChatDirect(const char *msg, const uint32 targetsIds[], const uint32 targetsCount);
 	UNNATURAL_API void uwSendPing(uint32 position, UwPingEnum ping, uint32 targetForce);
+
+	UNNATURAL_API void uwDoodadsWithMarker(uint32 doodadsMarker, UwIds *result);
+	UNNATURAL_API void uwDoodadsChangeOwner(uint32 doodadsMarker, uint32 force);
+	UNNATURAL_API void uwSetGameConfig(const UwGameConfig *config);
+	UNNATURAL_API void uwStandardVictoryConditions(bool standardConditions);
 
 	UNNATURAL_API void uwError(const char *msg);
 	UNNATURAL_API void uwPrint(const char *msg);

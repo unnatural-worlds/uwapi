@@ -35,8 +35,6 @@ extern "C"
 	} UwMapInfo;
 	UNNATURAL_API bool uwMapInfo(UwMapInfo *data);
 
-	UNNATURAL_API void uwMapBasesPositions(UwIds *data);
-
 	// tiles
 
 	UNNATURAL_API uint32 uwTilesCount(void);
@@ -93,7 +91,7 @@ extern "C"
 	UNNATURAL_API void uwStartClustersDistances(const UwClustersDistancesQuery *query);
 	UNNATURAL_API void uwRetrieveClustersDistances(UwClustersDistancesResult *data);
 
-	// position markers
+	// markers
 
 	typedef struct UwMapMarker
 	{
@@ -106,6 +104,8 @@ extern "C"
 		uint32 count;
 	} UwMapMarkersArray;
 	UNNATURAL_API void uwMapMarkers(const char *marker, UwMapMarkersArray *data);
+
+	UNNATURAL_API void uwMapBasesPositions(UwIds *data);
 
 #ifdef __cplusplus
 } // extern C

@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 78;
+static const uint32 UW_VERSION = 79;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds
@@ -463,13 +463,14 @@ typedef enum UwGameStateEnum
 {
 	UwGameStateEnum_None = 0,
 	UwGameStateEnum_Session = 1,
-	UwGameStateEnum_Preparation = 2,
-	UwGameStateEnum_Starting = 3,
-	UwGameStateEnum_Game = 4,
-	UwGameStateEnum_Pause = 5,
-	UwGameStateEnum_CutscenePaused = 6,
-	UwGameStateEnum_CutsceneRunning = 7,
-	UwGameStateEnum_Finish = 8,
+	UwGameStateEnum_Initialization = 2,
+	UwGameStateEnum_Preparation = 3,
+	UwGameStateEnum_Starting = 4,
+	UwGameStateEnum_Game = 5,
+	UwGameStateEnum_Pause = 6,
+	UwGameStateEnum_CutscenePaused = 7,
+	UwGameStateEnum_CutsceneRunning = 8,
+	UwGameStateEnum_Finish = 9,
 } UwGameStateEnum;
 
 typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);
@@ -533,8 +534,6 @@ typedef struct UwMapInfo
 } UwMapInfo;
 bool uwMapInfo(UwMapInfo *data);
 
-void uwMapBasesPositions(UwIds *data);
-
 uint32 uwTilesCount(void);
 typedef struct UwTile
 {
@@ -594,6 +593,8 @@ typedef struct UwMapMarkersArray
 	uint32 count;
 } UwMapMarkersArray;
 void uwMapMarkers(const char *marker, UwMapMarkersArray *data);
+
+void uwMapBasesPositions(UwIds *data);
 typedef enum UwPrototypeTypeEnum
 {
 	UwPrototypeTypeEnum_None = 0,

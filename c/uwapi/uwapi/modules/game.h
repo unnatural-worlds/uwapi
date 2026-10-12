@@ -32,13 +32,14 @@ extern "C"
 	{
 		UwGameStateEnum_None = 0,
 		UwGameStateEnum_Session = 1,
-		UwGameStateEnum_Preparation = 2,
-		UwGameStateEnum_Starting = 3,
-		UwGameStateEnum_Game = 4,
-		UwGameStateEnum_Pause = 5,
-		UwGameStateEnum_CutscenePaused = 6,
-		UwGameStateEnum_CutsceneRunning = 7,
-		UwGameStateEnum_Finish = 8,
+		UwGameStateEnum_Initialization = 2,
+		UwGameStateEnum_Preparation = 3,
+		UwGameStateEnum_Starting = 4,
+		UwGameStateEnum_Game = 5,
+		UwGameStateEnum_Pause = 6,
+		UwGameStateEnum_CutscenePaused = 7,
+		UwGameStateEnum_CutsceneRunning = 8,
+		UwGameStateEnum_Finish = 9,
 	} UwGameStateEnum;
 #ifdef UNNATURAL_BOTS
 	typedef void (*UwGameStateCallbackType)(UwGameStateEnum state);

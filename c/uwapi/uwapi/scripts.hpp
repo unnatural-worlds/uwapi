@@ -8,6 +8,8 @@
 
 namespace uw
 {
+	// utilities
+
 	inline float degToRad(float degs)
 	{
 		return degs * 3.14159 / 180;
@@ -34,6 +36,8 @@ namespace uw
 		return makeVector(ids.ids, ids.count);
 	}
 
+	// world
+
 	inline auto allEntities()
 	{
 		UwIds ids;
@@ -48,6 +52,8 @@ namespace uw
 			return pc.position;
 		return -1;
 	}
+
+	// map
 
 	inline auto mapMarkers(const char *marker)
 	{
@@ -67,6 +73,17 @@ namespace uw
 		}
 		return arr.data[0];
 	}
+
+	// prototypes
+
+	inline auto allPrototypes()
+	{
+		UwIds ids;
+		uwAllPrototypes(&ids);
+		return makeVector(ids);
+	}
+
+	// miscelaneous
 
 	inline auto shootingControlData(uint32 id)
 	{

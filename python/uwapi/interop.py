@@ -117,13 +117,14 @@ class UwForceStateFlags(IntFlag):
 class UwGameStateEnum(Enum):
     Nothing = 0
     Session = 1
-    Preparation = 2
-    Starting = 3
-    Game = 4
-    Pause = 5
-    CutscenePaused = 6
-    CutsceneRunning = 7
-    Finish = 8
+    Initialization = 2
+    Preparation = 3
+    Starting = 4
+    Game = 5
+    Pause = 6
+    CutscenePaused = 7
+    CutsceneRunning = 8
+    Finish = 9
 
 class UwShootingEventEnum(Enum):
     Nothing = 0
@@ -1086,12 +1087,6 @@ class Interop:
         ret = bool(ret)
         return ret, data_
 
-    def uwMapBasesPositions(self) -> UwIds:
-        data = self._ffi.new("UwIds *")
-        self._api.uwMapBasesPositions(data)
-        data_ = self._UwIds_ctopy(data)
-        return data_
-
     def uwTilesCount(self) -> int:
         ret = self._api.uwTilesCount()
         ret = int(ret)
@@ -1183,6 +1178,12 @@ class Interop:
         data = self._ffi.new("UwMapMarkersArray *")
         self._api.uwMapMarkers(marker_, data)
         data_ = self._UwMapMarkersArray_ctopy(data)
+        return data_
+
+    def uwMapBasesPositions(self) -> UwIds:
+        data = self._ffi.new("UwIds *")
+        self._api.uwMapBasesPositions(data)
+        data_ = self._UwIds_ctopy(data)
         return data_
 
     def uwAllPrototypes(self) -> UwIds:
