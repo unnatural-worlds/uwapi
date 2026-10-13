@@ -3,7 +3,6 @@ Economy
 
 Recipes And Constructions
 -------------------------
-
 Resources are mined from deposits, or processed from other resources.
 Producing units and researching upgrades works the same as recipes.
 
@@ -53,14 +52,12 @@ Producing units and researching upgrades works the same as recipes.
 
 Destroyed Buildings
 ^^^^^^^^^^^^^^^^^^^
-
-When a building is destroyed, same construction is automatically placed in its place.
+When a building is destroyed, same construction is automatically placed in its place (with new entity id).
 It has ``disabled`` priority, you just change it when appropriate.
 Its previous recipe is also restored.
 
 Logistics
 ---------
-
 Resources are automatically transported by trucks.
 They will fulfill tasks by their priority, and on first-come-first-serve basis.
 
@@ -87,7 +84,6 @@ Priorities apply to both constructions and recipes.
 
 Expansion Bases
 ---------------
-
 Each map contains predefined set of bases positions.
 
 .. tab-set::

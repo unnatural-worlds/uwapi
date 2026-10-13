@@ -5,7 +5,7 @@ Orders
 ------
 
 .. note::
-	Orders are usable by clients only. Server-side scripts do not have the concept of orders.
+	Orders are usable by clients/bots only. Server-side scripts do not have the concept of orders.
 
 You can have multiple orders queued for each unit.
 
@@ -86,7 +86,6 @@ Tips For Military Maneuvers
 
 Shooting
 --------
-
 Units will automatically target appropriate enemies in their vicinity.
 
 Requirements for shooting:
@@ -101,7 +100,6 @@ This allows to shoot "over a horizon", or "behind a corner".
 
 Explosions
 ----------
-
 A unit may have any combination (or none) of the following triggers:
 
 - ``explodesWhenAttacks`` - suicidal unit.
@@ -109,11 +107,9 @@ A unit may have any combination (or none) of the following triggers:
 - ``explodesWhenSelfDestructed`` - explodes when the unit receives self-destruct command from owner.
 
 When a unit explodes, it does splash damage in area around it.
-Damage type of the explosion may be different from shooting.
 
 Splash
 ------
-
 Splash means the damage is an area-of-effect.
 It is centered at the target of shooting, or at the unit that explodes, and is circular with specified radius.
 
@@ -122,8 +118,7 @@ It may also affect own/ally units, depending on ``splashFractionToFriendly``.
 
 Damage Bonuses
 --------------
-
-Each unit has a set of traits associated with it, similar to tags. Traits have defined bonuses vs other Traits.
+Each unit has a set of traits associated with it, similar to tags. Traits have defined bonuses vs other traits.
 
 Eg. siege trait has bonus vs building trait.
 
@@ -136,7 +131,6 @@ The healing is slightly randomized.
 
 Upgrades
 --------
-
 Research usually consumes some resources to produce upgrades.
 Upgrades will stack, up to a specified limit.
 This means that the upgrades have a ramp-up phase.

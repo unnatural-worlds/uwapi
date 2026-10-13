@@ -7,9 +7,9 @@ Game State
 
 - ``None`` - the game is initializing.
 - ``Session`` - players are connecting, and are negotiating the map and other settings. An admin will start the game.
-- ``Preparation`` - countdown before the game actually starts. This alerts players to get ready.
-- ``Starting`` - briefly used between the transition from ``Preparation`` to ``Game``.
-  This state is best used for initialization - all forces already know their real race (in case of random), and their starting positions.
+- ``Initialization`` - an opportunity for bots/scripts to initialize players and forces etc, before server.
+- ``Preparation`` - countdown before the game actually starts. This gives players some time to get ready.
+- ``Starting`` - an opportunity for bots/scripts to finish initialization - forces already know their real race (in case of random), and their starting positions.
 - ``Game`` - game is in progress.
 - ``Pause`` - some players have requested the game to pause. It will return to the ``Game`` state when all players are ready again.
 - ``CutscenePaused`` - the game is playing a cut-scene, and game time is stopped. It will return to the ``Game`` state when the cut-scene finishes.

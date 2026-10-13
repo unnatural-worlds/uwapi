@@ -4,7 +4,6 @@ High-level look at basic bot program.
 
 Accessor Objects
 -----------------
-
 These are globally accessible objects that you use to interact with the game.
 
 .. tab-set::

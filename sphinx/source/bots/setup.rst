@@ -3,7 +3,7 @@ Setup
 You can write your bot in any language, as long as it can load a dynamic/shared library (.dll/.so).
 The shared library is distributed together with the game.
 
-The uwapi repository contains c/c++ headers for all functions and structures provided by the library.
+The `uwapi repository <https://github.com/unnatural-worlds/uwapi>`_ contains c/c++ headers for all functions and structures provided by the library.
 Furthermore, it contains convenient wrappers for Python and C# for easy start.
 
 .. important::
@@ -52,10 +52,9 @@ Game Install Path
 
 Show Extra Information
 ----------------------
-
 In the game, navigate to *Options*, *User Interface*, and change *Selected info level* to *Extra*.
 This will show you additional information about any single thing you select in the game.
 For example: unit id, its state, position (both index and 3D coordinates), etc.
-It shows at the bottom of the left panel.
+It shows in the same panel as recipes and priority.
 
 Enable *Detailed tooltips* too.

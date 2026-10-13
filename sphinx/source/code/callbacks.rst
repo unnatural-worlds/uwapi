@@ -3,11 +3,11 @@ Callbacks
 
 Game/Map/Connection State Callback
 ----------------------------------
-Viz :ref:`concepts/programState:Game State`, :ref:`concepts/programState:Map State`, and :ref:`concepts/programState:Connection State`.
+Viz :ref:`code/programState:Game State`, :ref:`code/programState:Map State`, and :ref:`code/programState:Connection State`.
 
 Update Callback
 ---------------
-This callback is called every time the simulation time progresses (:ref:`tick <concepts/programState:Ticks>` changes).
+This callback is called every time the simulation time progresses (:ref:`tick <code/programState:Ticks>` changes).
 It is also called when game time is not progressing (eg. when paused, or in session), but real time elapses.
 The difference is indicated with the ``stepping`` parameter.
 
@@ -19,7 +19,7 @@ This callback is the primary driving point for your program.
 
 Shootings Callback
 ------------------
-Shootings events are synchronized *asynchronously and unreliably*.
+Shootings events are delivered *asynchronously and unreliably*.
 This event is useful for measuring threat.
 
 The data encode multiple events, possibly of different types, mixed together.
@@ -119,4 +119,4 @@ This informs you that a force/player lost.
 
 Chat Callback
 -------------
-You have received a message. Chat events are synchronized *asynchronously*.
+You have received a message. Chat events are delivered *asynchronously*.

@@ -1,6 +1,6 @@
 Scripts
 =======
-Guide on making scripts for custom maps or mods for Unnatural Worlds.
+Scripts are used as part of a map or mod.
 
 .. warning::
 	Making scripts is not yet fully supported.
