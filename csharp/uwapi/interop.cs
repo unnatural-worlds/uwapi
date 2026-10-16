@@ -235,6 +235,8 @@ namespace Unnatural
             public bool fighting;
             [MarshalAs(UnmanagedType.I1)]
             public bool maximumDistance;
+            [MarshalAs(UnmanagedType.I1)]
+            public bool targetBonusDamage;
         }
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]

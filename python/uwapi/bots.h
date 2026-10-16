@@ -165,6 +165,7 @@ typedef struct UwAssistConfig
 	bool aiming;
 	bool fighting;
 	bool maximumDistance;
+	bool targetBonusDamage;
 } UwAssistConfig;
 void uwSetAssistConfig(const UwAssistConfig *config);
 
