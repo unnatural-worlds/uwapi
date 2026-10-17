@@ -97,6 +97,16 @@ namespace uw
 		uint16_t high = static_cast<uint16_t>(id >> 16);
 		return ShootingControlData{ (UwShootingEventEnum)low, high };
 	}
+
+	// translations
+
+	// this function is used in place of uwHashString
+	// the id and english text are scraped by a script to generate templates for translations
+	inline uint32 translatedTextHash(const char *id, const char *englishText)
+	{
+		return uwHashString(id);
+		(void)englishText;
+	}
 }
 
 #endif // unnatural_uwapi_scripts_hpp_zhgfa8g4
