@@ -611,6 +611,7 @@ UwPrototypeTypeEnum uwPrototypeType(uint32 prototypeId);
 const char *uwPrototypeJson(uint32 prototypeId);
 const char *uwDefinitionsJson(void);
 
+uint32 uwHashProto(const char *str);
 uint32 uwHashString(const char *str);
 typedef struct UwMyForceStatistics
 {

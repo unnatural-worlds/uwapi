@@ -23,6 +23,7 @@ extern "C"
 	UNNATURAL_API const char *uwPrototypeJson(uint32 prototypeId);
 	UNNATURAL_API const char *uwDefinitionsJson(void);
 
+	UNNATURAL_API uint32 uwHashProto(const char *str); // verifies that the prototype exists, otherwise same as uwHashString
 	UNNATURAL_API uint32 uwHashString(const char *str);
 
 #ifdef __cplusplus

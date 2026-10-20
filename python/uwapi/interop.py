@@ -1208,6 +1208,12 @@ class Interop:
         ret = self._str_ctopy(ret)
         return ret
 
+    def uwHashProto(self, str: str) -> int:
+        str_ = self._str_pytoc(str)
+        ret = self._api.uwHashProto(str_)
+        ret = int(ret)
+        return ret
+
     def uwHashString(self, str: str) -> int:
         str_ = self._str_pytoc(str)
         ret = self._api.uwHashString(str_)

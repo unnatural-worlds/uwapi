@@ -1005,6 +1005,9 @@ namespace Unnatural
         public static extern IntPtr uwDefinitionsJson();
 
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
+        public static extern uint uwHashProto([MarshalAs(UnmanagedType.LPStr)] string str);
+
+        [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern uint uwHashString([MarshalAs(UnmanagedType.LPStr)] string str);
 
         [StructLayout(LayoutKind.Sequential)]
