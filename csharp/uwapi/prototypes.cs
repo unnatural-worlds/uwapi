@@ -228,6 +228,11 @@ namespace Unnatural
             return definitions;
         }
 
+        public static uint HashProto(string str)
+        {
+            return Interop.uwHashProto(str);
+        }
+
         public static uint HashString(string str)
         {
             return Interop.uwHashString(str);

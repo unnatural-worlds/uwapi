@@ -21,34 +21,9 @@ namespace Unnatural
             Interop.uwLog(Interop.UwSeverityEnum.Error, msg);
         }
 
-        public static void SetPlayerName(string name)
+        public static ConnectionStateEnum ConnectionState()
         {
-            Interop.uwSetPlayerName(name);
-        }
-
-        public static void PlayerJoinForce(uint forceId)
-        {
-            Interop.uwPlayerJoinForce(forceId);
-        }
-
-        public static void SetForceColor(float r, float g, float b) // [0 .. 1]
-        {
-            Interop.uwSetForceColor(r, g, b);
-        }
-
-        public static void SetForceRace(uint raceProto)
-        {
-            Interop.uwSetForceRace(raceProto);
-        }
-
-        public static void ForceJoinTeam(uint team)
-        {
-            Interop.uwForceJoinTeam(team);
-        }
-
-        public static void SkipCutscene()
-        {
-            Interop.uwSkipCutscene();
+            return Interop.uwConnectionState();
         }
 
         public static void SetConnectStartGui(bool startGui, string extraParams = "--observer 1")
@@ -101,19 +76,41 @@ namespace Unnatural
             Interop.uwDisconnect();
         }
 
-        public static ConnectionStateEnum ConnectionState()
+        public static void SetPlayerName(string name)
         {
-            return Interop.uwConnectionState();
+            Interop.uwSetPlayerName(name);
         }
 
-        public static GameStateEnum GameState()
+        public static void PlayerJoinForce(uint forceId)
         {
-            return Interop.uwGameState();
+            Interop.uwPlayerJoinForce(forceId);
         }
 
-        public static uint GameTick()
+        public static void SetForceColor(float r, float g, float b) // [0 .. 1]
         {
-            return Interop.uwGameTick();
+            Interop.uwSetForceColor(r, g, b);
+        }
+
+        public static void SetForceRace(uint raceProto)
+        {
+            Interop.uwSetForceRace(raceProto);
+        }
+
+        public static void ForceJoinTeam(uint team)
+        {
+            Interop.uwForceJoinTeam(team);
+        }
+
+        public static void SkipCutscene()
+        {
+            Interop.uwSkipCutscene();
+        }
+
+        public static Interop.UwGameConfig GameConfig()
+        {
+            Interop.UwGameConfig data = new Interop.UwGameConfig();
+            Interop.uwGameConfig(ref data);
+            return data;
         }
 
         public static void SetGameSpeed(float speed)
@@ -126,16 +123,19 @@ namespace Unnatural
             Interop.uwSetWeatherSpeed(speed, offset);
         }
 
+        public static GameStateEnum GameState()
+        {
+            return Interop.uwGameState();
+        }
+
+        public static uint GameTick()
+        {
+            return Interop.uwGameTick();
+        }
+
         public static MapStateEnum MapState()
         {
             return Interop.uwMapState();
-        }
-
-        public static Interop.UwGameConfig GameConfig()
-        {
-            Interop.UwGameConfig data = new Interop.UwGameConfig();
-            Interop.uwGameConfig(ref data);
-            return data;
         }
 
         public static Interop.UwPerformanceStatistics PerformanceStatistics()

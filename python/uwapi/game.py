@@ -18,6 +18,40 @@ class Game:
     def log_error(self, msg: str):
         uw_interop.uwLog(UwSeverityEnum.Error, msg)
 
+    def connection_state(self) -> UwConnectionStateEnum:
+        return uw_interop.uwConnectionState()
+
+    def set_connect_start_gui(
+        self, start_gui: bool, extra_params: str = "--observer 1"
+    ) -> None:
+        uw_interop.uwSetConnectStartGui(start_gui, extra_params)
+
+    def connect_direct(self, address: str, port: int) -> None:
+        uw_interop.uwConnectDirect(address, port)
+
+    def connect_environment(self) -> bool:
+        return uw_interop.uwConnectEnvironment()
+
+    def connect_find_lan(self, timeout_microseconds: int = 5000000) -> bool:
+        return uw_interop.uwConnectFindLan(timeout_microseconds)
+
+    def connect_ladder(self, rulesName: str) -> None:
+        uw_interop.uwConnectLadder(rulesName)
+
+    def connect_lobby_id(self, lobby_id: int) -> None:
+        uw_interop.uwConnectLobbyId(lobby_id)
+
+    def connect_new_server(
+        self, visibility: int = 0, name: str = "", extra_params: str = ""
+    ) -> None:
+        uw_interop.uwConnectNewServer(visibility, name, extra_params)
+
+    def try_reconnect(self) -> bool:
+        return uw_interop.uwTryReconnect()
+
+    def disconnect(self) -> None:
+        uw_interop.uwDisconnect()
+
     def set_player_name(self, name: str) -> None:
         uw_interop.uwSetPlayerName(name)
 
@@ -35,40 +69,6 @@ class Game:
 
     def skip_cutscene(self) -> None:
         uw_interop.uwSkipCutscene()
-
-    def set_connect_start_gui(
-        self, start_gui: bool, extra_params: str = "--observer 1"
-    ) -> None:
-        uw_interop.uwSetConnectStartGui(start_gui, extra_params)
-
-    def connect_direct(self, address: str, port: int) -> None:
-        uw_interop.uwConnectDirect(address, port)
-
-    def connect_environment(self) -> bool:
-        return uw_interop.uwConnectEnvironment()
-
-    def connect_find_lan(self, timeout_microseconds: int = 5000000) -> bool:
-        return uw_interop.uwConnectFindLan(timeout_microseconds)
-
-    def connect_lobby_id(self, lobby_id: int) -> None:
-        uw_interop.uwConnectLobbyId(lobby_id)
-
-    def connect_ladder(self, rulesName: str) -> None:
-        uw_interop.uwConnectLadder(rulesName)
-
-    def connect_new_server(
-        self, visibility: int = 0, name: str = "", extra_params: str = ""
-    ) -> None:
-        uw_interop.uwConnectNewServer(visibility, name, extra_params)
-
-    def try_reconnect(self) -> bool:
-        return uw_interop.uwTryReconnect()
-
-    def disconnect(self) -> None:
-        uw_interop.uwDisconnect()
-
-    def connection_state(self) -> UwConnectionStateEnum:
-        return uw_interop.uwConnectionState()
 
     def game_state(self) -> UwGameStateEnum:
         return uw_interop.uwGameState()

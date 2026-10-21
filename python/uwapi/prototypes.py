@@ -64,6 +64,9 @@ class Prototypes:
     def definitions(self) -> Dict[str, Any]:
         return self._definitions
 
+    def hashProto(self, name: str) -> int:
+        return uw_interop.uwHashProto(name)
+
     def hashString(self, name: str) -> int:
         return uw_interop.uwHashString(name)
 

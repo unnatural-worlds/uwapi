@@ -95,6 +95,11 @@ namespace Unnatural
             Interop.uwAdminForceSetRace(forceId, raceProto);
         }
 
+        public static void ForceSetMultiplier(uint forceId, float multiplier)
+        {
+            Interop.uwAdminForceSetMultiplier(forceId, multiplier);
+        }
+
         public static void SendSuggestedCameraFocus(uint position)
         {
             Interop.uwAdminSendSuggestedCameraFocus(position);
@@ -105,14 +110,14 @@ namespace Unnatural
             Interop.uwAdminSetAutomaticSuggestedCameraFocus(enabled);
         }
 
-        public static void SendChatMessageToEveryone(string msg)
-        {
-            Interop.uwAdminSendChatMessageToEveryone(msg);
-        }
-
         public static void SendChatMessageToPlayer(string msg, uint id)
         {
             Interop.uwAdminSendChatMessageToPlayer(msg, id);
+        }
+
+        public static void SendChatMessageToEveryone(string msg)
+        {
+            Interop.uwAdminSendChatMessageToEveryone(msg);
         }
 
         public static void SendChatCommand(string msg)

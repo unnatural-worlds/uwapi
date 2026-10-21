@@ -30,8 +30,14 @@ class Admin:
     def terminate_game(self) -> None:
         uw_interop.uwAdminTerminateGame()
 
-    def add_ai(self, intendedRace: int = 0, difficulty: float = 0) -> None:
-        uw_interop.uwAdminAddAi(intendedRace, difficulty)
+    def pause_game(self, pause: bool) -> None:
+        uw_interop.uwAdminPauseGame(pause)
+
+    def skip_cutscene(self) -> None:
+        uw_interop.uwAdminSkipCutscene()
+
+    def add_ai(self, intended_race: int = 0, difficulty: float = 0) -> None:
+        uw_interop.uwAdminAddAi(intended_race, difficulty)
 
     def kick_player(self, player_id: int) -> None:
         uw_interop.uwAdminKickPlayer(player_id)
@@ -41,6 +47,11 @@ class Admin:
 
     def player_set_name(self, player_id: int, name: str) -> None:
         uw_interop.uwAdminPlayerSetName(player_id, name)
+
+    def player_ai_config(
+        self, player_id: int, config: UwPlayerAiConfigComponent
+    ) -> None:
+        uw_interop.uwAdminPlayerAiConfig(player_id, config)
 
     def player_join_force(self, player_id: int, force_id: int) -> None:
         uw_interop.uwAdminPlayerJoinForce(player_id, force_id)
