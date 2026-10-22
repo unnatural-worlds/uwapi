@@ -36,6 +36,30 @@ namespace uw
 		return makeVector(ids.ids, ids.count);
 	}
 
+	// forces and players
+
+	inline void setForceColorPlayer(uint32 force)
+	{
+		uwSetForceColor(force, 28 / 255.f, 165 / 255.f, 232 / 255.f);
+	}
+
+	inline void setForceColorAlly(uint32 force, uint32 index = 0)
+	{
+		// todo use index for color shift
+		uwSetForceColor(force, 0 / 255.f, 186 / 255.f, 0 / 255.f);
+	}
+
+	inline void setForceColorEnemy(uint32 force, uint32 index = 0)
+	{
+		// todo use index for color shift
+		uwSetForceColor(force, 253 / 255.f, 137 / 255.f, 14 / 255.f);
+	}
+
+	inline void setForceColorNeutral(uint32 force)
+	{
+		uwSetForceColor(force, 105 / 255.f, 127 / 255.f, 143 / 255.f);
+	}
+
 	// world
 
 	inline auto allEntities()
