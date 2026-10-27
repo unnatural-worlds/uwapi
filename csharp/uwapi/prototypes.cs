@@ -83,8 +83,8 @@ namespace Unnatural
         public uint score;
 
         // weapon
-        public float dps;
-        public float dpsAtLowLife;
+        public float damage;
+        public float damageAtLowLife;
         public float fireMinRange; // meters
         public float fireMaxRange; // meters
         public float rateOfFire; // shots per second

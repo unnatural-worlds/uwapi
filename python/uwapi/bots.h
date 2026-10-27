@@ -9,7 +9,7 @@ typedef int32_t sint32;
 typedef uint64_t uint64;
 typedef int64_t sint64;
 
-static const uint32 UW_VERSION = 79;
+static const uint32 UW_VERSION = 80;
 static const uint32 UW_GameTicksPerSecond = 20;
 
 typedef struct UwIds

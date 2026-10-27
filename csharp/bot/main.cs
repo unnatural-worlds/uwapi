@@ -13,7 +13,7 @@ namespace Unnatural
 
         void AttackNearestEnemies()
         {
-            var ownUnits = World.Entities().Values.Where(x => x.Own && x.ProtoUnit?.dps > 0);
+            var ownUnits = World.Entities().Values.Where(x => x.Own && x.ProtoUnit?.damage > 0);
             if (ownUnits.Count() == 0)
                 return;
             var enemyUnits = World.Entities().Values.Where(x => x.Enemy && x.Unit.HasValue);
