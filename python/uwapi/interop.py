@@ -98,6 +98,7 @@ class UwPlayerStateFlags(IntFlag):
     Pause = 1 << 3
     SkipCutscene = 1 << 4
     Cheater = 1 << 5
+    Surrendered = 1 << 6
 
 class UwPlayerConnectionClassEnum(Enum):
     Nothing = 0

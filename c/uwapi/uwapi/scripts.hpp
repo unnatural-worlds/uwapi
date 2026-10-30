@@ -1,6 +1,8 @@
 #ifndef unnatural_uwapi_scripts_hpp_zhgfa8g4
 #define unnatural_uwapi_scripts_hpp_zhgfa8g4
 
+#include <algorithm>
+#include <cmath>
 #include <cstring> // memcpy
 #include <vector>
 
@@ -38,21 +40,91 @@ namespace uw
 
 	// forces and players
 
+	namespace privat
+	{
+		inline void setForceColorWithShift(uint32 force, uint32 index, uint32 total, float r, float g, float b)
+		{
+			if (total > 1)
+			{
+				const float hueShift = 90.0f * (static_cast<float>(index) / (total - 1) - 0.5f);
+				const float maxC = std::max({ r, g, b });
+				const float minC = std::min({ r, g, b });
+				const float delta = maxC - minC;
+				float h = 0.0f;
+				const float s = (maxC > 0.0f) ? delta / maxC : 0.0f;
+				const float v = maxC;
+				if (delta > 0.0f)
+				{
+					if (maxC == r)
+						h = 60.0f * std::fmod((g - b) / delta, 6.0f);
+					else if (maxC == g)
+						h = 60.0f * ((b - r) / delta + 2.0f);
+					else
+						h = 60.0f * ((r - g) / delta + 4.0f);
+					if (h < 0.0f)
+						h += 360.0f;
+				}
+				h = std::fmod(h + hueShift, 360.0f);
+				const float c = v * s;
+				const float x = c * (1.0f - std::fabs(std::fmod(h / 60.0f, 2.0f) - 1.0f));
+				const float m = v - c;
+				if (h < 60.0f)
+				{
+					r = c;
+					g = x;
+					b = 0.0f;
+				}
+				else if (h < 120.0f)
+				{
+					r = x;
+					g = c;
+					b = 0.0f;
+				}
+				else if (h < 180.0f)
+				{
+					r = 0.0f;
+					g = c;
+					b = x;
+				}
+				else if (h < 240.0f)
+				{
+					r = 0.0f;
+					g = x;
+					b = c;
+				}
+				else if (h < 300.0f)
+				{
+					r = x;
+					g = 0.0f;
+					b = c;
+				}
+				else
+				{
+					r = c;
+					g = 0.0f;
+					b = x;
+				}
+				r += m;
+				g += m;
+				b += m;
+			}
+			uwSetForceColor(force, r, g, b);
+		}
+	}
+
 	inline void setForceColorPlayer(uint32 force)
 	{
 		uwSetForceColor(force, 28 / 255.f, 165 / 255.f, 232 / 255.f);
 	}
 
-	inline void setForceColorAlly(uint32 force, uint32 index = 0)
+	inline void setForceColorAlly(uint32 force, uint32 index = 0, uint32 total = 1)
 	{
-		// todo use index for color shift
-		uwSetForceColor(force, 0 / 255.f, 186 / 255.f, 0 / 255.f);
+		privat::setForceColorWithShift(force, index, total, 0 / 255.f, 186 / 255.f, 0 / 255.f);
 	}
 
-	inline void setForceColorEnemy(uint32 force, uint32 index = 0)
+	inline void setForceColorEnemy(uint32 force, uint32 index = 0, uint32 total = 1)
 	{
-		// todo use index for color shift
-		uwSetForceColor(force, 253 / 255.f, 137 / 255.f, 14 / 255.f);
+		privat::setForceColorWithShift(force, index, total, 253 / 255.f, 137 / 255.f, 14 / 255.f);
 	}
 
 	inline void setForceColorNeutral(uint32 force)
