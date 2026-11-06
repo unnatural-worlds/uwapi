@@ -9,8 +9,8 @@ Index
 
 	uwapi/index
 	prototypes/index
-	maps/index
 	code/index
+	maps/index
 	mods/index
 	bots/index
 
