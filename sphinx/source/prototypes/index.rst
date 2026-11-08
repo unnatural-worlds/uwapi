@@ -15,3 +15,4 @@ Each prototype is identified by its id, which is a hash of its name (the full pa
 	recipe
 	upgrade
 	tags
+	particles
