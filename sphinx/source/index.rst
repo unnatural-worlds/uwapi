@@ -8,11 +8,12 @@ Index
 	:maxdepth: 1
 
 	uwapi/index
-	prototypes/index
-	code/index
 	maps/index
 	mods/index
 	bots/index
+	assets/index
+	prototypes/index
+	code/index
 
 Useful Links
 ------------
