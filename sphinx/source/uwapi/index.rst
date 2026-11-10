@@ -18,3 +18,4 @@ This document is the manual for making custom maps, mods, or writing custom ai/b
 	:maxdepth: 1
 
 	steamWorkshop
+	cheats
