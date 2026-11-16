@@ -337,7 +337,7 @@ namespace Unnatural
         [DllImport(LibName, CallingConvention = CallingConvention.Cdecl)]
         public static extern void uwCommandSelfDestruct(uint entityId);
 
-        public const uint UW_VERSION = 80;
+        public const uint UW_VERSION = 81;
         public const uint UW_GameTicksPerSecond = 20;
         [StructLayout(LayoutKind.Sequential)]
         public struct UwIds
@@ -673,6 +673,8 @@ namespace Unnatural
             Defeated = 1 << 2,
             OwnViteal = 1 << 3,
             AlliedViteal = 1 << 4,
+            Neutral = 1 << 5,
+            Hidden = 1 << 6,
         }
 
         [StructLayout(LayoutKind.Sequential)]

@@ -39,6 +39,7 @@ extern "C"
 	UNNATURAL_API uint32 uwCreateForce(void);
 	UNNATURAL_API void uwDestroyForce(uint32 force);
 	UNNATURAL_API void uwSetForceColor(uint32 force, float r, float g, float b);
+	UNNATURAL_API void uwSetForceNeutral(uint32 force, bool neutral, bool hidden);
 	UNNATURAL_API void uwSetForceFinish(uint32 force, bool winner, bool defeated);
 	UNNATURAL_API void uwSetForceRace(uint32 force, uint32 race);
 	UNNATURAL_API void uwSetForceStartingTeam(uint32 force, uint32 team);

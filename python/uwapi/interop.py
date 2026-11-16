@@ -114,6 +114,8 @@ class UwForceStateFlags(IntFlag):
     Defeated = 1 << 2
     OwnViteal = 1 << 3
     AlliedViteal = 1 << 4
+    Neutral = 1 << 5
+    Hidden = 1 << 6
 
 class UwGameStateEnum(Enum):
     Nothing = 0

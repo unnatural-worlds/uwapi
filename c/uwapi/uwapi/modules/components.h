@@ -196,6 +196,8 @@ extern "C"
 		UwForceStateFlags_Defeated = 1 << 2,
 		UwForceStateFlags_OwnViteal = 1 << 3,
 		UwForceStateFlags_AlliedViteal = 1 << 4,
+		UwForceStateFlags_Neutral = 1 << 5,
+		UwForceStateFlags_Hidden = 1 << 6,
 	} UwForceStateFlags;
 	typedef struct UwForceComponent
 	{
