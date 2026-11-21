@@ -28,16 +28,6 @@ Troubleshooting
 
 	Do not use any containerization.
 
-.. dropdown:: Linux laptop with switchable GPUs
-
-	To run using nvidia gpu:
-
-	.. code-block:: bash
-
-		__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia your_program
-
-	Alternatively, define these two environment variables in your IDE to be used when debugging your program.
-
 .. dropdown:: Corrupted game files
 
 	Shut down Steam - click on the icon in the status bar, choose *Exit Steam*.
